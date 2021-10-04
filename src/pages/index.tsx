@@ -2,6 +2,7 @@ import { Flex, Button, Stack} from '@chakra-ui/react'
 import { Input } from '../components/Form/Input'
 import {useForm, SubmitHandler} from 'react-hook-form'
 import * as yup from 'yup';
+import Logo from '../components/Header/Logo'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -24,13 +25,14 @@ export default function SignIn() {
 
   const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
     await new Promise(resolve => setTimeout(resolve,2000))
+    console.log(values)
   }
 
   const {errors} =  formState
 
   return (
-    <Flex w="100vw" h="100vh" alignItems="center" justifyContent="center">
-
+    <Flex w="100vw" h="100vh" alignItems="center" justifyContent="center" direction="column">
+      <Logo/>
       <Flex
         as="form"
         width="100%"
@@ -60,7 +62,7 @@ export default function SignIn() {
 
       </Stack>
 
-       <Button type="submit" mt="6" colorScheme="pink" size="lg" isLoading={formState.isSubmitting}> Entrar </Button>
+       <Button type="submit" mt="6" colorScheme="blue" size="lg" isLoading={formState.isSubmitting}> Entrar </Button>
        
       </Flex>
     </Flex>

@@ -9,8 +9,8 @@ export default function Logo () {
         letterSpacing="tight"
         w="64"
         >
-            dashgo
-            <Text fontWeight="bold" color="pink.500" ml="1" as="span">.</Text>
+            autocerto
+            <Text fontWeight="bold" color="yellow.400" ml="1" as="span">.</Text>
             </Text>
     )
 }

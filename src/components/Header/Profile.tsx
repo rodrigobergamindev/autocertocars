@@ -10,15 +10,16 @@ export default function Profile ({showProfileData = true} : ProfileProps) {
         <Flex align="center">
                {showProfileData && (
                     <Box mr="4" textAlign="right">
-                        <Text>Rodrigo Bergamin</Text>
+                        <Text>Luiz F. Bergamin Junior</Text>
+                        <Text color="gray.300" fontSize="small">Administrador</Text>
                         <Text color="gray.300" fontSize="small">rb.bergamin@gmail.com</Text>
                     </Box>
                )}
 
             <Avatar
-                size="md"
-                name="Rodrigo Bergamin"
-                src="https://github.com/rodrigobergamindev.png"
+                size="lg"
+                name="Administrador"
+                src="/img/avatar.jpg"
             >
 
             </Avatar>

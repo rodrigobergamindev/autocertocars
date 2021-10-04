@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/pages/dashboard.jsx"  ],
+, "src/pages/dashboard.jsx", "src/pages/anuncios/create.jsx"  ],
   "exclude": [
     "node_modules"
   ]

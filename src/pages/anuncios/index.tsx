@@ -26,7 +26,7 @@ export default function UserList() {
                         
                         <Heading size="lg" fontWeight="normal">Usuários</Heading>
 
-                        <Link href="/users/create" passHref><Button as="a" size="sm" fontSize="sm" colorScheme="pink" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
+                        <Link href="/anuncios/create" passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
                     </Flex>
                 
                 <Table
@@ -35,7 +35,7 @@ export default function UserList() {
                     <Thead>
                         <Tr>
                             <Th px={["4","4","6"]} color="gray.300" width="8">
-                                <Checkbox colorScheme="pink"/>
+                                <Checkbox colorScheme="yellow"/>
                             </Th>
 
                             <Th>
@@ -53,7 +53,7 @@ export default function UserList() {
                 <Tbody>
                     <Tr>
                         <Td px={["4","4","6"]}>
-                            <Checkbox colorScheme="pink"/>
+                            <Checkbox colorScheme="yellow"/>
                         </Td>
 
                         <Td>
@@ -66,7 +66,7 @@ export default function UserList() {
                         {isWideVersion && <Td> 12 de setembro de 2021</Td>}
 
                         <Td>
-                            {isWideVersion && <Button as="a" size="sm" fontSize="sm" colorScheme="purple" leftIcon={<Icon as={RiPencilLine} fontSize="20"></Icon>}>Editar</Button>}
+                            {isWideVersion && <Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine} fontSize="20"></Icon>}>Editar</Button>}
                         </Td>
                         
                     </Tr>
