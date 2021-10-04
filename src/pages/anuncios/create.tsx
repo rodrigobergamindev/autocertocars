@@ -47,7 +47,7 @@ type CreateUserFormData = {
     ano_fabricacao: yup.string().required('Preencha com o ano do veículo'),
     modelo: yup.string().required('Modelo Obrigatório'),
     valor: yup.string().required('Preencha com o valor'),
-    versao: yup.string().required('Preencha com a verão'),
+    versao: yup.string().required('Preencha com a vesão'),
     cor: yup.string(),
     combustivel: yup.string(),
     carroceria: yup.string(),
@@ -62,7 +62,6 @@ type CreateUserFormData = {
     laudo_cautelar: yup.string(),
     image: yup.
             mixed()
-            .required("Envie ao menos uma imagem")
             .test('type', 'We only support image', (value) => {
                 console.log("Teste 1")
                 return value && value[0].type.includes('image')        
@@ -120,7 +119,7 @@ export default function CreateVehicle() {
                         <Input name="ano_fabricacao" label="Ano Fabricação" error={errors.ano_fabricacao} {...register('ano_fabricacao')}/>
                         <Input name="marca" label="Marca" error={errors.marca} {...register('marca')}/>
                         <Input name="modelo" label="Modelo" error={errors.modelo} {...register('modelo')}/>
-                        <Input name="versao" label="Versão" error={errors.modelo} {...register('versao')}/>
+                        <Input name="versao" label="Versão" error={errors.versao} {...register('versao')}/>
                         <Input name="numero_portas" label="Número de Portas" {...register('numero_portas')}/>
                         <Input name="cor" label="Cor" {...register('cor')}/>
                         <Input name="cores_internas" label="Cores Interiores" {...register('cores_internas')} />
@@ -131,7 +130,7 @@ export default function CreateVehicle() {
                         <Input name="quilometragem" label="Quilometragem" {...register('quilometragem')} />
                         <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')}/>
 
-                        <Input name="image" label="Imagens" type="file" {...register('image')}/>
+                        <Input name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
                     </SimpleGrid>
 
                     <SimpleGrid minchildWith={240} spacing={["6","8"]} width="100%">
