@@ -58,15 +58,18 @@ type CreateAnuncioFormData = {
     laudo_cautelar: yup.string(),
     image: yup.
             mixed()
-            .required('Envie ao menos uma imagem 2')
+            .required('Envie pelo menos uma imagem')
             .test('name', 'Envie ao menos uma imagem', values => {
-                    if(values.length !== 0) {
+                    if(values.length > 0) {
                         return values
                     }
                    
             })
             .test('type', 'Apenas imagens (*JPEG, JPG, PNG)', values => {
-                return values[0] && values[0].type.includes('image')
+                if(values.length > 0) {
+                    return values && values[0].type.includes('image')
+                }
+                
         })
 
 
