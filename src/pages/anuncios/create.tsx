@@ -9,9 +9,9 @@ import Link from 'next/link'
 import {useForm, SubmitHandler} from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
+import { ChangeEventHandler } from 'react'
 
-
-type CreateUserFormData = {
+type CreateAnuncioFormData = {
     name: string;
     ano_fabricacao: string;
     marca: string;
@@ -30,15 +30,11 @@ type CreateUserFormData = {
     laudo_cautelar: string;
     manual_do_proprietario: string;
     observacoes: string;
-    image: File;
+    image: FileList;
 
   }
 
-  const SUPPORTED_FORMATS = [
-    "image/jpg",
-    "image/jpeg",
-    "image/png"
-  ];
+
 
 
   const createAnuncioFormSchema = yup.object({
@@ -62,10 +58,14 @@ type CreateUserFormData = {
     laudo_cautelar: yup.string(),
     image: yup.
             mixed()
-            .test('type', 'We only support image', (value) => {
-                console.log("Teste 1")
-                return value && value[0].type.includes('image')        
+            .required('Envie ao menos uma imagem 2')
+            .test('name', 'Envie ao menos uma imagem', values => {
+                    return values[0] && values[0].name !== ''
             })
+            .test('type', 'Apenas imagens (*JPEG, JPG, PNG)', values => {
+                return values[0] && values[0].type.includes('image')
+        })
+
 
             
         
@@ -76,20 +76,25 @@ type CreateUserFormData = {
     //], 'As senhas precisam ser iguais')
   })
 
+
+
+
 export default function CreateVehicle() {
 
 
-    const {register, handleSubmit, formState} = useForm({
+    const {register,handleSubmit, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
     })
 
     const {errors} = formState
 
 
-    const handleCreateUser: SubmitHandler<CreateUserFormData> = async (values) => {
+    const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         await new Promise(resolve => setTimeout(resolve,1000))
         console.log(values)
     }
+
+ 
 
     return (
         <Box>
@@ -104,7 +109,7 @@ export default function CreateVehicle() {
                 flex="1" 
                 borderRadius={8} 
                 bg="gray.800" p={["6","8"]}
-                onSubmit={handleSubmit(handleCreateUser)}
+                onSubmit={handleSubmit(handleCreateAnuncio)}
                 >
 
                 <Heading size="lg" fontWeight="normal">Criar Anúncio</Heading>
@@ -130,7 +135,7 @@ export default function CreateVehicle() {
                         <Input name="quilometragem" label="Quilometragem" {...register('quilometragem')} />
                         <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')}/>
 
-                        <Input name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
+                        <Input name="image" label="Imagens" type="file"  error={errors.image} {...register('image')} />
                     </SimpleGrid>
 
                     <SimpleGrid minchildWith={240} spacing={["6","8"]} width="100%">

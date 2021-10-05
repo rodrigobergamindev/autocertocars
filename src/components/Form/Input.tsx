@@ -1,6 +1,7 @@
 import { FormLabel, FormControl, Input as ChakraInput, InputProps as ChakraInputProps, FormErrorMessage} from '@chakra-ui/react'
 import { forwardRef, ForwardRefRenderFunction } from 'react'
 import { FieldError } from 'react-hook-form'
+import { ChangeEventHandler } from 'react'
 
 
 interface InputProps extends ChakraInputProps {
@@ -19,6 +20,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ( {nam
         {type === "file" ? (<ChakraInput name={name}
               id={name} 
               type={type}
+              multiple
               variant="filled"
               accept="image/jpeg, image/png, image/jpg"
               bgColor="gray.900"
