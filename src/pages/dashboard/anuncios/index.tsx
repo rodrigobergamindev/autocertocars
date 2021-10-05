@@ -81,7 +81,7 @@ export default function AnuncioList({anuncios_list}) {
                         
                         <Heading size="lg" fontWeight="normal">Anúncios</Heading>
 
-                        <Link href="/anuncios/create" passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
+                        <Link href="anuncios/create" passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
                     </Flex>
                 
                 <Table
