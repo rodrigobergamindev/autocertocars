@@ -60,7 +60,10 @@ type CreateAnuncioFormData = {
             mixed()
             .required('Envie ao menos uma imagem 2')
             .test('name', 'Envie ao menos uma imagem', values => {
-                    return values[0] && values[0].name !== ''
+                    if(values.length !== 0) {
+                        return values
+                    }
+                   
             })
             .test('type', 'Apenas imagens (*JPEG, JPG, PNG)', values => {
                 return values[0] && values[0].type.includes('image')
