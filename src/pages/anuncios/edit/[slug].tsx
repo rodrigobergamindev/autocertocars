@@ -1,15 +1,18 @@
 import { Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text} from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 
-import { Input } from "../../components/Form/Input";
-import  Header  from "../../components/Header";
-import  Siderbar  from "../../components/Sidebar/index"
+import { Input } from "../../../components/Form/Input";
+import  Header  from "../../../components/Header";
+import  Siderbar  from "../../../components/Sidebar/index"
 import Link from 'next/link'
 
 import {useForm, SubmitHandler} from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ChangeEventHandler } from 'react'
+import {GetServerSideProps} from 'next'
+import anuncios from '../../api/anuncios'
+
+
 
 type CreateAnuncioFormData = {
     name: string;
@@ -83,10 +86,34 @@ type CreateAnuncioFormData = {
   })
 
 
+interface AnuncioProps {
 
+    anuncio: {
+        slug: string;
+        name: string;
+        ano_fabricacao: string;
+        valor: string;
+        marca: string;
+        modelo: string;
+        versao?: string;
+        numero_portas?: string;
+        cor?: string;
+        cores_internas?: string;
+        combustivel?: string;
+        carroceria?: string;
+        potencia?: string;
+        transmissao?: string;
+        quilometragem?: string;
+        chave_copia?: string;
+        laudo_cautelar?: string;
+        manual_do_proprietario?: string;
+        observacoes?: string;
+        data_de_criacao: Date
+    }
+    
+}
 
-export default function EditVehicle() {
-
+export default function EditVehicle({anuncio}: AnuncioProps) {
 
     const {register,handleSubmit, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
@@ -126,20 +153,20 @@ export default function EditVehicle() {
                 <VStack spacing="8">
                     <SimpleGrid minchildWith={240} spacing={["6","8"]} width="100%">
                         <Heading size="sm" fontWeight="bold" color="gray.300">INFORMAÇÕES DO VEÍCULO</Heading>
-                        <Input name="name" label="Nome"  error={errors.name} {...register('name')}/>
-                        <Input name="ano_fabricacao" label="Ano Fabricação" error={errors.ano_fabricacao} {...register('ano_fabricacao')}/>
-                        <Input name="marca" label="Marca" error={errors.marca} {...register('marca')}/>
-                        <Input name="modelo" label="Modelo" error={errors.modelo} {...register('modelo')}/>
-                        <Input name="versao" label="Versão" error={errors.versao} {...register('versao')}/>
-                        <Input name="numero_portas" label="Número de Portas" {...register('numero_portas')}/>
-                        <Input name="cor" label="Cor" {...register('cor')}/>
-                        <Input name="cores_internas" label="Cores Interiores" {...register('cores_internas')} />
-                        <Input name="combustivel" label="Combustível" {...register('combustivel')}/>
-                        <Input name="carroceria" label="Carroceria" {...register('carroceria')}/>
-                        <Input name="potencia" label="Potência" {...register('potencia')}/>
-                        <Input name="transmissao" label="Transmissão" {...register('transmissao')} />
-                        <Input name="quilometragem" label="Quilometragem" {...register('quilometragem')} />
-                        <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')}/>
+                        <Input name="name" label="Nome"  error={errors.name} {...register('name')} defaultValue={anuncio.name}/>
+                        <Input name="ano_fabricacao" label="Ano Fabricação" error={errors.ano_fabricacao} {...register('ano_fabricacao')} defaultValue={anuncio.ano_fabricacao}/>
+                        <Input name="marca" label="Marca" error={errors.marca} {...register('marca')} defaultValue={anuncio.marca}/>
+                        <Input name="modelo" label="Modelo" error={errors.modelo} {...register('modelo')} defaultValue={anuncio.modelo} />
+                        <Input name="versao" label="Versão" error={errors.versao} {...register('versao')} defaultValue={anuncio.versao}/>
+                        <Input name="numero_portas" label="Número de Portas" {...register('numero_portas')} defaultValue={anuncio.numero_portas}/>
+                        <Input name="cor" label="Cor" {...register('cor')} defaultValue={anuncio.cor}/>
+                        <Input name="cores_internas" label="Cores Interiores" {...register('cores_internas')} defaultValue={anuncio.cores_internas} />
+                        <Input name="combustivel" label="Combustível" {...register('combustivel')} defaultValue={anuncio.combustivel}/>
+                        <Input name="carroceria" label="Carroceria" {...register('carroceria')} defaultValue={anuncio.carroceria}/>
+                        <Input name="potencia" label="Potência" {...register('potencia')} defaultValue={anuncio.potencia}/>
+                        <Input name="transmissao" label="Transmissão" {...register('transmissao')} defaultValue={anuncio.transmissao} />
+                        <Input name="quilometragem" label="Quilometragem" {...register('quilometragem')} defaultValue={anuncio.quilometragem} />
+                        <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')} defaultValue={anuncio.valor}/>
 
                         <Input name="image" label="Imagens" type="file"  error={errors.image} {...register('image')} />
                     </SimpleGrid>
@@ -147,12 +174,13 @@ export default function EditVehicle() {
                     <SimpleGrid minchildWith={240} spacing={["6","8"]} width="100%">
                         <Heading size="sm" fontWeight="bold" color="gray.300">OUTRAS INFORMAÇÕES</Heading>
 
-                        <Input name="chave_copia" label="Chave Cópia" {...register('chave_copia')}/>
-                        <Input name="laudo_cautelar" label="Laudo Cautelar" {...register('laudo_cautelar')}/>
-                        <Input name="manual_do_proprietario" label="Manual do Proprietário" {...register('manual_do_proprietario')}/>
+                        <Input name="chave_copia" label="Chave Cópia" {...register('chave_copia')} defaultValue={anuncio.chave_copia}/>
+                        <Input name="laudo_cautelar" label="Laudo Cautelar" {...register('laudo_cautelar')} defaultValue={anuncio.laudo_cautelar}/>
+                        <Input name="manual_do_proprietario" label="Manual do Proprietário" {...register('manual_do_proprietario')} defaultValue={anuncio.manual_do_proprietario}/>
                         
                         <Text>Observações</Text>
                         <Textarea
+                        
                             name="observacoes"
                             resize="none"
                             focusBorderColor="yellow.400"
@@ -163,6 +191,7 @@ export default function EditVehicle() {
                             }}
                             size="lg"
                             {...register('observacoes')}
+                            defaultValue={anuncio.observacoes}
                         >
 
                         </Textarea>
@@ -182,4 +211,19 @@ export default function EditVehicle() {
             </Flex>
         </Box>
     )
+   
+}
+
+
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
+
+    const {slug} = params
+
+    const anuncio = anuncios.find(item => item.slug === slug)
+    console.log(anuncio)
+    return { 
+     props: {
+        anuncio
+        }
+    }
 }

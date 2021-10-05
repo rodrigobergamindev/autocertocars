@@ -4,10 +4,63 @@ import  Header  from "../../components/Header/index"
 import Pagination from '../../components/Pagination/index'
 import  Siderbar  from "../../components/Sidebar/index";
 import Link from 'next/link'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import anuncios from '../api/anuncios'
+import {useState, useEffect} from 'react'
+
+
+
+
+
+
+
+
+
+interface Anuncio {
+
+  
+        slug: string;
+        name: string;
+        ano_fabricacao: string;
+        valor: string;
+        marca: string;
+        modelo: string;
+        versao?: string;
+        numero_portas?: string;
+        cor?: string;
+        cores_internas?: string;
+        combustivel?: string;
+        carroceria?: string;
+        potencia?: string;
+        transmissao?: string;
+        quilometragem?: string;
+        chave_copia?: string;
+        laudo_cautelar?: string;
+        manual_do_proprietario?: string;
+        observacoes?: string;
+        data_de_criacao: Date
+    
+    
+}
+
+
+
+
 
 export default function AnuncioList({anuncios_list}) {
+
+
+    const [anunciosToShow, setAnunciosToShow] = useState<Anuncio[]>(anuncios_list)
+   
+
+    function handleRemoveAnuncio(name) {
+        const newAnuncios = anunciosToShow.filter((anuncio: Anuncio) => anuncio.name !== name)
+        setAnunciosToShow(newAnuncios)
+    }
+
+      
+      
+
 
     const isWideVersion = useBreakpointValue ({
         base: false,
@@ -56,7 +109,7 @@ export default function AnuncioList({anuncios_list}) {
                         </Tr>
                     </Thead>
                     <Tbody>
-                {anuncios_list.map((anuncio, index) => {
+                {anunciosToShow.map((anuncio, index) => {
                     return (
                         
                     <Tr key={index}>
@@ -65,9 +118,9 @@ export default function AnuncioList({anuncios_list}) {
                         </Td>
 
                         <Td>
-                            <Link href={`/anuncios/edit/`} passHref>
+                            <Link href={`/anuncios/edit/${anuncio.slug}`} passHref>
                             <Box  cursor="pointer">
-                                <Text fontWeight="bold">{anuncio.name}</Text>
+                                <Text fontWeight="bold" fontSize="sm">{anuncio.name}</Text>
                                 {!!isWideVersion && <Text fontWeight="bold" fontSize="sm" color="gray.300">{anuncio.valor}</Text>}
                             </Box>
                             </Link>
@@ -76,11 +129,11 @@ export default function AnuncioList({anuncios_list}) {
                         {!!isWideVersion && <Td> {anuncio.data_de_criacao}</Td>}
 
                         <Td>
-                        {!!isWideVersion && <Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine} fontSize="20"></Icon>}>Editar</Button>}
+                        {!!isWideVersion && <Link href={`/anuncios/edit/${anuncio.slug}`} passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine} fontSize="20"></Icon>}>Editar</Button></Link>}
                         
                         </Td>
                         <Td>
-                        {!!isWideVersion && <Button as="a" size="sm" fontSize="sm" colorScheme="red" leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Remover</Button>}
+                        {!!isWideVersion && <Button onClick={() => handleRemoveAnuncio(anuncio.name)} size="sm" fontSize="sm" colorScheme="red" leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Remover</Button>}
                         </Td>
                         
                     </Tr>
@@ -99,11 +152,11 @@ export default function AnuncioList({anuncios_list}) {
 }
 
 
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async() => {
 
     const anuncios_list = anuncios.map(anuncio => anuncio)
+    
     return {
       props: {anuncios_list},
-      revalidate: 10 // will be passed to the page component as props
     }
   }
