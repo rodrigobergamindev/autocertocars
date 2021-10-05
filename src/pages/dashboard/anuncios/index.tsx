@@ -1,11 +1,11 @@
 import { Box, Flex, Heading, Button, Icon, Table, Thead, Tr, Th, Td, Checkbox, Tbody, Text, useBreakpointValue } from "@chakra-ui/react";
 import { RiAddLine, RiCloseLine, RiPencilLine } from "react-icons/ri";
-import  Header  from "../../components/Header/index"
-import Pagination from '../../components/Pagination/index'
-import  Siderbar  from "../../components/Sidebar/index";
+import  Header  from "../../../components/Header/index"
+import Pagination from '../../../components/Pagination/index'
+import  Siderbar  from "../../../components/Sidebar/index";
 import Link from 'next/link'
 import { GetServerSideProps } from 'next'
-import anuncios from '../api/anuncios'
+import anuncios from '../../api/anuncios'
 import {useState, useEffect} from 'react'
 
 

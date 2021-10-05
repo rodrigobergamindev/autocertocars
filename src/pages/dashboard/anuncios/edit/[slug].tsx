@@ -1,16 +1,16 @@
 import { Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text} from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 
-import { Input } from "../../../components/Form/Input";
-import  Header  from "../../../components/Header";
-import  Siderbar  from "../../../components/Sidebar/index"
+import { Input } from "../../../../components/Form/Input";
+import  Header  from "../../../../components/Header";
+import  Siderbar  from "../../../../components/Sidebar/index"
 import Link from 'next/link'
 
 import {useForm, SubmitHandler} from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import {GetServerSideProps} from 'next'
-import anuncios from '../../api/anuncios'
+import anuncios from '../../../api/anuncios'
 
 
 

@@ -1,9 +1,9 @@
 import { Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text} from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 
-import { Input } from "../../components/Form/Input";
-import  Header  from "../../components/Header";
-import  Siderbar  from "../../components/Sidebar/index"
+import { Input } from "../../../components/Form/Input";
+import  Header  from "../../../components/Header";
+import  Siderbar  from "../../../components/Sidebar/index"
 import Link from 'next/link'
 
 import {useForm, SubmitHandler} from 'react-hook-form'

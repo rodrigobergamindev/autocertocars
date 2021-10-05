@@ -10,8 +10,8 @@ export function SidebarNav() {
                 <Box>
                     <NavSection title="MENU">
                         <NavLink icon={RiDashboardLine} href="/dashboard">Dashboard</NavLink>
-                        <NavLink icon={RiCarLine} href="/anuncios">Anúncios</NavLink>
-                        <NavLink icon={RiPencilLine} href="/blog">Blog</NavLink>
+                        <NavLink icon={RiCarLine} href="/dashboard/anuncios">Anúncios</NavLink>
+                        <NavLink icon={RiPencilLine} href="/dashboard/blog">Blog</NavLink>
                     </NavSection>
                 </Box>
 
