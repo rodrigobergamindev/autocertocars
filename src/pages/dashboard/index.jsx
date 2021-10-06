@@ -5,8 +5,7 @@ import dynamic from 'next/dynamic'
 import {theme} from '../../styles/theme'
 
 import { getSession } from "next-auth/client"
-import { GetServerSideProps } from "next"
-import { useSession } from "next-auth/client";
+
 
 const Chart = dynamic(() => import('react-apexcharts'), {
     ssr: false,
@@ -118,7 +117,7 @@ export default function Dashboard({session}) {
 export const getServerSideProps = async ({req}) => {
 
   const session = await getSession({req})
-  console.log(session)
+ 
   if(!session) {
       return {
           redirect: {
