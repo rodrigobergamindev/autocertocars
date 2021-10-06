@@ -5,52 +5,28 @@ import Pagination from '../../../components/Pagination/index'
 import  Siderbar  from "../../../components/Sidebar/index";
 import Link from 'next/link'
 import { GetServerSideProps } from 'next'
-import anuncios from '../../api/anuncios'
 import {useState, useEffect} from 'react'
 
 import { getSession } from "next-auth/client"
 
 
+import { PrismaClient, Anuncio } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 
 
 
 
-interface Anuncio {
-
-  
-        slug: string;
-        name: string;
-        ano_fabricacao: string;
-        valor: string;
-        marca: string;
-        modelo: string;
-        versao?: string;
-        numero_portas?: string;
-        cor?: string;
-        cores_internas?: string;
-        combustivel?: string;
-        carroceria?: string;
-        potencia?: string;
-        transmissao?: string;
-        quilometragem?: string;
-        chave_copia?: string;
-        laudo_cautelar?: string;
-        manual_do_proprietario?: string;
-        observacoes?: string;
-        data_de_criacao: Date
-    
-    
-}
 
 
 
 
 
-export default function AnuncioList({anuncios_list, session}) {
+export default function AnuncioList({initialValues, session}) {
 
 
-    const [anunciosToShow, setAnunciosToShow] = useState<Anuncio[]>(anuncios_list)
+    const [anunciosToShow, setAnunciosToShow] = useState<Anuncio[]>(initialValues)
    
 
     function handleRemoveAnuncio(name) {
@@ -154,7 +130,8 @@ export default function AnuncioList({anuncios_list, session}) {
 
 export const getServerSideProps: GetServerSideProps = async({req}) => {
 
-    const anuncios_list = anuncios.map(anuncio => anuncio)
+    const anuncios_list = await prisma.anuncio.findMany()
+    const initialValues =  JSON.parse(JSON.stringify(anuncios_list))
 
     const session = await getSession({req})
  
@@ -168,6 +145,9 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
     }
     
     return {
-      props: {anuncios_list, session},
+      props: {
+          session,
+          initialValues
+        },
     }
   }

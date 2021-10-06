@@ -14,6 +14,9 @@ import { ChangeEventHandler } from 'react'
 import { getSession } from "next-auth/client"
 import { GetServerSideProps } from 'next'
 
+
+
+
 type CreateAnuncioFormData = {
     name: string;
     ano_fabricacao: string;
@@ -33,8 +36,7 @@ type CreateAnuncioFormData = {
     laudo_cautelar: string;
     manual_do_proprietario: string;
     observacoes: string;
-    image: FileList;
-
+    image: string;
   }
 
 
@@ -59,23 +61,7 @@ type CreateAnuncioFormData = {
     observacoes: yup.string(),
     manual_do_proprietario: yup.string(),
     laudo_cautelar: yup.string(),
-    image: yup.
-            mixed()
-            .required('Envie pelo menos uma imagem')
-            .test('name', 'Envie ao menos uma imagem', values => {
-                    if(values.length > 0) {
-                        return values
-                    }
-                   
-            })
-            .test('type', 'Apenas imagens (*JPEG, JPG, PNG)', values => {
-                if(values.length > 0) {
-                    return values && values[0].type.includes('image')
-                }
-                
-        })
-
-
+    image: yup.string(),
             
         
     //email: yup.string().required('E-mail obrigatório').email(),
@@ -84,6 +70,7 @@ type CreateAnuncioFormData = {
     //    null, yup.ref('password')
     //], 'As senhas precisam ser iguais')
   })
+
 
 
 
@@ -100,9 +87,22 @@ export default function CreateVehicle({session}) {
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         await new Promise(resolve => setTimeout(resolve,1000))
-        console.log(values)
+        await saveAnuncio(values)
     }
 
+    async function saveAnuncio(anuncio) { 
+        
+        const response = await fetch('/api/anuncios', {
+            method: 'POST',
+            body: JSON.stringify(anuncio)
+        })
+    
+        if(!response.ok) {
+            throw new Error(response.statusText)
+        }
+    
+        return await response.json()
+    }
  
 
     return (
@@ -144,7 +144,7 @@ export default function CreateVehicle({session}) {
                         <Input name="quilometragem" label="Quilometragem" {...register('quilometragem')} />
                         <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')}/>
 
-                        <Input name="image" label="Imagens" type="file"  error={errors.image} {...register('image')} />
+                        <Input name="image" label="Imagens" error={errors.image} {...register('image')} />
                     </SimpleGrid>
 
                     <SimpleGrid minchildWith={240} spacing={["6","8"]} width="100%">
@@ -192,7 +192,7 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
 
 
     const session = await getSession({req})
- 
+    
     if(!session) {
         return {
             redirect: {
@@ -203,6 +203,8 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
     }
     
     return {
-      props: {session},
+      props: {
+          session
+        },
     }
   }

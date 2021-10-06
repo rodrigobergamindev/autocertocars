@@ -2,6 +2,8 @@ import { Flex, Button, Stack, Box, Text, Avatar} from '@chakra-ui/react'
 import Logo from '../../components/Header/Logo'
 import { useSession, signIn, signOut } from 'next-auth/client'
 import { useRouter } from "next/router";
+import {GetServerSideProps} from 'next'
+import {getSession} from 'next-auth/client'
 
 export default function SignIn() {
 
@@ -32,4 +34,23 @@ export default function SignIn() {
       </Flex>
     </Flex>
   )
+}
+
+
+export const getServerSideProps = async ({req}) => {
+
+  const session = await getSession({req})
+ 
+  if(session) {
+      return {
+          redirect: {
+              destination: `/dashboard`,
+              permanent: false
+          }
+      }
+  }
+
+  return {
+    props: {}
+  }
 }

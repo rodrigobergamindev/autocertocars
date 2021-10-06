@@ -1,136 +1,19 @@
-const anuncios = [
-    {   
-        slug: 'jeep-compass',
-        name: 'Jeep Compass',
-        ano_fabricacao: '2021/2022',
-        valor: 'R$ 154.000',
-        marca: 'lorem',
-        modelo: 'lorem',
-        versao: 'lorem',
-        numero_portas: 'lorem',
-        cor: 'lorem',
-        cores_internas: 'lorem',
-        combustivel: 'lorem',
-        carroceria: 'lorem',
-        potencia: 'lorem',
-        transmissao: 'lorem',
-        quilometragem: 'lorem',
-        chave_copia: 'lorem',
-        laudo_cautelar: 'lorem',
-        manual_do_proprietario: 'lorem',
-        observacoes: 'lorem loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem',
-        data_de_criacao: new Date().toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        })
-    },
-    {   
-        slug: 'volkswagen-jetta',
-        name: 'Volkswagen Jetta',
-        ano_fabricacao: '2021/2022',
-        valor: 'R$ 180.000',
-        marca: 'lorem',
-        modelo: 'lorem',
-        versao: 'lorem',
-        numero_portas: 'lorem',
-        cor: 'lorem',
-        cores_internas: 'lorem',
-        combustivel: 'lorem',
-        carroceria: 'lorem',
-        potencia: 'lorem',
-        transmissao: 'lorem',
-        quilometragem: 'lorem',
-        chave_copia: 'lorem',
-        laudo_cautelar: 'lorem',
-        manual_do_proprietario: 'lorem',
-        observacoes: 'lorem loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem',
-        data_de_criacao:  new Date().toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        })
-    },
-    {
-        slug: 'toyota-corolla',
-        name: 'Toyota Corolla',
-        ano_fabricacao: '2021/2022',
-        valor: 'R$ 120.000',
-        marca: 'lorem',
-        modelo: 'lorem',
-        versao: 'lorem',
-        numero_portas: 'lorem',
-        cor: 'lorem',
-        cores_internas: 'lorem',
-        combustivel: 'lorem',
-        carroceria: 'lorem',
-        potencia: 'lorem',
-        transmissao: 'lorem',
-        quilometragem: 'lorem',
-        chave_copia: 'lorem',
-        laudo_cautelar: 'lorem',
-        manual_do_proprietario: 'lorem',
-        observacoes: 'lorem loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem',
-        data_de_criacao:  new Date().toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        })
-    },
-    {
-        slug: 'volkswagen-fox',
-        name: 'Volkswagen Fox',
-        ano_fabricacao: '2021/2022',
-        valor: 'R$ 35.000',
-        marca: 'lorem',
-        modelo: 'lorem',
-        versao: 'lorem',
-        numero_portas: 'lorem',
-        cor: 'lorem',
-        cores_internas: 'lorem',
-        combustivel: 'lorem',
-        carroceria: 'lorem',
-        potencia: 'lorem',
-        transmissao: 'lorem',
-        quilometragem: 'lorem',
-        chave_copia: 'lorem',
-        laudo_cautelar: 'lorem',
-        manual_do_proprietario: 'lorem',
-        observacoes: 'lorem loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem',
-        data_de_criacao:  new Date().toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        }),
-    },
-    {
-        slug: 'audi-rs7',
-        name: 'Audi RS7',
-        ano_fabricacao: '2021/2022',
-        valor: 'R$ 560.000',
-        marca: 'lorem',
-        modelo: 'lorem',
-        versao: 'lorem',
-        numero_portas: 'lorem',
-        cor: 'lorem',
-        cores_internas: 'lorem',
-        combustivel: 'lorem',
-        carroceria: 'lorem',
-        potencia: 'lorem',
-        transmissao: 'lorem',
-        quilometragem: 'lorem',
-        chave_copia: 'lorem',
-        laudo_cautelar: 'lorem',
-        manual_do_proprietario: 'lorem',
-        observacoes: 'lorem loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem',
-        data_de_criacao:  new Date().toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        })
-    },
-
-]
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {PrismaClient} from '@prisma/client'
 
 
-export default anuncios
+const prisma = new PrismaClient()
+
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+    if(req.method !== 'POST') {
+        return res.status(405).json({ message: 'Method not allowed'})
+    }
+
+    const anuncioData = JSON.parse(req.body)
+
+    const savedAnuncios = await prisma.anuncio.create({
+        data: anuncioData
+    })
+
+    res.json(savedAnuncios)
+}

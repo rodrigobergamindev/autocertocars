@@ -3,7 +3,6 @@ import  Header from "../../components/Header";
 import Siderbar  from "../../components/Sidebar/index"
 import dynamic from 'next/dynamic'
 import {theme} from '../../styles/theme'
-
 import { getSession } from "next-auth/client"
 
 

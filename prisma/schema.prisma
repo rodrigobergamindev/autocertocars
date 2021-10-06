@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+
+model Anuncio {
+    id String @id @unique
+    slug String
+    name String
+    ano_fabricacao String
+    marca String
+    modelo String
+    versao String
+    numero_portas String
+    cor String
+    cores_internas String
+    combustivel String
+    carroceria String
+    potencia String
+    transmissao String
+    quilometragem String
+    valor String
+    chave_copia String
+    laudo_cautelar String
+    manual_do_proprietario String
+    observacoes String
+    data_de_criacao DateTime @default(now())
+    image String
+}
