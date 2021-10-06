@@ -11,6 +11,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import {GetServerSideProps} from 'next'
 import anuncios from '../../../api/anuncios'
+import { getSession } from "next-auth/client"
 
 
 
@@ -113,7 +114,11 @@ interface AnuncioProps {
     
 }
 
-export default function EditVehicle({anuncio}: AnuncioProps) {
+
+
+
+
+export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
 
     const {register,handleSubmit, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
@@ -215,15 +220,27 @@ export default function EditVehicle({anuncio}: AnuncioProps) {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
+export const getServerSideProps: GetServerSideProps = async ({params, req}) => {
 
     const {slug} = params
 
     const anuncio = anuncios.find(item => item.slug === slug)
 
+    const session = await getSession({req})
+ 
+    if(!session) {
+        return {
+            redirect: {
+                destination: `/login`,
+                permanent: false
+            }
+        }
+    }
+
     return { 
      props: {
-        anuncio
+        anuncio,
+        session
         }
     }
 }

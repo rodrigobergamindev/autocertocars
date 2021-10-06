@@ -18,7 +18,8 @@ const options = {
   },
   pages: {
     signIn: "/login",
-    error: '/login'
+    error: '/login',
+    signOut: '/'
   },
   callbacks: {
     async signIn(user, account, profile) {

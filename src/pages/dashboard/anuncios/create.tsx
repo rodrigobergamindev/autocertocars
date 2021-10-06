@@ -11,6 +11,9 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ChangeEventHandler } from 'react'
 
+import { getSession } from "next-auth/client"
+import { GetServerSideProps } from 'next'
+
 type CreateAnuncioFormData = {
     name: string;
     ano_fabricacao: string;
@@ -85,7 +88,7 @@ type CreateAnuncioFormData = {
 
 
 
-export default function CreateVehicle() {
+export default function CreateVehicle({session}) {
 
 
     const {register,handleSubmit, formState} = useForm({
@@ -183,3 +186,23 @@ export default function CreateVehicle() {
         </Box>
     )
 }
+
+
+export const getServerSideProps: GetServerSideProps = async({req}) => {
+
+
+    const session = await getSession({req})
+ 
+    if(!session) {
+        return {
+            redirect: {
+                destination: `/login`,
+                permanent: false
+            }
+        }
+    }
+    
+    return {
+      props: {session},
+    }
+  }

@@ -8,7 +8,7 @@ import { GetServerSideProps } from 'next'
 import anuncios from '../../api/anuncios'
 import {useState, useEffect} from 'react'
 
-
+import { getSession } from "next-auth/client"
 
 
 
@@ -47,7 +47,7 @@ interface Anuncio {
 
 
 
-export default function AnuncioList({anuncios_list}) {
+export default function AnuncioList({anuncios_list, session}) {
 
 
     const [anunciosToShow, setAnunciosToShow] = useState<Anuncio[]>(anuncios_list)
@@ -152,11 +152,22 @@ export default function AnuncioList({anuncios_list}) {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async() => {
+export const getServerSideProps: GetServerSideProps = async({req}) => {
 
     const anuncios_list = anuncios.map(anuncio => anuncio)
+
+    const session = await getSession({req})
+ 
+    if(!session) {
+        return {
+            redirect: {
+                destination: `/login`,
+                permanent: false
+            }
+        }
+    }
     
     return {
-      props: {anuncios_list},
+      props: {anuncios_list, session},
     }
   }

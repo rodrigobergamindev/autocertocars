@@ -1,5 +1,5 @@
 import {Flex, Text, Box, Avatar} from '@chakra-ui/react'
-import { useSession } from 'next-auth/client'
+import { useSession, signIn, signOut } from 'next-auth/client'
 
 interface ProfileProps {
     showProfileData?: boolean;
@@ -16,6 +16,7 @@ export default function Profile ({showProfileData = true} : ProfileProps) {
                         <Text>{session.user.name}</Text>
                         <Text color="gray.300" fontSize="small">Administrador</Text>
                         <Text color="gray.300" fontSize="small">{session.user.email}</Text>
+                        <Text as="button" color="yellow.400" fontSize="small" onClick={(): Promise<void> => signOut({ callbackUrl: 'http://localhost:3000/'})}>Sair</Text>
                     </Box>
                )}
 
