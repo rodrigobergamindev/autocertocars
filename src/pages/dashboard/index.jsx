@@ -4,6 +4,9 @@ import Siderbar  from "../../components/Sidebar/index"
 import dynamic from 'next/dynamic'
 import {theme} from '../../styles/theme'
 
+import { getSession } from "next-auth/client"
+import { GetServerSideProps } from "next"
+import { useSession } from "next-auth/client";
 
 const Chart = dynamic(() => import('react-apexcharts'), {
     ssr: false,
@@ -73,39 +76,59 @@ const series = [
     {name: 'series1', data: [31,120,10,28,10,109]}
 ]
 
-export default function Dashboard() {
+export default function Dashboard({session}) {
+  
     return (
-        <Flex direction="column" h="100vh">
-            <Header/>
+      <Flex direction="column" h="100vh">
+      <Header/>
 
-            <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
-                <Siderbar/>
+      <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+          <Siderbar/>
 
-                <SimpleGrid flex="1" gap="4" minChildWidth={320} align="flex-start">
-                    <Box
-                        p={["6","8"]}
-                        bg="gray.800"
-                        borderRadius={8}
-                        pb="4"
-                    >
+          <SimpleGrid flex="1" gap="4" minChildWidth={320} align="flex-start">
+              <Box
+                  p={["6","8"]}
+                  bg="gray.800"
+                  borderRadius={8}
+                  pb="4"
+              >
 
-                        <Text fontSize="lg" mb="4">Inscritos da semana</Text>
-                        <Chart options={options} series={series} type="area" height={160}/>
+                  <Text fontSize="lg" mb="4">Inscritos da semana</Text>
+                  <Chart options={options} series={series} type="area" height={160}/>
 
-                    </Box>
+              </Box>
 
-                    <Box
-                        p={["6","8"]}
-                        bg="gray.800"
-                        borderRadius={8}
-                    >
+              <Box
+                  p={["6","8"]}
+                  bg="gray.800"
+                  borderRadius={8}
+              >
 
-                        <Text fontSize="lg" mb="4">Taxa de abertura</Text>
-                        <Chart options={options} series={series} type="area" height={160}/>
-                    </Box>
-                </SimpleGrid>
-            </Flex>
-        </Flex>
+                  <Text fontSize="lg" mb="4">Taxa de abertura</Text>
+                  <Chart options={options} series={series} type="area" height={160}/>
+              </Box>
+          </SimpleGrid>
+      </Flex>
+  </Flex>
         
     )
+}
+
+
+export const getServerSideProps = async ({req}) => {
+
+  const session = await getSession({req})
+  console.log(session)
+  if(!session) {
+      return {
+          redirect: {
+              destination: `/login`,
+              permanent: false
+          }
+      }
+  }
+
+  return {
+    props: {session}
+  }
 }

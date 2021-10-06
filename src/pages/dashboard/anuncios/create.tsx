@@ -174,7 +174,7 @@ export default function CreateVehicle() {
 
                 <Flex mt="8" justify="flex-end">
                     <HStack spacing="4">
-                    <Link href="/anuncios" passHref><Button colorScheme="whiteAlpha">Cancelar</Button></Link>
+                    <Link href="/dashboard/anuncios" passHref><Button colorScheme="whiteAlpha">Cancelar</Button></Link>
                         <Button type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Salvar</Button>
                     </HStack>
                 </Flex>

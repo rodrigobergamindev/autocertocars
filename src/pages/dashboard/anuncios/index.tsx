@@ -118,7 +118,7 @@ export default function AnuncioList({anuncios_list}) {
                         </Td>
 
                         <Td>
-                            <Link href={`/anuncios/edit/${anuncio.slug}`} passHref>
+                            <Link href={`anuncios/edit/${anuncio.slug}`} passHref>
                             <Box  cursor="pointer">
                                 <Text fontWeight="bold" fontSize="sm">{anuncio.name}</Text>
                                 {!!isWideVersion && <Text fontWeight="bold" fontSize="sm" color="gray.300">{anuncio.valor}</Text>}
@@ -129,7 +129,7 @@ export default function AnuncioList({anuncios_list}) {
                         {!!isWideVersion && <Td> {anuncio.data_de_criacao}</Td>}
 
                         <Td>
-                        {!!isWideVersion && <Link href={`/anuncios/edit/${anuncio.slug}`} passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine} fontSize="20"></Icon>}>Editar</Button></Link>}
+                        {!!isWideVersion && <Link href={`anuncios/edit/${anuncio.slug}`} passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine} fontSize="20"></Icon>}>Editar</Button></Link>}
                         
                         </Td>
                         <Td>

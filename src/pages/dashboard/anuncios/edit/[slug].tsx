@@ -203,7 +203,7 @@ export default function EditVehicle({anuncio}: AnuncioProps) {
 
                 <Flex mt="8" justify="flex-end">
                     <HStack spacing="4">
-                    <Link href="/anuncios" passHref><Button colorScheme="whiteAlpha">Cancelar</Button></Link>
+                    <Link href="/dashboard/anuncios" passHref><Button colorScheme="whiteAlpha">Cancelar</Button></Link>
                         <Button type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Salvar</Button>
                     </HStack>
                 </Flex>
@@ -220,7 +220,7 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
     const {slug} = params
 
     const anuncio = anuncios.find(item => item.slug === slug)
-    console.log(anuncio)
+
     return { 
      props: {
         anuncio
