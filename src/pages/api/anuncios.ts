@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {PrismaClient} from '@prisma/client'
-
+import {insert} from '../api/photos'
 
 const prisma = new PrismaClient()
 
@@ -9,11 +9,30 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(405).json({ message: 'Method not allowed'})
     }
 
-    const anuncioData = JSON.parse(req.body)
+    const anuncioData = req.body
+    console.log(req.body)
+    //const savedAnuncios = await prisma.anuncio.create({
+    //    data: anuncioData
+    //})
 
-    const savedAnuncios = await prisma.anuncio.create({
-        data: anuncioData
-    })
+    res.json({message: "Ok"})
+}
 
-    res.json(savedAnuncios)
+
+const handleUpload = async (images) => {
+        
+    if(images.length > 0) {
+        
+    
+    const result = await insert(images)
+                    
+    if(result instanceof Error) {
+        console.log(`${result.name} - ${result.message}`)
+    }
+    
+    return result
+        
+    }
+
+
 }

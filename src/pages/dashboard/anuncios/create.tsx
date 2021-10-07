@@ -1,5 +1,5 @@
 import { Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text} from "@chakra-ui/react";
-import { RiAddLine, RiPencilLine } from "react-icons/ri";
+
 
 import { Input } from "../../../components/Form/Input";
 import  Header  from "../../../components/Header";
@@ -9,10 +9,13 @@ import Link from 'next/link'
 import {useForm, SubmitHandler} from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ChangeEventHandler } from 'react'
+
 
 import { getSession } from "next-auth/client"
 import { GetServerSideProps } from 'next'
+
+import { insert } from '../../api/photos'
+
 
 
 
@@ -36,8 +39,10 @@ type CreateAnuncioFormData = {
     laudo_cautelar: string;
     manual_do_proprietario: string;
     observacoes: string;
-    image: string;
+    image: FileList;
   }
+
+
 
 
 
@@ -61,7 +66,21 @@ type CreateAnuncioFormData = {
     observacoes: yup.string(),
     manual_do_proprietario: yup.string(),
     laudo_cautelar: yup.string(),
-    image: yup.string(),
+    image: yup.
+    mixed()
+    .required('Envie pelo menos uma imagem')
+    .test('name', 'Envie ao menos uma imagem', values => {
+            if(values.length > 0) {
+                return values
+            }
+           
+    })
+    .test('type', 'Apenas imagens (*JPEG, JPG, PNG)', values => {
+        if(values.length > 0) {
+            return values && values[0].type.includes('image')
+        }
+        
+})
             
         
     //email: yup.string().required('E-mail obrigatório').email(),
@@ -85,11 +104,19 @@ export default function CreateVehicle({session}) {
     const {errors} = formState
 
 
-    const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
+    const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values, event) => {
         await new Promise(resolve => setTimeout(resolve,1000))
-        await saveAnuncio(values)
+        const images = values.image as FileList
+        const saveImages = await handleUpload(images)
+        await saveAnuncio(values as CreateAnuncioFormData)
+        //if(saveImages && values){
+        //    const anuncio = {...values, image: saveImages}
+        //    await saveAnuncio(anuncio)
+       // }
+        //await saveAnuncio(values)
     }
 
+    
     async function saveAnuncio(anuncio) { 
         
         const response = await fetch('/api/anuncios', {
@@ -103,6 +130,26 @@ export default function CreateVehicle({session}) {
     
         return await response.json()
     }
+
+
+    const handleUpload = async (images) => {
+        
+        if(images.length > 0) {
+            
+        
+        const result = await insert(images)
+                        
+        if(result instanceof Error) {
+            console.log(`${result.name} - ${result.message}`)
+        }
+        
+        return result
+            
+        }
+
+
+    }
+
  
 
     return (
@@ -143,8 +190,7 @@ export default function CreateVehicle({session}) {
                         <Input name="transmissao" label="Transmissão" {...register('transmissao')} />
                         <Input name="quilometragem" label="Quilometragem" {...register('quilometragem')} />
                         <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')}/>
-
-                        <Input name="image" label="Imagens" error={errors.image} {...register('image')} />
+                        <Input name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
                     </SimpleGrid>
 
                     <SimpleGrid minchildWith={240} spacing={["6","8"]} width="100%">
