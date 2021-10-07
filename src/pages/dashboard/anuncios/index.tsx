@@ -10,14 +10,33 @@ import {useState, useEffect} from 'react'
 import { getSession } from "next-auth/client"
 
 
-import { PrismaClient, Anuncio } from '@prisma/client'
-
-const prisma = new PrismaClient()
 
 
 
+type Anuncio = {
+    name: string;
+    ano_fabricacao: string;
+    marca: string;
+    modelo: string;
+    versao?: string;
+    numero_portas?: string;
+    cor?: string;
+    cores_internas?: string;
+    combustivel?: string;
+    carroceria?: string;
+    potencia?: string;
+    transmissao?: string;
+    quilometragem?: string;
+    valor: string;
+    chave_copia?: string;
+    laudo_cautelar?: string;
+    manual_do_proprietario?: string;
+    observacoes?: string;
 
-
+    data_de_criacao: Date;
+    image: Array<string>;
+    slug: string;
+}
 
 
 
@@ -130,8 +149,9 @@ export default function AnuncioList({initialValues, session}) {
 
 export const getServerSideProps: GetServerSideProps = async({req}) => {
 
-    const anuncios_list = await prisma.anuncio.findMany()
-    const initialValues =  JSON.parse(JSON.stringify(anuncios_list))
+   
+
+    const initialValues = {} // JSON.parse(JSON.stringify(anuncios))
 
     const session = await getSession({req})
  

@@ -1,8 +1,12 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import {fauna} from '../../services/fauna'
-import { query } from 'faunadb'
+import {PrismaClient} from '@prisma/client'
 import {v4 as uuid} from 'uuid'
 import { getSession } from "next-auth/client";
+import { ObjectId } from 'bson'
+
+
+
+const prisma = new PrismaClient()
 
 type Anuncio = {
     name: string;
@@ -40,49 +44,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if(session) {
         const slug = uuid()
-        const data_de_criacao = new Date()
+        const id = new ObjectId()
         const anuncioData = JSON.parse(req.body)
-        const anuncio = {...anuncioData,data_de_criacao, slug} as Anuncio
-        
+        const anuncio = {...anuncioData, slug, id}
 
-        try {
-            await fauna.query(
-              query.If(
-                query.Not(
-                  query.Exists(
-                    query.Match(
-                      query.Index('anuncio_by_slug'),
-                      query.Casefold(anuncio.slug)
-                    )
-                  )
-                ),
-                query.Create(
-                  query.Collection('anuncio'),
-                  {data: {...anuncio} }
-                ),
-                query.Get(
-                  query.Match(
-                    query.Index('anuncio_by_slug'),
-                    query.Casefold(anuncio.slug)
-                  )
-                )
-              )
-            )
-            res.json({message: "Anúncio Criado"})
-            return true
-            
-          } catch (error) {
-            return false
-          }
+        const savedAnuncios = await prisma.anuncio.create({
+          data: anuncio
+         })
 
-
-
-
-
-
-
-
-
+          console.log(savedAnuncios)
     }
     
     res.json({message: "Ok"})
