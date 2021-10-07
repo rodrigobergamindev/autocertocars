@@ -1,5 +1,5 @@
 
-import { storage } from '../../config/firebase'
+import { storage } from '../../services/firebase'
 import { ref, listAll, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage';
 import { v4 as createId } from 'uuid';
 

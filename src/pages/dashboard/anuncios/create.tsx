@@ -53,7 +53,7 @@ type CreateAnuncioFormData = {
     ano_fabricacao: yup.string().required('Preencha com o ano do veículo'),
     modelo: yup.string().required('Modelo Obrigatório'),
     valor: yup.string().required('Preencha com o valor'),
-    versao: yup.string().required('Preencha com a vesão'),
+    versao: yup.string(),
     cor: yup.string(),
     combustivel: yup.string(),
     carroceria: yup.string(),
@@ -108,12 +108,11 @@ export default function CreateVehicle({session}) {
         await new Promise(resolve => setTimeout(resolve,1000))
         const images = values.image as FileList
         const saveImages = await handleUpload(images)
-        await saveAnuncio(values as CreateAnuncioFormData)
-        //if(saveImages && values){
-        //    const anuncio = {...values, image: saveImages}
-        //    await saveAnuncio(anuncio)
-       // }
-        //await saveAnuncio(values)
+        if(saveImages && values){
+            const anuncio = {...values, image: saveImages}
+            await saveAnuncio(anuncio)
+        }
+       
     }
 
     
