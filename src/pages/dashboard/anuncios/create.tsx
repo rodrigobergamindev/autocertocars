@@ -119,11 +119,13 @@ export default function CreateVehicle({session}) {
     async function saveAnuncio(anuncio) { 
         
         const response = await fetch('/api/anuncios', {
-            method: 'POST',
+            method: "POST",
             body: JSON.stringify(anuncio)
         })
-    
+        
+        
         if(!response.ok) {
+            console.log(response)
             throw new Error(response.statusText)
         }
     
@@ -133,7 +135,7 @@ export default function CreateVehicle({session}) {
 
     const handleUpload = async (images) => {
         
-        if(images.length > 0) {
+        if(images) {
             
         
         const result = await insert(images)
@@ -173,8 +175,9 @@ export default function CreateVehicle({session}) {
 
 
                 <VStack spacing="8">
-                    <SimpleGrid minchildWith={240} spacing={["6","8"]} width="100%">
-                        <Heading size="sm" fontWeight="bold" color="gray.300">INFORMAÇÕES DO VEÍCULO</Heading>
+                <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">INFORMAÇÕES DO VEÍCULO</Heading>
+                    <SimpleGrid minChildWidth="300px" spacing={["6","8"]} width="100%">
+                        
                         <Input name="name" label="Nome"  error={errors.name} {...register('name')}/>
                         <Input name="ano_fabricacao" label="Ano Fabricação" error={errors.ano_fabricacao} {...register('ano_fabricacao')}/>
                         <Input name="marca" label="Marca" error={errors.marca} {...register('marca')}/>
@@ -192,15 +195,18 @@ export default function CreateVehicle({session}) {
                         <Input name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
                     </SimpleGrid>
 
-                    <SimpleGrid minchildWith={240} spacing={["6","8"]} width="100%">
-                        <Heading size="sm" fontWeight="bold" color="gray.300">OUTRAS INFORMAÇÕES</Heading>
+                    <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">OUTRAS INFORMAÇÕES</Heading>
+                    <SimpleGrid minChildWidth="300px" spacing={["6","8"]} width="100%">
+                        
 
                         <Input name="chave_copia" label="Chave Cópia" {...register('chave_copia')}/>
                         <Input name="laudo_cautelar" label="Laudo Cautelar" {...register('laudo_cautelar')}/>
                         <Input name="manual_do_proprietario" label="Manual do Proprietário" {...register('manual_do_proprietario')}/>
                         
-                        <Text>Observações</Text>
+                        <Box>
+                        <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Observações</Text>
                         <Textarea
+                            
                             name="observacoes"
                             resize="none"
                             focusBorderColor="yellow.400"
@@ -214,6 +220,7 @@ export default function CreateVehicle({session}) {
                         >
 
                         </Textarea>
+                        </Box>
 
                     </SimpleGrid>
 

@@ -32,8 +32,7 @@ model Anuncio {
   laudo_cautelar String
   manual_do_proprietario String
   observacoes String
-
   data_de_criacao DateTime @default(now())
-  image String[] @db.Array(String)
+  image String[]
   slug String
 }
