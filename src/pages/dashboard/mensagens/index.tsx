@@ -43,7 +43,7 @@ type Anuncio = {
 
 
 
-export default function AnuncioList({initialValues, session}) {
+export default function MensagensList({initialValues, session}) {
 
 
     const [anunciosToShow, setAnunciosToShow] = useState<Anuncio[]>(initialValues)

@@ -36,3 +36,12 @@ model Anuncio {
   image String[]
   slug String @unique
 }
+
+
+model Message {
+  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name String
+  email String
+  whatsapp String
+  proposta String
+}

@@ -303,7 +303,7 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                     <HStack spacing="4">
                     <Link href="/dashboard/anuncios" passHref><Button colorScheme="whiteAlpha">Cancelar</Button></Link>
                         <Button type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Salvar</Button>
-                        <Button onClick={() => handleRemoveAnuncio(anuncio)} colorScheme="red" isLoading={formState.isSubmitting}>Remover</Button>
+                        <Button onClick={() => handleRemoveAnuncio(anuncio)} colorScheme="red">Excluir</Button>
                     </HStack>
                 </Flex>
                 </Box>
