@@ -172,11 +172,11 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
     }
 
 
-    async function handleRemoveAnuncio(slug) {
+    async function handleRemoveAnuncio(anuncio) {
 
         const response = await fetch('/api/anuncios/delete', {
             method: "DELETE",
-            body: JSON.stringify(slug)
+            body: JSON.stringify(anuncio)
         })
         
         
@@ -303,7 +303,7 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                     <HStack spacing="4">
                     <Link href="/dashboard/anuncios" passHref><Button colorScheme="whiteAlpha">Cancelar</Button></Link>
                         <Button type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Salvar</Button>
-                        <Button onClick={() => handleRemoveAnuncio(anuncio.slug)} colorScheme="red">Remover</Button>
+                        <Button onClick={() => handleRemoveAnuncio(anuncio)} colorScheme="red" isLoading={formState.isSubmitting}>Remover</Button>
                     </HStack>
                 </Flex>
                 </Box>
