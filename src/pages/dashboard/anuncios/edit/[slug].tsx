@@ -12,7 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import {GetServerSideProps} from 'next'
 import { getSession } from "next-auth/client"
 import { PrismaClient } from '@prisma/client'
-import { deletePhoto } from '../../../api/photos'
+import { deletePhoto, insert } from '../../../api/photos'
 import {useState} from 'react'
 import {useRouter} from 'next/router'
 
@@ -64,7 +64,6 @@ type CreateAnuncioFormData = {
     image: yup.
             mixed()
             .required('Envie pelo menos uma imagem')
-
 
             
         
@@ -121,13 +120,28 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
 
 
     const handleEditAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
+
+        const imagesToUpload = values.image as FileList
+        const saveImages = await handleUpload(imagesToUpload)
+        
+        if(values && (saveImages.length > 0 || images.length > 0)){
+            const anuncioToUpdate = {...values, image: images.concat(saveImages), slug: anuncio.slug}  
+            await saveAnuncio(anuncioToUpdate)
+        }
+    
+        
+
+    }
+
+    async function saveAnuncio(anuncio) { 
+        
        
         const response = await fetch('/api/anuncios/update', {
-            method: "PUT",
-            body: JSON.stringify({...values, image: images, slug: anuncio.slug})
-        })
-        
-        
+                method: "PUT",
+                body: JSON.stringify(anuncio)
+            })
+
+                    
         if(!response.ok) {
             throw new Error(response.statusText)
         }
@@ -135,8 +149,27 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
         if(response.ok) {
             router.push('/dashboard/anuncios')
         }
+        
     }
 
+
+    const handleUpload = async (images) => {
+        
+        if(images) {
+            
+        
+        const result = await insert(images)
+                        
+        if(result instanceof Error) {
+            console.log(`${result.name} - ${result.message}`)
+        }
+        
+        return result
+            
+        }
+
+
+    }
 
 
     async function handleRemoveAnuncio(slug) {

@@ -30,7 +30,7 @@ export const getAll = async () => {
 }
 
 export const insert = async (files: FileList) => {
-    let imagesUrl = []
+    let imagesUrl = [] as Array<String>
   
     if(files) {
         
@@ -45,8 +45,6 @@ export const insert = async (files: FileList) => {
                 
                 imagesUrl.push(photoUrl)
                 
-            } else {
-                return new Error('Tipo de arquivo não permitido.');
             }
 
         }
