@@ -66,7 +66,7 @@ export default function AnuncioList({initialValues, session}) {
             const newAnuncios = await fetch('/api/anuncios/get', {
                 method: "GET"
             })
-            console.log(newAnuncios)
+            console.log(newAnuncios.json())
         
     }
 
