@@ -49,11 +49,11 @@ export default function AnuncioList({initialValues, session}) {
     const [anunciosToShow, setAnunciosToShow] = useState<Anuncio[]>(initialValues)
 
 
-    async function handleRemoveAnuncio(slug) {
+    async function handleRemoveAnuncio(anuncio) {
 
         const response = await fetch('/api/anuncios/delete', {
             method: "DELETE",
-            body: JSON.stringify(slug)
+            body: JSON.stringify(anuncio)
         })
         
         
@@ -62,7 +62,7 @@ export default function AnuncioList({initialValues, session}) {
         }
 
         if(response.ok) {
-            const newAnuncios = anunciosToShow.filter(anuncio => anuncio.slug != slug)
+            const newAnuncios = anunciosToShow.filter(newAnuncio => newAnuncio.slug != anuncio.slug)
             setAnunciosToShow(newAnuncios)
         }
         
@@ -144,7 +144,7 @@ export default function AnuncioList({initialValues, session}) {
                         
                         </Td>
                         <Td>
-                        {!!isWideVersion && <Button onClick={() => handleRemoveAnuncio(anuncio.slug)} size="sm" fontSize="sm" colorScheme="red" leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Remover</Button>}
+                        {!!isWideVersion && <Button onClick={() => handleRemoveAnuncio(anuncio)} size="sm" fontSize="sm" colorScheme="red" leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Remover</Button>}
                         </Td>
                         
                     </Tr>

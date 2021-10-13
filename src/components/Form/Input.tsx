@@ -22,7 +22,6 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ( {nam
               type={type}
               multiple
               variant="filled"
-              required
               accept="image/jpeg, image/png, image/jpg"
               bgColor="gray.900"
               _hover={{

@@ -3,10 +3,13 @@ import { storage } from '../../services/firebase'
 import { ref, listAll, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage';
 import { v4 as createId } from 'uuid';
 
+
 type Photo = {
     name: string;
     url: Array<string>;
 }
+
+
 
 export const getAll = async () => {
     let list: Photo[] = [];
@@ -34,9 +37,8 @@ export const insert = async (files: FileList) => {
         for(let [key, file] of Object.entries(files)) {
 
             if(['image/jpeg', 'image/jpg', 'image/png'].includes(file.type)) {
-        
-                let randomName = createId();
-                let newFile = ref(storage, `images/${randomName}`);
+                let timestamp = Date.now()
+                let newFile = ref(storage, `images/${timestamp}`);
         
                 let upload = await uploadBytes(newFile, file);
                 let photoUrl = await getDownloadURL(upload.ref);
@@ -56,7 +58,9 @@ export const insert = async (files: FileList) => {
 }
 
 export const deletePhoto = async (name: string) => {
-    let photoRef = ref(storage, `images/${name}`);
+
+    let photoRef = ref(storage, name);
     await deleteObject(photoRef);
+  
 
 }

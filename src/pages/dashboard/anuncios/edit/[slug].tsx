@@ -1,4 +1,4 @@
-import { Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text} from "@chakra-ui/react";
+import { Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Image} from "@chakra-ui/react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 
 import { Input } from "../../../../components/Form/Input";
@@ -12,7 +12,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import {GetServerSideProps} from 'next'
 import { getSession } from "next-auth/client"
 import { PrismaClient } from '@prisma/client'
-
+import { deletePhoto } from '../../../api/photos'
+import {useState} from 'react'
+import {useRouter} from 'next/router'
 
 type CreateAnuncioFormData = {
     name: string;
@@ -62,18 +64,6 @@ type CreateAnuncioFormData = {
     image: yup.
             mixed()
             .required('Envie pelo menos uma imagem')
-            .test('name', 'Envie ao menos uma imagem', values => {
-                    if(values.length > 0) {
-                        return values
-                    }
-                   
-            })
-            .test('type', 'Apenas imagens (*JPEG, JPG, PNG)', values => {
-                if(values.length > 0) {
-                    return values && values[0].type.includes('image')
-                }
-                
-        })
 
 
             
@@ -108,7 +98,8 @@ interface AnuncioProps {
         laudo_cautelar?: string;
         manual_do_proprietario?: string;
         observacoes?: string;
-        data_de_criacao: Date
+        data_de_criacao: Date;
+        image: Array<string>;
     }
     
 }
@@ -118,6 +109,9 @@ interface AnuncioProps {
 
 
 export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
+    const router = useRouter()
+
+    const [images, setImages] = useState<String[]>(anuncio.image)
 
     const {register,handleSubmit, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
@@ -128,7 +122,19 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
 
     const handleEditAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
        
-        console.log(values)
+        const response = await fetch('/api/anuncios/update', {
+            method: "PUT",
+            body: JSON.stringify({...values, image: images, slug: anuncio.slug})
+        })
+        
+        
+        if(!response.ok) {
+            throw new Error(response.statusText)
+        }
+
+        if(response.ok) {
+            router.push('/dashboard/anuncios')
+        }
     }
 
 
@@ -144,6 +150,24 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
         if(!response.ok) {
             throw new Error(response.statusText)
         }
+
+        if(response.ok) {
+            router.push('/dashboard/anuncios')
+        }
+        
+    }
+
+    
+    async function handleRemoveImage(image) {
+
+        
+        
+         if(image) {
+            const newImages = images.filter(newImage => newImage != image)
+            setImages(newImages)
+         }
+
+        
         
     }
  
@@ -187,8 +211,24 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                         <Input name="transmissao" label="Transmissão" {...register('transmissao')} defaultValue={anuncio.transmissao} />
                         <Input name="quilometragem" label="Quilometragem" {...register('quilometragem')} defaultValue={anuncio.quilometragem} />
                         <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')} defaultValue={anuncio.valor}/>
-
-                        <Input name="image" label="Imagens" type="file"  error={errors.image} {...register('image')} />
+                        
+                        
+                        <Box>
+                        <Input name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
+                            
+                            {images.map((image, index) => {
+                                return (
+                                    <Image
+                                    key={index} 
+                                    onClick={() => handleRemoveImage(image)} 
+                                    boxSize="100px"
+                                    objectFit="cover"
+                                    src={image as string}
+                                    alt="Imagem"/>
+                                )
+                            })}
+                        </Box>
+                        
                     </SimpleGrid>
 
                     <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">OUTRAS INFORMAÇÕES</Heading>

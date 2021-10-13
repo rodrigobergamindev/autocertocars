@@ -19,7 +19,6 @@ import { useRouter } from "next/router";
 
 
 
-
 type CreateAnuncioFormData = {
     name: string;
     ano_fabricacao: string;
@@ -109,7 +108,6 @@ export default function CreateVehicle({session}) {
 
         const images = values.image as FileList
         const saveImages = await handleUpload(images)
-
         if(saveImages && values){
             const anuncio = {...values, image: saveImages}
             await saveAnuncio(anuncio)
