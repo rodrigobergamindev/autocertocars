@@ -126,11 +126,26 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
     const {errors} = formState
 
 
-    const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
-        await new Promise(resolve => setTimeout(resolve,1000))
+    const handleEditAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
+       
         console.log(values)
     }
 
+
+
+    async function handleRemoveAnuncio(slug) {
+
+        const response = await fetch('/api/anuncios/delete', {
+            method: "DELETE",
+            body: JSON.stringify(slug)
+        })
+        
+        
+        if(!response.ok) {
+            throw new Error(response.statusText)
+        }
+        
+    }
  
 
     return (
@@ -146,7 +161,7 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                 flex="1" 
                 borderRadius={8} 
                 bg="gray.800" p={["6","8"]}
-                onSubmit={handleSubmit(handleCreateAnuncio)}
+                onSubmit={handleSubmit(handleEditAnuncio)}
                 >
 
                 <Heading size="lg" fontWeight="normal">Editar Anúncio</Heading>
@@ -215,7 +230,7 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                     <HStack spacing="4">
                     <Link href="/dashboard/anuncios" passHref><Button colorScheme="whiteAlpha">Cancelar</Button></Link>
                         <Button type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Salvar</Button>
-                        <Button type="submit" colorScheme="red" isLoading={formState.isSubmitting}>Excluir</Button>
+                        <Button onClick={() => handleRemoveAnuncio(anuncio.slug)} colorScheme="red">Remover</Button>
                     </HStack>
                 </Flex>
                 </Box>

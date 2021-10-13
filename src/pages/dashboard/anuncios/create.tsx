@@ -15,7 +15,7 @@ import { getSession } from "next-auth/client"
 import { GetServerSideProps } from 'next'
 
 import { insert } from '../../api/photos'
-
+import { useRouter } from "next/router";
 
 
 
@@ -96,6 +96,7 @@ type CreateAnuncioFormData = {
 
 export default function CreateVehicle({session}) {
 
+    const router = useRouter()
 
     const {register,handleSubmit, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
@@ -104,9 +105,11 @@ export default function CreateVehicle({session}) {
     const {errors} = formState
 
 
-    const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values, event) => {
+    const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
+
         const images = values.image as FileList
         const saveImages = await handleUpload(images)
+
         if(saveImages && values){
             const anuncio = {...values, image: saveImages}
             await saveAnuncio(anuncio)
@@ -126,6 +129,10 @@ export default function CreateVehicle({session}) {
         if(!response.ok) {
             console.log(response)
             throw new Error(response.statusText)
+        }
+
+        if(response.ok) {
+            router.push('/dashboard/anuncios')
         }
     
         return await response.json()

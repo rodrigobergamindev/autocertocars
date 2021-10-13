@@ -7,21 +7,17 @@ interface ActiveLinkProps extends LinkProps {
     shouldMatchExacthref?: boolean;
 }
 
-export default function ActiveLink({children, shouldMatchExacthref = false, ...rest}: ActiveLinkProps) {
+export default function ActiveLink({children, ...rest}: ActiveLinkProps) {
 
     const {asPath} = useRouter()
     let isActive = false;
     
 
 
-    if(shouldMatchExacthref && (asPath === rest.href || asPath === rest.as)) {
+    if(asPath === rest.href || asPath === rest.as) {
         isActive = true;
     }
 
-    if(!shouldMatchExacthref && (asPath.startsWith(String(rest.href)) ||  asPath.startsWith(String(rest.as)) && asPath.startsWith(String(rest.href)))) {
-        
-        isActive = true;
-    }
 
  
 

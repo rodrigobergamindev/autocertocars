@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     
     if(req.method !== "DELETE") {
-        return res.status(405).json({ message: 'não ta vindo delete'})
+        return res.status(405).json({ message: 'method not allowed'})
     }
 
     if(session) {

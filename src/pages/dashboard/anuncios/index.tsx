@@ -58,22 +58,17 @@ export default function AnuncioList({initialValues, session}) {
         
         
         if(!response.ok) {
-            console.log(response)
             throw new Error(response.statusText)
         }
-        
-        
-            const newAnuncios = await fetch('/api/anuncios/get', {
-                method: "GET"
-            })
-            console.log(newAnuncios.json())
+
+        if(response.ok) {
+            const newAnuncios = anunciosToShow.filter(anuncio => anuncio.slug != slug)
+            setAnunciosToShow(newAnuncios)
+        }
         
     }
 
       
-      
-
-
     const isWideVersion = useBreakpointValue ({
         base: false,
         lg: true
