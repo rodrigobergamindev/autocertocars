@@ -1,12 +1,13 @@
 import { Box, Flex, Heading, Button, Icon, Table, Thead, Tr, Th, Td, Checkbox, Tbody, Text, useBreakpointValue } from "@chakra-ui/react";
 import { RiAddLine, RiCloseLine, RiPencilLine } from "react-icons/ri";
 import  Header  from "../../../components/Header/index"
-import Pagination from '../../../components/Pagination/index'
 import  Siderbar  from "../../../components/Sidebar/index";
 import Link from 'next/link'
 import { GetServerSideProps } from 'next'
 import {useState, useEffect} from 'react'
 
+
+import { PrismaClient } from '@prisma/client'
 import { getSession } from "next-auth/client"
 
 
@@ -46,11 +47,27 @@ export default function AnuncioList({initialValues, session}) {
 
 
     const [anunciosToShow, setAnunciosToShow] = useState<Anuncio[]>(initialValues)
-   
 
-    function handleRemoveAnuncio(name) {
-        const newAnuncios = anunciosToShow.filter((anuncio: Anuncio) => anuncio.name !== name)
-        setAnunciosToShow(newAnuncios)
+
+    async function handleRemoveAnuncio(slug) {
+
+        const response = await fetch('/api/anuncios/delete', {
+            method: "DELETE",
+            body: JSON.stringify(slug)
+        })
+        
+        
+        if(!response.ok) {
+            console.log(response)
+            throw new Error(response.statusText)
+        }
+        
+        
+            const newAnuncios = await fetch('/api/anuncios/get', {
+                method: "GET"
+            })
+            console.log(newAnuncios)
+        
     }
 
       
@@ -121,14 +138,18 @@ export default function AnuncioList({initialValues, session}) {
                             </Link>
                         </Td>
 
-                        {!!isWideVersion && <Td> {anuncio.data_de_criacao}</Td>}
+                        {!!isWideVersion && <Td> {new Date(anuncio.data_de_criacao).toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        })}</Td>}
 
                         <Td>
                         {!!isWideVersion && <Link href={`anuncios/edit/${anuncio.slug}`} passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine} fontSize="20"></Icon>}>Editar</Button></Link>}
                         
                         </Td>
                         <Td>
-                        {!!isWideVersion && <Button onClick={() => handleRemoveAnuncio(anuncio.name)} size="sm" fontSize="sm" colorScheme="red" leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Remover</Button>}
+                        {!!isWideVersion && <Button onClick={() => handleRemoveAnuncio(anuncio.slug)} size="sm" fontSize="sm" colorScheme="red" leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Remover</Button>}
                         </Td>
                         
                     </Tr>
@@ -150,10 +171,14 @@ export default function AnuncioList({initialValues, session}) {
 export const getServerSideProps: GetServerSideProps = async({req}) => {
 
    
+    const prisma = new PrismaClient();
+    const anuncios = await prisma.anuncio.findMany()
+    const initialValues = JSON.parse(JSON.stringify(anuncios))
 
-    const initialValues = {} // JSON.parse(JSON.stringify(anuncios))
+   
 
     const session = await getSession({req})
+   
  
     if(!session) {
         return {
@@ -163,6 +188,7 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
             }
         }
     }
+
     
     return {
       props: {

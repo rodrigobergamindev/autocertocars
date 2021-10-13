@@ -10,9 +10,8 @@ import {useForm, SubmitHandler} from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import {GetServerSideProps} from 'next'
-import anuncios from '../../../api/anuncios'
 import { getSession } from "next-auth/client"
-
+import { PrismaClient } from '@prisma/client'
 
 
 type CreateAnuncioFormData = {
@@ -156,8 +155,9 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
 
 
                 <VStack spacing="8">
-                    <SimpleGrid minchildWith={240} spacing={["6","8"]} width="100%">
-                        <Heading size="sm" fontWeight="bold" color="gray.300">INFORMAÇÕES DO VEÍCULO</Heading>
+                <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">INFORMAÇÕES DO VEÍCULO</Heading>
+                    <SimpleGrid minChildWidth="300px" spacing={["6","8"]} width="100%">
+                        
                         <Input name="name" label="Nome"  error={errors.name} {...register('name')} defaultValue={anuncio.name}/>
                         <Input name="ano_fabricacao" label="Ano Fabricação" error={errors.ano_fabricacao} {...register('ano_fabricacao')} defaultValue={anuncio.ano_fabricacao}/>
                         <Input name="marca" label="Marca" error={errors.marca} {...register('marca')} defaultValue={anuncio.marca}/>
@@ -176,30 +176,35 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                         <Input name="image" label="Imagens" type="file"  error={errors.image} {...register('image')} />
                     </SimpleGrid>
 
-                    <SimpleGrid minchildWith={240} spacing={["6","8"]} width="100%">
-                        <Heading size="sm" fontWeight="bold" color="gray.300">OUTRAS INFORMAÇÕES</Heading>
+                    <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">OUTRAS INFORMAÇÕES</Heading>
+                    <SimpleGrid minChildWidth="300px" spacing={["6","8"]} width="100%">
+                    
 
                         <Input name="chave_copia" label="Chave Cópia" {...register('chave_copia')} defaultValue={anuncio.chave_copia}/>
                         <Input name="laudo_cautelar" label="Laudo Cautelar" {...register('laudo_cautelar')} defaultValue={anuncio.laudo_cautelar}/>
                         <Input name="manual_do_proprietario" label="Manual do Proprietário" {...register('manual_do_proprietario')} defaultValue={anuncio.manual_do_proprietario}/>
                         
-                        <Text>Observações</Text>
+                        <Box>
+                        <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Observações</Text>
                         <Textarea
                         
-                            name="observacoes"
-                            resize="none"
-                            focusBorderColor="yellow.400"
-                            bgColor="gray.900"
-                            variant="filled"
-                            _hover={{
-                                bgColor: 'gray.900'
-                            }}
-                            size="lg"
-                            {...register('observacoes')}
-                            defaultValue={anuncio.observacoes}
-                        >
+                        name="observacoes"
+                        resize="none"
+                        focusBorderColor="yellow.400"
+                        bgColor="gray.900"
+                        variant="filled"
+                        _hover={{
+                            bgColor: 'gray.900'
+                        }}
+                        size="lg"
+                        {...register('observacoes')}
+                        defaultValue={anuncio.observacoes}
+                    >
 
-                        </Textarea>
+                    </Textarea>
+
+                     
+                        </Box>
 
                     </SimpleGrid>
 
@@ -210,6 +215,7 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                     <HStack spacing="4">
                     <Link href="/dashboard/anuncios" passHref><Button colorScheme="whiteAlpha">Cancelar</Button></Link>
                         <Button type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Salvar</Button>
+                        <Button type="submit" colorScheme="red" isLoading={formState.isSubmitting}>Excluir</Button>
                     </HStack>
                 </Flex>
                 </Box>
@@ -223,8 +229,15 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
 export const getServerSideProps: GetServerSideProps = async ({params, req}) => {
 
     const {slug} = params
+    const prisma = new PrismaClient();
 
-    const anuncio = anuncios.find(item => item.slug === slug)
+    const data = await prisma.anuncio.findUnique({
+        where: {
+          slug: slug as string
+        },
+      })
+
+      const anuncio = JSON.parse(JSON.stringify(data))
 
     const session = await getSession({req})
  

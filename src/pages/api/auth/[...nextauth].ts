@@ -25,6 +25,7 @@ const options = {
     async signIn(user, account, profile) {
       if (account.provider === 'google' &&
           profile.email === 'rb.bergamin@gmail.com') {
+            console.log(user.image)
         return true
       } else {
         return false

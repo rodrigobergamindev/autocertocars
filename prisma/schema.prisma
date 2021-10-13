@@ -34,5 +34,5 @@ model Anuncio {
   observacoes String
   data_de_criacao DateTime @default(now())
   image String[]
-  slug String
+  slug String @unique
 }

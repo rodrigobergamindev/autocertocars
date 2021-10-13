@@ -105,7 +105,6 @@ export default function CreateVehicle({session}) {
 
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values, event) => {
-        await new Promise(resolve => setTimeout(resolve,1000))
         const images = values.image as FileList
         const saveImages = await handleUpload(images)
         if(saveImages && values){
@@ -118,7 +117,7 @@ export default function CreateVehicle({session}) {
     
     async function saveAnuncio(anuncio) { 
         
-        const response = await fetch('/api/anuncios', {
+        const response = await fetch('/api/anuncios/create', {
             method: "POST",
             body: JSON.stringify(anuncio)
         })
