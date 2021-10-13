@@ -17,6 +17,7 @@ import { GetServerSideProps } from 'next'
 import { insert } from '../../api/photos'
 import { useRouter } from "next/router";
 
+const phoneRegExp = /^(?:\()[0-9]{2}(?:\))\s?[0-9]{4,5}(?:-)[0-9]{4}$/
 
 
 type CreateMessageFormData = {
@@ -35,6 +36,8 @@ type CreateMessageFormData = {
     name: yup.string().required('Nome obrigatório'),
     email: yup.string().required('E-mail obrigatório').email(),
     whatsapp: yup.string().required('Informe um contato para whatsapp'),
+    //.matches(phoneRegExp, "Informe um número de celular válido - Ex: 11959944499")
+    //.nullable(),
     proposta: yup.string().required('Envie a sua proposta')
     //password: yup.string().required('Senha obrigatória').min(6, 'A senha precisa no mínimo de 6 caracteres'),
     //password_confirmation: yup.string().oneOf([

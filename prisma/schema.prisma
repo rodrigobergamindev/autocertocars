@@ -44,4 +44,5 @@ model Message {
   email String
   whatsapp String
   proposta String
+  data_de_criacao DateTime @default(now())
 }
