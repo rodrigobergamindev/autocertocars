@@ -9,6 +9,7 @@ export default function Logo () {
                 objectFit="contain"
                 src="/img/logo.png"
                 alt="logo"
+                
             />
         </Stack>
     )

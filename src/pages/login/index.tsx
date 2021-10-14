@@ -5,11 +5,14 @@ import { useRouter } from "next/router";
 import {GetServerSideProps} from 'next'
 import {getSession} from 'next-auth/client'
 
+
 export default function SignIn() {
 
   const [session] = useSession()
   const {asPath} = useRouter()
   const URL_ERROR = '/login?error=AccessDenied#'
+
+ 
 
   return (
     <Flex w="100vw" h="100vh" alignItems="center" justifyContent="center" direction="column">
@@ -37,7 +40,7 @@ export default function SignIn() {
 }
 
 
-export const getServerSideProps = async ({req}) => {
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
   const session = await getSession({req})
  

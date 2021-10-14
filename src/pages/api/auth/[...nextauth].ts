@@ -13,9 +13,6 @@ const options = {
     }
     )
   ],
-  session: {
-    jwt: true,
-  },
   pages: {
     signIn: "/login",
     error: '/login',
@@ -24,8 +21,7 @@ const options = {
   callbacks: {
     async signIn(user, account, profile) {
       if (account.provider === 'google' &&
-          profile.email === 'rb.bergamin@gmail.com') {
-            console.log(user.image)
+          profile.email === process.env.EMAIL_ADM) {
         return true
       } else {
         return false
