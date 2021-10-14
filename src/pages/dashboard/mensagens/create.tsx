@@ -24,7 +24,8 @@ type CreateMessageFormData = {
     name: string;
     email: string;
     whatsapp: string;
-    proposta: string;
+    mensagem: string;
+    veiculo?: string;
   }
 
 
@@ -38,7 +39,7 @@ type CreateMessageFormData = {
     whatsapp: yup.string().required('Informe um contato para whatsapp')
     .matches(phoneRegExp, "Informe um número de celular válido - Ex: 11959944499")
     .nullable(),
-    proposta: yup.string().required('Envie a sua proposta')
+    mensagem: yup.string().required('Envie a sua mensagem')
     //password: yup.string().required('Senha obrigatória').min(6, 'A senha precisa no mínimo de 6 caracteres'),
     //password_confirmation: yup.string().oneOf([
     //    null, yup.ref('password')
@@ -119,10 +120,10 @@ export default function CreateMessage({session}) {
                         <Input name="email" label="E-mail" error={errors.email} {...register('email')}/>
                         <Input name="whatsapp" label="Whatsapp" error={errors.whatsapp} {...register('whatsapp')}/>
                         <Box>
-                        <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Proposta</Text>
+                        <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Mensagem</Text>
                         <Textarea
                             
-                            name="proposta"
+                            name="mensagem"
                             resize="none"
                             focusBorderColor="yellow.400"
                             bgColor="gray.900"
@@ -131,7 +132,7 @@ export default function CreateMessage({session}) {
                                 bgColor: 'gray.900'
                             }}
                             size="lg"
-                            {...register('proposta')}
+                            {...register('mensagem')}
                         >
 
                         </Textarea>

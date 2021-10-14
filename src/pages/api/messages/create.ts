@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         
         
         await prisma.message.create({
-          data: message
+          data: {...message}
          })
          
         

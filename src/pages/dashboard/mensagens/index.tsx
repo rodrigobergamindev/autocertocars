@@ -14,13 +14,14 @@ import { getSession } from "next-auth/client"
 
 
 
-type Anuncio = {
+type Message = {
     name: string;
     email: string;
     whatsapp: string;
-    proposta: string;
+    mensagem: string;
     data_de_criacao: Date;
     id: string;
+    veiculo?: string;
 }
 
 
@@ -30,7 +31,7 @@ type Anuncio = {
 export default function MensagensList({initialValues, session}) {
 
 
-    const [messagesToShow, setMessagesToShow] = useState<Anuncio[]>(initialValues)
+    const [messagesToShow, setMessagesToShow] = useState<Message[]>(initialValues)
 
 
     async function handleRemoveMessage(message) {
@@ -99,8 +100,8 @@ export default function MensagensList({initialValues, session}) {
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">REMETENTE:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.name}</Text>
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">E-MAIL:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.email}</Text>
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">WHATSAPP:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.whatsapp}</Text>
-                        <Text fontSize="sm" fontWeight="bold" color="gray.300">PROPOSTA:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.proposta}</Text>
-                        
+                        <Text fontSize="sm" fontWeight="bold" color="gray.300">MENSAGEM:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.mensagem}</Text>
+                        {!!message.veiculo  && <Text fontSize="sm" fontWeight="bold" color="gray.300">VEÍCULO: <Text fontSize="sm" color="white" mb={2}>{message.veiculo}</Text></Text>}
                          <HStack mt={4} justify="space-between">
                          <Button size="sm" colorScheme="red" onClick={() => handleRemoveMessage(message)}  leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Excluir</Button>
                         <a href={`https://api.whatsapp.com/send?phone=55${message.whatsapp}&text=Olá,%20${message.name}!%20 recebi sua proposta através de www.autocertocars.com.br`} target="_blank">
