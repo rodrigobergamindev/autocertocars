@@ -20,10 +20,9 @@ import { useRouter } from "next/router";
 
 
 type CreateAnuncioFormData = {
-    name: string;
-    ano_fabricacao: string;
     marca: string;
     modelo: string;
+    ano_fabricacao: string;
     versao: string;
     numero_portas: string;
     cor: string;
@@ -47,7 +46,6 @@ type CreateAnuncioFormData = {
 
 
   const createAnuncioFormSchema = yup.object({
-    name: yup.string().required('Nome obrigatório'),
     marca: yup.string().required('Marca obrigatória'),
     ano_fabricacao: yup.string().required('Preencha com o ano do veículo'),
     modelo: yup.string().required('Modelo Obrigatório'),
@@ -180,12 +178,11 @@ export default function CreateVehicle({session}) {
 
                 <VStack spacing="8">
                 <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">INFORMAÇÕES DO VEÍCULO</Heading>
-                    <SimpleGrid minChildWidth="300px" spacing={["6","8"]} width="100%">
+                    <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
                         
-                        <Input name="name" label="Nome"  error={errors.name} {...register('name')}/>
-                        <Input name="ano_fabricacao" label="Ano Fabricação" error={errors.ano_fabricacao} {...register('ano_fabricacao')}/>
                         <Input name="marca" label="Marca" error={errors.marca} {...register('marca')}/>
                         <Input name="modelo" label="Modelo" error={errors.modelo} {...register('modelo')}/>
+                        <Input name="ano_fabricacao" label="Ano Fabricação" error={errors.ano_fabricacao} {...register('ano_fabricacao')}/>
                         <Input name="versao" label="Versão" error={errors.versao} {...register('versao')}/>
                         <Input name="numero_portas" label="Número de Portas" {...register('numero_portas')}/>
                         <Input name="cor" label="Cor" {...register('cor')}/>
@@ -196,18 +193,21 @@ export default function CreateVehicle({session}) {
                         <Input name="transmissao" label="Transmissão" {...register('transmissao')} />
                         <Input name="quilometragem" label="Quilometragem" {...register('quilometragem')} />
                         <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')}/>
-                        <Input name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
                     </SimpleGrid>
 
                     <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">OUTRAS INFORMAÇÕES</Heading>
-                    <SimpleGrid minChildWidth="300px" spacing={["6","8"]} width="100%">
+                    <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
                         
 
                         <Input name="chave_copia" label="Chave Cópia" {...register('chave_copia')}/>
                         <Input name="laudo_cautelar" label="Laudo Cautelar" {...register('laudo_cautelar')}/>
                         <Input name="manual_do_proprietario" label="Manual do Proprietário" {...register('manual_do_proprietario')}/>
                         
-                        <Box>
+
+                    </SimpleGrid>
+                    
+                    <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
+                    <Box>
                         <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Observações</Text>
                         <Textarea
                             
@@ -225,9 +225,10 @@ export default function CreateVehicle({session}) {
 
                         </Textarea>
                         </Box>
+                        
+                        <Input p={1} name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
 
                     </SimpleGrid>
-
                 
                 </VStack>
 

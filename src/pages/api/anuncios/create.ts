@@ -22,8 +22,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if(session) {
         const slug = uuid()
         const anuncioData = JSON.parse(req.body) 
-        
-        const anuncio = {...anuncioData, slug}
+        const name = `${anuncioData.marca} ${anuncioData.modelo}`
+        const anuncio = {...anuncioData, slug, name}
         await prisma.anuncio.create({
           data: {...anuncio}
          })

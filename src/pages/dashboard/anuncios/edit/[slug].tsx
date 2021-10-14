@@ -1,5 +1,5 @@
-import { Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Image} from "@chakra-ui/react";
-import { RiAddLine, RiPencilLine } from "react-icons/ri";
+import { Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Image, Grid, Icon} from "@chakra-ui/react";
+import { RiAddLine, RiCloseLine, RiPencilLine } from "react-icons/ri";
 
 import { Input } from "../../../../components/Form/Input";
 import  Header  from "../../../../components/Header";
@@ -17,7 +17,6 @@ import {useState} from 'react'
 import {useRouter} from 'next/router'
 
 type CreateAnuncioFormData = {
-    name: string;
     ano_fabricacao: string;
     marca: string;
     modelo: string;
@@ -43,7 +42,6 @@ type CreateAnuncioFormData = {
 
 
   const createAnuncioFormSchema = yup.object({
-    name: yup.string().required('Nome obrigatório'),
     marca: yup.string().required('Marca obrigatória'),
     ano_fabricacao: yup.string().required('Preencha com o ano do veículo'),
     modelo: yup.string().required('Modelo Obrigatório'),
@@ -228,12 +226,11 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
 
                 <VStack spacing="8">
                 <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">INFORMAÇÕES DO VEÍCULO</Heading>
-                    <SimpleGrid minChildWidth="300px" spacing={["6","8"]} width="100%">
+                    <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
                         
-                        <Input name="name" label="Nome"  error={errors.name} {...register('name')} defaultValue={anuncio.name}/>
-                        <Input name="ano_fabricacao" label="Ano Fabricação" error={errors.ano_fabricacao} {...register('ano_fabricacao')} defaultValue={anuncio.ano_fabricacao}/>
                         <Input name="marca" label="Marca" error={errors.marca} {...register('marca')} defaultValue={anuncio.marca}/>
                         <Input name="modelo" label="Modelo" error={errors.modelo} {...register('modelo')} defaultValue={anuncio.modelo} />
+                        <Input name="ano_fabricacao" label="Ano Fabricação" error={errors.ano_fabricacao} {...register('ano_fabricacao')} defaultValue={anuncio.ano_fabricacao}/>
                         <Input name="versao" label="Versão" error={errors.versao} {...register('versao')} defaultValue={anuncio.versao}/>
                         <Input name="numero_portas" label="Número de Portas" {...register('numero_portas')} defaultValue={anuncio.numero_portas}/>
                         <Input name="cor" label="Cor" {...register('cor')} defaultValue={anuncio.cor}/>
@@ -246,33 +243,23 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                         <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')} defaultValue={anuncio.valor}/>
                         
                         
-                        <Box>
-                        <Input name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
-                            
-                            {images.map((image, index) => {
-                                return (
-                                    <Image
-                                    key={index} 
-                                    onClick={() => handleRemoveImage(image)} 
-                                    boxSize="100px"
-                                    objectFit="cover"
-                                    src={image as string}
-                                    alt="Imagem"/>
-                                )
-                            })}
-                        </Box>
                         
                     </SimpleGrid>
 
                     <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">OUTRAS INFORMAÇÕES</Heading>
-                    <SimpleGrid minChildWidth="300px" spacing={["6","8"]} width="100%">
+                    <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
                     
 
                         <Input name="chave_copia" label="Chave Cópia" {...register('chave_copia')} defaultValue={anuncio.chave_copia}/>
                         <Input name="laudo_cautelar" label="Laudo Cautelar" {...register('laudo_cautelar')} defaultValue={anuncio.laudo_cautelar}/>
                         <Input name="manual_do_proprietario" label="Manual do Proprietário" {...register('manual_do_proprietario')} defaultValue={anuncio.manual_do_proprietario}/>
                         
-                        <Box>
+        
+
+                    </SimpleGrid>
+                    
+                    <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
+                    <Box>
                         <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Observações</Text>
                         <Textarea
                         
@@ -294,8 +281,35 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                      
                         </Box>
 
-                    </SimpleGrid>
+                        <Box>
+                        <Input p={1} name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
+                        <Grid mt={6} templateColumns="repeat(2, 1fr)"  p={1} gap={2}>
+                            {images.map((image, index) => {
+                                return (
+                                    <Box
+                                    key={index}
+                                    display="flex"
+                                    onClick={() => handleRemoveImage(image)} 
+                                    >
+                                    <Icon as={RiCloseLine} backgroundColor="yellow.400" color="gray.900" position="absolute" zIndex="1" w={7} h={7}/>
+                                        
+                                 
+                                    <Image
+                                    objectFit="cover"
+                                    src={image as string}
+                                    alt="Imagem"
+                                    transition= "all 0.3s ease-in-out"
+                                    _hover={{
+                                       opacity: 0.7
+                                    }}
+                                    />
+                                    </Box>
+                                )
+                            })}
+                        </Grid>
+                        </Box>
 
+                    </SimpleGrid>
                 
                 </VStack>
 
