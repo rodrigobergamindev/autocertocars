@@ -24,13 +24,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const anuncio = JSON.parse(req.body) 
         
 
-        const anuncioToDelete = await prisma.anuncio.delete({
-            where: { slug: anuncio.slug },
+        await prisma.message.delete({
+            where: { id: anuncio.id },
           })
         
-          if(anuncioToDelete){
-            anuncio.image.map(async(image) => await deletePhoto(image))
-          }
     }
     
     res.json({message: "Ok"})

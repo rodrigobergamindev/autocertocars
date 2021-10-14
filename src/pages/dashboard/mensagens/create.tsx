@@ -17,7 +17,7 @@ import { GetServerSideProps } from 'next'
 import { insert } from '../../api/photos'
 import { useRouter } from "next/router";
 
-const phoneRegExp = /^(?:\()[0-9]{2}(?:\))\s?[0-9]{4,5}(?:-)[0-9]{4}$/
+const phoneRegExp = /^[0-9]{2}?[0-9]{4,5}[0-9]{4}$/
 
 
 type CreateMessageFormData = {
@@ -35,9 +35,9 @@ type CreateMessageFormData = {
   const createAnuncioFormSchema = yup.object({
     name: yup.string().required('Nome obrigatório'),
     email: yup.string().required('E-mail obrigatório').email(),
-    whatsapp: yup.string().required('Informe um contato para whatsapp'),
-    //.matches(phoneRegExp, "Informe um número de celular válido - Ex: 11959944499")
-    //.nullable(),
+    whatsapp: yup.string().required('Informe um contato para whatsapp')
+    .matches(phoneRegExp, "Informe um número de celular válido - Ex: 11959944499")
+    .nullable(),
     proposta: yup.string().required('Envie a sua proposta')
     //password: yup.string().required('Senha obrigatória').min(6, 'A senha precisa no mínimo de 6 caracteres'),
     //password_confirmation: yup.string().oneOf([
@@ -78,6 +78,10 @@ export default function CreateMessage({session}) {
         if(!response.ok) {
             console.log(response)
             throw new Error(response.statusText)
+        }
+
+        if(response.ok) {
+            router.push('/dashboard/mensagens')
         }
     
         return await response.json()

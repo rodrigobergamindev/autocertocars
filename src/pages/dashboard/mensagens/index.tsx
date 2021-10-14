@@ -1,5 +1,5 @@
-import { HStack, Box, Flex, Heading, Button, Icon, Table, Thead, Tr, Th, Td, Checkbox, Tbody, Text, useBreakpointValue, SimpleGrid } from "@chakra-ui/react";
-import { RiWhatsappLine} from "react-icons/ri";
+import { HStack, Box, VStack, Flex, Heading, Button, Icon, Text, useBreakpointValue } from "@chakra-ui/react";
+import { RiCloseLine, RiWhatsappLine} from "react-icons/ri";
 import  Header  from "../../../components/Header/index"
 import  Siderbar  from "../../../components/Sidebar/index";
 import Link from 'next/link'
@@ -30,14 +30,14 @@ type Anuncio = {
 export default function MensagensList({initialValues, session}) {
 
 
-    const [anunciosToShow, setAnunciosToShow] = useState<Anuncio[]>(initialValues)
+    const [messagesToShow, setMessagesToShow] = useState<Anuncio[]>(initialValues)
 
 
-    async function handleRemoveAnuncio(anuncio) {
+    async function handleRemoveMessage(message) {
 
-        const response = await fetch('/api/anuncios/delete', {
+        const response = await fetch('/api/messages/delete', {
             method: "DELETE",
-            body: JSON.stringify(anuncio)
+            body: JSON.stringify(message)
         })
         
         
@@ -46,8 +46,8 @@ export default function MensagensList({initialValues, session}) {
         }
 
         if(response.ok) {
-            const newAnuncios = anunciosToShow.filter(newAnuncio => newAnuncio.id != anuncio.id)
-            setAnunciosToShow(newAnuncios)
+            const newMessages = messagesToShow.filter(newMessage => newMessage.id != message.id)
+            setMessagesToShow(newMessages)
         }
         
     }
@@ -70,15 +70,18 @@ export default function MensagensList({initialValues, session}) {
 
                     <Flex mb="8" justify="space-between" align="center">
                         
-                        <Heading size="lg" fontWeight="normal">Mensagens</Heading>
+                        <Heading size="lg" fontWeight="normal">Caixa de Mensagens</Heading>
 
                     </Flex>
                 
-                <Flex
-                justify="space-between"
+                <HStack
+                justify="flex-start"
                 >
-                {anunciosToShow.map((message,index) => {
+
+
+                {messagesToShow.map((message,index) => {
                     console.log(message)
+                    
                     return (
                         <Box 
                         key={index}
@@ -86,25 +89,27 @@ export default function MensagensList({initialValues, session}) {
                         p={6}
                         borderRadius={4}
                         >
-                         <Text fontSize="sm" mb={2}><Text fontWeight="bold" color="gray.300">REMETENTE:</Text> {message.name}</Text>
-                         <Text fontSize="sm" mb={2}><Text fontWeight="bold" color="gray.300">E-MAIL:</Text> {message.email}</Text>
-                         <Text fontSize="sm" mb={2}><Text fontWeight="bold" color="gray.300">WHATSAPP:</Text> {message.whatsapp}</Text>
-                         <Text fontSize="sm" mb={2}><Text fontWeight="bold" color="gray.300">PROPOSTA:</Text> {message.proposta}</Text>
-
-                         <HStack mt={6} justify="space-between">
+                            <HStack mb={4} justify="flex-end">
                             <Text fontWeight="bold" fontSize="sm">{new Date(message.data_de_criacao).toLocaleDateString('pt-BR', {
                                 day: '2-digit',
                                 month: 'long',
                                 year: 'numeric'
                         }).toUpperCase()}</Text>
+                        </HStack>
+                        <Text fontSize="sm" fontWeight="bold" color="gray.300">REMETENTE:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.name}</Text>
+                        <Text fontSize="sm" fontWeight="bold" color="gray.300">E-MAIL:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.email}</Text>
+                        <Text fontSize="sm" fontWeight="bold" color="gray.300">WHATSAPP:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.whatsapp}</Text>
+                        <Text fontSize="sm" fontWeight="bold" color="gray.300">PROPOSTA:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.proposta}</Text>
+                        
+                         <HStack mt={4} justify="space-between">
+                         <Button size="sm" colorScheme="red" onClick={() => handleRemoveMessage(message)}  leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Excluir</Button>
                         <a href={`https://api.whatsapp.com/send?phone=55${message.whatsapp}&text=Olá,%20${message.name}!%20 recebi sua proposta através de www.autocertocars.com.br`} target="_blank">
                             <Button size="sm" colorScheme="green"  leftIcon={<Icon as={RiWhatsappLine} fontSize="20"></Icon>}>Responder</Button></a>
-                         </HStack>
-                         
+                            </HStack>
                         </Box>
                     )
                 })}
-                </Flex>
+                </HStack>
                 
                 </Box>
 
