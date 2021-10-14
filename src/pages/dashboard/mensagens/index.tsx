@@ -1,4 +1,4 @@
-import { HStack, Box, VStack, Flex, Heading, Button, Icon, Text, useBreakpointValue } from "@chakra-ui/react";
+import {Grid, HStack, Box, VStack, Flex, Heading, Button, Icon, Text, useBreakpointValue } from "@chakra-ui/react";
 import { RiCloseLine, RiWhatsappLine} from "react-icons/ri";
 import  Header  from "../../../components/Header/index"
 import  Siderbar  from "../../../components/Sidebar/index";
@@ -75,10 +75,7 @@ export default function MensagensList({initialValues, session}) {
 
                     </Flex>
                 
-                <HStack
-                justify="flex-start"
-                >
-
+                <Grid templateColumns="repeat(3, 1fr)" gap={6}>
 
                 {messagesToShow.map((message,index) => {
                     console.log(message)
@@ -89,6 +86,10 @@ export default function MensagensList({initialValues, session}) {
                         bg="gray.700"
                         p={6}
                         borderRadius={4}
+                        
+                        display="flex"
+                        justifyContent="space-around"
+                        flexDirection="column"
                         >
                             <HStack mb={4} justify="flex-end">
                             <Text fontWeight="bold" fontSize="sm">{new Date(message.data_de_criacao).toLocaleDateString('pt-BR', {
@@ -102,7 +103,7 @@ export default function MensagensList({initialValues, session}) {
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">WHATSAPP:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.whatsapp}</Text>
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">MENSAGEM:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.mensagem}</Text>
                         {!!message.veiculo  && <Text fontSize="sm" fontWeight="bold" color="gray.300">VEÍCULO: <Text fontSize="sm" color="white" mb={2}>{message.veiculo}</Text></Text>}
-                         <HStack mt={4} justify="space-between">
+                         <HStack mt={4} justify="flex-end">
                          <Button size="sm" colorScheme="red" onClick={() => handleRemoveMessage(message)}  leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Excluir</Button>
                         <a href={`https://api.whatsapp.com/send?phone=55${message.whatsapp}&text=Olá,%20${message.name}!%20 recebi sua proposta através de www.autocertocars.com.br`} target="_blank">
                             <Button size="sm" colorScheme="green"  leftIcon={<Icon as={RiWhatsappLine} fontSize="20"></Icon>}>Responder</Button></a>
@@ -110,7 +111,7 @@ export default function MensagensList({initialValues, session}) {
                         </Box>
                     )
                 })}
-                </HStack>
+                </Grid>
                 
                 </Box>
 

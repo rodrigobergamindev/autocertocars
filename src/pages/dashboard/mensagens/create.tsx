@@ -128,6 +128,7 @@ export default function CreateMessage({session}) {
                             focusBorderColor="yellow.400"
                             bgColor="gray.900"
                             variant="filled"
+                            maxLength={70}
                             _hover={{
                                 bgColor: 'gray.900'
                             }}
