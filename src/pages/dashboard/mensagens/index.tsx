@@ -9,7 +9,7 @@ import {useState} from 'react'
 
 import { PrismaClient } from '@prisma/client'
 import { getSession } from "next-auth/client"
-
+import { motion } from "framer-motion";
 
 
 
@@ -32,6 +32,28 @@ export default function MensagensList({initialValues, session}) {
 
 
     const [messagesToShow, setMessagesToShow] = useState<Message[]>(initialValues)
+    const MotionGrid = motion(Grid)
+    const MotionBox = motion(Box)
+
+    const container = {
+        hidden: { opacity: 1, scale: 0 },
+        visible: {
+          opacity: 1,
+          scale: 1,
+          transition: {
+            delayChildren: 0.3,
+            staggerChildren: 0.2
+          }
+        }
+      };
+      
+      const item = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+          y: 0,
+          opacity: 1
+        }
+      };
 
 
     async function handleRemoveMessage(message) {
@@ -75,18 +97,18 @@ export default function MensagensList({initialValues, session}) {
 
                     </Flex>
                 
-                <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+                <MotionGrid variants={container} initial="hidden"animate="visible" templateColumns="repeat(3, 1fr)" gap={6}>
 
                 {messagesToShow.map((message,index) => {
                     
                     
                     return (
-                        <Box 
+                        <MotionBox 
                         key={index}
                         bg="gray.700"
                         p={6}
                         borderRadius={4}
-                        
+                        variants={item}
                         display="flex"
                         justifyContent="space-around"
                         flexDirection="column"
@@ -108,10 +130,10 @@ export default function MensagensList({initialValues, session}) {
                         <a href={`https://api.whatsapp.com/send?phone=55${message.whatsapp}&text=Olá,%20${message.name}!%20 recebi sua proposta através de www.autocertocars.com.br`} target="_blank">
                             <Button size="sm" colorScheme="green"  leftIcon={<Icon as={RiWhatsappLine} fontSize="20"></Icon>}>Responder</Button></a>
                             </HStack>
-                        </Box>
+                        </MotionBox>
                     )
                 })}
-                </Grid>
+                </MotionGrid>
                 
                 </Box>
 

@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Button, Icon, Table, Thead, Tr, Th, Td, Checkbox, Tbody, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Button, Icon, Table, Thead, Tr, Th, Td, Tbody, Text, useBreakpointValue } from "@chakra-ui/react";
 import { RiAddLine, RiCloseLine, RiPencilLine } from "react-icons/ri";
 import  Header  from "../../../components/Header/index"
 import  Siderbar  from "../../../components/Sidebar/index";
@@ -9,7 +9,7 @@ import {useState} from 'react'
 
 import { PrismaClient } from '@prisma/client'
 import { getSession } from "next-auth/client"
-
+import { motion } from "framer-motion";
 
 
 
@@ -45,8 +45,33 @@ type Anuncio = {
 
 export default function AnuncioList({initialValues, session}) {
 
+    const container = {
+        hidden: { opacity: 1, scale: 0 },
+        visible: {
+          opacity: 1,
+          scale: 1,
+          transition: {
+            delayChildren: 0.3,
+            staggerChildren: 0.2
+          }
+        }
+      };
+      
+      const item = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+          y: 0,
+          opacity: 1
+        }
+      };
+
+      const MotionTable = motion(Table)
+      const MotionTr = motion(Tr)
+
 
     const [anunciosToShow, setAnunciosToShow] = useState<Anuncio[]>(initialValues)
+
+    
 
 
     async function handleRemoveAnuncio(anuncio) {
@@ -91,11 +116,14 @@ export default function AnuncioList({initialValues, session}) {
                         <Link href="anuncios/create" passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
                     </Flex>
                 
-                <Table
+                <MotionTable
                 colorScheme="whiteAlpha"
+                initial="hidden"
+                animate="visible"
+                variants={container}
                 >
                     <Thead>
-                        <Tr>
+                        <MotionTr variants={item}>
                             <Th px={["4","4","6"]} width="8">
                                ANO
                             </Th>
@@ -113,13 +141,13 @@ export default function AnuncioList({initialValues, session}) {
                             <Th width="8">
                                 
                             </Th>
-                        </Tr>
+                        </MotionTr>
                     </Thead>
                     <Tbody>
                 {anunciosToShow.map((anuncio, index) => {
                     return (
                         
-                    <Tr key={index}>
+                    <MotionTr key={index} variants={item}>
                         <Td px={["4","4","6"]}>
                         <Text fontWeight="bold" fontSize="sm" color="gray.300">{anuncio.ano_fabricacao}</Text>
                         </Td>
@@ -147,12 +175,12 @@ export default function AnuncioList({initialValues, session}) {
                         {!!isWideVersion && <Button onClick={() => handleRemoveAnuncio(anuncio)} size="sm" fontSize="sm" colorScheme="red" leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Remover</Button>}
                         </Td>
                         
-                    </Tr>
+                    </MotionTr>
                 
                     )
                 })}
                 </Tbody>
-                </Table>
+                </MotionTable>
 
                 
                 </Box>

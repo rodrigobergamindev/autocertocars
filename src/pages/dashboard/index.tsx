@@ -6,8 +6,8 @@ import { getSession } from "next-auth/client"
 import {SiGoogleanalytics} from 'react-icons/si'
 import {RiArrowRightSLine, RiCarFill, RiCarLine, RiCarWashingLine, RiFacebookBoxFill, RiFacebookLine, RiInstagramLine, RiMessageLine, RiUserLine} from 'react-icons/ri'
 import { PrismaClient } from '@prisma/client'
-
-
+import CountUp from 'react-countup';
+import { motion } from "framer-motion";
 
 
 
@@ -19,6 +19,29 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
         base: false,
         lg: true
     })
+
+    const MotionGrid = motion(SimpleGrid)
+    const MotionBox = motion(Box)
+
+    const container = {
+        hidden: { opacity: 1, scale: 0 },
+        visible: {
+          opacity: 1,
+          scale: 1,
+          transition: {
+            delayChildren: 0.3,
+            staggerChildren: 0.2
+          }
+        }
+      };
+      
+      const item = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+          y: 0,
+          opacity: 1
+        }
+      };
   
     return (
       <Flex direction="column" h="100vh">
@@ -27,13 +50,13 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
           <Siderbar/>
 
-          <SimpleGrid flex="1" templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]} gap={6} align="flex-start">
-              <Box
+          <MotionGrid variants={container} initial="hidden" animate="visible" flex="1" templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]} gap={6} align="flex-start">
+              <MotionBox
                   p={["6","8"]}
                   bg="gray.800"
                   borderRadius={8}
                   pb="4"
-
+                  variants={item}
                   transition="all 0.2s ease-in-out"
                   border="solid"
                   borderColor="transparent"
@@ -47,16 +70,16 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
                   <Text fontSize="lg" mb="4">Total de acessos</Text>
                   <Icon as={RiUserLine} w={9} h={9}/>
                   </HStack>
-                  <Text fontSize="6xl">435</Text>
+                  <Text fontSize="6xl">{!!messagesReceived && <CountUp end={400} duration={400/60}/>}</Text>
 
-              </Box>
+              </MotionBox>
 
-              <Box
+              <MotionBox
                   p={["6","8"]}
                   bg="gray.800"
                   borderRadius={8}
                   pb="4"
-
+                  variants={item}
                   transition="all 0.2s ease-in-out"
                   border="solid"
                   borderColor="transparent"
@@ -70,11 +93,11 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
                   <Text fontSize="lg" mb="4">Mensagens recebidas</Text>
                   <Icon as={RiMessageLine} w={9} h={9}/>
                   </HStack>
-                  <Text fontSize="6xl">{messagesReceived}</Text>
+                  <Text fontSize="6xl">{!!messagesReceived && <CountUp end={messagesReceived} duration={(messagesReceived/60)}/>}</Text>
 
-              </Box>
+              </MotionBox>
 
-              <Box
+              <MotionBox
                   p={["6","8"]}
                   bg="gray.800"
                   borderRadius={8}
@@ -82,7 +105,7 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
                   display="flex"
                   flexDirection="column"
                   justifyContent="space-between"
-
+                  variants={item}
                   transition="all 0.2s ease-in-out"
                   border="solid"
                   borderColor="transparent"
@@ -111,13 +134,14 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
                       </a>
                       </HStack>
 
-              </Box>
+              </MotionBox>
 
-              <Box
+              <MotionBox
                   p={["6","8"]}
                   bg="gray.800"
                   borderRadius={8}
                   pb="4"
+                  variants={item}
                   transition="all 0.2s ease-in-out"
                   border="solid"
                   borderColor="transparent"
@@ -131,11 +155,11 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
                   <Text fontSize="lg" mb="4">Anúncios ativos</Text>
                   <Icon as={RiCarLine} w={9} h={9}/>
                   </HStack>
-                  <Text fontSize="6xl">{anunciosAtivos}</Text>
+                  <Text fontSize="6xl">{!!anunciosAtivos && anunciosAtivos > 1 ? <CountUp end={anunciosAtivos} duration={(60*5)/120}/> : anunciosAtivos}</Text>
 
-              </Box>
+              </MotionBox>
 
-          </SimpleGrid>
+          </MotionGrid>
       </Flex>
   </Flex>
         
@@ -173,7 +197,8 @@ export const getServerSideProps = async ({req}) => {
     props: {
         session,
         anunciosAtivos,
-        messagesReceived
+        messagesReceived,
+        analytics
     }
   }
 }
