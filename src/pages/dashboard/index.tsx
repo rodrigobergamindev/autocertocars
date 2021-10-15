@@ -8,6 +8,7 @@ import {RiArrowRightSLine, RiCarFill, RiCarLine, RiCarWashingLine, RiFacebookBox
 import { PrismaClient } from '@prisma/client'
 import CountUp from 'react-countup';
 import { motion } from "framer-motion";
+import  Link  from 'next/link';
 
 
 
@@ -40,7 +41,7 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
         visible: {
           y: 0,
           opacity: 1
-        }
+        },
       };
   
     return (
@@ -73,8 +74,10 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
                   <Text fontSize="6xl">{!!messagesReceived && <CountUp end={400} duration={400/60}/>}</Text>
 
               </MotionBox>
-
+              
+              <Link href="/dashboard/mensagens">
               <MotionBox
+                  cursor="pointer"
                   p={["6","8"]}
                   bg="gray.800"
                   borderRadius={8}
@@ -96,6 +99,7 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
                   <Text fontSize="6xl">{!!messagesReceived && <CountUp end={messagesReceived} duration={(messagesReceived/60)}/>}</Text>
 
               </MotionBox>
+              </Link>
 
               <MotionBox
                   p={["6","8"]}
@@ -136,7 +140,9 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
 
               </MotionBox>
 
+              <Link href="/dashboard/anuncios">
               <MotionBox
+                  cursor="pointer"
                   p={["6","8"]}
                   bg="gray.800"
                   borderRadius={8}
@@ -158,7 +164,7 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
                   <Text fontSize="6xl">{!!anunciosAtivos && anunciosAtivos > 1 ? <CountUp end={anunciosAtivos} duration={(60*5)/120}/> : anunciosAtivos}</Text>
 
               </MotionBox>
-
+                </Link>
           </MotionGrid>
       </Flex>
   </Flex>
