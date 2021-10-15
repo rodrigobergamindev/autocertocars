@@ -78,7 +78,7 @@ export default function MensagensList({initialValues, session}) {
                 <Grid templateColumns="repeat(3, 1fr)" gap={6}>
 
                 {messagesToShow.map((message,index) => {
-                    console.log(message)
+                    
                     
                     return (
                         <Box 

@@ -1,4 +1,4 @@
-import { Flex, HStack, Box, Text, Grid, useBreakpointValue, Icon, Button } from "@chakra-ui/react";
+import {SimpleGrid, Flex, HStack, Box, Text, Grid, useBreakpointValue, Icon, Button } from "@chakra-ui/react";
 import  Header from "../../components/Header";
 import Siderbar  from "../../components/Sidebar/index"
 import {theme} from '../../styles/theme'
@@ -27,7 +27,7 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
           <Siderbar/>
 
-          <Grid flex="1" templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]} gap={6} align="flex-start">
+          <SimpleGrid flex="1" templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]} gap={6} align="flex-start">
               <Box
                   p={["6","8"]}
                   bg="gray.800"
@@ -98,11 +98,11 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
                   </HStack>
 
                   <HStack  spacing={4} align="flex-start" justify="flex-start">
-                      <a href="https://analytics.google.com/analytics/web/?authuser=3#/report-home/a210212301w289959142p253245639" target="_blank">
+                      <a href="https://www.instagram.com/autocertocars/?hl=pt-br" target="_blank">
                       <Icon background="whiteAlpha" fontSize="lg" as={RiInstagramLine} w={7} h={7}/>
                       </a>
 
-                      <a href="https://analytics.google.com/analytics/web/?authuser=3#/report-home/a210212301w289959142p253245639" target="_blank">
+                      <a href="https://www.facebook.com/autocertocars/" target="_blank">
                       <Icon background="whiteAlpha" fontSize="lg" as={RiFacebookBoxFill} w={7} h={7}/>
                       </a>
 
@@ -135,7 +135,7 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
 
               </Box>
 
-          </Grid>
+          </SimpleGrid>
       </Flex>
   </Flex>
         
@@ -153,8 +153,8 @@ export const getServerSideProps = async ({req}) => {
   const anuncios = await prisma.anuncio.findMany()
   const messages = await prisma.message.findMany()
 
-  const anunciosAtivos = anuncios.length
-  const messagesReceived = messages.length
+  const anunciosAtivos = anuncios.length > 0 ? anuncios.length : 0
+  const messagesReceived = messages.length > 0 ?  messages.length : 0
 
   console.log(analytics)
 
