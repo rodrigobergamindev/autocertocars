@@ -109,6 +109,7 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
     const router = useRouter()
 
     const [images, setImages] = useState<String[]>(anuncio.image)
+    const [imagesDeleted, setImagesDeleted] = useState([])
 
     const {register,handleSubmit, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
@@ -124,19 +125,19 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
         
         if(values && (saveImages.length > 0 || images.length > 0)){
             const anuncioToUpdate = {...values, image: images.concat(saveImages), slug: anuncio.slug}  
-            await saveAnuncio(anuncioToUpdate)
+            await saveAnuncio(anuncioToUpdate, imagesDeleted)
         }
     
         
 
     }
 
-    async function saveAnuncio(anuncio) { 
+    async function saveAnuncio(anuncio, imagesDeleted) { 
         
-       
+        const objectToUpdate = {anuncio, imagesDeleted}
         const response = await fetch('/api/anuncios/update', {
                 method: "PUT",
-                body: JSON.stringify(anuncio)
+                body: JSON.stringify(objectToUpdate)
             })
 
                     
@@ -192,8 +193,8 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
     async function handleRemoveImage(image) {
 
         
-        
          if(image) {
+            setImagesDeleted([...imagesDeleted,image])
             const newImages = images.filter(newImage => newImage != image)
             setImages(newImages)
          }
@@ -201,7 +202,10 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
         
         
     }
- 
+
+
+    
+   
 
     return (
         <Box>
@@ -289,9 +293,8 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                                     <Box
                                     key={index}
                                     display="flex"
-                                    onClick={() => handleRemoveImage(image)} 
                                     >
-                                    <Icon as={RiCloseLine} backgroundColor="yellow.400" color="gray.900" position="absolute" zIndex="1" w={7} h={7}/>
+                                    <Icon onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="yellow.400" color="gray.900" position="absolute" zIndex="1" w={7} h={7}/>
                                         
                                  
                                     <Image

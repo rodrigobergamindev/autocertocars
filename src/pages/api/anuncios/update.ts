@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import { PrismaClient } from '@prisma/client'
 import { getSession } from "next-auth/client";
-
+import { deletePhoto } from '../../api/photos'
 
 
 
@@ -19,17 +19,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if(session) {
-        const anuncioData = JSON.parse(req.body) 
-        
-        
-        await prisma.anuncio.update({
-            where: {
-              slug: anuncioData.slug,
-            },
-            data: {...anuncioData},
-          })
 
-        
+        const anuncioData = JSON.parse(req.body)
+        const anuncioToUpdate = anuncioData.anuncio 
+        const name = `${anuncioToUpdate.marca} ${anuncioToUpdate.modelo}`
+        const newAnuncio = {...anuncioToUpdate, name}
+
+        const update = await prisma.anuncio.update({
+          where: {
+            slug: anuncioToUpdate.slug,
+          },
+          data: newAnuncio,
+        })
+
+        if(update){
+          anuncioData.imagesDeleted.map(async(image) => await deletePhoto(image))
+        }
     }
     
     res.json({message: "Ok"})
