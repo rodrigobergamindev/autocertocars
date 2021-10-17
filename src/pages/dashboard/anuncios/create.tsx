@@ -1,4 +1,4 @@
-import { Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text} from "@chakra-ui/react";
+import { Icon, Image, FormLabel, FormControl, FormErrorMessage, Grid, Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput} from "@chakra-ui/react";
 
 
 import { Input } from "../../../components/Form/Input";
@@ -16,6 +16,7 @@ import { GetServerSideProps } from 'next'
 
 import { insert } from '../../api/photos'
 import { useRouter } from "next/router";
+import {useState} from 'react'
 
 
 
@@ -39,6 +40,11 @@ type CreateAnuncioFormData = {
     observacoes: string;
     image: FileList;
   }
+
+type ImagePreview = {
+    preview: string | ArrayBuffer;
+    file: File;
+}
 
 
 
@@ -101,11 +107,13 @@ export default function CreateVehicle({session}) {
 
     const {errors} = formState
 
+    const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
+
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
 
-        const images = values.image as FileList
-        const saveImages = await handleUpload(images)
+        
+        const saveImages = await handleUpload(imagesPreview)
         if(saveImages && values){
             const anuncio = {...values, image: saveImages}
             await saveAnuncio(anuncio)
@@ -145,15 +153,33 @@ export default function CreateVehicle({session}) {
         if(result instanceof Error) {
             console.log(`${result.name} - ${result.message}`)
         }
-        
-        return result
+        const response = Promise.all(result)
+        return await response
             
         }
 
 
     }
 
- 
+    const handleImage =  (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault()
+        const files = Array.from(event.target.files)
+        
+        files.map((file: File) => {
+            
+            const reader = new FileReader()
+            const myImage = reader.readAsDataURL(file)
+            reader.onloadend = () => {
+                const preview = reader.result;
+                const image = {preview, file}
+                setImagesPreview((prevImages) =>  [...prevImages, image])
+    
+                
+            };
+            return null
+        })
+    }
+
 
     return (
         <Box>
@@ -226,9 +252,55 @@ export default function CreateVehicle({session}) {
                         </Textarea>
                         </Box>
                         
-                        <Input p={1} name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
+                       
 
                     </SimpleGrid>
+
+                    <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
+                    
+                
+                        
+                        <Box mt={6} display="flex" flexDirection="column"  p={1} gap={2}>
+
+                        <FormControl isInvalid={!!errors.image}>
+                        <FormLabel htmlFor="image">Imagens</FormLabel>
+                        <ChakraInput p={1} 
+                            name="image" 
+                            id="image" 
+                            type="file" 
+                            multiple
+                            variant="filled"
+                            accept="image/jpeg, image/png, image/jpg"
+                            bgColor="gray.900"
+                            _hover={{
+                                bgColor: 'gray.900'
+                            }}
+                            size="lg" {...register('image')} 
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImage(event)}
+                            />
+
+                            {!!errors.image && (
+                                <FormErrorMessage>
+                                {errors.image.message}
+                                </FormErrorMessage>
+                             )}
+                        </FormControl>
+                        {imagesPreview.length > 0 && <Grid mt={6} templateColumns="repeat(4, 1fr)" border="3px solid" bg="whiteAlpha" borderColor="blue.500" borderRadius="5px" p={2} gap={3}>
+                            {imagesPreview.map((image, index) => {
+                               
+                                return (
+                                    <Box key={index} maxWidth="250px" maxHeight="250px" width="100%" height="100%">
+                                       <Image src={image.preview as string} alt={image.file.name} objectFit="cover" width="100%" height="100%" transition= "all 0.3s ease-in-out" 
+                                       _hover={{
+                                       opacity: 0.7
+                                        }}/>
+                                    </Box>
+                                )
+                            })}
+                            </Grid>}
+                        </Box>
+                        
+                </SimpleGrid>
                 
                 </VStack>
 

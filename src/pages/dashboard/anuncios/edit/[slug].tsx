@@ -106,6 +106,7 @@ interface AnuncioProps {
 
 
 export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
+
     const router = useRouter()
 
     const [images, setImages] = useState<String[]>(anuncio.image)
@@ -285,14 +286,23 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                      
                         </Box>
 
-                        <Box>
+                    </SimpleGrid>
+                
+                <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
+                    
+                
+                        
+                        <Grid mt={6} templateColumns="repeat(1, 1fr)"  p={1} gap={2}>
                         <Input p={1} name="image" label="Imagens" type="file" error={errors.image} {...register('image')} />
-                        <Grid mt={6} templateColumns="repeat(2, 1fr)"  p={1} gap={2}>
+                        <Box mt={6} display="flex" border="2px dotted" p={1} gap={2}>
                             {images.map((image, index) => {
                                 return (
                                     <Box
                                     key={index}
                                     display="flex"
+                                    maxWidth="250px"
+                                    width="100%"
+                                    m={2}
                                     >
                                     <Icon onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="yellow.400" color="gray.900" position="absolute" zIndex="1" w={7} h={7}/>
                                         
@@ -309,11 +319,10 @@ export default function EditVehicle({anuncio}: AnuncioProps, {session}) {
                                     </Box>
                                 )
                             })}
+                            </Box>
                         </Grid>
-                        </Box>
-
-                    </SimpleGrid>
-                
+                        
+                </SimpleGrid>
                 </VStack>
 
                 <Flex mt="8" justify="flex-end">

@@ -9,6 +9,11 @@ type Photo = {
     url: Array<string>;
 }
 
+type Image = {
+    preview: string | ArrayBuffer;
+    file: File;
+}
+
 
 
 export const getAll = async () => {
@@ -29,28 +34,26 @@ export const getAll = async () => {
     return list;
 }
 
-export const insert = async (files: FileList) => {
-    let imagesUrl = [] as Array<String>
+export const insert = async (images: Image[]) => {
+    
   
-    if(files) {
-        
-        for(let [key, file] of Object.entries(files)) {
+  
+    if(images) {
 
-            if(['image/jpeg', 'image/jpg', 'image/png'].includes(file.type)) {
-                let timestamp = Date.now()
-                let newFile = ref(storage, `images/${timestamp}`);
+     const imagesUpload = images.map(async (image) => {
+        if(['image/jpeg', 'image/jpg', 'image/png'].includes(image.file.type)) {
+            const timestamp = Date.now()
+            const newFile = ref(storage, `images/${timestamp}`);
         
-                let upload = await uploadBytes(newFile, file);
-                let photoUrl = await getDownloadURL(upload.ref);
-                
-                imagesUrl.push(photoUrl)
-                
-            }
-
+            const upload = await uploadBytes(newFile, image.file);
+            const photoUrl = await getDownloadURL(upload.ref);
+            return photoUrl
         }
-    }
+     })
 
-    return imagesUrl
+     return imagesUpload
+        
+    }
 
     
 }
