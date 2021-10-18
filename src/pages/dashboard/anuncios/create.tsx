@@ -17,7 +17,7 @@ import { GetServerSideProps } from 'next'
 import { insert } from '../../api/photos'
 import { useRouter } from "next/router";
 import {useState} from 'react'
-import { RiCloseLine} from "react-icons/ri";
+import { RiCloseLine, RiUploadCloudLine, RiUploadLine} from "react-icons/ri";
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
 
@@ -305,9 +305,22 @@ export default function CreateVehicle({session}) {
                 
                         
                         <Box mt={6} display="flex" flexDirection="column"  p={1} gap={2}>
-
+                        
+                        
                         <FormControl isInvalid={!!errors.image}>
-                        <FormLabel htmlFor="image">Imagens</FormLabel>
+                        <FormLabel 
+                        htmlFor="image"
+                        >
+                            <Box display="flex" justifyContent="center" alignItems="center">
+                          <Box mr={5} maxWidth="240px" bg="blue.500" borderRadius="5px" p={2} display="flex" alignItem="center" justifyContent="center" cursor="pointer" transition="all 0.3s ease-in-out" _hover={{opacity: 0.88}}>
+                              <Icon mr={3}  alignSelf="center" w={7} h={7} as={RiUploadCloudLine}/>
+                              <Text fontSize="20px">Escolher imagens</Text>
+                              
+                              </Box>
+                              <Text fontSize="20px">{imagesPreview.length} imagens selecionadas</Text>
+                              </Box>
+                        
+                        </FormLabel>
                         <ChakraInput p={1} 
                             name="image" 
                             id="image" 
@@ -316,10 +329,11 @@ export default function CreateVehicle({session}) {
                             variant="filled"
                             accept="image/jpeg, image/png, image/jpg"
                             bgColor="gray.900"
+                            display="none"
                             _hover={{
                                 bgColor: 'gray.900'
                             }}
-                            size="lg" {...register('image')} 
+                            size="lg" {...register('image')}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImage(event)}
                             />
 
@@ -328,16 +342,18 @@ export default function CreateVehicle({session}) {
                                 {errors.image.message}
                                 </FormErrorMessage>
                              )}
+                            
+                              
                         </FormControl>
                         
                         <DragDropContext onDragEnd={handleOnDragEnd}>
-                            <Droppable droppableId="images" direction="horizontal">
+                            <Droppable droppableId="images" >
                                 {(provided) => (
                                     imagesPreview.length > 0 && 
-                                    <List 
+                                    <Grid 
                                     {...provided.droppableProps} 
                                     ref={provided.innerRef}
-                                    display="flex"
+                                   templateColumns="repeat(1, 1fr)"
                                     mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={3}
                                     >
                                     {imagesPreview.map((image, index) => {
@@ -345,25 +361,25 @@ export default function CreateVehicle({session}) {
                                         return (
                                             <Draggable key={`${image.file.name}-${index}`} draggableId={`${image.file.name}-${index}`} index={index}>
                                                 {(provided) => (
-                                                    <ListItem 
+                                                    <Box 
                                                     ref={provided.innerRef} 
                                                     {...provided.draggableProps} 
                                                     {...provided.dragHandleProps}
-                                                      maxWidth="250px" 
-                                                      maxHeight="250px"
+                                                      
+                                                      maxHeight="350px"
                                                       width="100%" 
                                                       height="100%" 
                                                       cursor="pointer">
-                                                        <Icon onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
+                                                        <Icon cursor="default" onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
                                                         <Image src={image.preview as string} alt={image.file.name} objectFit="cover" width="100%" height="100%" transition= "all 0.3s ease-in-out" 
                                                         _hover={{opacity: 0.7}}/>
-                                                    </ListItem>
+                                                    </Box>
                                                 )}
                                             </Draggable>
                                         )
                                     })}
                                     {provided.placeholder}
-                                    </List>
+                                    </Grid>
                                     
                                 )}
                         
