@@ -1,4 +1,4 @@
-import { Icon, Image, FormLabel, FormControl, FormErrorMessage, Grid, Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput} from "@chakra-ui/react";
+import { Icon, Image, FormLabel, FormControl, FormErrorMessage, Grid, Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput, List, ListItem} from "@chakra-ui/react";
 
 
 import { Input } from "../../../components/Form/Input";
@@ -17,7 +17,8 @@ import { GetServerSideProps } from 'next'
 import { insert } from '../../api/photos'
 import { useRouter } from "next/router";
 import {useState} from 'react'
-
+import { RiCloseLine} from "react-icons/ri";
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
 
 type CreateAnuncioFormData = {
@@ -84,13 +85,7 @@ type ImagePreview = {
         }
         
 })
-            
         
-    //email: yup.string().required('E-mail obrigatório').email(),
-    //password: yup.string().required('Senha obrigatória').min(6, 'A senha precisa no mínimo de 6 caracteres'),
-    //password_confirmation: yup.string().oneOf([
-    //    null, yup.ref('password')
-    //], 'As senhas precisam ser iguais')
   })
 
 
@@ -108,6 +103,21 @@ export default function CreateVehicle({session}) {
     const {errors} = formState
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
@@ -179,6 +189,40 @@ export default function CreateVehicle({session}) {
             return null
         })
     }
+
+
+        
+    async function handleRemoveImage(image: ImagePreview) {
+
+        
+        if(image) {
+           const newImages = imagesPreview.filter(newImage => newImage.file.name != image.file.name)
+           setImagesPreview(newImages)
+        }
+
+       
+       
+   }
+
+   const handleOnDragEnd = (result: DropResult) => {
+       if(!result.destination) return;
+       
+       const {source, destination} = result
+
+       if (destination.droppableId === source.droppableId && destination.index === source.index) {
+        console.log("they're equal");
+        return;
+      }
+       
+       const newImages = Array.from(imagesPreview)
+       const [reorderedItem] = newImages.splice(source.index, 1)
+       newImages.splice(destination.index, 0, reorderedItem)
+       
+       
+       setImagesPreview(newImages)
+       
+       console.log(result)
+   }
 
 
     return (
@@ -285,19 +329,47 @@ export default function CreateVehicle({session}) {
                                 </FormErrorMessage>
                              )}
                         </FormControl>
-                        {imagesPreview.length > 0 && <Grid mt={6} templateColumns="repeat(4, 1fr)" border="3px solid" bg="whiteAlpha" borderColor="blue.500" borderRadius="5px" p={2} gap={3}>
-                            {imagesPreview.map((image, index) => {
-                               
-                                return (
-                                    <Box key={index} maxWidth="250px" maxHeight="250px" width="100%" height="100%">
-                                       <Image src={image.preview as string} alt={image.file.name} objectFit="cover" width="100%" height="100%" transition= "all 0.3s ease-in-out" 
-                                       _hover={{
-                                       opacity: 0.7
-                                        }}/>
-                                    </Box>
-                                )
-                            })}
-                            </Grid>}
+                        
+                        <DragDropContext onDragEnd={handleOnDragEnd}>
+                            <Droppable droppableId="images">
+                                {(provided) => (
+                                    imagesPreview.length > 0 && 
+                                    <List 
+                                    {...provided.droppableProps} 
+                                    ref={provided.innerRef}
+                                    display="grid"
+                                    mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={3}
+                                    >
+                                    {imagesPreview.map((image, index) => {
+                                       
+                                        return (
+                                            <Draggable key={image.file.name} draggableId={image.file.name} index={index}>
+                                                {(provided) => (
+                                                    <ListItem 
+                                                    ref={provided.innerRef} 
+                                                    {...provided.draggableProps} 
+                                                    {...provided.dragHandleProps}
+                                                      maxWidth="250px" 
+                                                      maxHeight="250px"
+                                                      width="100%" 
+                                                      height="100%" 
+                                                      cursor="pointer">
+                                                        <Icon onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
+                                                        <Image src={image.preview as string} alt={image.file.name} objectFit="cover" width="100%" height="100%" transition= "all 0.3s ease-in-out" 
+                                                        _hover={{opacity: 0.7}}/>
+                                                    </ListItem>
+                                                )}
+                                            </Draggable>
+                                        )
+                                    })}
+                                    {provided.placeholder}
+                                    </List>
+                                    
+                                )}
+                        
+                            </Droppable>
+                        </DragDropContext>
+                     
                         </Box>
                         
                 </SimpleGrid>
