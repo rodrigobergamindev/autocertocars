@@ -221,7 +221,7 @@ export default function CreateVehicle({session}) {
        
        setImagesPreview(newImages)
        
-       console.log(result)
+       
    }
 
 
@@ -331,19 +331,19 @@ export default function CreateVehicle({session}) {
                         </FormControl>
                         
                         <DragDropContext onDragEnd={handleOnDragEnd}>
-                            <Droppable droppableId="images">
+                            <Droppable droppableId="images" direction="horizontal">
                                 {(provided) => (
                                     imagesPreview.length > 0 && 
                                     <List 
                                     {...provided.droppableProps} 
                                     ref={provided.innerRef}
-                                    display="grid"
+                                    display="flex"
                                     mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={3}
                                     >
                                     {imagesPreview.map((image, index) => {
                                        
                                         return (
-                                            <Draggable key={image.file.name} draggableId={image.file.name} index={index}>
+                                            <Draggable key={`${image.file.name}-${index}`} draggableId={`${image.file.name}-${index}`} index={index}>
                                                 {(provided) => (
                                                     <ListItem 
                                                     ref={provided.innerRef} 
