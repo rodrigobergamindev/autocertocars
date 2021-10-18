@@ -1,4 +1,5 @@
-import { Icon, Image, FormLabel, FormControl, FormErrorMessage, Grid, Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput, List, ListItem} from "@chakra-ui/react";
+import { Icon, Image, FormLabel, FormControl, FormErrorMessage, Grid, Box, Flex, VStack, 
+    Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput, Select} from "@chakra-ui/react";
 
 
 import { Input } from "../../../components/Form/Input";
@@ -61,7 +62,7 @@ type ImagePreview = {
     cor: yup.string(),
     combustivel: yup.string(),
     carroceria: yup.string(),
-    chave_copia: yup.string(),
+    chave_copia: yup.string().required('Obrigatório'),
     numero_portas: yup.string(),
     cores_internas: yup.string(),
     potencia: yup.string(),
@@ -70,21 +71,8 @@ type ImagePreview = {
     observacoes: yup.string(),
     manual_do_proprietario: yup.string(),
     laudo_cautelar: yup.string(),
-    image: yup.
-    mixed()
-    .required('Envie pelo menos uma imagem')
-    .test('name', 'Envie ao menos uma imagem', values => {
-            if(values.length > 0) {
-                return values
-            }
-           
-    })
-    .test('type', 'Apenas imagens (*JPEG, JPG, PNG)', values => {
-        if(values.length > 0) {
-            return values && values[0].type.includes('image')
-        }
-        
-})
+    image: yup.mixed()
+    
         
   })
 
@@ -122,7 +110,7 @@ export default function CreateVehicle({session}) {
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
 
-        
+        console.log(values)
         const saveImages = await handleUpload(imagesPreview)
         if(saveImages && values){
             const anuncio = {...values, image: saveImages}
@@ -269,10 +257,34 @@ export default function CreateVehicle({session}) {
                     <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
                         
 
-                        <Input name="chave_copia" label="Chave Cópia" {...register('chave_copia')}/>
+                       
+
+                        
+
                         <Input name="laudo_cautelar" label="Laudo Cautelar" {...register('laudo_cautelar')}/>
                         <Input name="manual_do_proprietario" label="Manual do Proprietário" {...register('manual_do_proprietario')}/>
                         
+                        <FormControl isInvalid={!!errors.chave_copia}>
+                        <FormLabel 
+                        htmlFor="chave_copia"
+                        >
+                            Chave Cópia
+                        </FormLabel>
+                        <Select name="chave_copia" {...register('chave_copia')}>
+                                    <option value="Sim">Sim</option>
+                                    <option value="Não">Não</option>
+                            </Select>
+
+                            {!!errors.chave_copia && (
+                                <FormErrorMessage>
+                                {errors.chave_copia.message}
+                                </FormErrorMessage>
+                             )}
+                            
+                              
+                        </FormControl>
+                        
+
 
                     </SimpleGrid>
                     
@@ -312,7 +324,7 @@ export default function CreateVehicle({session}) {
                         htmlFor="image"
                         >
                             <Box display="flex" justifyContent="center" alignItems="center">
-                          <Box mr={5} maxWidth="240px" bg="blue.500" borderRadius="5px" p={2} display="flex" alignItem="center" justifyContent="center" cursor="pointer" transition="all 0.3s ease-in-out" _hover={{opacity: 0.88}}>
+                          <Box mr={5} maxWidth="240px" bg="blue.500" borderRadius="5px" p={2} display="flex" alignItems="center" justifyContent="center" cursor="pointer" transition="all 0.3s ease-in-out" _hover={{opacity: 0.88}}>
                               <Icon mr={3}  alignSelf="center" w={7} h={7} as={RiUploadCloudLine}/>
                               <Text fontSize="20px">Escolher imagens</Text>
                               
