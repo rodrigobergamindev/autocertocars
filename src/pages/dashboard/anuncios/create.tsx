@@ -18,8 +18,11 @@ import { GetServerSideProps } from 'next'
 import { insert } from '../../api/photos'
 import { useRouter } from "next/router";
 import {useState} from 'react'
-import { RiCloseLine, RiUploadCloudLine, RiUploadLine} from "react-icons/ri";
+import { RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import InputMask from 'react-input-mask';
+import CurrencyInput from 'react-currency-input-field';
+
 
 
 type CreateAnuncioFormData = {
@@ -57,7 +60,7 @@ type ImagePreview = {
     marca: yup.string().required('Marca obrigatória'),
     ano_fabricacao: yup.string().required('Preencha com o ano do veículo'),
     modelo: yup.string().required('Modelo Obrigatório'),
-    valor: yup.string().required('Preencha com o valor'),
+    valor: yup.string().required(),
     versao: yup.string(),
     cor: yup.string(),
     combustivel: yup.string(),
@@ -76,7 +79,6 @@ type ImagePreview = {
         
   })
 
-
   
 
 
@@ -91,14 +93,7 @@ export default function CreateVehicle({session}) {
     const {errors} = formState
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
-
-
-
-
-
-
-
-
+    const [valueCar, setValueCar] = useState<string>('')
 
 
 
@@ -110,12 +105,14 @@ export default function CreateVehicle({session}) {
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
 
-        console.log(values)
         const saveImages = await handleUpload(imagesPreview)
         if(saveImages && values){
             const anuncio = {...values, image: saveImages}
             await saveAnuncio(anuncio)
         }
+       
+        
+        
        
     }
 
@@ -213,6 +210,8 @@ export default function CreateVehicle({session}) {
    }
 
 
+
+
     return (
         <Box>
             <Header/>
@@ -245,13 +244,15 @@ export default function CreateVehicle({session}) {
                         <Input name="numero_portas" label="Número de Portas" {...register('numero_portas')}/>
                         <Input name="cor" label="Cor" {...register('cor')}/>
                         <Input name="cores_internas" label="Cores Interiores" {...register('cores_internas')} />
+
+
                         <FormControl isInvalid={!!errors.combustivel}>
                         <FormLabel 
                         htmlFor="combustivel"
                         >
                             Combustível
                         </FormLabel>
-                        <Select name="combustivel" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Flex"  _hover={{bgColor: 'gray.900'}} {...register('combustivel')}>
+                        <Select size="lg" name="combustivel" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Flex"  _hover={{bgColor: 'gray.900'}} {...register('combustivel')}>
                                     <option style={{backgroundColor:"#1F2029"}} value="Flex">Flex</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Gasolina">Gasolina</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Diesel">Diesel</option>
@@ -276,8 +277,9 @@ export default function CreateVehicle({session}) {
                         >
                             Carroceria
                         </FormLabel>
-                        <Select name="carroceria" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Hatch"  _hover={{bgColor: 'gray.900'}} {...register('carroceria')}>
+                        <Select size="lg" name="carroceria" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Hatch"  _hover={{bgColor: 'gray.900'}} {...register('carroceria')}>
                                     <option style={{backgroundColor:"#1F2029"}} value="Hatch">Hatch</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Compacto">Compacto</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="SUV">SUV</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Picape">Picape</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Sedan">Sedan</option>
@@ -294,6 +296,38 @@ export default function CreateVehicle({session}) {
 
                         <Input name="potencia" label="Potência" {...register('potencia')}/>
                         
+                        <FormControl isInvalid={!!errors.valor}>
+                        <FormLabel 
+                        htmlFor="valor"
+                        >
+                            Valor
+                        </FormLabel>
+
+                        <ChakraInput
+                         {...register('valor')}
+                        as={CurrencyInput}
+                        bgColor="gray.900" 
+                        _hover={{bgColor: 'gray.900'}} 
+                        focusBorderColor="yellow.400"  
+                        variant="filled" 
+                        name="valor" 
+                        id="valor" 
+                        type="text" 
+                        size="lg"
+                        intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+                        disableAbbreviations={true}
+                        allowNegativeValue={false}
+                       
+                        
+                        />
+                      
+                        {!!errors.valor && (
+                                <FormErrorMessage>
+                                {errors.valor.message}
+                                </FormErrorMessage>
+                             )}
+                        
+                       </FormControl>
 
                         <FormControl isInvalid={!!errors.transmissao}>
                         <FormLabel 
@@ -301,7 +335,7 @@ export default function CreateVehicle({session}) {
                         >
                             Transmissão
                         </FormLabel>
-                        <Select name="transmissao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Manual"  _hover={{bgColor: 'gray.900'}} {...register('transmissao')}>
+                        <Select id="transmissao" size="lg" name="transmissao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Manual"  _hover={{bgColor: 'gray.900'}} {...register('transmissao')}>
                                     <option style={{backgroundColor:"#1F2029"}} value="Manual">Manual</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Automatizado">Automatizado</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Automático">Automático</option>
@@ -317,8 +351,42 @@ export default function CreateVehicle({session}) {
                               
                         </FormControl>
 
-                        <Input name="quilometragem" label="Quilometragem" {...register('quilometragem')} />
-                        <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')}/>
+                      
+
+                        <FormControl isInvalid={!!errors.quilometragem}>
+                        <FormLabel 
+                        htmlFor="quilometragem"
+                        >
+                            Quilometragem
+                        </FormLabel>
+
+                        <ChakraInput
+                         {...register('quilometragem')}
+                        as={CurrencyInput}
+                        bgColor="gray.900" 
+                        _hover={{bgColor: 'gray.900'}} 
+                        focusBorderColor="yellow.400"  
+                        variant="filled" 
+                        name="quilometragem" 
+                        id="quilometragem" 
+                        type="text" 
+                        size="lg"
+                        groupSeparator="."
+                       
+                        allowNegativeValue={false}
+                        onValueChange={(value,name) => console.log(value)}
+                       
+                        
+                        />
+                      
+                        {!!errors.quilometragem && (
+                                <FormErrorMessage>
+                                {errors.quilometragem.message}
+                                </FormErrorMessage>
+                             )}
+                        
+                       </FormControl>
+
 
                     </SimpleGrid>
 
@@ -331,7 +399,7 @@ export default function CreateVehicle({session}) {
                         >
                             Laudo Cautelar
                         </FormLabel>
-                        <Select name="laudo_cautelar" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Aprovado"  _hover={{bgColor: 'gray.900'}} {...register('laudo_cautelar')}>
+                        <Select size="lg" id="laudo_cautelar" name="laudo_cautelar" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Aprovado"  _hover={{bgColor: 'gray.900'}} {...register('laudo_cautelar')}>
                                     <option style={{backgroundColor:"#1F2029"}} value="Aprovado">Aprovado</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Reprovado">Reprovado</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Pendente">Pendente</option>
@@ -353,7 +421,7 @@ export default function CreateVehicle({session}) {
                         >
                             Manual do Proprietário
                         </FormLabel>
-                        <Select name="manual_do_proprietario" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Sim"  _hover={{bgColor: 'gray.900'}} {...register('manual_do_proprietario')}>
+                        <Select size="lg" id="manual_do_proprietario" name="manual_do_proprietario" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Sim"  _hover={{bgColor: 'gray.900'}} {...register('manual_do_proprietario')}>
                                     <option style={{backgroundColor:"#1F2029"}} value="Sim">Sim</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Não">Não</option>
                             </Select>
@@ -374,7 +442,7 @@ export default function CreateVehicle({session}) {
                         >
                             Chave Cópia
                         </FormLabel>
-                        <Select name="chave_copia" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('chave_copia')}  _hover={{bgColor: 'gray.900'}} defaultValue="Sim">
+                        <Select size="lg" id="chave_copia" name="chave_copia" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('chave_copia')}  _hover={{bgColor: 'gray.900'}} defaultValue="Sim">
                                     <option style={{backgroundColor:"#1F2029"}} value="Sim">Sim</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Não">Não</option>
                             </Select>
@@ -396,7 +464,7 @@ export default function CreateVehicle({session}) {
                     <Box>
                         <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Observações</Text>
                         <Textarea
-                            
+                            id="observacoes"
                             name="observacoes"
                             resize="none"
                             focusBorderColor="yellow.400"

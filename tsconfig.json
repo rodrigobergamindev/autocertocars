@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/pages/dashboard/index.tsx", "src/pages/anuncios/create.jsx", "src/pages/api/auth/[...nextauth].ts", "src/pages/api/analytics/pageviews.ts"  ],
+, "src/pages/dashboard/index.tsx", "src/pages/anuncios/create.jsx", "src/pages/api/auth/[...nextauth].ts", "src/pages/api/analytics/pageviews.ts", "src/utils/createNumberMask.js"  ],
   "exclude": [
     "node_modules"
   ]
