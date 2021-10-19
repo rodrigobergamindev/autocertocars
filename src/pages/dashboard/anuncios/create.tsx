@@ -239,7 +239,40 @@ export default function CreateVehicle({session}) {
                         
                         <Input name="marca" label="Marca" error={errors.marca} {...register('marca')}/>
                         <Input name="modelo" label="Modelo" error={errors.modelo} {...register('modelo')}/>
-                        <Input name="ano_fabricacao" label="Ano Fabricação" error={errors.ano_fabricacao} {...register('ano_fabricacao')}/>
+
+
+                       
+
+                        <FormControl isInvalid={!!errors.ano_fabricacao}>
+                        <FormLabel 
+                        htmlFor="ano_fabricacao"
+                        >
+                           Ano
+                        </FormLabel>
+
+                        <ChakraInput
+                         {...register('ano_fabricacao')}
+                        as={InputMask}
+                        bgColor="gray.900" 
+                        _hover={{bgColor: 'gray.900'}} 
+                        focusBorderColor="yellow.400"  
+                        variant="filled" 
+                        name="ano_fabricacao" 
+                        id="ano_fabricacao" 
+                        type="text" 
+                        size="lg"
+                        mask="9999/9999"
+                        />
+                      
+                        {!!errors.ano_fabricacao && (
+                                <FormErrorMessage>
+                                {errors.ano_fabricacao.message}
+                                </FormErrorMessage>
+                             )}
+                        
+                       </FormControl>
+
+
                         <Input name="versao" label="Versão" error={errors.versao} {...register('versao')}/>
                         <Input name="numero_portas" label="Número de Portas" {...register('numero_portas')}/>
                         <Input name="cor" label="Cor" {...register('cor')}/>
@@ -372,11 +405,7 @@ export default function CreateVehicle({session}) {
                         type="text" 
                         size="lg"
                         groupSeparator="."
-                       
                         allowNegativeValue={false}
-                        onValueChange={(value,name) => console.log(value)}
-                       
-                        
                         />
                       
                         {!!errors.quilometragem && (
