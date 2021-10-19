@@ -16,7 +16,8 @@ model Anuncio {
   id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
   name String
   ano_fabricacao String
-  marca String
+  marca Marca @relation(fields: [marca_name], references:[name])
+  marca_name String
   modelo String
   versao String
   numero_portas String
@@ -46,4 +47,10 @@ model Message {
   mensagem String
   veiculo String?
   data_de_criacao DateTime @default(now())
+}
+
+model Marca {
+  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name String @unique
+  veiculos Anuncio[]
 }

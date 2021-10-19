@@ -22,6 +22,8 @@ import { RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
+import CreateMarca from "../../../components/CreateMarca";
+
 
 
 
@@ -93,8 +95,7 @@ export default function CreateVehicle({session}) {
     const {errors} = formState
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
-    const [valueCar, setValueCar] = useState<string>('')
-
+    const [modalIsOpen, setIsOpen] = useState(false);
 
 
 
@@ -210,6 +211,26 @@ export default function CreateVehicle({session}) {
    }
 
 
+  const handleCreateMarca = (event) => {
+        if(event.target.value === 'adicionar') {
+            openModal()
+        }
+   }
+
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function afterOpenModal() {
+        // references are now sync'd and can be accessed.
+        
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
 
 
     return (
@@ -237,7 +258,31 @@ export default function CreateVehicle({session}) {
                 <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">INFORMAÇÕES DO VEÍCULO</Heading>
                     <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
                         
-                        <Input name="marca" label="Marca" error={errors.marca} {...register('marca')}/>
+                        
+
+                        <FormControl isInvalid={!!errors.marca}>
+                        <FormLabel 
+                        htmlFor="marca"
+                        >
+                            Marca
+                        </FormLabel>
+                        <Select size="lg" id="marca" name="marca" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('marca')} onChange={e => handleCreateMarca(e)}  _hover={{bgColor: 'gray.900'}}>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Jeep">Jeep</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Toyota">Toyota</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="adicionar">Adicionar...</option>
+                            </Select>
+
+                            <CreateMarca isOpen={modalIsOpen} closeModal={closeModal}/>
+
+                            {!!errors.marca && (
+                                <FormErrorMessage>
+                                {errors.marca.message}
+                                </FormErrorMessage>
+                             )}
+                            
+                              
+                        </FormControl>
+
                         <Input name="modelo" label="Modelo" error={errors.modelo} {...register('modelo')}/>
 
 
