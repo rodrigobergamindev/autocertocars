@@ -64,7 +64,28 @@ export default function CreateMarca({isOpen, closeModal}: ModalInputProps) {
     const handleCreateMarca: SubmitHandler<CreateMarcaFormData> = async (values) => {
 
        console.log(values)
-       
+       const {marca} = values
+       await saveMarca(marca)
+    }
+
+    async function saveMarca(marca) { 
+        
+        const response = await fetch('/api/anuncios/marca/create', {
+            method: "POST",
+            body: JSON.stringify(marca)
+        })
+        
+        
+        if(!response.ok) {
+            console.log(response)
+            throw new Error(response.statusText)
+        }
+
+        if(response.ok) {
+           closeModal()
+        }
+    
+        return await response.json()
     }
 
 
