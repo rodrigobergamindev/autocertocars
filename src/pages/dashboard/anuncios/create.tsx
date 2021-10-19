@@ -77,7 +77,7 @@ type ImagePreview = {
   })
 
 
-
+  
 
 
 export default function CreateVehicle({session}) {
@@ -245,24 +245,128 @@ export default function CreateVehicle({session}) {
                         <Input name="numero_portas" label="Número de Portas" {...register('numero_portas')}/>
                         <Input name="cor" label="Cor" {...register('cor')}/>
                         <Input name="cores_internas" label="Cores Interiores" {...register('cores_internas')} />
-                        <Input name="combustivel" label="Combustível" {...register('combustivel')}/>
-                        <Input name="carroceria" label="Carroceria" {...register('carroceria')}/>
+                        <FormControl isInvalid={!!errors.combustivel}>
+                        <FormLabel 
+                        htmlFor="combustivel"
+                        >
+                            Combustível
+                        </FormLabel>
+                        <Select name="combustivel" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Flex"  _hover={{bgColor: 'gray.900'}} {...register('combustivel')}>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Flex">Flex</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Gasolina">Gasolina</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Diesel">Diesel</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Híbrido">Híbrido</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Elétrico">Elétrico</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="GNV">GNV</option>
+                            </Select>
+
+                            {!!errors.combustivel && (
+                                <FormErrorMessage>
+                                {errors.combustivel.message}
+                                </FormErrorMessage>
+                             )}
+                            
+                              
+                        </FormControl>
+                        
+
+                        <FormControl isInvalid={!!errors.carroceria}>
+                        <FormLabel 
+                        htmlFor="carroceria"
+                        >
+                            Carroceria
+                        </FormLabel>
+                        <Select name="carroceria" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Hatch"  _hover={{bgColor: 'gray.900'}} {...register('carroceria')}>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Hatch">Hatch</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="SUV">SUV</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Picape">Picape</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Sedan">Sedan</option>
+                            </Select>
+
+                            {!!errors.carroceria && (
+                                <FormErrorMessage>
+                                {errors.carroceria.message}
+                                </FormErrorMessage>
+                             )}
+                            
+                              
+                        </FormControl>
+
                         <Input name="potencia" label="Potência" {...register('potencia')}/>
-                        <Input name="transmissao" label="Transmissão" {...register('transmissao')} />
+                        
+
+                        <FormControl isInvalid={!!errors.transmissao}>
+                        <FormLabel 
+                        htmlFor="transmissao"
+                        >
+                            Transmissão
+                        </FormLabel>
+                        <Select name="transmissao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Manual"  _hover={{bgColor: 'gray.900'}} {...register('transmissao')}>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Manual">Manual</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Automatizado">Automatizado</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Automático">Automático</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="CVT">CVT</option>
+                            </Select>
+
+                            {!!errors.transmissao && (
+                                <FormErrorMessage>
+                                {errors.transmissao.message}
+                                </FormErrorMessage>
+                             )}
+                            
+                              
+                        </FormControl>
+
                         <Input name="quilometragem" label="Quilometragem" {...register('quilometragem')} />
                         <Input name="valor" label="Valor"  error={errors.valor} {...register('valor')}/>
+
                     </SimpleGrid>
 
                     <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">OUTRAS INFORMAÇÕES</Heading>
                     <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
                         
+                        <FormControl isInvalid={!!errors.laudo_cautelar}>
+                        <FormLabel 
+                        htmlFor="laudo_cautelar"
+                        >
+                            Laudo Cautelar
+                        </FormLabel>
+                        <Select name="laudo_cautelar" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Aprovado"  _hover={{bgColor: 'gray.900'}} {...register('laudo_cautelar')}>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Aprovado">Aprovado</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Reprovado">Reprovado</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Pendente">Pendente</option>
+                            </Select>
 
-                       
-
+                            {!!errors.laudo_cautelar && (
+                                <FormErrorMessage>
+                                {errors.laudo_cautelar.message}
+                                </FormErrorMessage>
+                             )}
+                            
+                              
+                        </FormControl>
                         
+                            
+                       <FormControl isInvalid={!!errors.manual_do_proprietario}>
+                        <FormLabel 
+                        htmlFor="manual_do_proprietario"
+                        >
+                            Manual do Proprietário
+                        </FormLabel>
+                        <Select name="manual_do_proprietario" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Sim"  _hover={{bgColor: 'gray.900'}} {...register('manual_do_proprietario')}>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Sim">Sim</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Não">Não</option>
+                            </Select>
 
-                        <Input name="laudo_cautelar" label="Laudo Cautelar" {...register('laudo_cautelar')}/>
-                        <Input name="manual_do_proprietario" label="Manual do Proprietário" {...register('manual_do_proprietario')}/>
+                            {!!errors.manual_do_proprietario && (
+                                <FormErrorMessage>
+                                {errors.manual_do_proprietario.message}
+                                </FormErrorMessage>
+                             )}
+                            
+                              
+                        </FormControl>
+
                         
                         <FormControl isInvalid={!!errors.chave_copia}>
                         <FormLabel 
@@ -270,9 +374,9 @@ export default function CreateVehicle({session}) {
                         >
                             Chave Cópia
                         </FormLabel>
-                        <Select name="chave_copia" {...register('chave_copia')}>
-                                    <option value="Sim">Sim</option>
-                                    <option value="Não">Não</option>
+                        <Select name="chave_copia" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('chave_copia')}  _hover={{bgColor: 'gray.900'}} defaultValue="Sim">
+                                    <option style={{backgroundColor:"#1F2029"}} value="Sim">Sim</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Não">Não</option>
                             </Select>
 
                             {!!errors.chave_copia && (

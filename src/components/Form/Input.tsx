@@ -24,9 +24,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ( {nam
               variant="filled"
               accept="image/jpeg, image/png, image/jpg"
               bgColor="gray.900"
-              _hover={{
-                  bgColor: 'gray.900'
-              }}
+              _hover={{bgColor: 'gray.900'}}
               size="lg"
               ref={ref}
               {...rest}
