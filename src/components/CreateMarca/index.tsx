@@ -63,7 +63,7 @@ export default function CreateMarca({isOpen, closeModal}: ModalInputProps) {
 
     const handleCreateMarca: SubmitHandler<CreateMarcaFormData> = async (values) => {
 
-       console.log(values)
+       
        const {marca} = values
        await saveMarca(marca)
     }

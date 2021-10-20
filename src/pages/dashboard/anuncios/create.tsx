@@ -23,7 +23,7 @@ import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautif
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
 import CreateMarca from "../../../components/CreateMarca";
-
+import { PrismaClient } from '@prisma/client'
 
 
 
@@ -53,6 +53,11 @@ type ImagePreview = {
     file: File;
 }
 
+
+type Marca = {
+    id: string;
+    name: string;
+}
 
 
 
@@ -84,7 +89,7 @@ type ImagePreview = {
   
 
 
-export default function CreateVehicle({session}) {
+export default function CreateVehicle({session, initialValues}) {
 
     const router = useRouter()
 
@@ -96,10 +101,9 @@ export default function CreateVehicle({session}) {
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [marcas, setMarcas] = useState<Marca[]>(initialValues);
 
-
-
-
+   
 
 
 
@@ -267,8 +271,11 @@ export default function CreateVehicle({session}) {
                             Marca
                         </FormLabel>
                         <Select size="lg" id="marca" name="marca" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('marca')} onChange={e => handleCreateMarca(e)}  _hover={{bgColor: 'gray.900'}}>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Jeep">Jeep</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Toyota">Toyota</option>
+                                    {!!marcas && marcas.map((marca, index) => {
+                                        return (
+                                            <option key={marca.id} style={{backgroundColor:"#1F2029"}} value={`${marca.name}`}>{marca.name}</option>
+                                        )
+                                    })}
                                     <option style={{backgroundColor:"#1F2029"}} value="adicionar">Adicionar...</option>
                             </Select>
 
@@ -667,7 +674,12 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
 
 
     const session = await getSession({req})
-    
+
+    const prisma = new PrismaClient();
+    const data = await prisma.marca.findMany()
+    const initialValues = JSON.parse(JSON.stringify(data))
+   
+
     if(!session) {
         return {
             redirect: {
@@ -679,7 +691,8 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
     
     return {
       props: {
-          session
+          session,
+          initialValues,
         },
     }
   }

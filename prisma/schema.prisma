@@ -17,7 +17,7 @@ model Anuncio {
   name String
   ano_fabricacao String
   marca Marca @relation(fields: [marca_name], references:[name])
-  marca_name String @default("Sem Marca")
+  marca_name String @default("Indefinido")
   modelo String
   versao String
   numero_portas String

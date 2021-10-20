@@ -19,15 +19,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if(session) {
-      
-        const marca = JSON.parse(req.body) 
-        const name = marca.name
-        await prisma.marca.create({
-          data: {
-              name
-          }
-         })
 
+        const marca = JSON.parse(req.body) 
+
+        const marcaAlreadyExists = await prisma.marca.findUnique({
+            where: {
+              name: marca,
+            },
+          })
+      
+        
+      if(marcaAlreadyExists === null){
+        await prisma.marca.create({
+            data: {
+                name:marca
+            }
+           })
+      }
         
     }
     
