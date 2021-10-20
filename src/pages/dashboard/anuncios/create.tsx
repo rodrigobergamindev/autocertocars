@@ -262,7 +262,7 @@ export default function CreateVehicle({session, initialValues}) {
                             Marca
                         </FormLabel>
                         {createMarca ? (
-                        <ChakraInput size="lg" name="marca" id="marca"  {...register('marca')} focusBorderColor="yellow.500" variant="filled" bg="gray.900" type="text"/>
+                        <ChakraInput size="lg" name="marca" id="marca"  {...register('marca')} focusBorderColor="yellow.500" _hover={{bgColor: 'gray.900'}} variant="filled" bg="gray.900" type="text"/>
                         ) : (
                             <Select size="lg" id="marca" name="marca" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('marca')} onChange={e => handleCreateMarca(e)}  _hover={{bgColor: 'gray.900'}}>
                                     {!!marcas && marcas.map((marca, index) => {
