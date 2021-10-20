@@ -120,7 +120,7 @@ export default function EditVehicle({anuncio, marcas, session}) {
     }, [])
 
     const {errors} = formState
-
+    console.log(imagesDeleted)
 
     const handleEditAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
 
@@ -199,9 +199,10 @@ export default function EditVehicle({anuncio, marcas, session}) {
 
         
          if(image) {
-            setImagesDeleted([...imagesDeleted,image])
-            const newImages = images.filter(newImage => newImage != image)
-            setImages(newImages)
+            
+            setImagesDeleted((prevImages) => [...prevImages,image])
+            const newImages = imagesPreview.filter(newImage => newImage.preview != image.preview)
+            setImagesPreview(newImages)
          }
 
         
