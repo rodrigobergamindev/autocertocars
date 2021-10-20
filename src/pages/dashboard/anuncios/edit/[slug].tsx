@@ -13,7 +13,7 @@ import {GetServerSideProps} from 'next'
 import { getSession } from "next-auth/client"
 import { PrismaClient } from '@prisma/client'
 import { deletePhoto, insert } from '../../../api/photos'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {useRouter} from 'next/router'
 
 import InputMask from 'react-input-mask';
@@ -84,9 +84,8 @@ type CreateAnuncioFormData = {
 
 
 type ImagePreview = {
-    preview?: string | ArrayBuffer;
+    preview: string | ArrayBuffer;
     file?: File;
-    
 }
 
 
@@ -95,15 +94,30 @@ export default function EditVehicle({anuncio, marcas, session}) {
 
     const router = useRouter()
 
+    const imagesPreRender = anuncio.image.map(image => {
+        const imagePreRender = {
+            preview: image
+        }
+        return imagePreRender
+    })
+
+
     const [images, setImages] = useState<String[]>(anuncio.image)
     const [imagesDeleted, setImagesDeleted] = useState([])
 
-    const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
+    const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>(imagesPreRender)
     const [createMarca, setCreateMarca] = useState(false)
 
     const {register,handleSubmit, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
     })
+
+
+    const[winReady, setwinReady] = useState(false)
+
+    useEffect(() => {
+        setwinReady(true)
+    }, [])
 
     const {errors} = formState
 
@@ -656,12 +670,14 @@ const handleOnDragEnd = (result: DropResult) => {
                           
                     </FormControl>
                     
-                    <DragDropContext onDragEnd={handleOnDragEnd}>
+                    {winReady ? (
+                        <DragDropContext onDragEnd={handleOnDragEnd}>
                         <Droppable droppableId="images" >
                             {(provided) => (
                                 imagesPreview.length > 0 && 
                                 <Grid 
                                 {...provided.droppableProps} 
+                            
                                 ref={provided.innerRef}
                                templateColumns="repeat(1, 1fr)"
                                 mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={3}
@@ -669,19 +685,18 @@ const handleOnDragEnd = (result: DropResult) => {
                                 {imagesPreview.map((image, index) => {
                                    
                                     return (
-                                        <Draggable key={`${image.file.name}-${index}`} draggableId={`${image.file.name}-${index}`} index={index}>
+                                        <Draggable key={`${image.preview as string}-${index}`} draggableId={`${image.preview as string}-${index}`} index={index}>
                                             {(provided) => (
                                                 <Box 
                                                 ref={provided.innerRef} 
                                                 {...provided.draggableProps} 
                                                 {...provided.dragHandleProps}
-                                                  
                                                   maxHeight="350px"
                                                   width="100%" 
                                                   height="100%" 
                                                   cursor="pointer">
                                                     <Icon cursor="default" onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
-                                                    <Image src={image.preview as string} alt={image.file.name} objectFit="cover" width="100%" height="100%" transition= "all 0.3s ease-in-out" 
+                                                    <Image src={image.preview as string} alt="img" objectFit="cover" width="100%" height="100%" transition= "all 0.3s ease-in-out" 
                                                     _hover={{opacity: 0.7}}/>
                                                 </Box>
                                             )}
@@ -695,6 +710,9 @@ const handleOnDragEnd = (result: DropResult) => {
                     
                         </Droppable>
                     </DragDropContext>
+                    ) : (
+                        <Text>Loading</Text>
+                    )}
                  
                     </Box>
                     
