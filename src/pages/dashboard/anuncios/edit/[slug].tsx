@@ -694,10 +694,11 @@ const handleOnDragEnd = (result: DropResult) => {
                                                   maxHeight="350px"
                                                   width="100%" 
                                                   height="100%" 
-                                                  cursor="pointer">
+                                                  cursor="pointer"
+                                    
+                                                  >
                                                     <Icon cursor="default" onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
-                                                    <Image src={image.preview as string} alt="img" objectFit="cover" width="100%" height="100%" transition= "all 0.3s ease-in-out" 
-                                                    _hover={{opacity: 0.7}}/>
+                                                    <Image src={image.preview as string} alt="img" objectFit="cover" width="100%" height="100%" transition="0.3s ease-in-out" _hover={{opacity: 0.7}} />
                                                 </Box>
                                             )}
                                         </Draggable>
