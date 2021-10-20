@@ -54,12 +54,6 @@ type ImagePreview = {
 }
 
 
-type Marca = {
-    id: string;
-    name: string;
-}
-
-
 
 
 
@@ -67,22 +61,24 @@ type Marca = {
     marca: yup.string().required('Marca obrigatória'),
     ano_fabricacao: yup.string().required('Preencha com o ano do veículo'),
     modelo: yup.string().required('Modelo Obrigatório'),
-    valor: yup.string().required(),
-    versao: yup.string(),
-    cor: yup.string(),
-    combustivel: yup.string(),
-    carroceria: yup.string(),
-    chave_copia: yup.string().required('Obrigatório'),
-    numero_portas: yup.string(),
+    valor: yup.string().required('Informe o valor do veículo'),
+    versao: yup.string().required('Preencha com a vesão'),
+    cor: yup.string().required('Preencha com a cor'),
+    combustivel: yup.string().required('Selecione uma opção'),
+    carroceria: yup.string().required('Selecione uma opção'),
+    chave_copia: yup.string().required('Selecione uma opção'),
+    numero_portas: yup.string().required('Preencha com o número de portas'),
     cores_internas: yup.string(),
     potencia: yup.string(),
-    transmissao: yup.string(),
+    transmissao: yup.string().required('Selecione uma opção'),
     quilometragem: yup.string(),
     observacoes: yup.string(),
-    manual_do_proprietario: yup.string(),
-    laudo_cautelar: yup.string(),
-    condicao: yup.string(),
-    image: yup.mixed()
+    manual_do_proprietario: yup.string().required('Selecione uma opção'),
+    laudo_cautelar: yup.string().required('Selecione uma opção'),
+    condicao: yup.string().required().required('Selecione uma opção'),
+    image: yup.
+            mixed()
+            .required('Envie pelo menos uma imagem')
     
         
   })
@@ -101,7 +97,6 @@ export default function CreateVehicle({session, initialValues}) {
     const {errors} = formState
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
-    const [marcas, setMarcas] = useState<Marca[]>(initialValues);
     const [createMarca, setCreateMarca] = useState(false)
    
 
@@ -265,7 +260,7 @@ export default function CreateVehicle({session, initialValues}) {
                         <ChakraInput size="lg" name="marca" id="marca"  {...register('marca')} focusBorderColor="yellow.500" _hover={{bgColor: 'gray.900'}} variant="filled" bg="gray.900" type="text"/>
                         ) : (
                             <Select size="lg" id="marca" name="marca" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('marca')} onChange={e => handleCreateMarca(e)}  _hover={{bgColor: 'gray.900'}}>
-                                    {!!marcas && marcas.map((marca, index) => {
+                                    {!!initialValues && initialValues.map((marca, index) => {
                                         return (
                                             <option key={marca.id} style={{backgroundColor:"#1F2029"}} value={`${marca.name}`}>{marca.name}</option>
                                         )
@@ -364,6 +359,9 @@ export default function CreateVehicle({session, initialValues}) {
                                     <option style={{backgroundColor:"#1F2029"}} value="SUV">SUV</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Picape">Picape</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Sedan">Sedan</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Mini Van">Mini Van</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Van">Van</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Van de Painel">Van de Painel</option>
                             </Select>
 
                             {!!errors.carroceria && (
@@ -420,6 +418,7 @@ export default function CreateVehicle({session, initialValues}) {
                                     <option style={{backgroundColor:"#1F2029"}} value="Manual">Manual</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Automatizado">Automatizado</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Automático">Automático</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Automático de Dupla Embreagem">Automático de Dupla Embreagem</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="CVT">CVT</option>
                             </Select>
 
@@ -608,6 +607,7 @@ export default function CreateVehicle({session, initialValues}) {
                             type="file" 
                             multiple
                             variant="filled"
+                            required
                             accept="image/jpeg, image/png, image/jpg"
                             bgColor="gray.900"
                             display="none"
