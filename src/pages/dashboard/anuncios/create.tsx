@@ -39,7 +39,7 @@ type CreateAnuncioFormData = {
     potencia: string;
     transmissao: string;
     quilometragem: string;
-    valor: string;
+    valor: number;
     chave_copia: string;
     laudo_cautelar: string;
     manual_do_proprietario: string;
@@ -98,7 +98,7 @@ export default function CreateVehicle({session, initialValues}) {
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
     const [createMarca, setCreateMarca] = useState(false)
-   
+    const [valueCar, setValue] = useState(0)
 
 
 
@@ -107,7 +107,7 @@ export default function CreateVehicle({session, initialValues}) {
 
         const saveImages = await handleUpload(imagesPreview)
         if(saveImages && values){
-            const anuncio = {...values, image: saveImages}
+            const anuncio = {...values, valor: valueCar, image: saveImages}
             await saveAnuncio(anuncio)
         }
        
@@ -396,7 +396,7 @@ export default function CreateVehicle({session, initialValues}) {
                         intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
                         disableAbbreviations={true}
                         allowNegativeValue={false}
-                       
+                        onValueChange={(value) => setValue(value)}
                         
                         />
                       
@@ -650,10 +650,11 @@ export default function CreateVehicle({session, initialValues}) {
                                                       maxHeight="350px"
                                                       width="100%" 
                                                       height="100%" 
-                                                      cursor="pointer">
+                                                      cursor="pointer"
+                                                      overflow="hidden"
+                                                      >
                                                         <Icon cursor="default" onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
-                                                        <Image src={image.preview as string} alt={image.file.name} objectFit="cover" width="100%" height="100%" transition= "all 0.3s ease-in-out" 
-                                                        _hover={{opacity: 0.7}}/>
+                                                        <Image src={image.preview as string} alt={image.file.name} objectFit="cover" width="100%" height="100%" transition="0.3s ease-in-out" _hover={{transform: "scale(1.07)"}}/>
                                                     </Box>
                                                 )}
                                             </Draggable>

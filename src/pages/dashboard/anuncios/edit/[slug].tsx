@@ -424,7 +424,7 @@ const handleOnDragEnd = (result: DropResult) => {
                         >
                             Transmissão
                         </FormLabel>
-                        <Select id="transmissao" size="lg" name="transmissao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Manual"  _hover={{bgColor: 'gray.900'}} {...register('transmissao')}>
+                        <Select id="transmissao" size="lg" name="transmissao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue={anuncio.transmissao}  _hover={{bgColor: 'gray.900'}} {...register('transmissao')}>
                                     <option style={{backgroundColor:"#1F2029"}} value="Manual">Manual</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Automatizado">Automatizado</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Automático">Automático</option>
@@ -461,6 +461,7 @@ const handleOnDragEnd = (result: DropResult) => {
                         size="lg"
                         groupSeparator="."
                         allowNegativeValue={false}
+                        defaultValue={anuncio.quilometragem}
                         />
                       
                         {!!errors.quilometragem && (
@@ -695,10 +696,10 @@ const handleOnDragEnd = (result: DropResult) => {
                                                   width="100%" 
                                                   height="100%" 
                                                   cursor="pointer"
-                                    
+                                                  overflow="hidden"
                                                   >
                                                     <Icon cursor="default" onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
-                                                    <Image src={image.preview as string} alt="img" objectFit="cover" width="100%" height="100%" transition="0.3s ease-in-out" _hover={{opacity: 0.7}} />
+                                                    <Image src={image.preview as string} alt="img" objectFit="cover" width="100%" height="100%" transition="0.3s ease-in-out" _hover={{transform: "scale(1.07)"}} />
                                                 </Box>
                                             )}
                                         </Draggable>
