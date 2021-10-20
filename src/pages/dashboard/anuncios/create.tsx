@@ -22,7 +22,6 @@ import { RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
-import CreateMarca from "../../../components/CreateMarca";
 import { PrismaClient } from '@prisma/client'
 
 
@@ -46,6 +45,7 @@ type CreateAnuncioFormData = {
     manual_do_proprietario: string;
     observacoes: string;
     image: FileList;
+    condicao: string;
   }
 
 type ImagePreview = {
@@ -81,6 +81,7 @@ type Marca = {
     observacoes: yup.string(),
     manual_do_proprietario: yup.string(),
     laudo_cautelar: yup.string(),
+    condicao: yup.string(),
     image: yup.mixed()
     
         
@@ -100,9 +101,8 @@ export default function CreateVehicle({session, initialValues}) {
     const {errors} = formState
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
-    const [modalIsOpen, setIsOpen] = useState(false);
     const [marcas, setMarcas] = useState<Marca[]>(initialValues);
-
+    const [createMarca, setCreateMarca] = useState(false)
    
 
 
@@ -217,23 +217,14 @@ export default function CreateVehicle({session, initialValues}) {
 
   const handleCreateMarca = (event) => {
         if(event.target.value === 'adicionar') {
-            openModal()
+            openCreateMarca()
         }
    }
 
-
-    function openModal() {
-        setIsOpen(true);
+    function openCreateMarca() {
+        setCreateMarca(true)
     }
 
-    function afterOpenModal() {
-        // references are now sync'd and can be accessed.
-        
-    }
-
-    function closeModal() {
-        setIsOpen(false);
-    }
 
 
 
@@ -270,7 +261,10 @@ export default function CreateVehicle({session, initialValues}) {
                         >
                             Marca
                         </FormLabel>
-                        <Select size="lg" id="marca" name="marca" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('marca')} onChange={e => handleCreateMarca(e)}  _hover={{bgColor: 'gray.900'}}>
+                        {createMarca ? (
+                        <ChakraInput size="lg" name="marca" id="marca"  {...register('marca')} focusBorderColor="yellow.500" variant="filled" bg="gray.900" type="text"/>
+                        ) : (
+                            <Select size="lg" id="marca" name="marca" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('marca')} onChange={e => handleCreateMarca(e)}  _hover={{bgColor: 'gray.900'}}>
                                     {!!marcas && marcas.map((marca, index) => {
                                         return (
                                             <option key={marca.id} style={{backgroundColor:"#1F2029"}} value={`${marca.name}`}>{marca.name}</option>
@@ -278,8 +272,10 @@ export default function CreateVehicle({session, initialValues}) {
                                     })}
                                     <option style={{backgroundColor:"#1F2029"}} value="adicionar">Adicionar...</option>
                             </Select>
+                        )
+                        }
 
-                            <CreateMarca isOpen={modalIsOpen} closeModal={closeModal}/>
+                          
 
                             {!!errors.marca && (
                                 <FormErrorMessage>
@@ -468,6 +464,26 @@ export default function CreateVehicle({session, initialValues}) {
                         
                        </FormControl>
 
+                       <FormControl isInvalid={!!errors.condicao}>
+                        <FormLabel 
+                        htmlFor="condicao"
+                        >
+                            Condição
+                        </FormLabel>
+                        <Select id="condicao" size="lg" name="condicao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Manual"  _hover={{bgColor: 'gray.900'}} {...register('condicao')}>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Novo">Novo</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Seminovo">Seminovo</option>
+                                    <option style={{backgroundColor:"#1F2029"}} value="Usado">Usado</option>
+                            </Select>
+
+                            {!!errors.condicao && (
+                                <FormErrorMessage>
+                                {errors.condicao.message}
+                                </FormErrorMessage>
+                             )}
+                            
+                              
+                        </FormControl>
 
                     </SimpleGrid>
 

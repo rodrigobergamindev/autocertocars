@@ -28,6 +28,7 @@ model Anuncio {
   potencia String
   transmissao String
   quilometragem String
+  condicao String
   valor String
   chave_copia String
   laudo_cautelar String
