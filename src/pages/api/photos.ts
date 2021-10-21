@@ -38,22 +38,25 @@ export const insert = async (images: Image[]) => {
     
   
   
-    if(images) {
+  
 
      const imagesUpload = images.map(async (image) => {
-        if(['image/jpeg', 'image/jpg', 'image/png'].includes(image.file.type)) {
-            const timestamp = Date.now()
-            const newFile = ref(storage, `images/${timestamp}`);
-        
-            const upload = await uploadBytes(newFile, image.file);
-            const photoUrl = await getDownloadURL(upload.ref);
-            return photoUrl
+        if(image.file) {
+            if(['image/jpeg', 'image/jpg', 'image/png'].includes(image.file.type)) {
+                const timestamp = Date.now()
+                const newFile = ref(storage, `images/${timestamp}`);
+            
+                const upload = await uploadBytes(newFile, image.file);
+                const photoUrl = await getDownloadURL(upload.ref);
+                image.preview = photoUrl
+            }
         }
+        return image
      })
 
      return imagesUpload
         
-    }
+    
 
     
 }

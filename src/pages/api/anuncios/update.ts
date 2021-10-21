@@ -25,16 +25,63 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const name = `${anuncioToUpdate.marca} ${anuncioToUpdate.modelo}`
         const newAnuncio = {...anuncioToUpdate, name}
 
-        const update = await prisma.anuncio.update({
+        const {marca} = anuncioToUpdate
+
+        const marcaAlreadyExists = await prisma.marca.findUnique({
           where: {
-            slug: anuncioToUpdate.slug,
-          },
-          data: newAnuncio,
+            name:marca,
+          }
         })
+
+        if(marcaAlreadyExists) {
+          const update = await prisma.anuncio.update({
+              where: {
+                  slug: anuncioToUpdate.slug,
+              },
+                data: {
+                  ...newAnuncio,
+                  marca: {
+                    connect: {
+                        id: marcaAlreadyExists.id
+                    }
+                }
+                }
+            })
 
         if(update){
           anuncioData.imagesDeleted.map(async(image) => await deletePhoto(image))
         }
+
+        }
+
+        if(marcaAlreadyExists === null){
+
+          const createMarca = await prisma.marca.create({
+            data: {
+                name:marca
+            }
+           })
+
+           const update = await prisma.anuncio.update({
+            where: {
+                slug: anuncioToUpdate.slug,
+            },
+            data: {
+              ...newAnuncio,
+              marca: {
+                connect: {
+                    id: createMarca.id
+                }
+            }
+            }
+          })
+
+          if(update){
+            anuncioData.imagesDeleted.map(async(image) => await deletePhoto(image))
+          }
+        }
+
+        
     }
     
     res.json({message: "Ok"})

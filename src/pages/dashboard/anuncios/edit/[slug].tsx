@@ -59,11 +59,11 @@ type CreateAnuncioFormData = {
     carroceria: yup.string().required('Selecione uma opção'),
     chave_copia: yup.string().required('Selecione uma opção'),
     numero_portas: yup.string().required('Preencha com o número de portas'),
-    cores_internas: yup.string(),
-    potencia: yup.string(),
+    cores_internas: yup.string().required('Preencha com as cores internas'),
+    potencia: yup.string().required('Informe a potência do veículo'),
     transmissao: yup.string().required('Selecione uma opção'),
-    quilometragem: yup.string(),
-    observacoes: yup.string(),
+    quilometragem: yup.string().required('Informe a quilometragem do veículo'),
+    observacoes: yup.string().required('Informe os adicionais'),
     manual_do_proprietario: yup.string().required('Selecione uma opção'),
     laudo_cautelar: yup.string().required('Selecione uma opção'),
     condicao: yup.string().required().required('Selecione uma opção'),
@@ -102,7 +102,6 @@ export default function EditVehicle({anuncio, marcas, session}) {
     })
 
 
-    const [images, setImages] = useState<String[]>(anuncio.image)
     const [imagesDeleted, setImagesDeleted] = useState([])
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>(imagesPreRender)
@@ -120,28 +119,34 @@ export default function EditVehicle({anuncio, marcas, session}) {
     }, [])
 
     const {errors} = formState
-    console.log(imagesDeleted)
+ 
 
     const handleEditAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
 
-        const imagesToUpload = values.image as FileList
-        const saveImages = await handleUpload(imagesToUpload)
+        const response = await handleUpload(imagesPreview)
+        const images = response.map(image => {
+            if(image.file) {
+                delete image.file
+            }
+            return image.preview
+        })
         
-        if(values && (saveImages.length > 0 || images.length > 0)){
-            const anuncioToUpdate = {...values, image: images.concat(saveImages), slug: anuncio.slug}  
+        if(values && images.length > 0) {
+            const anuncioToUpdate = {...values, image: images, slug: anuncio.slug}  
             await saveAnuncio(anuncioToUpdate, imagesDeleted)
         }
-    
+        
+       
         
 
     }
 
     async function saveAnuncio(anuncio, imagesDeleted) { 
         
-        const objectToUpdate = {anuncio, imagesDeleted}
+        const anuncioToUpdate = {anuncio, imagesDeleted}
         const response = await fetch('/api/anuncios/update', {
                 method: "PUT",
-                body: JSON.stringify(objectToUpdate)
+                body: JSON.stringify(anuncioToUpdate)
             })
 
                     
@@ -158,8 +163,6 @@ export default function EditVehicle({anuncio, marcas, session}) {
 
     const handleUpload = async (images) => {
         
-        if(images) {
-            
         
         const result = await insert(images)
                         
@@ -167,10 +170,8 @@ export default function EditVehicle({anuncio, marcas, session}) {
             console.log(`${result.name} - ${result.message}`)
         }
         
-        const response = Promise.all(result)
-        return await response
-            
-        }
+        const response = await Promise.all(result)
+        return response
 
 
     }
@@ -222,7 +223,7 @@ const handleImage =  (event: React.ChangeEvent<HTMLInputElement>) => {
     files.map((file: File) => {
         
         const reader = new FileReader()
-        const myImage = reader.readAsDataURL(file)
+        reader.readAsDataURL(file)
         reader.onloadend = () => {
             const preview = reader.result;
             const image = {preview, file}
