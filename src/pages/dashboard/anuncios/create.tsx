@@ -105,9 +105,15 @@ export default function CreateVehicle({session, initialValues}) {
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
 
-        const saveImages = await handleUpload(imagesPreview)
-        if(saveImages && values){
-            const anuncio = {...values, valor: valueCar, image: saveImages}
+        const response = await handleUpload(imagesPreview)
+        const images = response.map(image => {
+            if(image.file) {
+                delete image.file
+            }
+            return image.preview
+        })
+        if(images.length > 0 && values){
+            const anuncio = {...values, valor: valueCar, image: images}
             await saveAnuncio(anuncio)
         }
        
@@ -148,8 +154,8 @@ export default function CreateVehicle({session, initialValues}) {
         if(result instanceof Error) {
             console.log(`${result.name} - ${result.message}`)
         }
-        const response = Promise.all(result)
-        return await response
+        const response = await Promise.all(result)
+        return response
             
         }
 

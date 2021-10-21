@@ -105,7 +105,7 @@ export default function EditVehicle({anuncio, marcas, session}) {
     const [imagesDeleted, setImagesDeleted] = useState([])
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>(imagesPreRender)
     const [createMarca, setCreateMarca] = useState(false)
-    const [valueCar, setValue] = useState(0)
+    const [valueCar, setValue] = useState(anuncio.valor)
 
     const {register,handleSubmit, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
@@ -653,7 +653,6 @@ const handleOnDragEnd = (result: DropResult) => {
                         type="file" 
                         multiple
                         variant="filled"
-                        required
                         accept="image/jpeg, image/png, image/jpg"
                         bgColor="gray.900"
                         display="none"

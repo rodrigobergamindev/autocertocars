@@ -195,7 +195,13 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
 
    
     const prisma = new PrismaClient();
-    const anuncios = await prisma.anuncio.findMany()
+    const anuncios = await prisma.anuncio.findMany({
+        orderBy: [
+            {
+                name: 'asc'
+            }
+        ]
+    })
     const initialValues = JSON.parse(JSON.stringify(anuncios))
     
    
