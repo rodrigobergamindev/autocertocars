@@ -103,9 +103,9 @@ export default function EditVehicle({anuncio, marcas, session}) {
 
 
     const [imagesDeleted, setImagesDeleted] = useState([])
-
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>(imagesPreRender)
     const [createMarca, setCreateMarca] = useState(false)
+    const [valueCar, setValue] = useState(0)
 
     const {register,handleSubmit, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
@@ -132,7 +132,7 @@ export default function EditVehicle({anuncio, marcas, session}) {
         })
         
         if(values && images.length > 0) {
-            const anuncioToUpdate = {...values, image: images, slug: anuncio.slug}  
+            const anuncioToUpdate = {...values, image: images, valor: valueCar, slug: anuncio.slug}  
             await saveAnuncio(anuncioToUpdate, imagesDeleted)
         }
         
@@ -517,7 +517,7 @@ const handleOnDragEnd = (result: DropResult) => {
                         disableAbbreviations={true}
                         allowNegativeValue={false}
                         defaultValue={anuncio.valor}
-                        
+                        onValueChange={(value) => setValue(value)}
                         />
                       
                         {!!errors.valor && (
