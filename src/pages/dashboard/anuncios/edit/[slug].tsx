@@ -750,7 +750,13 @@ export const getServerSideProps: GetServerSideProps = async ({params, req}) => {
 
     const anuncio = JSON.parse(JSON.stringify(data))
 
-    const dataMarcas = await prisma.marca.findMany()
+    const dataMarcas = await prisma.marca.findMany({
+        orderBy: [
+            {
+                name: 'asc'
+            }
+        ]
+    })
     const marcas = JSON.parse(JSON.stringify(dataMarcas))
     const session = await getSession({req})
  

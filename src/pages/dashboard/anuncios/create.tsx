@@ -98,14 +98,7 @@ export default function CreateVehicle({session, initialValues}) {
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
     const [createMarca, setCreateMarca] = useState(false)
-    const [valueCar, setValue] = useState(0)
-
-
-    const[winReady, setwinReady] = useState(false)
-
-    useEffect(() => {
-        setwinReady(true)
-    }, [])
+    
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         
@@ -117,7 +110,7 @@ export default function CreateVehicle({session, initialValues}) {
             return image.preview
         })
         if(values && images.length > 0){
-            const anuncio = {...values, valor: valueCar, image: images}
+            const anuncio = {...values, image: images}
             await saveAnuncio(anuncio)
         }
        
@@ -405,7 +398,7 @@ export default function CreateVehicle({session, initialValues}) {
                             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
                             disableAbbreviations={true}
                             allowNegativeValue={false}
-                            onValueChange={(value) => setValue(value)}
+    
                             
                             />
                           
@@ -636,14 +629,14 @@ export default function CreateVehicle({session, initialValues}) {
                                   
                             </FormControl>
 
-                            {winReady ? (
+                            
                                 <DragDropContext onDragEnd={handleOnDragEnd}>
                                 <Droppable droppableId="images" >
-                                    {(provided) => (
-                                        imagesPreview.length > 0 && 
+                                    {(providedDroppable) => (
+                                        
                                         <Grid 
-                                        {...provided.droppableProps} 
-                                        ref={provided.innerRef}
+                                        {...providedDroppable.droppableProps} 
+                                        ref={providedDroppable.innerRef}
                                        templateColumns="repeat(1, 1fr)"
                                         mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={3}
                                         >
@@ -651,11 +644,11 @@ export default function CreateVehicle({session, initialValues}) {
                                            
                                             return (
                                                 <Draggable key={image.preview as string} draggableId={image.preview as string} index={index}>
-                                                    {(provided) => (
+                                                    {(providedDraggable) => (
                                                         <Box 
-                                                        ref={provided.innerRef} 
-                                                        {...provided.draggableProps} 
-                                                        {...provided.dragHandleProps}
+                                                        ref={providedDraggable.innerRef} 
+                                                        {...providedDraggable.draggableProps} 
+                                                        {...providedDraggable.dragHandleProps}
                                                           
                                                           maxHeight="350px"
                                                           width="100%" 
@@ -670,7 +663,7 @@ export default function CreateVehicle({session, initialValues}) {
                                                 </Draggable>
                                             )
                                         })}
-                                        {provided.placeholder}
+                                        {providedDroppable.placeholder}
                                         </Grid>
                                         
                                     )}
@@ -678,9 +671,7 @@ export default function CreateVehicle({session, initialValues}) {
                                 </Droppable>
                             </DragDropContext>
                          
-                            ) : (
-                                <Text>Loading</Text>
-                            )}
+                        
                             
                             
                             </Box>
@@ -708,7 +699,13 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
     const session = await getSession({req})
 
     const prisma = new PrismaClient();
-    const data = await prisma.marca.findMany()
+    const data = await prisma.marca.findMany({
+        orderBy: [
+            {
+                name: 'asc'
+            }
+        ]
+    })
     const initialValues = JSON.parse(JSON.stringify(data))
    
 
