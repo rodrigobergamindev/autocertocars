@@ -98,7 +98,7 @@ export default function CreateVehicle({session, initialValues}) {
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
     const [createMarca, setCreateMarca] = useState(false)
-    
+    const [valueCar, setValue] = useState(0)
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         
@@ -110,7 +110,7 @@ export default function CreateVehicle({session, initialValues}) {
             return image.preview
         })
         if(values && images.length > 0){
-            const anuncio = {...values, image: images}
+            const anuncio = {...values, valor: valueCar, image: images}
             await saveAnuncio(anuncio)
         }
        
@@ -398,7 +398,7 @@ export default function CreateVehicle({session, initialValues}) {
                             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
                             disableAbbreviations={true}
                             allowNegativeValue={false}
-    
+                            onValueChange={(value) => setValue(value)}       
                             
                             />
                           
