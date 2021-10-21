@@ -113,7 +113,7 @@ export default function AnuncioList({initialValues, session}) {
                         
                         <Heading size="lg" fontWeight="normal">Anúncios</Heading>
 
-                        <Link href="anuncios/create" passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
+                        <Link href="/dashboard/anuncios/create" passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
                     </Flex>
                 
                 <MotionTable
@@ -153,7 +153,7 @@ export default function AnuncioList({initialValues, session}) {
                         </Td>
 
                         <Td>
-                            <Link href={`anuncios/edit/${anuncio.slug}`} passHref>
+                            <Link href={`/dashboard/anuncios/edit/${anuncio.slug}`} passHref>
                             <Box  cursor="pointer">
                                 <Text fontWeight="bold" fontSize="sm">{anuncio.name}</Text>
                                 {!!isWideVersion && <Text fontWeight="bold" fontSize="sm" color="gray.300">{anuncio.valor}</Text>}
@@ -162,13 +162,13 @@ export default function AnuncioList({initialValues, session}) {
                         </Td>
 
                         {!!isWideVersion && <Td> {new Date(anuncio.data_de_criacao).toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        })}</Td>}
+                                     day: '2-digit',
+                                        month: 'long',
+                                        year: 'numeric'
+                    })}</Td>}
 
                         <Td>
-                        {!!isWideVersion && <Link href={`anuncios/edit/${anuncio.slug}`} passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine} fontSize="20"></Icon>}>Editar</Button></Link>}
+                        {!!isWideVersion && <Link href={`/dashboard/anuncios/edit/${anuncio.slug}`} passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiPencilLine} fontSize="20"></Icon>}>Editar</Button></Link>}
                         
                         </Td>
                         <Td>
