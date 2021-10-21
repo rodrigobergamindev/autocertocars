@@ -672,15 +672,16 @@ const handleOnDragEnd = (result: DropResult) => {
                           
                     </FormControl>
                     
-                    {winReady ? (
+                    {winReady && imagesPreview.length > 0 ? (
+                         
                         <DragDropContext onDragEnd={handleOnDragEnd}>
                         <Droppable droppableId="images" >
-                            {(provided) => (
-                                imagesPreview.length > 0 && 
+                            {(providedDroppable) => (
+                                
                                 <Grid 
-                                {...provided.droppableProps} 
+                                {...providedDroppable.droppableProps} 
                             
-                                ref={provided.innerRef}
+                                ref={providedDroppable.innerRef}
                                templateColumns="repeat(1, 1fr)"
                                 mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={3}
                                 >
@@ -688,11 +689,11 @@ const handleOnDragEnd = (result: DropResult) => {
                                    
                                     return (
                                         <Draggable key={`${image.preview as string}-${index}`} draggableId={`${image.preview as string}-${index}`} index={index}>
-                                            {(provided) => (
+                                            {(providedDraggable) => (
                                                 <Box 
-                                                ref={provided.innerRef} 
-                                                {...provided.draggableProps} 
-                                                {...provided.dragHandleProps}
+                                                ref={providedDraggable.innerRef} 
+                                                {...providedDraggable.draggableProps} 
+                                                {...providedDraggable.dragHandleProps}
                                                   maxHeight="350px"
                                                   width="100%" 
                                                   height="100%" 
@@ -706,15 +707,15 @@ const handleOnDragEnd = (result: DropResult) => {
                                         </Draggable>
                                     )
                                 })}
-                                {provided.placeholder}
+                                {providedDroppable.placeholder}
                                 </Grid>
                                 
                             )}
                     
                         </Droppable>
                     </DragDropContext>
-                    ) : (
-                        <Text>Loading</Text>
+                            ) : (
+                        <Box/>
                     )}
                  
                     </Box>
