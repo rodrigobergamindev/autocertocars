@@ -156,7 +156,7 @@ export default function AnuncioList({initialValues, session}) {
                             <Link href={`/dashboard/anuncios/edit/${anuncio.slug}`} passHref>
                             <Box  cursor="pointer">
                                 <Text fontWeight="bold" fontSize="sm">{anuncio.name}</Text>
-                                {!!isWideVersion && <Text fontWeight="bold" fontSize="sm" color="gray.300">{anuncio.valor}</Text>}
+                                {!!isWideVersion && <Text fontWeight="bold" fontSize="sm" color="gray.300">{(new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(anuncio.valor)))}</Text>}
                             </Box>
                             </Link>
                         </Td>
