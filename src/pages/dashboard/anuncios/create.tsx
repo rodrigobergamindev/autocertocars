@@ -629,11 +629,10 @@ export default function CreateVehicle({session, initialValues}) {
                                   
                             </FormControl>
 
-                            
+                                {imagesPreview.length > 0 &&
                                 <DragDropContext onDragEnd={handleOnDragEnd}>
                                 <Droppable droppableId="images" >
                                     {(providedDroppable) => (
-                                        
                                         <Grid 
                                         {...providedDroppable.droppableProps} 
                                         ref={providedDroppable.innerRef}
@@ -670,7 +669,7 @@ export default function CreateVehicle({session, initialValues}) {
                             
                                 </Droppable>
                             </DragDropContext>
-                         
+                            }
                         
                             
                             
