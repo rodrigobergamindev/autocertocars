@@ -14,7 +14,7 @@ import  Link  from 'next/link';
 
 
 
-export default function Dashboard({session, messagesReceived, anunciosAtivos, totalStock}) {
+export default function Dashboard({session, messagesReceived, anuncios}) {
 
     const isWideVersion = useBreakpointValue ({
         base: false,
@@ -43,7 +43,21 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos, to
           opacity: 1
         },
       };
+
+      
+      const carValues = anuncios.map(anuncio => (
+        parseFloat(anuncio.valor)
+      ))
+
+   
+    const totalStock = carValues.reduce((total, valorAtual) => {
+        return total + valorAtual
+        }, 0)
+
   
+
+
+
     return (
       <Flex direction="column" h="100vh">
       <Header/>
@@ -161,7 +175,7 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos, to
                   <Text fontSize="lg" mb="4">Anúncios ativos</Text>
                   <Icon as={RiCarLine} w={9} h={9}/>
                   </HStack>
-                  <Text fontSize="6xl">{!!anunciosAtivos && anunciosAtivos > 1 ? <CountUp end={anunciosAtivos} duration={(60*5)/120}/> : anunciosAtivos}</Text>
+                  <Text fontSize="6xl">{!!anuncios && anuncios.length > 1 ? <CountUp end={anuncios.length} duration={(60*5)/120}/> : anuncios.length}</Text>
 
               </MotionBox>
                 </Link>
@@ -206,16 +220,9 @@ export const getServerSideProps = async ({req}) => {
   const anuncios = await prisma.anuncio.findMany()
   const messages = await prisma.message.findMany()
 
-  const anunciosAtivos = anuncios.length > 0 ? anuncios.length : 0
   const messagesReceived = messages.length > 0 ?  messages.length : 0
 
-  const values = anuncios.map(anuncio => (
-    parseFloat(anuncio.valor)
-  ))
 
-  const totalStock = values.reduce((total, valorAtual) => {
-    return total + valorAtual
-  })
 
   
   
@@ -231,9 +238,8 @@ export const getServerSideProps = async ({req}) => {
   return {
     props: {
         session,
-        anunciosAtivos,
-        messagesReceived,
-        totalStock
+        anuncios,
+        messagesReceived
     }
   }
 }

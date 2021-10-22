@@ -10,7 +10,7 @@ import {useState} from 'react'
 import { PrismaClient } from '@prisma/client'
 import { getSession } from "next-auth/client"
 import { motion } from "framer-motion";
-
+import { useRouter } from "next/router";
 
 
 
@@ -43,7 +43,7 @@ type Anuncio = {
 
 
 
-export default function AnuncioList({initialValues, session, totalStock}) {
+export default function AnuncioList({initialValues, session}) {
 
     const container = {
         hidden: { opacity: 1, scale: 0 },
@@ -69,8 +69,8 @@ export default function AnuncioList({initialValues, session, totalStock}) {
       const MotionTr = motion(Tr)
 
 
-    const [anunciosToShow, setAnunciosToShow] = useState<Anuncio[]>(initialValues)
-
+    
+    const router = useRouter()
     
 
 
@@ -87,11 +87,26 @@ export default function AnuncioList({initialValues, session, totalStock}) {
         }
 
         if(response.ok) {
-            const newAnuncios = anunciosToShow.filter(newAnuncio => newAnuncio.slug != anuncio.slug)
-            setAnunciosToShow(newAnuncios)
+            router.push('/dashboard/anuncios')
         }
         
     }
+
+    
+   
+
+
+        const carValues = initialValues.map(anuncio => (
+            parseFloat(anuncio.valor)
+          ))
+
+       
+        const totalStock = carValues.reduce((total, valorAtual) => {
+            return total + valorAtual
+            }, 0)
+    
+        
+     
 
       
     const isWideVersion = useBreakpointValue ({
@@ -116,7 +131,7 @@ export default function AnuncioList({initialValues, session, totalStock}) {
 
                         <Flex  justify="flex-end" align="center" alignSelf="flex-end" justifySelf="flex-end" >
 
-                        <Text color="yellow.400" fontWeight="bold" fontSize="20px">Total: {!!totalStock && new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(totalStock))}</Text>
+                        <Text color="yellow.400" fontWeight="bold" fontSize="20px">Total: {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalStock)}</Text>
                         <Link href="/dashboard/anuncios/create" passHref><Button as="a" ml={10} size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
 
                         </Flex>
@@ -150,7 +165,7 @@ export default function AnuncioList({initialValues, session, totalStock}) {
                         </MotionTr>
                     </Thead>
                     <Tbody>
-                {anunciosToShow.map((anuncio, index) => {
+                {initialValues.map((anuncio, index) => {
                     return (
                         
                     <MotionTr key={index} variants={item}>
@@ -210,15 +225,6 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
     })
     const initialValues = JSON.parse(JSON.stringify(anuncios))
 
-    const values = anuncios.map(anuncio => (
-        parseFloat(anuncio.valor)
-    ))
-   
-    const totalStock = values.reduce((total, valorAtual) => {
-        return total + valorAtual
-    })
-
-
 
     const session = await getSession({req})
    
@@ -236,8 +242,7 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
     return {
       props: {
           session,
-          initialValues,
-          totalStock
+          initialValues
         },
     }
   }
