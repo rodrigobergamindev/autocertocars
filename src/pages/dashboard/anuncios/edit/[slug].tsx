@@ -460,6 +460,7 @@ const handleOnDragEnd = (result: DropResult) => {
                         type="text" 
                         size="lg"
                         groupSeparator="."
+                        disableAbbreviations={true}
                         allowNegativeValue={false}
                         defaultValue={anuncio.quilometragem}
                         />

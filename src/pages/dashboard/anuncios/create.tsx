@@ -454,6 +454,7 @@ export default function CreateVehicle({session, initialValues}) {
                             type="text" 
                             size="lg"
                             groupSeparator="."
+                            disableAbbreviations={true}
                             allowNegativeValue={false}
                             />
                           
