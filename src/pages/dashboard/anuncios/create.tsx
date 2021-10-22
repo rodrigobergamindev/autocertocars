@@ -76,10 +76,9 @@ type ImagePreview = {
     manual_do_proprietario: yup.string().required('Selecione uma opção'),
     laudo_cautelar: yup.string().required('Selecione uma opção'),
     condicao: yup.string().required().required('Selecione uma opção'),
-    image: yup.
-            mixed()
-            .required('Envie pelo menos uma imagem')
-    
+    image: yup.mixed()
+           
+            
         
   })
 
@@ -163,16 +162,17 @@ export default function CreateVehicle({session, initialValues}) {
         
         files.map((file: File) => {
             
-            const reader = new FileReader()
-            const myImage = reader.readAsDataURL(file)
-            reader.onloadend = () => {
+            if(file.type.includes("image")) {
+                const reader = new FileReader()
+                reader.readAsDataURL(file)
+                reader.onloadend = () => {
                 const preview = reader.result;
                 const image = {preview, file}
                 setImagesPreview((prevImages) =>  [...prevImages, image])
-    
                 
-            };
+            }
             return null
+            }
         })
     }
 
@@ -319,9 +319,9 @@ export default function CreateVehicle({session, initialValues}) {
     
     
                             <Input name="versao" label="Versão" error={errors.versao} {...register('versao')}/>
-                            <Input name="numero_portas" label="Número de Portas" {...register('numero_portas')}/>
-                            <Input name="cor" label="Cor" {...register('cor')}/>
-                            <Input name="cores_internas" label="Cores Interiores" {...register('cores_internas')} />
+                            <Input name="numero_portas" error={errors.numero_portas} label="Número de Portas" {...register('numero_portas')}/>
+                            <Input name="cor" label="Cor" error={errors.cor} {...register('cor')}/>
+                            <Input name="cores_internas" label="Cores Interiores" error={errors.cores_internas} {...register('cores_internas')} />
     
     
                             <FormControl isInvalid={!!errors.combustivel}>
@@ -375,7 +375,7 @@ export default function CreateVehicle({session, initialValues}) {
                                   
                             </FormControl>
     
-                            <Input name="potencia" label="Potência" {...register('potencia')}/>
+                            <Input name="potencia" label="Potência" error={errors.potencia} {...register('potencia')}/>
                             
                             <FormControl isInvalid={!!errors.valor}>
                             <FormLabel 
@@ -560,6 +560,7 @@ export default function CreateVehicle({session, initialValues}) {
                         
                         <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
                         <Box>
+                        <FormControl isInvalid={!!errors.observacoes}>
                             <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Observações</Text>
                             <Textarea
                                 id="observacoes"
@@ -576,6 +577,12 @@ export default function CreateVehicle({session, initialValues}) {
                             >
     
                             </Textarea>
+                            {!!errors.observacoes && (
+                                    <FormErrorMessage>
+                                    {errors.observacoes.message}
+                                    </FormErrorMessage>
+                                 )}
+                        </FormControl>
                             </Box>
                             
                            
@@ -593,13 +600,14 @@ export default function CreateVehicle({session, initialValues}) {
                             <FormLabel 
                             htmlFor="image"
                             >
-                                <Box display="flex" justifyContent="center" alignItems="center">
+                                
+                                <Box p={4} display="flex" justifyContent="center" alignItems="center" >
                               <Box mr={5} maxWidth="240px" bg="blue.500" borderRadius="5px" p={2} display="flex" alignItems="center" justifyContent="center" cursor="pointer" transition="all 0.3s ease-in-out" _hover={{opacity: 0.88}}>
                                   <Icon mr={3}  alignSelf="center" w={7} h={7} as={RiUploadCloudLine}/>
                                   <Text fontSize="20px">Escolher imagens</Text>
                                   
                                   </Box>
-                                  <Text fontSize="20px">{imagesPreview.length} imagens selecionadas</Text>
+                                  <Box>{imagesPreview.length === 0 ? <Text fontSize="20px">Envie no mínimo uma imagem</Text> : <Text fontSize="20px">{imagesPreview.length} imagens selecionadas</Text>}</Box>
                                   </Box>
                             
                             </FormLabel>
@@ -609,23 +617,23 @@ export default function CreateVehicle({session, initialValues}) {
                                 type="file" 
                                 multiple
                                 variant="filled"
-                                required
                                 accept="image/jpeg, image/png, image/jpg"
                                 bgColor="gray.900"
                                 display="none"
+                                {...register('image')}
+                               
                                 _hover={{
                                     bgColor: 'gray.900'
                                 }}
-                                size="lg" {...register('image')}
+                                size="lg" 
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImage(event)}
                                 />
     
-                                {!!errors.image && (
+                                 {!!errors.image && (
                                     <FormErrorMessage>
                                     {errors.image.message}
                                     </FormErrorMessage>
                                  )}
-                                
                                   
                             </FormControl>
 
@@ -642,7 +650,7 @@ export default function CreateVehicle({session, initialValues}) {
                                         {imagesPreview.map((image, index) => {
                                            
                                             return (
-                                                <Draggable key={image.preview as string} draggableId={image.preview as string} index={index}>
+                                                <Draggable key={`${image.preview as string}-${index}`} draggableId={`${image.preview as string}-${index}`} index={index}>
                                                     {(providedDraggable) => (
                                                         <Box 
                                                         ref={providedDraggable.innerRef} 

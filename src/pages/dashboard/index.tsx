@@ -176,8 +176,7 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
 export const getServerSideProps = async ({req}) => {
 
   const session = await getSession({req})
-  const response = await fetch('http://localhost:3000/api/analytics/pageviews')
-  const analytics = await response.json()
+
 
   const prisma = new PrismaClient();
   const anuncios = await prisma.anuncio.findMany()
@@ -186,7 +185,7 @@ export const getServerSideProps = async ({req}) => {
   const anunciosAtivos = anuncios.length > 0 ? anuncios.length : 0
   const messagesReceived = messages.length > 0 ?  messages.length : 0
 
-  console.log(analytics)
+
 
   
   
@@ -203,8 +202,7 @@ export const getServerSideProps = async ({req}) => {
     props: {
         session,
         anunciosAtivos,
-        messagesReceived,
-        analytics
+        messagesReceived
     }
   }
 }

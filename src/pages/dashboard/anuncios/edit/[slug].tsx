@@ -67,9 +67,8 @@ type CreateAnuncioFormData = {
     manual_do_proprietario: yup.string().required('Selecione uma opção'),
     laudo_cautelar: yup.string().required('Selecione uma opção'),
     condicao: yup.string().required().required('Selecione uma opção'),
-    image: yup.
-            mixed()
-            .required('Envie pelo menos uma imagem')
+    image: yup.mixed()
+            
 
             
         
@@ -221,16 +220,15 @@ const handleImage =  (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files)
     
     files.map((file: File) => {
-        
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onloadend = () => {
+        if(file.type.includes("image")) {
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onloadend = () => {
             const preview = reader.result;
             const image = {preview, file}
             setImagesPreview((prevImages) =>  [...prevImages, image])
-
-            
-        };
+        }
+    }
         return null
     })
 }
@@ -362,9 +360,9 @@ const handleOnDragEnd = (result: DropResult) => {
 
 
                         <Input name="versao" label="Versão" error={errors.versao} {...register('versao')} defaultValue={anuncio.versao}/>
-                        <Input name="numero_portas" label="Número de Portas" {...register('numero_portas')} defaultValue={anuncio.numero_portas}/>
-                        <Input name="cor" label="Cor" {...register('cor')} defaultValue={anuncio.cor}/>
-                        <Input name="cores_internas" label="Cores Interiores" {...register('cores_internas')} defaultValue={anuncio.cores_internas} />
+                        <Input name="numero_portas" label="Número de Portas" error={errors.numero_portas} {...register('numero_portas')} defaultValue={anuncio.numero_portas}/>
+                        <Input name="cor" label="Cor" {...register('cor')} error={errors.cor} {...register('cor')} defaultValue={anuncio.cor}/>
+                        <Input name="cores_internas" label="Cores Interiores" error={errors.cores_internas} {...register('cores_internas')} defaultValue={anuncio.cores_internas} />
 
 
 
@@ -419,7 +417,7 @@ const handleOnDragEnd = (result: DropResult) => {
                               
                         </FormControl>
 
-                        <Input name="potencia" label="Potência" {...register('potencia')} defaultValue={anuncio.potencia}/>
+                        <Input name="potencia" label="Potência" error={errors.potencia} {...register('potencia')} defaultValue={anuncio.potencia}/>
                         <FormControl isInvalid={!!errors.transmissao}>
                         <FormLabel 
                         htmlFor="transmissao"
@@ -603,24 +601,30 @@ const handleOnDragEnd = (result: DropResult) => {
                     
                     <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
                     <Box>
-                        <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Observações</Text>
-                        <Textarea
-                        
-                        name="observacoes"
-                        resize="none"
-                        focusBorderColor="yellow.400"
-                        bgColor="gray.900"
-                        variant="filled"
-                        _hover={{
-                            bgColor: 'gray.900'
-                        }}
-                        size="lg"
-                        {...register('observacoes')}
-                        defaultValue={anuncio.observacoes}
-                    >
-
-                    </Textarea>
-
+                    <FormControl isInvalid={!!errors.observacoes}>
+                            <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Observações</Text>
+                            <Textarea
+                                id="observacoes"
+                                name="observacoes"
+                                resize="none"
+                                focusBorderColor="yellow.400"
+                                bgColor="gray.900"
+                                variant="filled"
+                                _hover={{
+                                    bgColor: 'gray.900'
+                                }}
+                                size="lg"
+                                {...register('observacoes')}
+                                defaultValue={anuncio.observacoes}
+                            >
+    
+                            </Textarea>
+                            {!!errors.observacoes && (
+                                    <FormErrorMessage>
+                                    {errors.observacoes.message}
+                                    </FormErrorMessage>
+                                 )}
+                        </FormControl>
                      
                         </Box>
 
@@ -643,7 +647,7 @@ const handleOnDragEnd = (result: DropResult) => {
                           <Text fontSize="20px">Escolher imagens</Text>
                           
                           </Box>
-                          <Text fontSize="20px">{imagesPreview.length} imagens selecionadas</Text>
+                          <Box>{imagesPreview.length === 0 ? <Text fontSize="20px">Envie no mínimo uma imagem</Text> : <Text fontSize="20px">{imagesPreview.length} imagens selecionadas</Text>}</Box>
                           </Box>
                     
                     </FormLabel>
