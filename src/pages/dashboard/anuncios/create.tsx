@@ -1,5 +1,5 @@
 import { Icon, Image, FormLabel, FormControl, FormErrorMessage, Grid, Box, Flex, VStack, 
-    Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput, Select} from "@chakra-ui/react";
+    Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput, Select, Spinner} from "@chakra-ui/react";
 
 
 import { Input } from "../../../components/Form/Input";
@@ -17,13 +17,13 @@ import { GetServerSideProps } from 'next'
 
 import { insert } from '../../api/photos'
 import { useRouter } from "next/router";
-import {useState, useEffect} from 'react'
-import { RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
+import {useState} from 'react'
+import { RiCheckFill, RiCheckLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
 import { PrismaClient } from '@prisma/client'
-
+import { } from 'react-icons/ri'
 
 
 type CreateAnuncioFormData = {
@@ -232,7 +232,33 @@ export default function CreateVehicle({session, initialValues}) {
 
                 <Siderbar/>
 
-
+                {formState.isSubmitting ? (
+                    <Flex
+                    align="center"
+                    justify="center"
+                    flex="1"
+                    height="100vh"
+                    >
+                    <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="xl"
+                  />
+                  <Text ml={4}>Enviando dados...</Text>
+                  </Flex>
+                ) : (
+                formState.isSubmitted ? (
+                    <Flex
+                    align="center"
+                    justify="center"
+                    flex="1"
+                    height="100vh"
+                    >
+                    <Icon as={RiCheckLine} fontSize="40px"/> <Text ml={4}>Anúncio criado com sucesso!</Text>
+                    </Flex>
+                ) : (
                     <Box 
                     as="form"
                     flex="1" 
@@ -695,6 +721,9 @@ export default function CreateVehicle({session, initialValues}) {
                         </HStack>
                     </Flex>
                     </Box>
+                )
+                )}
+
             </Flex>
         </Box>
     )
