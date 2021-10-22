@@ -217,9 +217,10 @@ export const getServerSideProps = async ({req}) => {
 
 
   const prisma = new PrismaClient();
-  const anuncios = await prisma.anuncio.findMany()
+  const data = await prisma.anuncio.findMany()
+  const anuncios = JSON.parse(JSON.stringify(data))
   const messages = await prisma.message.findMany()
-
+  
   const messagesReceived = messages.length > 0 ?  messages.length : 0
 
 
