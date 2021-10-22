@@ -1,4 +1,6 @@
-import { Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Image, Grid, Icon, FormLabel, FormControl, FormErrorMessage, Input as ChakraInput, Select} from "@chakra-ui/react";
+import { Box, Flex, VStack, Heading, 
+    SimpleGrid, Divider, HStack, Button, Textarea, Text, Image,
+     Grid, Icon, FormLabel, FormControl, FormErrorMessage, Input as ChakraInput, Select, Spinner} from "@chakra-ui/react";
 
 
 import { Input } from "../../../../components/Form/Input";
@@ -18,7 +20,7 @@ import {useRouter} from 'next/router'
 
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
-import { RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
+import {RiCheckLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
 
@@ -275,7 +277,34 @@ const handleOnDragEnd = (result: DropResult) => {
 
                 <Siderbar/>
 
-                <Box 
+                {formState.isSubmitting ? (
+                    <Flex
+                    align="center"
+                    justify="center"
+                    flex="1"
+                    height="100vh"
+                    >
+                    <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="xl"
+                  />
+                  <Text ml={4}>Enviando dados...</Text>
+                  </Flex>
+                ) : (
+                formState.isSubmitted ? (
+                    <Flex
+                    align="center"
+                    justify="center"
+                    flex="1"
+                    height="100vh"
+                    >
+                    <Icon as={RiCheckLine} fontSize="40px"/> <Text ml={4}>Anúncio criado com sucesso!</Text>
+                    </Flex>
+                ) : (
+                    <Box 
                 as="form"
                 flex="1" 
                 borderRadius={8} 
@@ -736,6 +765,10 @@ const handleOnDragEnd = (result: DropResult) => {
                     </HStack>
                 </Flex>
                 </Box>
+                )
+                )}
+
+               
             </Flex>
         </Box>
     )
