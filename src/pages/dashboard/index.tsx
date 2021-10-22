@@ -3,8 +3,8 @@ import  Header from "../../components/Header";
 import Siderbar  from "../../components/Sidebar/index"
 import {theme} from '../../styles/theme'
 import { getSession } from "next-auth/client"
-import {SiGoogleanalytics} from 'react-icons/si'
-import {RiArrowRightSLine, RiCarFill, RiCarLine, RiCarWashingLine, RiFacebookBoxFill, RiFacebookLine, RiInstagramLine, RiMessageLine, RiUserLine} from 'react-icons/ri'
+import {SiGoogleanalytics, SiMonkeytie} from 'react-icons/si'
+import { RiCarLine,  RiFacebookBoxFill, RiInstagramLine, RiMessageLine,  RiMoneyDollarCircleLine, RiUserLine} from 'react-icons/ri'
 import { PrismaClient } from '@prisma/client'
 import CountUp from 'react-countup';
 import { motion } from "framer-motion";
@@ -14,7 +14,7 @@ import  Link  from 'next/link';
 
 
 
-export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
+export default function Dashboard({session, messagesReceived, anunciosAtivos, totalStock}) {
 
     const isWideVersion = useBreakpointValue ({
         base: false,
@@ -165,6 +165,30 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos}) {
 
               </MotionBox>
                 </Link>
+
+                <MotionBox
+                  cursor="pointer"
+                  p={["6","8"]}
+                  bg="gray.800"
+                  borderRadius={8}
+                  pb="4"
+                  variants={item}
+                  transition="all 0.2s ease-in-out"
+                  border="solid"
+                  borderColor="transparent"
+                  _hover={{
+                    border:"solid",
+                    borderColor: "yellow.400",
+                    transform: "scale(1.02)"
+                  }}
+              >
+                  <HStack  spacing={4} align="flex-start" justify="space-between">
+                  <Text fontSize="lg" mb="4">Total em Estoque</Text>
+                  <Icon as={RiMoneyDollarCircleLine} w={9} h={9}/>
+                  </HStack>
+                  <Text fontSize="6xl">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(totalStock))}</Text>
+
+              </MotionBox>
           </MotionGrid>
       </Flex>
   </Flex>
@@ -185,7 +209,13 @@ export const getServerSideProps = async ({req}) => {
   const anunciosAtivos = anuncios.length > 0 ? anuncios.length : 0
   const messagesReceived = messages.length > 0 ?  messages.length : 0
 
+  const values = anuncios.map(anuncio => (
+    parseFloat(anuncio.valor)
+  ))
 
+  const totalStock = values.reduce((total, valorAtual) => {
+    return total + valorAtual
+  })
 
   
   
@@ -202,7 +232,8 @@ export const getServerSideProps = async ({req}) => {
     props: {
         session,
         anunciosAtivos,
-        messagesReceived
+        messagesReceived,
+        totalStock
     }
   }
 }

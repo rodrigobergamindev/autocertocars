@@ -43,7 +43,7 @@ type Anuncio = {
 
 
 
-export default function AnuncioList({initialValues, session}) {
+export default function AnuncioList({initialValues, session, totalStock}) {
 
     const container = {
         hidden: { opacity: 1, scale: 0 },
@@ -99,6 +99,7 @@ export default function AnuncioList({initialValues, session}) {
         lg: true
     })
 
+   
     return (
         <Box>
             <Header/>
@@ -111,9 +112,14 @@ export default function AnuncioList({initialValues, session}) {
 
                     <Flex mb="8" justify="space-between" align="center">
                         
-                        <Heading size="lg" fontWeight="normal">Anúncios</Heading>
+                        <Heading size="lg" fontWeight="normal">Estoque</Heading>
 
-                        <Link href="/dashboard/anuncios/create" passHref><Button as="a" size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
+                        <Flex  justify="flex-end" align="center" alignSelf="flex-end" justifySelf="flex-end" >
+
+                        <Text color="yellow.400" fontWeight="bold" fontSize="20px">Total: {!!totalStock && new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(totalStock))}</Text>
+                        <Link href="/dashboard/anuncios/create" passHref><Button as="a" ml={10} size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
+
+                        </Flex>
                     </Flex>
                 
                 <MotionTable
@@ -203,8 +209,16 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
         ]
     })
     const initialValues = JSON.parse(JSON.stringify(anuncios))
-    
+
+    const values = anuncios.map(anuncio => (
+        parseFloat(anuncio.valor)
+    ))
    
+    const totalStock = values.reduce((total, valorAtual) => {
+        return total + valorAtual
+    })
+
+
 
     const session = await getSession({req})
    
@@ -222,7 +236,8 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
     return {
       props: {
           session,
-          initialValues
+          initialValues,
+          totalStock
         },
     }
   }
