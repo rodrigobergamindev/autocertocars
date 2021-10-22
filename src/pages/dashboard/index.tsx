@@ -167,7 +167,7 @@ export default function Dashboard({session, messagesReceived, anunciosAtivos, to
                 </Link>
 
                 <MotionBox
-                  cursor="pointer"
+                  cursor="default"
                   p={["6","8"]}
                   bg="gray.800"
                   borderRadius={8}
