@@ -14,30 +14,6 @@ import { useRouter } from "next/router";
 
 
 
-type Anuncio = {
-    name: string;
-    ano_fabricacao: string;
-    marca: string;
-    modelo: string;
-    versao?: string;
-    numero_portas?: string;
-    cor?: string;
-    cores_internas?: string;
-    combustivel?: string;
-    carroceria?: string;
-    potencia?: string;
-    transmissao?: string;
-    quilometragem?: string;
-    valor: string;
-    chave_copia?: string;
-    laudo_cautelar?: string;
-    manual_do_proprietario?: string;
-    observacoes?: string;
-
-    data_de_criacao: Date;
-    image: Array<string>;
-    slug: string;
-}
 
 
 

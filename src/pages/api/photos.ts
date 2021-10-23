@@ -43,15 +43,16 @@ export const insert = async (images: Image[]) => {
      const imagesUpload = images.map(async (image) => {
         if(image.file) {
             if(['image/jpeg', 'image/jpg', 'image/png'].includes(image.file.type)) {
-                const timestamp = Date.now()
-                const newFile = ref(storage, `images/${timestamp}`);
+               
+                const id = createId()
+                const newFile = ref(storage, `images/${id}`);
             
                 const upload = await uploadBytes(newFile, image.file);
                 const photoUrl = await getDownloadURL(upload.ref);
                 image.preview = photoUrl
+                return image
             }
         }
-        return image
      })
 
      return imagesUpload

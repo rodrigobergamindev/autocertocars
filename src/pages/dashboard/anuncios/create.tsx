@@ -148,6 +148,7 @@ export default function CreateVehicle({session, initialValues}) {
             console.log(`${result.name} - ${result.message}`)
         }
         const response = await Promise.all(result)
+       
         return response
             
         
@@ -155,8 +156,9 @@ export default function CreateVehicle({session, initialValues}) {
 
     }
 
+
     const handleImage =  (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault()
+       
         const files = Array.from(event.target.files)
         
         files.map((file: File) => {
