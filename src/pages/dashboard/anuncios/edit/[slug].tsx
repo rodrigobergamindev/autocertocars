@@ -172,6 +172,7 @@ export default function EditVehicle({anuncio, marcas, session}) {
         }
         
         const response = await Promise.all(result)
+        console.log(response)
         return response
 
 

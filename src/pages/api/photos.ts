@@ -50,9 +50,9 @@ export const insert = async (images: Image[]) => {
                 const upload = await uploadBytes(newFile, image.file);
                 const photoUrl = await getDownloadURL(upload.ref);
                 image.preview = photoUrl
-                return image
             }
         }
+        return image
      })
 
      return imagesUpload
