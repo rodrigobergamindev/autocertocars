@@ -228,17 +228,17 @@ export default function CreateVehicle({session, initialValues}) {
 
     const SortableItem = SortableElement(({value, index }) => (
         <Box                                             
-            maxHeight="350px"
+           
             width="100%" 
-            height="100%" 
+            height="250px" 
             cursor="pointer"
             overflow="hidden"
             key={value.preview as string}
             index={index}
-            onClick={() => handleRemoveImage(value)}
+
             >
             <Icon cursor="default" onClick={() => handleRemoveImage(value)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
-            <Image src={value.preview as string} alt={value.preview as string} objectFit="cover" width="100%" height="100%" transition="0.3s ease-in-out" _hover={{transform: "scale(1.07)"}}/>
+            <Image src={value.preview as string} objectPosition="center" alt={value.preview as string} objectFit="cover" width="100%" height="100%" transition="0.3s ease-in-out" _hover={{transform: "scale(1.07)", opacity: 0.7}}/>
             </Box>
     ))
 
@@ -246,7 +246,7 @@ export default function CreateVehicle({session, initialValues}) {
         return (
             <Grid 
            templateColumns="repeat(3, 1fr)"
-            mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={3}
+            mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={2}
             >
             {items.map((value, index) => (
                 <SortableItem
@@ -707,7 +707,7 @@ export default function CreateVehicle({session, initialValues}) {
                             </FormControl>
 
                                 {imagesPreview.length > 0 &&
-                                <SortableList items={imagesPreview} onSortEnd={onSortEnd} axis="xy"/>
+                                <SortableList items={imagesPreview} distance={1} onSortEnd={onSortEnd} axis="xy"/>
                                 }
                         
                             
