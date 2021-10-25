@@ -18,14 +18,14 @@ import { GetServerSideProps } from 'next'
 import { insert } from '../../api/photos'
 import { useRouter } from "next/router";
 import {useState} from 'react'
-import { RiCheckFill, RiCheckLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
+import { RiAddLine, RiCheckFill, RiCheckLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
 import { PrismaClient } from '@prisma/client'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
-
+import {v4 as uuid} from 'uuid'
 
 type CreateAnuncioFormData = {
     marca: string;
@@ -99,7 +99,18 @@ export default function CreateVehicle({session, initialValues}) {
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
     const [createMarca, setCreateMarca] = useState(false)
     const [valueCar, setValue] = useState(0)
-    const [inputList, setInputList] = useState([{adicional: ''}])
+    const [inputList, setInputList] = useState([
+        {
+           name: 'adicional1',
+           id: 'adicional1',
+           value: ''
+        },
+        {
+            name: 'adicional2',
+            id: 'adicional2',
+            value: ''
+         }
+    ])
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         
@@ -201,29 +212,6 @@ export default function CreateVehicle({session, initialValues}) {
        
    }
 
-  /**  
-   * logica para react-beautiful-dnd
-   * 
-   * const handleOnDragEnd = (result: DropResult) => {
-       if(!result.destination) return;
-       
-       const {source, destination} = result
-
-       if (destination.droppableId === source.droppableId && destination.index === source.index) {
-        console.log("they're equal");
-        return;
-      }
-       
-       const newImages = Array.from(imagesPreview)
-       const [reorderedItem] = newImages.splice(source.index, 1)
-       newImages.splice(destination.index, 0, reorderedItem)
-       
-       
-       setImagesPreview(newImages)
-       
-       
-   }
-*/
 
   const handleCreateMarca = (event) => {
         if(event.target.value === 'adicionar') {
@@ -276,6 +264,22 @@ export default function CreateVehicle({session, initialValues}) {
         
     }
 
+    const handleAdicional = (event, index) => {
+        console.log(event.target.value)
+        console.log(index)
+    }
+
+    const addInput = () => {
+        const id = uuid()
+        const input = {
+            id: `${id}`,
+            name: `adicional${id}`,
+            value: ''
+         }
+        setInputList(prevInputs => [...prevInputs, input])
+    }
+
+    console.log(inputList)
     return (
         <Box>
             <Header/>
@@ -638,30 +642,34 @@ export default function CreateVehicle({session, initialValues}) {
                         </SimpleGrid>
                         
                         <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
-                        <Box>
-                        <FormControl isInvalid={!!errors.observacoes}>
-                            <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Observações</Text>
-                            <Textarea
-                                id="observacoes"
-                                name="observacoes"
-                                resize="none"
-                                focusBorderColor="yellow.400"
-                                bgColor="gray.900"
-                                variant="filled"
-                                _hover={{
-                                    bgColor: 'gray.900'
-                                }}
+                        
+                            <Box>
+                            <HStack  alignItems="center" mb={4}>
+                            <Heading size="md" mr={4} fontWeight="bold" color="gray.300" alignSelf="center">OPCIONAIS</Heading>
+                            <Button size="sm" onClick={addInput} colorScheme="blue"><Icon fontSize="md" as={RiAddLine}/></Button>
+                            </HStack>
+
+                            <Grid templateColumns="repeat(3,1fr)" minChildWidth="240px" gap={6} width="100%">
+                            {inputList.map((field, index) => (
+                                
+                                <ChakraInput
+                                bgColor="gray.900" 
+                                _hover={{bgColor: 'gray.900'}} 
+                                focusBorderColor="yellow.400"  
+                                variant="filled" 
+                                type="text" 
                                 size="lg"
-                                {...register('observacoes')}
-                            />
-    
-                            {!!errors.observacoes && (
-                                    <FormErrorMessage>
-                                    {errors.observacoes.message}
-                                    </FormErrorMessage>
-                                 )}
-                        </FormControl>
-                            </Box>
+                                key={index}
+                                name={field.name} 
+                                id={field.name}
+                                onChange={e => handleAdicional(e, index)}
+                                 
+                                />
+                                
+                            ))}
+                          </Grid>
+                          </Box>
+                       
                             
                            
     
