@@ -78,7 +78,7 @@ type ImagePreview = {
     image: yup.mixed(),
     opcionais: yup.array().of(
         yup.object().shape({
-            name: yup.string()
+            opcional: yup.string()
                 .required('Informe o opcional'),
         })
     )      
@@ -97,20 +97,10 @@ export default function CreateVehicle({session, initialValues}) {
         resolver: yupResolver(createAnuncioFormSchema)
     })
 
-    const {fields, append, remove} = useFieldArray({ name: "opcionais", control })
+    const {fields, append, remove} = useFieldArray({ name: "opcionais" as const, control })
 
     const {errors} = formState
 
-    const PriceTotal = ({ control }) => {
-        const value = useWatch({
-          control,
-          name: `items`,
-          defaultValue: {}
-        });
-      
-        console.log(value);
-        return null;
-      };
 
     
 
@@ -119,20 +109,7 @@ export default function CreateVehicle({session, initialValues}) {
     
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         
-        const response = await handleUpload(imagesPreview)
-        
-        const images = response.map(image => {
-            if(image.file) {
-                delete image.file
-            }
-            return image.preview
-        })
-
-        if(images.length > 0){
-            const anuncio = {...values, image: images}
-            await saveAnuncio(anuncio)
-        }
-       
+        console.log(values)
         
         
        
@@ -281,33 +258,7 @@ export default function CreateVehicle({session, initialValues}) {
 
                 <Siderbar/>
 
-                {formState.isSubmitting ? (
-                    <Flex
-                    align="center"
-                    justify="center"
-                    flex="1"
-                    height="100vh"
-                    >
-                    <Spinner
-                    thickness="4px"
-                    speed="0.65s"
-                    emptyColor="gray.200"
-                    color="blue.500"
-                    size="xl"
-                  />
-                  <Text ml={4}>Enviando dados...</Text>
-                  </Flex>
-                ) : (
-                formState.isSubmitted ? (
-                    <Flex
-                    align="center"
-                    justify="center"
-                    flex="1"
-                    height="100vh"
-                    >
-                    <Icon as={RiCheckLine} fontSize="40px"/> <Text ml={4}>Anúncio criado com sucesso!</Text>
-                    </Flex>
-                ) : (
+                
                     <Box 
                     as="form"
                     flex="1" 
@@ -656,17 +607,14 @@ export default function CreateVehicle({session, initialValues}) {
                             <Grid templateColumns="repeat(3,1fr)" minChildWidth="240px" gap={6} width="100%">
                                     
                             <FormControl isInvalid={!!errors.opcionais}>
-                            <FormLabel 
-                            htmlFor="opcionais"
-                            >
-                                Opcional
-                            </FormLabel>
+        
                                     
                                     {fields.map((item, index) => {
+                                        
                                         return (
                                             <ChakraInput
-                                            name={`opcionais.${index}`} 
-                                            {...register(`opcionais.${index}`)}
+                                            name={`opcionais.[${index}].opcional`} 
+                                            {...register(`opcionais.${index}.opcional` as const)}
                                             mb={4}
                                             bgColor="gray.900" 
                                             _hover={{bgColor: 'gray.900'}} 
@@ -674,9 +622,8 @@ export default function CreateVehicle({session, initialValues}) {
                                             variant="filled" 
                                             type="text" 
                                             size="lg"
-                                            key={index}
-                                            
-
+                                            key={item.id}
+                                            id={item.id}
                                             />
                                         )
                                     })}
@@ -764,8 +711,7 @@ export default function CreateVehicle({session, initialValues}) {
                         </HStack>
                     </Flex>
                     </Box>
-                )
-                )}
+               
 
             </Flex>
         </Box>
