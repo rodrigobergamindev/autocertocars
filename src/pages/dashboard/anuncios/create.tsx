@@ -99,6 +99,7 @@ export default function CreateVehicle({session, initialValues}) {
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
     const [createMarca, setCreateMarca] = useState(false)
     const [valueCar, setValue] = useState(0)
+    const [inputList, setInputList] = useState([{adicional: ''}])
 
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         
@@ -652,9 +653,8 @@ export default function CreateVehicle({session, initialValues}) {
                                 }}
                                 size="lg"
                                 {...register('observacoes')}
-                            >
+                            />
     
-                            </Textarea>
                             {!!errors.observacoes && (
                                     <FormErrorMessage>
                                     {errors.observacoes.message}
