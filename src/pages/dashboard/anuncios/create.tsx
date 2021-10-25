@@ -23,7 +23,7 @@ import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautif
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
 import { PrismaClient } from '@prisma/client'
-import {arrayMove, SortableContainer, SortableElement} from 'react-sortable-hoc'
+import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
 
 type CreateAnuncioFormData = {
