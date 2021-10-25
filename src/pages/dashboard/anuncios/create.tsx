@@ -26,6 +26,7 @@ import { PrismaClient } from '@prisma/client'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
 
+
 type CreateAnuncioFormData = {
     marca: string;
     modelo: string;
@@ -168,9 +169,17 @@ export default function CreateVehicle({session, initialValues}) {
                 const reader = new FileReader()
                 reader.readAsDataURL(file)
                 reader.onloadend = () => {
+
                 const preview = reader.result;
                 const image = {preview, file}
-                setImagesPreview((prevImages) =>  [...prevImages, image])
+                const imageAlreadyExistsInPreview = imagesPreview.find(image => image.preview === preview)
+
+                if(!imageAlreadyExistsInPreview){
+                    setImagesPreview((prevImages) =>  [...prevImages, image])
+                }
+                if(imageAlreadyExistsInPreview){
+                    console.log("Não é possível carregar imagens iguais")
+                }
                 
             }
             return null
@@ -181,7 +190,7 @@ export default function CreateVehicle({session, initialValues}) {
 
         
     async function handleRemoveImage(image) {
-        console.log(image)
+        
         if(image) {
            const newImages = imagesPreview.filter(newImage => newImage.file.name != image.file.name)
            setImagesPreview(newImages)
@@ -233,7 +242,7 @@ export default function CreateVehicle({session, initialValues}) {
             height="250px" 
             cursor="pointer"
             overflow="hidden"
-            key={value.preview as string}
+            key={`${value.preview as string}-${index}`}
             index={index}
 
             >
@@ -252,7 +261,7 @@ export default function CreateVehicle({session, initialValues}) {
                 <SortableItem
                 value={value}
                 index={index}
-                key={value.preview as string}
+                key={`${value.preview as string}-${index}`}
                 />
                 
             ))}
