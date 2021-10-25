@@ -33,7 +33,7 @@ model Anuncio {
   chave_copia String
   laudo_cautelar String
   manual_do_proprietario String
-  observacoes String
+  opcionais String[]
   data_de_criacao DateTime @default(now())
   image String[]
   slug String @unique

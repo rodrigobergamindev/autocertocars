@@ -1,5 +1,5 @@
 import { Icon, Image, FormLabel, FormControl, FormErrorMessage, Grid, Box, Flex, VStack, 
-    Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput, Select, Spinner} from "@chakra-ui/react";
+    Heading, SimpleGrid, Divider, HStack, Button, Text, Input as ChakraInput, Select, Spinner} from "@chakra-ui/react";
 
 
 import { Input } from "../../../components/Form/Input";
@@ -7,7 +7,7 @@ import  Header  from "../../../components/Header";
 import  Siderbar  from "../../../components/Sidebar/index"
 import Link from 'next/link'
 
-import {useForm, SubmitHandler} from 'react-hook-form'
+import {useForm, SubmitHandler, useFieldArray, useWatch} from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -19,13 +19,12 @@ import { insert } from '../../api/photos'
 import { useRouter } from "next/router";
 import {useState} from 'react'
 import { RiAddLine, RiCheckFill, RiCheckLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
 import { PrismaClient } from '@prisma/client'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
-import {v4 as uuid} from 'uuid'
+
 
 type CreateAnuncioFormData = {
     marca: string;
@@ -44,7 +43,7 @@ type CreateAnuncioFormData = {
     chave_copia: string;
     laudo_cautelar: string;
     manual_do_proprietario: string;
-    observacoes: string;
+    opcionais: string[];
     image: FileList;
     condicao: string;
   }
@@ -73,12 +72,16 @@ type ImagePreview = {
     potencia: yup.string().required('Informe a potência do veículo'),
     transmissao: yup.string().required('Selecione uma opção'),
     quilometragem: yup.string().required('Informe a quilometragem do veículo'),
-    observacoes: yup.string().required('Informe os adicionais'),
     manual_do_proprietario: yup.string().required('Selecione uma opção'),
     laudo_cautelar: yup.string().required('Selecione uma opção'),
     condicao: yup.string().required().required('Selecione uma opção'),
-    image: yup.mixed()
-           
+    image: yup.mixed(),
+    opcionais: yup.array().of(
+        yup.object().shape({
+            name: yup.string()
+                .required('Informe o opcional'),
+        })
+    )      
             
         
   })
@@ -90,39 +93,43 @@ export default function CreateVehicle({session, initialValues}) {
 
     const router = useRouter()
 
-    const {register,handleSubmit, formState} = useForm({
+    const {register,control, handleSubmit, formState, watch} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
     })
 
+    const {fields, append, remove} = useFieldArray({ name: "opcionais", control })
+
     const {errors} = formState
+
+    const PriceTotal = ({ control }) => {
+        const value = useWatch({
+          control,
+          name: `items`,
+          defaultValue: {}
+        });
+      
+        console.log(value);
+        return null;
+      };
+
+    
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
     const [createMarca, setCreateMarca] = useState(false)
-    const [valueCar, setValue] = useState(0)
-    const [inputList, setInputList] = useState([
-        {
-           name: 'adicional1',
-           id: 'adicional1',
-           value: ''
-        },
-        {
-            name: 'adicional2',
-            id: 'adicional2',
-            value: ''
-         }
-    ])
-
+    
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         
         const response = await handleUpload(imagesPreview)
+        
         const images = response.map(image => {
             if(image.file) {
                 delete image.file
             }
             return image.preview
         })
-        if(values && images.length > 0){
-            const anuncio = {...values, valor: valueCar, image: images}
+
+        if(images.length > 0){
+            const anuncio = {...values, image: images}
             await saveAnuncio(anuncio)
         }
        
@@ -264,22 +271,8 @@ export default function CreateVehicle({session, initialValues}) {
         
     }
 
-    const handleAdicional = (event, index) => {
-        console.log(event.target.value)
-        console.log(index)
-    }
-
-    const addInput = () => {
-        const id = uuid()
-        const input = {
-            id: `${id}`,
-            name: `adicional${id}`,
-            value: ''
-         }
-        setInputList(prevInputs => [...prevInputs, input])
-    }
-
-    console.log(inputList)
+    
+    
     return (
         <Box>
             <Header/>
@@ -465,7 +458,18 @@ export default function CreateVehicle({session, initialValues}) {
                             >
                                 Valor
                             </FormLabel>
-    
+                            <HStack>
+                            <ChakraInput
+                            
+                            disabled={true}
+                            bgColor="gray.900"
+                            variant="filled" 
+                            value="R$"
+                            size="lg"
+                            _hover={{
+
+                            }}
+                            />
                             <ChakraInput
                              {...register('valor')}
                             as={CurrencyInput}
@@ -477,13 +481,13 @@ export default function CreateVehicle({session, initialValues}) {
                             id="valor" 
                             type="text" 
                             size="lg"
-                            intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+                            groupSeparator="."
                             disableAbbreviations={true}
                             allowNegativeValue={false}
-                            onValueChange={(value) => setValue(value)}       
+                             
                             
                             />
-                          
+                          </HStack>
                             {!!errors.valor && (
                                     <FormErrorMessage>
                                     {errors.valor.message}
@@ -645,28 +649,46 @@ export default function CreateVehicle({session, initialValues}) {
                         
                             <Box>
                             <HStack  alignItems="center" mb={4}>
-                            <Heading size="md" mr={4} fontWeight="bold" color="gray.300" alignSelf="center">OPCIONAIS</Heading>
-                            <Button size="sm" onClick={addInput} colorScheme="blue"><Icon fontSize="md" as={RiAddLine}/></Button>
+                            <Heading size="sm" mr={4} fontWeight="bold" color="gray.300" alignSelf="center">OPCIONAIS</Heading>
+                            <Button size="sm" onClick={() => append({})} colorScheme="blue"><Icon fontSize="md" as={RiAddLine}/></Button>
                             </HStack>
 
                             <Grid templateColumns="repeat(3,1fr)" minChildWidth="240px" gap={6} width="100%">
-                            {inputList.map((field, index) => (
+                                    
+                            <FormControl isInvalid={!!errors.opcionais}>
+                            <FormLabel 
+                            htmlFor="opcionais"
+                            >
+                                Opcional
+                            </FormLabel>
+                                    
+                                    {fields.map((item, index) => {
+                                        return (
+                                            <ChakraInput
+                                            name={`opcionais.${index}`} 
+                                            {...register(`opcionais.${index}`)}
+                                            mb={4}
+                                            bgColor="gray.900" 
+                                            _hover={{bgColor: 'gray.900'}} 
+                                             focusBorderColor="yellow.400"  
+                                            variant="filled" 
+                                            type="text" 
+                                            size="lg"
+                                            key={index}
+                                            
+
+                                            />
+                                        )
+                                    })}
+    
+                                {!!errors.opcionais && (
+                                    <FormErrorMessage>
+                                    {errors.opcionais.map(error => console.log(error))}
+                                    </FormErrorMessage>
+                                 )}
                                 
-                                <ChakraInput
-                                bgColor="gray.900" 
-                                _hover={{bgColor: 'gray.900'}} 
-                                focusBorderColor="yellow.400"  
-                                variant="filled" 
-                                type="text" 
-                                size="lg"
-                                key={index}
-                                name={field.name} 
-                                id={field.name}
-                                onChange={e => handleAdicional(e, index)}
-                                 
-                                />
-                                
-                            ))}
+                                  
+                            </FormControl>
                           </Grid>
                           </Box>
                        

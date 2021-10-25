@@ -20,9 +20,10 @@ import {useRouter} from 'next/router'
 
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
-import {RiCheckLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
-
+import {RiAddLine, RiCheckLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
+import {v4 as uuid} from 'uuid'
+import {SortableContainer, SortableElement} from 'react-sortable-hoc'
+import {arrayMoveImmutable} from 'array-move'
 
 type CreateAnuncioFormData = {
     ano_fabricacao: string;
@@ -107,6 +108,14 @@ export default function EditVehicle({anuncio, marcas, session}) {
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>(imagesPreRender)
     const [createMarca, setCreateMarca] = useState(false)
     const [valueCar, setValue] = useState(anuncio.valor)
+    const [inputList, setInputList] = useState(anuncio.opcionais.map((value,index)=> {
+        const opcional = {
+            name: `adicional${index}`,
+            id: `adicional${index}`,
+            value: value
+        }
+        return opcional
+    }))
 
     const {register,handleSubmit, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
@@ -133,7 +142,10 @@ export default function EditVehicle({anuncio, marcas, session}) {
         })
         
         if(values && images.length > 0) {
-            const anuncioToUpdate = {...values, image: images, valor: valueCar, slug: anuncio.slug}  
+            const opcionais = inputList.map(opcional => {
+                return opcional.value
+            })
+            const anuncioToUpdate = {...values, image: images, valor: valueCar, opcionais, slug: anuncio.slug}  
             await saveAnuncio(anuncioToUpdate, imagesDeleted)
         }
         
@@ -215,8 +227,6 @@ export default function EditVehicle({anuncio, marcas, session}) {
 
 
 
-/*NEW FUNCTIONS*/
-
 
 const handleImage =  (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
@@ -229,7 +239,14 @@ const handleImage =  (event: React.ChangeEvent<HTMLInputElement>) => {
             reader.onloadend = () => {
             const preview = reader.result;
             const image = {preview, file}
-            setImagesPreview((prevImages) =>  [...prevImages, image])
+            const imageAlreadyExistsInPreview = imagesPreview.find(image => image.preview === preview)
+
+                if(!imageAlreadyExistsInPreview){
+                    setImagesPreview((prevImages) =>  [...prevImages, image])
+                }
+                if(imageAlreadyExistsInPreview){
+                    console.log("Não é possível carregar imagens iguais")
+                }
         }
     }
         return null
@@ -248,27 +265,60 @@ function openCreateMarca() {
     setCreateMarca(true)
 }
 
-const handleOnDragEnd = (result: DropResult) => {
-    if(!result.destination) return;
-    
-    const {source, destination} = result
+const handleAdicional = (event, index) => {
+    console.log(event.target.value)
+    console.log(index)
+}
 
-    if (destination.droppableId === source.droppableId && destination.index === source.index) {
-     console.log("they're equal");
-     return;
-   }
-    
-    const newImages = Array.from(imagesPreview)
-    const [reorderedItem] = newImages.splice(source.index, 1)
-    newImages.splice(destination.index, 0, reorderedItem)
-    
-    
-    setImagesPreview(newImages)
-    
-    
+const addInput = () => {
+    const id = uuid()
+    const input = {
+        id: `${id}`,
+        name: `adicional${id}`,
+        value: ''
+     }
+    setInputList(prevInputs => [...prevInputs, input])
 }
     
-   
+const onSortEnd = ({oldIndex, newIndex}) => {
+        
+    setImagesPreview(arrayMoveImmutable(imagesPreview, oldIndex, newIndex))
+    
+}
+
+const SortableItem = SortableElement(({value, index }) => (
+    <Box                                             
+       
+        width="100%" 
+        height="250px" 
+        cursor="pointer"
+        overflow="hidden"
+        key={`${value.preview as string}-${index}`}
+        index={index}
+
+        >
+        <Icon cursor="default" onClick={() => handleRemoveImage(value)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
+        <Image src={value.preview as string} objectPosition="center" alt={value.preview as string} objectFit="cover" width="100%" height="100%" transition="0.3s ease-in-out" _hover={{transform: "scale(1.07)", opacity: 0.7}}/>
+        </Box>
+))
+
+const SortableList = SortableContainer(({items}) => {
+    return (
+        <Grid 
+       templateColumns="repeat(3, 1fr)"
+        mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={2}
+        >
+        {items.map((value, index) => (
+            <SortableItem
+            value={value}
+            index={index}
+            key={`${value.preview as string}-${index}`}
+            />
+            
+        ))}
+        </Grid>
+    )
+})
 
     return (
         <Box>
@@ -631,131 +681,97 @@ const handleOnDragEnd = (result: DropResult) => {
                     </SimpleGrid>
                     
                     <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
-                    <Box>
-                    <FormControl isInvalid={!!errors.observacoes}>
-                            <Text size="sm" fontWeight="bold" color="whiteAlpha" mb="2">Observações</Text>
-                            <Textarea
-                                id="observacoes"
-                                name="observacoes"
-                                resize="none"
-                                focusBorderColor="yellow.400"
-                                bgColor="gray.900"
+                        
+                            <Box>
+                            <HStack  alignItems="center" mb={4}>
+                            <Heading size="sm" mr={4} fontWeight="bold" color="gray.300" alignSelf="center">OPCIONAIS</Heading>
+                            <Button size="sm" onClick={addInput} colorScheme="blue"><Icon fontSize="md" as={RiAddLine}/></Button>
+                            </HStack>
+
+                            <Grid templateColumns="repeat(3,1fr)" minChildWidth="240px" gap={6} width="100%">
+                            {inputList.map((field, index) => (
+                                
+                                <ChakraInput
+                                bgColor="gray.900" 
+                                _hover={{bgColor: 'gray.900'}} 
+                                focusBorderColor="yellow.400"  
+                                variant="filled" 
+                                type="text" 
+                                size="lg"
+                                key={index}
+                                name={field.name} 
+                                id={field.name}
+                                defaultValue={field.value}
+                                onChange={e => handleAdicional(e, index)}
+                                 
+                                />
+                                
+                            ))}
+                          </Grid>
+                          </Box>
+                       
+                            
+                           
+    
+                        </SimpleGrid>
+    
+                        <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
+                        
+                    
+                            
+                            <Box mt={6} display="flex" flexDirection="column"  p={1} gap={2}>
+                            
+                            
+                            <FormControl isInvalid={!!errors.image}>
+                            <FormLabel 
+                            htmlFor="image"
+                            >
+                                
+                                <Box p={4} display="flex" justifyContent="center" alignItems="center" >
+                              <Box mr={5} maxWidth="240px" bg="blue.500" borderRadius="5px" p={2} display="flex" alignItems="center" justifyContent="center" cursor="pointer" transition="all 0.3s ease-in-out" _hover={{opacity: 0.88}}>
+                                  <Icon mr={3}  alignSelf="center" w={7} h={7} as={RiUploadCloudLine}/>
+                                  <Text fontSize="20px">Escolher imagens</Text>
+                                  
+                                  </Box>
+                                  <Box>{imagesPreview.length === 0 ? <Text fontSize="20px">Envie no mínimo uma imagem</Text> : <Text fontSize="20px">{imagesPreview.length} imagens selecionadas</Text>}</Box>
+                                  </Box>
+                            
+                            </FormLabel>
+                            <ChakraInput p={1} 
+                                name="image" 
+                                id="image" 
+                                type="file" 
+                                multiple
                                 variant="filled"
+                                accept="image/jpeg, image/png, image/jpg"
+                                bgColor="gray.900"
+                                display="none"
+                                {...register('image')}
+                               
                                 _hover={{
                                     bgColor: 'gray.900'
                                 }}
-                                size="lg"
-                                {...register('observacoes')}
-                                defaultValue={anuncio.observacoes}
-                            >
+                                size="lg" 
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImage(event)}
+                                />
     
-                            </Textarea>
-                            {!!errors.observacoes && (
+                                 {!!errors.image && (
                                     <FormErrorMessage>
-                                    {errors.observacoes.message}
+                                    {errors.image.message}
                                     </FormErrorMessage>
                                  )}
-                        </FormControl>
-                     
-                        </Box>
+                                  
+                            </FormControl>
 
-                    </SimpleGrid>
-                
-                    <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
-                    
-                
+                                {imagesPreview.length > 0 &&
+                                <SortableList items={imagesPreview} distance={1} onSortEnd={onSortEnd} axis="xy"/>
+                                }
                         
-                    <Box mt={6} display="flex" flexDirection="column"  p={1} gap={2}>
-                    
-                    
-                    <FormControl isInvalid={!!errors.image}>
-                    <FormLabel 
-                    htmlFor="image"
-                    >
-                        <Box display="flex" justifyContent="center" alignItems="center">
-                      <Box mr={5} maxWidth="240px" bg="blue.500" borderRadius="5px" p={2} display="flex" alignItems="center" justifyContent="center" cursor="pointer" transition="all 0.3s ease-in-out" _hover={{opacity: 0.88}}>
-                          <Icon mr={3}  alignSelf="center" w={7} h={7} as={RiUploadCloudLine}/>
-                          <Text fontSize="20px">Escolher imagens</Text>
-                          
-                          </Box>
-                          <Box>{imagesPreview.length === 0 ? <Text fontSize="20px">Envie no mínimo uma imagem</Text> : <Text fontSize="20px">{imagesPreview.length} imagens selecionadas</Text>}</Box>
-                          </Box>
-                    
-                    </FormLabel>
-                    <ChakraInput p={1} 
-                        name="image" 
-                        id="image" 
-                        type="file" 
-                        multiple
-                        variant="filled"
-                        accept="image/jpeg, image/png, image/jpg"
-                        bgColor="gray.900"
-                        display="none"
-                        _hover={{
-                            bgColor: 'gray.900'
-                        }}
-                        size="lg" {...register('image')}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImage(event)}
-                        />
-
-                        {!!errors.image && (
-                            <FormErrorMessage>
-                            {errors.image.message}
-                            </FormErrorMessage>
-                         )}
-                        
-                          
-                    </FormControl>
-                    
-                    {winReady && imagesPreview.length > 0 ? (
-                         
-                        <DragDropContext onDragEnd={handleOnDragEnd}>
-                        <Droppable droppableId="images" >
-                            {(providedDroppable) => (
-                                
-                                <Grid 
-                                {...providedDroppable.droppableProps} 
                             
-                                ref={providedDroppable.innerRef}
-                               templateColumns="repeat(1, 1fr)"
-                                mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={3}
-                                >
-                                {imagesPreview.map((image, index) => {
-                                   
-                                    return (
-                                        <Draggable key={`${image.preview as string}-${index}`} draggableId={`${image.preview as string}-${index}`} index={index}>
-                                            {(providedDraggable) => (
-                                                <Box 
-                                                ref={providedDraggable.innerRef} 
-                                                {...providedDraggable.draggableProps} 
-                                                {...providedDraggable.dragHandleProps}
-                                                  maxHeight="350px"
-                                                  width="100%" 
-                                                  height="100%" 
-                                                  cursor="pointer"
-                                                  overflow="hidden"
-                                                  >
-                                                    <Icon cursor="default" onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
-                                                    <Image src={image.preview as string} alt="img" objectFit="cover" width="100%" height="100%" transition="0.3s ease-in-out" _hover={{transform: "scale(1.07)"}} />
-                                                </Box>
-                                            )}
-                                        </Draggable>
-                                    )
-                                })}
-                                {providedDroppable.placeholder}
-                                </Grid>
-                                
-                            )}
-                    
-                        </Droppable>
-                    </DragDropContext>
-                            ) : (
-                        <Box/>
-                    )}
-                 
-                    </Box>
-                    
-            </SimpleGrid>
+                            
+                            </Box>
+                            
+                    </SimpleGrid>
                 </VStack>
 
                 <Flex mt="8" justify="flex-end">
