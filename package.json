@@ -17,6 +17,7 @@
     "@hookform/resolvers": "^2.8.1",
     "@prisma/client": "^3.2.1",
     "@types/next-auth": "^3.15.0",
+    "array-move": "^4.0.0",
     "bson": "^4.5.3",
     "firebase": "^9.1.1",
     "framer-motion": "^4.1.17",
@@ -31,6 +32,7 @@
     "react-hook-form": "^7.16.2",
     "react-icons": "^4.2.0",
     "react-input-mask": "^2.0.4",
+    "react-sortable-hoc": "^2.0.0",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"
   },

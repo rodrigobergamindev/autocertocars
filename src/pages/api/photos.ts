@@ -52,7 +52,7 @@ export const insert = async (images: Image[]) => {
                 image.preview = photoUrl
             }
         }
-        return image
+        return image 
      })
 
      return imagesUpload

@@ -23,7 +23,8 @@ import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautif
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
 import { PrismaClient } from '@prisma/client'
-
+import {arrayMove, SortableContainer, SortableElement} from 'react-sortable-hoc'
+import {arrayMoveImmutable} from 'array-move'
 
 type CreateAnuncioFormData = {
     marca: string;
@@ -179,9 +180,8 @@ export default function CreateVehicle({session, initialValues}) {
 
 
         
-    async function handleRemoveImage(image: ImagePreview) {
-
-        
+    async function handleRemoveImage(image) {
+        console.log(image)
         if(image) {
            const newImages = imagesPreview.filter(newImage => newImage.file.name != image.file.name)
            setImagesPreview(newImages)
@@ -191,7 +191,10 @@ export default function CreateVehicle({session, initialValues}) {
        
    }
 
-   const handleOnDragEnd = (result: DropResult) => {
+  /**  
+   * logica para react-beautiful-dnd
+   * 
+   * const handleOnDragEnd = (result: DropResult) => {
        if(!result.destination) return;
        
        const {source, destination} = result
@@ -210,7 +213,7 @@ export default function CreateVehicle({session, initialValues}) {
        
        
    }
-
+*/
 
   const handleCreateMarca = (event) => {
         if(event.target.value === 'adicionar') {
@@ -223,7 +226,45 @@ export default function CreateVehicle({session, initialValues}) {
     }
 
 
+    const SortableItem = SortableElement(({value, index }) => (
+        <Box                                             
+            maxHeight="350px"
+            width="100%" 
+            height="100%" 
+            cursor="pointer"
+            overflow="hidden"
+            key={value.preview as string}
+            index={index}
+            onClick={() => handleRemoveImage(value)}
+            >
+            <Icon cursor="default" onClick={() => handleRemoveImage(value)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
+            <Image src={value.preview as string} alt={value.preview as string} objectFit="cover" width="100%" height="100%" transition="0.3s ease-in-out" _hover={{transform: "scale(1.07)"}}/>
+            </Box>
+    ))
 
+    const SortableList = SortableContainer(({items}) => {
+        return (
+            <Grid 
+           templateColumns="repeat(3, 1fr)"
+            mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={3}
+            >
+            {items.map((value, index) => (
+                <SortableItem
+                value={value}
+                index={index}
+                key={value.preview as string}
+                />
+                
+            ))}
+            </Grid>
+        )
+    })
+
+    const onSortEnd = ({oldIndex, newIndex}) => {
+        
+        setImagesPreview(arrayMoveImmutable(imagesPreview, oldIndex, newIndex))
+        
+    }
 
     return (
         <Box>
@@ -666,46 +707,8 @@ export default function CreateVehicle({session, initialValues}) {
                             </FormControl>
 
                                 {imagesPreview.length > 0 &&
-                                <DragDropContext onDragEnd={handleOnDragEnd}>
-                                <Droppable droppableId="images" >
-                                    {(providedDroppable) => (
-                                        <Grid 
-                                        {...providedDroppable.droppableProps} 
-                                        ref={providedDroppable.innerRef}
-                                       templateColumns="repeat(1, 1fr)"
-                                        mt={6} border="2px dashed" bg="whiteAlpha" borderColor="blue.500"  p={2} gap={3}
-                                        >
-                                        {imagesPreview.map((image, index) => {
-                                           
-                                            return (
-                                                <Draggable key={`${image.preview as string}-${index}`} draggableId={`${image.preview as string}-${index}`} index={index}>
-                                                    {(providedDraggable) => (
-                                                        <Box 
-                                                        ref={providedDraggable.innerRef} 
-                                                        {...providedDraggable.draggableProps} 
-                                                        {...providedDraggable.dragHandleProps}
-                                                          
-                                                          maxHeight="350px"
-                                                          width="100%" 
-                                                          height="100%" 
-                                                          cursor="pointer"
-                                                          overflow="hidden"
-                                                          >
-                                                            <Icon cursor="default" onClick={() => handleRemoveImage(image)} as={RiCloseLine} backgroundColor="red.400" color="white" position="absolute" zIndex="1" w={5} h={5}/>
-                                                            <Image src={image.preview as string} alt={image.preview as string} objectFit="cover" width="100%" height="100%" transition="0.3s ease-in-out" _hover={{transform: "scale(1.07)"}}/>
-                                                        </Box>
-                                                    )}
-                                                </Draggable>
-                                            )
-                                        })}
-                                        {providedDroppable.placeholder}
-                                        </Grid>
-                                        
-                                    )}
-                            
-                                </Droppable>
-                            </DragDropContext>
-                            }
+                                <SortableList items={imagesPreview} onSortEnd={onSortEnd} axis="xy"/>
+                                }
                         
                             
                             
