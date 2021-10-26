@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const newAnuncio = {...anuncioToUpdate, name}
 
         const {marca} = anuncioToUpdate
-
+        
         const marcaAlreadyExists = await prisma.marca.findUnique({
           where: {
             name:marca,
@@ -49,7 +49,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             })
 
         if(update){
-          anuncioData.imagesDeleted.map(async(image) => await deletePhoto(image))
+          anuncioData.imagesDeleted.map(async(image) => await deletePhoto(image.preview))
         }
 
         }
@@ -77,6 +77,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           })
 
           if(update){
+            
             anuncioData.imagesDeleted.map(async(image) => await deletePhoto(image))
           }
         }
