@@ -101,7 +101,14 @@ export default function EditVehicle({anuncio, marcas, session}) {
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>(imagesPreRender)
     const [createMarca, setCreateMarca] = useState(false)
     const [opcionaisInit, setOpcionais] = useState(anuncio.opcionais)
+    
+    
+    const {valor} = anuncio
+    const valueFormatted =  parseFloat(valor.replace('.','').replace('R$','').replace(' ',''))
+    
 
+
+    
 
     const {register,handleSubmit, control, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
@@ -565,32 +572,23 @@ const SortableList = SortableContainer(({items}) => {
                                 Valor
                             </FormLabel>
                             <HStack>
-                            <ChakraInput
-                            
-                            disabled={true}
-                            bgColor="gray.900"
-                            variant="filled" 
-                            value="R$"
-                            size="lg"
-                            _hover={{
-
-                            }}
-                            />
-                            <ChakraInput
-                            name="valor" 
-                            id="valor" 
+                        
+                           <ChakraInput
                              {...register('valor')}
                             as={CurrencyInput}
                             bgColor="gray.900" 
                             _hover={{bgColor: 'gray.900'}} 
                             focusBorderColor="yellow.400"  
                             variant="filled" 
+                            name="valor" 
+                            id="valor" 
                             type="text" 
                             size="lg"
-                            disableAbbreviations={true}
                             allowNegativeValue={false}
-                            defaultValue={anuncio.valor}
-                            groupSeparator="."
+                            disableAbbreviations={true}
+                            allowDecimals={false}
+                            intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+                            defaultValue={valueFormatted}
                             />
                           </HStack>
                             {!!errors.valor && (

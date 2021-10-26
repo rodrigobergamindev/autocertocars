@@ -26,7 +26,6 @@ import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
 
 
-
 type CreateAnuncioFormData = {
     marca: string;
     modelo: string;
@@ -40,7 +39,7 @@ type CreateAnuncioFormData = {
     potencia: string;
     transmissao: string;
     quilometragem: string;
-    valor: number;
+    valor: string;
     chave_copia: string;
     laudo_cautelar: string;
     manual_do_proprietario: string;
@@ -117,6 +116,7 @@ export default function CreateVehicle({session, initialValues}) {
     
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         
+        
         const response = await handleUpload(imagesPreview)
         const {opcionais} = values
         const newOpcionais = opcionais.map(opcional => opcional.opcional)
@@ -129,9 +129,12 @@ export default function CreateVehicle({session, initialValues}) {
         })
 
         if(images.length > 0){
+            
             const anuncio = {...values, image: images, opcionais: newOpcionais}
             await saveAnuncio(anuncio)
         }
+
+        
 
         
     }
@@ -456,18 +459,7 @@ export default function CreateVehicle({session, initialValues}) {
                             >
                                 Valor
                             </FormLabel>
-                            <HStack>
-                            <ChakraInput
                             
-                            disabled={true}
-                            bgColor="gray.900"
-                            variant="filled" 
-                            value="R$"
-                            size="lg"
-                            _hover={{
-
-                            }}
-                            />
                             <ChakraInput
                              {...register('valor')}
                             as={CurrencyInput}
@@ -479,13 +471,12 @@ export default function CreateVehicle({session, initialValues}) {
                             id="valor" 
                             type="text" 
                             size="lg"
-                            groupSeparator="."
-                            disableAbbreviations={true}
                             allowNegativeValue={false}
-                             
-                            
+                            disableAbbreviations={true}
+                            allowDecimals={false}
+                            intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
                             />
-                          </HStack>
+                         
                             {!!errors.valor && (
                                     <FormErrorMessage>
                                     {errors.valor.message}
