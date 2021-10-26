@@ -46,7 +46,7 @@ export default function Dashboard({session, messagesReceived, anuncios}) {
 
       
       const carValues = anuncios.map(anuncio => (
-        parseFloat(anuncio.valor)
+        parseFloat(anuncio.valor.replace('.','').replace('R$','').replace(' ',''))
       ))
 
    

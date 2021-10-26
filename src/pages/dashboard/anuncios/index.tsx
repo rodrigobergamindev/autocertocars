@@ -47,6 +47,8 @@ export default function AnuncioList({initialValues, session}) {
 
     
     const router = useRouter()
+
+    
     
 
 
@@ -70,10 +72,11 @@ export default function AnuncioList({initialValues, session}) {
 
     
    
-
+    
+    
 
         const carValues = initialValues.map(anuncio => (
-            parseFloat(anuncio.valor)
+            parseFloat(anuncio.valor.replace('.','').replace('R$','').replace(' ',''))
           ))
 
        
@@ -107,7 +110,9 @@ export default function AnuncioList({initialValues, session}) {
 
                         <Flex  justify="flex-end" align="center" alignSelf="flex-end" justifySelf="flex-end" >
 
-                        <Text color="yellow.400" fontWeight="bold" fontSize="20px">Total: {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalStock)}</Text>
+                        <Text color="yellow.400" fontWeight="bold" fontSize="20px">
+                            Total: {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalStock)}
+                            </Text>
                         <Link href="/dashboard/anuncios/create" passHref><Button as="a" ml={10} size="sm" fontSize="sm" colorScheme="blue" leftIcon={<Icon as={RiAddLine} fontSize="20"></Icon>}>Criar novo</Button></Link>
 
                         </Flex>
@@ -153,7 +158,9 @@ export default function AnuncioList({initialValues, session}) {
                             <Link href={`/dashboard/anuncios/edit/${anuncio.slug}`} passHref>
                             <Box  cursor="pointer">
                                 <Text fontWeight="bold" fontSize="sm">{anuncio.name}</Text>
-                                {!!isWideVersion && <Text fontWeight="bold" fontSize="sm" color="gray.300">{(new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(anuncio.valor)))}</Text>}
+                                {!!isWideVersion && <Text fontWeight="bold" fontSize="sm" color="gray.300">
+                                    {(new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(anuncio.valor.replace('.','').replace('R$','').replace(' ',''))))}
+                                    </Text>}
                             </Box>
                             </Link>
                         </Td>
