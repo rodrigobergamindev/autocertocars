@@ -279,7 +279,33 @@ export default function CreateVehicle({session, initialValues}) {
 
                 <Siderbar/>
 
-                
+                {formState.isSubmitting ? (
+                    <Flex
+                    align="center"
+                    justify="center"
+                    flex="1"
+                    height="100vh"
+                    >
+                    <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="xl"
+                  />
+                  <Text ml={4}>Enviando dados...</Text>
+                  </Flex>
+                ) : (
+                formState.isSubmitted ? (
+                    <Flex
+                    align="center"
+                    justify="center"
+                    flex="1"
+                    height="100vh"
+                    >
+                    <Icon as={RiCheckLine} fontSize="40px"/> <Text ml={4}>Anúncio criado com sucesso!</Text>
+                    </Flex>
+                ) : (
                     <Box 
                     as="form"
                     flex="1" 
@@ -741,8 +767,8 @@ export default function CreateVehicle({session, initialValues}) {
                         </HStack>
                     </Flex>
                     </Box>
-               
-
+                ))}
+                
             </Flex>
         </Box>
     )
