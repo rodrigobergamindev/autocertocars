@@ -60,6 +60,7 @@ type Opcional = {
 
 
 
+
   const createAnuncioFormSchema = yup.object({
     marca: yup.string().required('Marca obrigatória'),
     ano_fabricacao: yup.string().required('Preencha com o ano do veículo'),
@@ -79,7 +80,9 @@ type Opcional = {
     laudo_cautelar: yup.string().required('Selecione uma opção'),
     condicao: yup.string().required('Selecione uma opção'),
     image: yup.mixed(),
-    opcionais: yup.array().of(yup.object()).optional()
+    opcionais: yup.array().of(yup.object({
+        opcional: yup.string().required("Informe o opcional")
+    }))
             
         
   })
@@ -630,6 +633,7 @@ export default function CreateVehicle({session, initialValues}) {
                                     {fields.map((item, index) => {
                                         
                                         return (
+                                            
                                             <HStack align="center" mb={4} key={`${item.id}-${index}`}>
                                             <ChakraInput
                                             name={`opcionais.[${index}].opcional`} 
@@ -645,14 +649,19 @@ export default function CreateVehicle({session, initialValues}) {
                                             />
                                             <Button size="md" onClick={() => remove(index)} colorScheme="red"><Icon fontSize="md" as={RiSubtractLine}/></Button>
                                             </HStack>
-                                        )
-                                    })}
     
-                                {!!errors.opcionais && (
-                                    <FormErrorMessage>
-                                    {errors.opcionais.map(error => console.log(error))}
-                                    </FormErrorMessage>
-                                 )}
+                                         )}
+                                            
+                                        )
+
+                                    }
+
+                                        {!!errors.opcionais && (
+                                            <FormErrorMessage>
+                                            {errors.opcionais.map(error => console.log(error))}
+                                            </FormErrorMessage>
+                                        )}
+                                        
                                 
                                   
                             
