@@ -124,7 +124,7 @@ export default function MensagensList({initialValues, session}) {
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">E-MAIL:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.email}</Text>
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">WHATSAPP:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.whatsapp}</Text>
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">MENSAGEM:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.mensagem}</Text>
-                        {!!message.veiculo  && <Text fontSize="sm" fontWeight="bold" color="gray.300">VEÍCULO: <Text fontSize="sm" color="white" mb={2}>{message.veiculo}</Text></Text>}
+                        {!!message.veiculo  && <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">VEÍCULO:</Text> <Text fontSize="sm" color="white" mb={2}>{message.veiculo}</Text></Box>}
                          <HStack mt={4} justify="flex-end">
                          <Button size="sm" colorScheme="red" onClick={() => handleRemoveMessage(message)}  leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Excluir</Button>
                         <a href={`https://api.whatsapp.com/send?phone=55${message.whatsapp}&text=Olá,%20${message.name}!%20 recebi sua proposta através de www.autocertocars.com.br`} target="_blank">
