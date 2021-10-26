@@ -7,7 +7,7 @@ import  Header  from "../../../components/Header";
 import  Siderbar  from "../../../components/Sidebar/index"
 import Link from 'next/link'
 
-import {useForm, SubmitHandler, useFieldArray, useWatch} from 'react-hook-form'
+import {useForm, SubmitHandler, useFieldArray, Control} from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -24,6 +24,7 @@ import CurrencyInput from 'react-currency-input-field';
 import { PrismaClient } from '@prisma/client'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
+
 
 
 type CreateAnuncioFormData = {
@@ -43,7 +44,7 @@ type CreateAnuncioFormData = {
     chave_copia: string;
     laudo_cautelar: string;
     manual_do_proprietario: string;
-    opcionais: string[];
+    opcionais: Opcional[];
     image: FileList;
     condicao: string;
   }
@@ -53,7 +54,9 @@ type ImagePreview = {
     file: File;
 }
 
-
+type Opcional = {
+    opcional: string;
+}
 
 
 
@@ -74,19 +77,14 @@ type ImagePreview = {
     quilometragem: yup.string().required('Informe a quilometragem do veículo'),
     manual_do_proprietario: yup.string().required('Selecione uma opção'),
     laudo_cautelar: yup.string().required('Selecione uma opção'),
-    condicao: yup.string().required().required('Selecione uma opção'),
+    condicao: yup.string().required('Selecione uma opção'),
     image: yup.mixed(),
-    opcionais: yup.array().of(
-        yup.object().shape({
-            opcional: yup.string()
-                .required('Informe o opcional'),
-        })
-    )      
+    opcionais: yup.array().of(yup.object()).optional()
             
         
   })
 
-  
+
 
 
 export default function CreateVehicle({session, initialValues}) {
@@ -97,7 +95,14 @@ export default function CreateVehicle({session, initialValues}) {
         resolver: yupResolver(createAnuncioFormSchema)
     })
 
-    const {fields, append, remove} = useFieldArray({ name: "opcionais" as const, control })
+
+
+    const {fields, append, remove} = useFieldArray(
+        {
+            control, 
+            name: "opcionais" as const
+        }
+        )
 
     const {errors} = formState
 
@@ -109,10 +114,23 @@ export default function CreateVehicle({session, initialValues}) {
     
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         
-        console.log(values)
+        const response = await handleUpload(imagesPreview)
+        const {opcionais} = values
+        const newOpcionais = opcionais.map(opcional => opcional.opcional)
         
+        const images = response.map(image => {
+            if(image.file) {
+                delete image.file
+            }
+            return image.preview
+        })
+
+        if(images.length > 0){
+            const anuncio = {...values, image: images, opcionais: newOpcionais}
+            await saveAnuncio(anuncio)
+        }
+
         
-       
     }
 
     

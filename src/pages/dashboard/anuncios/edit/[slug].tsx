@@ -8,7 +8,7 @@ import  Header  from "../../../../components/Header";
 import  Siderbar  from "../../../../components/Sidebar/index"
 import Link from 'next/link'
 
-import {useForm, SubmitHandler} from 'react-hook-form'
+import {useForm, SubmitHandler, useFieldArray, Control} from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import {GetServerSideProps} from 'next'
@@ -20,8 +20,7 @@ import {useRouter} from 'next/router'
 
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
-import {RiAddLine, RiCheckLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
-import {v4 as uuid} from 'uuid'
+import {RiAddLine, RiCheckLine, RiCloseLine, RiSubtractLine, RiUploadCloudLine} from "react-icons/ri";
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
 
@@ -43,11 +42,14 @@ type CreateAnuncioFormData = {
     chave_copia: string;
     laudo_cautelar: string;
     manual_do_proprietario: string;
-    observacoes: string;
+    opcionais: Opcional[];
     image: FileList;
 
   }
 
+  type Opcional = {
+    opcional: string;
+}
 
 
 
@@ -66,20 +68,11 @@ type CreateAnuncioFormData = {
     potencia: yup.string().required('Informe a potência do veículo'),
     transmissao: yup.string().required('Selecione uma opção'),
     quilometragem: yup.string().required('Informe a quilometragem do veículo'),
-    observacoes: yup.string().required('Informe os adicionais'),
     manual_do_proprietario: yup.string().required('Selecione uma opção'),
     laudo_cautelar: yup.string().required('Selecione uma opção'),
-    condicao: yup.string().required().required('Selecione uma opção'),
-    image: yup.mixed()
-            
-
-            
-        
-    //email: yup.string().required('E-mail obrigatório').email(),
-    //password: yup.string().required('Senha obrigatória').min(6, 'A senha precisa no mínimo de 6 caracteres'),
-    //password_confirmation: yup.string().oneOf([
-    //    null, yup.ref('password')
-    //], 'As senhas precisam ser iguais')
+    condicao: yup.string().required('Selecione uma opção'),
+    image: yup.mixed(),
+    opcionais: yup.array().of(yup.object()).optional()       
   })
 
 
@@ -107,19 +100,21 @@ export default function EditVehicle({anuncio, marcas, session}) {
     const [imagesDeleted, setImagesDeleted] = useState([])
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>(imagesPreRender)
     const [createMarca, setCreateMarca] = useState(false)
-    const [valueCar, setValue] = useState(anuncio.valor)
-    const [inputList, setInputList] = useState(anuncio.opcionais.map((value,index)=> {
-        const opcional = {
-            name: `adicional${index}`,
-            id: `adicional${index}`,
-            value: value
-        }
-        return opcional
-    }))
+    const [opcionaisInit, setOpcionais] = useState(anuncio.opcionais)
 
-    const {register,handleSubmit, formState} = useForm({
+
+    const {register,handleSubmit, control, formState} = useForm({
         resolver: yupResolver(createAnuncioFormSchema)
     })
+
+        
+    const {fields, append, remove} = useFieldArray(
+        {
+            control, 
+            name: "opcionais" as const
+        }
+        )
+
 
 
     const[winReady, setwinReady] = useState(false)
@@ -132,7 +127,7 @@ export default function EditVehicle({anuncio, marcas, session}) {
  
 
     const handleEditAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
-
+        
         const response = await handleUpload(imagesPreview)
         const images = response.map(image => {
             if(image.file) {
@@ -142,10 +137,9 @@ export default function EditVehicle({anuncio, marcas, session}) {
         })
         
         if(values && images.length > 0) {
-            const opcionais = inputList.map(opcional => {
-                return opcional.value
-            })
-            const anuncioToUpdate = {...values, image: images, valor: valueCar, opcionais, slug: anuncio.slug}  
+            const {opcionais} = values
+            const newOpcionais = [...opcionaisInit,...opcionais.map(opcional => opcional.opcional)]
+            const anuncioToUpdate = {...values, image: images, opcionais: newOpcionais, slug: anuncio.slug} 
             await saveAnuncio(anuncioToUpdate, imagesDeleted)
         }
         
@@ -153,6 +147,7 @@ export default function EditVehicle({anuncio, marcas, session}) {
         
 
     }
+    
 
     async function saveAnuncio(anuncio, imagesDeleted) { 
         
@@ -184,7 +179,6 @@ export default function EditVehicle({anuncio, marcas, session}) {
         }
         
         const response = await Promise.all(result)
-        console.log(response)
         return response
 
 
@@ -265,20 +259,6 @@ function openCreateMarca() {
     setCreateMarca(true)
 }
 
-const handleAdicional = (event, index) => {
-    console.log(event.target.value)
-    console.log(index)
-}
-
-const addInput = () => {
-    const id = uuid()
-    const input = {
-        id: `${id}`,
-        name: `adicional${id}`,
-        value: ''
-     }
-    setInputList(prevInputs => [...prevInputs, input])
-}
     
 const onSortEnd = ({oldIndex, newIndex}) => {
         
@@ -286,9 +266,13 @@ const onSortEnd = ({oldIndex, newIndex}) => {
     
 }
 
+const handleRemoveOpcional = opcional => {
+    const newOpcionais = opcionaisInit.filter(item => item !== opcional)
+    setOpcionais(newOpcionais)
+}
+
 const SortableItem = SortableElement(({value, index }) => (
     <Box                                             
-       
         width="100%" 
         height="250px" 
         cursor="pointer"
@@ -328,33 +312,7 @@ const SortableList = SortableContainer(({items}) => {
 
                 <Siderbar/>
 
-                {formState.isSubmitting ? (
-                    <Flex
-                    align="center"
-                    justify="center"
-                    flex="1"
-                    height="100vh"
-                    >
-                    <Spinner
-                    thickness="4px"
-                    speed="0.65s"
-                    emptyColor="gray.200"
-                    color="blue.500"
-                    size="xl"
-                  />
-                  <Text ml={4}>Enviando dados...</Text>
-                  </Flex>
-                ) : (
-                formState.isSubmitted ? (
-                    <Flex
-                    align="center"
-                    justify="center"
-                    flex="1"
-                    height="100vh"
-                    >
-                    <Icon as={RiCheckLine} fontSize="40px"/> <Text ml={4}>Anúncio criado com sucesso!</Text>
-                    </Flex>
-                ) : (
+                
                     <Box 
                 as="form"
                 flex="1" 
@@ -382,7 +340,7 @@ const SortableList = SortableContainer(({items}) => {
                         {createMarca ? (
                         <ChakraInput size="lg" name="marca" id="marca"  {...register('marca')} focusBorderColor="yellow.500" _hover={{bgColor: 'gray.900'}} variant="filled" bg="gray.900" type="text"/>
                         ) : (
-                            <Select size="lg" id="marca" name="marca" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue={anuncio.marca_name} {...register('marca')} onChange={e => handleCreateMarca(e)}  _hover={{bgColor: 'gray.900'}}>
+                            <Select size="lg" id="marca" name="marca" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('marca')} defaultValue={anuncio.marca_name}  onChange={e => handleCreateMarca(e)}  _hover={{bgColor: 'gray.900'}}>
                                     {!!marcas && marcas.map((marca, index) => {
                                        
                                         return (
@@ -441,7 +399,7 @@ const SortableList = SortableContainer(({items}) => {
 
                         <Input name="versao" label="Versão" error={errors.versao} {...register('versao')} defaultValue={anuncio.versao}/>
                         <Input name="numero_portas" label="Número de Portas" error={errors.numero_portas} {...register('numero_portas')} defaultValue={anuncio.numero_portas}/>
-                        <Input name="cor" label="Cor" {...register('cor')} error={errors.cor} {...register('cor')} defaultValue={anuncio.cor}/>
+                        <Input name="cor" label="Cor" error={errors.cor} {...register('cor')} defaultValue={anuncio.cor}/>
                         <Input name="cores_internas" label="Cores Interiores" error={errors.cores_internas} {...register('cores_internas')} defaultValue={anuncio.cores_internas} />
 
 
@@ -504,7 +462,7 @@ const SortableList = SortableContainer(({items}) => {
                         >
                             Transmissão
                         </FormLabel>
-                        <Select id="transmissao" size="lg" name="transmissao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue={anuncio.transmissao}  _hover={{bgColor: 'gray.900'}} {...register('transmissao')}>
+                        <Select id="transmissao" size="lg" name="transmissao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('transmissao')} defaultValue={anuncio.transmissao}  _hover={{bgColor: 'gray.900'}}>
                                     <option style={{backgroundColor:"#1F2029"}} value="Manual">Manual</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Automatizado">Automatizado</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Automático">Automático</option>
@@ -559,7 +517,7 @@ const SortableList = SortableContainer(({items}) => {
                         >
                             Condição
                         </FormLabel>
-                        <Select id="condicao" size="lg" name="condicao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue={anuncio.condicao}  _hover={{bgColor: 'gray.900'}} {...register('condicao')}>
+                        <Select id="condicao" size="lg" name="condicao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('condicao')} defaultValue={anuncio.condicao}  _hover={{bgColor: 'gray.900'}}>
                                     <option style={{backgroundColor:"#1F2029"}} value="Novo">Novo</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Seminovo">Seminovo</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Usado">Usado</option>
@@ -575,37 +533,47 @@ const SortableList = SortableContainer(({items}) => {
                         </FormControl>
 
                         <FormControl isInvalid={!!errors.valor}>
-                        <FormLabel 
-                        htmlFor="valor"
-                        >
-                            Valor
-                        </FormLabel>
+                            <FormLabel 
+                            htmlFor="valor"
+                            >
+                                Valor
+                            </FormLabel>
+                            <HStack>
+                            <ChakraInput
+                            
+                            disabled={true}
+                            bgColor="gray.900"
+                            variant="filled" 
+                            value="R$"
+                            size="lg"
+                            _hover={{
 
-                        <ChakraInput
-                         {...register('valor')}
-                        as={CurrencyInput}
-                        bgColor="gray.900" 
-                        _hover={{bgColor: 'gray.900'}} 
-                        focusBorderColor="yellow.400"  
-                        variant="filled" 
-                        name="valor" 
-                        id="valor" 
-                        type="text" 
-                        size="lg"
-                        intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
-                        disableAbbreviations={true}
-                        allowNegativeValue={false}
-                        defaultValue={anuncio.valor}
-                        onValueChange={(value) => setValue(value)}
-                        />
-                      
-                        {!!errors.valor && (
-                                <FormErrorMessage>
-                                {errors.valor.message}
-                                </FormErrorMessage>
-                             )}
-                        
-                       </FormControl>
+                            }}
+                            />
+                            <ChakraInput
+                            name="valor" 
+                            id="valor" 
+                             {...register('valor')}
+                            as={CurrencyInput}
+                            bgColor="gray.900" 
+                            _hover={{bgColor: 'gray.900'}} 
+                            focusBorderColor="yellow.400"  
+                            variant="filled" 
+                            type="text" 
+                            size="lg"
+                            disableAbbreviations={true}
+                            allowNegativeValue={false}
+                            defaultValue={anuncio.valor}
+                            groupSeparator="."
+                            />
+                          </HStack>
+                            {!!errors.valor && (
+                                    <FormErrorMessage>
+                                    {errors.valor.message}
+                                    </FormErrorMessage>
+                                 )}
+                            
+                           </FormControl>
                         
                         
                         
@@ -641,7 +609,7 @@ const SortableList = SortableContainer(({items}) => {
                         >
                             Laudo Cautelar
                         </FormLabel>
-                        <Select size="lg" id="laudo_cautelar" name="laudo_cautelar" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue={anuncio.laudo_cautelar}  _hover={{bgColor: 'gray.900'}} {...register('laudo_cautelar')}>
+                        <Select size="lg" id="laudo_cautelar" name="laudo_cautelar" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('laudo_cautelar')} defaultValue={anuncio.laudo_cautelar}  _hover={{bgColor: 'gray.900'}} >
                                     <option style={{backgroundColor:"#1F2029"}} value="Aprovado">Aprovado</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Reprovado">Reprovado</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Pendente">Pendente</option>
@@ -662,7 +630,7 @@ const SortableList = SortableContainer(({items}) => {
                         >
                             Manual do Proprietário
                         </FormLabel>
-                        <Select size="lg" id="manual_do_proprietario" name="manual_do_proprietario" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue={anuncio.manual_do_proprietario}  _hover={{bgColor: 'gray.900'}} {...register('manual_do_proprietario')}>
+                        <Select size="lg" id="manual_do_proprietario" name="manual_do_proprietario" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('manual_do_proprietario')} defaultValue={anuncio.manual_do_proprietario}  _hover={{bgColor: 'gray.900'}}>
                                     <option style={{backgroundColor:"#1F2029"}} value="Sim">Sim</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Não">Não</option>
                             </Select>
@@ -685,29 +653,60 @@ const SortableList = SortableContainer(({items}) => {
                             <Box>
                             <HStack  alignItems="center" mb={4}>
                             <Heading size="sm" mr={4} fontWeight="bold" color="gray.300" alignSelf="center">OPCIONAIS</Heading>
-                            <Button size="sm" onClick={addInput} colorScheme="blue"><Icon fontSize="md" as={RiAddLine}/></Button>
+                            <Button size="sm" onClick={() => append({})} colorScheme="blue"><Icon fontSize="md" as={RiAddLine}/></Button>
                             </HStack>
-
+                            <FormControl isInvalid={!!errors.opcionais}>
                             <Grid templateColumns="repeat(3,1fr)" minChildWidth="240px" gap={6} width="100%">
-                            {inputList.map((field, index) => (
+                            
+                            {opcionaisInit.map((opcional,index) => {
+                                return (
+                                    <HStack align="center" mb={4} key={`${opcional}-${index}`}>
+                                    <ChakraInput
+                                           
+                                            disabled={true}
+                                            bgColor="gray.900" 
+                                            _hover={{bgColor: 'gray.900'}} 
+                                             focusBorderColor="yellow.400"  
+                                            variant="filled" 
+                                            type="text" 
+                                            size="lg"
+                                            defaultValue={opcional}
+                                            />
+                                            <Button size="md" onClick={() => handleRemoveOpcional(opcional)} colorScheme="red"><Icon fontSize="md" as={RiSubtractLine}/></Button>
+                                            </HStack>
+                                )
+                            })}
+                            
+                                    
+                                    {fields.map((item, index) => {
+                                        
+                                        return (
+                                            <ChakraInput
+                                            name={`opcionais.[${index}].opcional`} 
+                                            {...register(`opcionais.${index}.opcional` as const)}
+                                            mb={4}
+                                            bgColor="gray.900" 
+                                            _hover={{bgColor: 'gray.900'}} 
+                                             focusBorderColor="yellow.400"  
+                                            variant="filled" 
+                                            type="text" 
+                                            size="lg"
+                                            key={item.id}
+                                            id={item.id}
+                                            />
+                                        )
+                                    })}
+    
+                                {!!errors.opcionais && (
+                                    <FormErrorMessage>
+                                    {errors.opcionais.map(error => console.log(error))}
+                                    </FormErrorMessage>
+                                 )}
                                 
-                                <ChakraInput
-                                bgColor="gray.900" 
-                                _hover={{bgColor: 'gray.900'}} 
-                                focusBorderColor="yellow.400"  
-                                variant="filled" 
-                                type="text" 
-                                size="lg"
-                                key={index}
-                                name={field.name} 
-                                id={field.name}
-                                defaultValue={field.value}
-                                onChange={e => handleAdicional(e, index)}
-                                 
-                                />
-                                
-                            ))}
+                                  
+                            
                           </Grid>
+                          </FormControl>
                           </Box>
                        
                             
@@ -782,8 +781,7 @@ const SortableList = SortableContainer(({items}) => {
                     </HStack>
                 </Flex>
                 </Box>
-                )
-                )}
+               
 
                
             </Flex>
