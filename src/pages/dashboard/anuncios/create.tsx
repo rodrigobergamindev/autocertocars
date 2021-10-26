@@ -18,7 +18,7 @@ import { GetServerSideProps } from 'next'
 import { insert } from '../../api/photos'
 import { useRouter } from "next/router";
 import {useState} from 'react'
-import { RiAddLine, RiCheckFill, RiCheckLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
+import { RiAddLine, RiCheckFill, RiCheckLine, RiSubtractLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
 import { PrismaClient } from '@prisma/client'
@@ -621,19 +621,19 @@ export default function CreateVehicle({session, initialValues}) {
                             <Heading size="sm" mr={4} fontWeight="bold" color="gray.300" alignSelf="center">OPCIONAIS</Heading>
                             <Button size="sm" onClick={() => append({})} colorScheme="blue"><Icon fontSize="md" as={RiAddLine}/></Button>
                             </HStack>
-
+                            <FormControl isInvalid={!!errors.opcionais}>
                             <Grid templateColumns="repeat(3,1fr)" minChildWidth="240px" gap={6} width="100%">
                                     
-                            <FormControl isInvalid={!!errors.opcionais}>
+                            
         
                                     
                                     {fields.map((item, index) => {
                                         
                                         return (
+                                            <HStack align="center" mb={4} key={`${item.id}-${index}`}>
                                             <ChakraInput
                                             name={`opcionais.[${index}].opcional`} 
                                             {...register(`opcionais.${index}.opcional` as const)}
-                                            mb={4}
                                             bgColor="gray.900" 
                                             _hover={{bgColor: 'gray.900'}} 
                                              focusBorderColor="yellow.400"  
@@ -643,6 +643,8 @@ export default function CreateVehicle({session, initialValues}) {
                                             key={item.id}
                                             id={item.id}
                                             />
+                                            <Button size="md" onClick={() => remove(index)} colorScheme="red"><Icon fontSize="md" as={RiSubtractLine}/></Button>
+                                            </HStack>
                                         )
                                     })}
     
@@ -653,8 +655,9 @@ export default function CreateVehicle({session, initialValues}) {
                                  )}
                                 
                                   
-                            </FormControl>
+                            
                           </Grid>
+                          </FormControl>
                           </Box>
                        
                             

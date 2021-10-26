@@ -681,10 +681,10 @@ const SortableList = SortableContainer(({items}) => {
                                     {fields.map((item, index) => {
                                         
                                         return (
+                                            <HStack align="center" mb={4} key={`${item.id}-${index}`}>
                                             <ChakraInput
                                             name={`opcionais.[${index}].opcional`} 
                                             {...register(`opcionais.${index}.opcional` as const)}
-                                            mb={4}
                                             bgColor="gray.900" 
                                             _hover={{bgColor: 'gray.900'}} 
                                              focusBorderColor="yellow.400"  
@@ -694,6 +694,8 @@ const SortableList = SortableContainer(({items}) => {
                                             key={item.id}
                                             id={item.id}
                                             />
+                                            <Button size="md" onClick={() => remove(index)} colorScheme="red"><Icon fontSize="md" as={RiSubtractLine}/></Button>
+                                            </HStack>
                                         )
                                     })}
     
