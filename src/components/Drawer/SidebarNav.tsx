@@ -22,15 +22,41 @@ export function SidebarNav() {
 
             <Stack direction="row" alignItems="center" flex="1" width="100%">
             <a>
-                <Icon fontSize="2xl" color="gray.300" as={RiInstagramLine}/>
+                <Icon 
+                fontSize="2xl" 
+                color="gray.300"
+                as={RiInstagramLine}
+                transition="all 0.3s ease-in-out"
+                cursor="pointer"
+                _hover={{
+                    color:"#D53F8C"
+                }} 
+                />
             </a>
 
             <a>
-                <Icon fontSize="2xl" color="gray.300" as={RiFacebookBoxFill}/>
+                <Icon 
+                fontSize="2xl" 
+                color="gray.300" 
+                as={RiFacebookBoxFill}
+                transition="all 0.3s ease-in-out"
+                cursor="pointer"
+                _hover={{
+                    color:"#3182CE"
+                }}
+                />
             </a>
 
             <a>
-                <Icon fontSize="2xl" color="gray.300" as={RiWhatsappLine}/>
+                <Icon fontSize="2xl" 
+                color="gray.300" 
+                as={RiWhatsappLine}
+                transition="all 0.3s ease-in-out"
+                cursor="pointer"
+                _hover={{
+                    color:"#38A169"
+                }} 
+                />
             </a>
 
             <Box flex="1" width="100px" height="1px" backgroundColor="gray.50"/>
