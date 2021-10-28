@@ -104,10 +104,10 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                            <Heading fontSize="3xl" color="gray.900" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
                                            <StackDivider/>
                                            <Stack  direction="row" justifyContent="space-between">
-                                                <Text fontSize="2xl" alignSelf="flex-end" fontWeight="bold">{anuncio.ano_fabricacao}</Text>
+                                                <Text fontSize="3xl" alignSelf="flex-end" fontWeight="bold">{anuncio.ano_fabricacao}</Text>
                                                 <StackDivider/>
                                                 <StackDivider/>
-                                               <Text fontSize="4xl" fontWeight="light">{anuncio.valor}</Text>
+                                               <Text fontSize="3xl" fontWeight="light">{anuncio.valor}</Text>
                                            </Stack>
                                            </Stack>
                                        </Stack>
