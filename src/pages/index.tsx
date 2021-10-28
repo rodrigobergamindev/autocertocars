@@ -8,7 +8,7 @@ import Drawer from '../components/Drawer/index'
 import VehicleSection from '../components/Section/Veiculos'
 import About from '../components/Section/About/index'
 import Feed from '../components/Section/Feed/index'
-
+import Vender from '../components/Section/Vender/index'
 
 
 
@@ -43,8 +43,8 @@ export default function Home({anuncios, feed}) {
             <VehicleSection anuncios={anuncios}/>
             <About/>
             <Feed feed={feed}/>
+            <Vender/>
             
-            <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Venda seu carro</Box> 
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Nossos serviços</Box> 
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Contato</Box>
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="30vh">Footer</Box> 
