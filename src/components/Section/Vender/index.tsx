@@ -1,10 +1,7 @@
 import { HStack, VStack, Icon, Grid, Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, Heading, StackDivider} from '@chakra-ui/react'
 
 import Image from 'next/image'
-import {FaRegHandshake, FaCar} from 'react-icons/fa'
-import {GiBrazil, GiPayMoney, GiReceiveMoney, GiTakeMyMoney} from 'react-icons/gi'
-import { RiRefreshLine } from 'react-icons/ri'
-import {IoIosCash, IoIosDocument} from 'react-icons/io'
+import Form from './Form'
 
 export default function Vender() {
 
@@ -25,25 +22,47 @@ export default function Vender() {
                 priority
                 
             />
-            <Stack  flex="1" width="100%" bg="gray.900">
-                <Text fontSize="9xl">test</Text>
+            
+            <VStack bg="gray.900"  width="100%" flex="1"  alignSelf="center">
+                
+                <VStack maxWidth="1000px" width="100%">
+                <Heading as="i" fontWeight="light" alignSelf="flex-start" letterSpacing={6} fontSize="6xl"  color="gray.50">
+                    QUER TROCAR
+                </Heading>
+                <Heading as="i" letterSpacing={4}  color="yellow.400" alignSelf="center" fontSize="8xl" fontWeight="black">SEU CARRO?</Heading>
+                </VStack>
+            </VStack>
+
+            <HStack flex="1" width="100%" bg="gray.900" align="center" justify="center">
+            <Grid  mt={20} templateColumns="repeat(2,1fr)" flex="1" width="100%" maxWidth="1400px">
+                
+               
                 <Box
-                width="450px"
-                height="850px"
-                border="solid"
-                borderColor="blue"
+                as={VStack}
+                width="100%"
+                height={650}
+                position="relative"
+                p={6}
+                alignSelf="center"
                 >
+                    <Heading fontWeight="light" fontSize="4xl">
+                    Oferecemos a melhor <strong style={{color:"#ECC94B"}}>oferta</strong> pelo seu veículo, solicite a sua <strong style={{color:"#ECC94B"}}>cotação!</strong>
+                </Heading>
                 <ChakraImage
                 as={Image}
+                layout="fill"
                 src="/img/vender.png"
-                width={350}
-                height={350}
-                layout="responsive"
                 objectFit="contain"
                 priority
                 />
-            </Box>
+                </Box>
+                
+                <Box p={6}>
+                    <Form/>
+                </Box>
+            </Grid>
+            </HStack>
             </Stack>
-            </Stack>
+            
     )
 }
