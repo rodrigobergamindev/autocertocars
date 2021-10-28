@@ -1,11 +1,13 @@
 import { Box, Flex, Icon, IconButton} from '@chakra-ui/react'
 import {RiMenuLine} from 'react-icons/ri'
 import { useSidebarDrawer } from '../contexts/SidebarDrawerContext'
+import { GetStaticProps } from 'next'
 
 import Header from '../components/Home/Header/index'
 import Drawer from '../components/Drawer/index'
 import VehicleSection from '../components/Section/Veiculos'
-import { GetStaticProps } from 'next'
+import About from '../components/Section/About/index'
+
 
 
 
@@ -19,6 +21,7 @@ export default function Home({anuncios}) {
             <IconButton
             aria-label="Open navigation"
             icon={<Icon as={RiMenuLine}/>}
+            color="yellow.400"
             fontSize="40"
             variant="unstyled"
             onClick={onOpen}
@@ -37,9 +40,9 @@ export default function Home({anuncios}) {
             <Drawer/>
             
             <Header/>
-
             <VehicleSection anuncios={anuncios}/>
-            <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Sobre</Box>
+            <About/>
+            
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Instagram</Box>
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Venda seu carro</Box> 
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Nossos serviços</Box> 

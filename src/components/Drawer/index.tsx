@@ -14,7 +14,7 @@ export default function Siderbar() {
             <Drawer isOpen={isOpen} onClose={onClose} placement="right" size="full">
             <DrawerOverlay>
                 <DrawerContent bg="gray.800" p="4">
-                    <DrawerCloseButton mt={6} mr={4} fontSize="30"  variant="unstyled" _focus={{borderColor: "none"}}/>
+                    <DrawerCloseButton mt={6} mr={4} fontSize="30" color="yellow.400"  variant="unstyled" _focus={{borderColor: "none"}}/>
                     <DrawerHeader><Logo size={250}/></DrawerHeader>
                     <DrawerBody display="flex">
                         <SidebarNav/>
