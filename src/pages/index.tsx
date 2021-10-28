@@ -1,9 +1,16 @@
 import { Box, Flex, Icon, IconButton} from '@chakra-ui/react'
-import Header from '../components/Home/Header/index'
-import Drawer from '../components/Drawer/index'
 import {RiMenuLine} from 'react-icons/ri'
 import { useSidebarDrawer } from '../contexts/SidebarDrawerContext'
-export default function Home() {
+
+import Header from '../components/Home/Header/index'
+import Drawer from '../components/Drawer/index'
+import VehicleSection from '../components/Section/Veiculos'
+import { GetStaticProps } from 'next'
+
+
+
+
+export default function Home({anuncios}) {
 
     const { onOpen } = useSidebarDrawer()
     return (
@@ -26,11 +33,12 @@ export default function Home() {
             }}
             >
             </IconButton>
+
             <Drawer/>
             
             <Header/>
 
-            <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Veículos</Box>
+            <VehicleSection anuncios={anuncios}/>
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Sobre</Box>
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Instagram</Box>
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Venda seu carro</Box> 
@@ -40,3 +48,21 @@ export default function Home() {
         </Box>
     )
 }
+
+
+
+export const getStaticProps: GetStaticProps = async (context) => {
+
+    
+    const response = await fetch('http://localhost:3000/api/anuncios/get', {
+        method: "GET"
+    })
+    const anuncios = await response.json()
+    
+    return {
+      props: {
+          anuncios
+      }
+    }
+  }
+
