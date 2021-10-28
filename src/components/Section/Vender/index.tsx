@@ -19,8 +19,7 @@ export default function Vender() {
                 src="/img/waves.svg"
                 width="100%"
                 objectFit="cover"
-                priority
-                
+               
             />
             
             <VStack bg="gray.900"  width="100%" flex="1"  alignSelf="center">

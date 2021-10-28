@@ -1,4 +1,5 @@
 import { Box, Flex, Icon, IconButton} from '@chakra-ui/react'
+
 import {RiMenuLine} from 'react-icons/ri'
 import { useSidebarDrawer } from '../contexts/SidebarDrawerContext'
 import { GetStaticProps } from 'next'
@@ -9,7 +10,7 @@ import VehicleSection from '../components/Section/Veiculos'
 import About from '../components/Section/About/index'
 import Feed from '../components/Section/Feed/index'
 import Vender from '../components/Section/Vender/index'
-
+import Footer from '../components/Home/Footer/index'
 
 
 export default function Home({anuncios, feed}) {
@@ -44,8 +45,15 @@ export default function Home({anuncios, feed}) {
             <About/>
             <Feed feed={feed}/>
             <Vender/>
-            <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Contato</Box>
-            <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="30vh">Footer</Box> 
+
+            
+            <Box
+            as="iframe"
+            src="https://embed.waze.com/iframe?zoom=25&lat=-23.515206&lon=-46.459107&pin=1&desc=1&ct=livemap"
+            height="400px"
+            />
+
+            <Footer/>
         </Box>
     )
 }

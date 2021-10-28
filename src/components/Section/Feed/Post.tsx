@@ -26,7 +26,7 @@ export default function Post({post}: PostProps) {
 
    
     return (
-        <a href={post.media_url} target="_blank">
+        <a href={post.permalink} target="_blank">
         <Stack position="relative" height="100%" alignItems="center" justifyContent="center">
                     
                     <ChakraImage
