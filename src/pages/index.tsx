@@ -7,7 +7,7 @@ import Header from '../components/Home/Header/index'
 import Drawer from '../components/Drawer/index'
 import VehicleSection from '../components/Section/Veiculos'
 import About from '../components/Section/About/index'
-
+import Feed from '../components/Section/Feed/index'
 
 
 
@@ -42,8 +42,8 @@ export default function Home({anuncios}) {
             <Header/>
             <VehicleSection anuncios={anuncios}/>
             <About/>
+            <Feed/>
             
-            <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Instagram</Box>
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Venda seu carro</Box> 
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Nossos serviços</Box> 
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Contato</Box>
