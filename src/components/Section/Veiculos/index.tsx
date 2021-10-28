@@ -11,7 +11,7 @@ import "swiper/css";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 
-const array = [1,2,3,4,5,6,7,8]
+
 
 type Anuncio = {
     id: string;
@@ -83,7 +83,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                             return (
                                 <SwiperSlide key={anuncio.id}>
                                      {({ isNext }) => (
-                                       <Stack height="100%" alignItems="center" justifyContent="space-between" overflow="hidden">
+                                       <Stack height="100%" position="relative" alignItems="center" justifyContent="space-between" overflow="hidden">
                                            
                                            <ChakraImage
                                            as={Image}
@@ -91,6 +91,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                            alt={anuncio.name}
                                            layout="fill"
                                            objectFit="cover"
+                                           priority
                                            filter={`${isNext? "brightness(1.10)" : "brightness(0.7)"}`}
                                            transition="all 0.3s ease-in-out"
                                            _hover={{

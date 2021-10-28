@@ -12,7 +12,7 @@ import Feed from '../components/Section/Feed/index'
 
 
 
-export default function Home({anuncios}) {
+export default function Home({anuncios, feed}) {
 
     const { onOpen } = useSidebarDrawer()
     return (
@@ -42,7 +42,7 @@ export default function Home({anuncios}) {
             <Header/>
             <VehicleSection anuncios={anuncios}/>
             <About/>
-            <Feed/>
+            <Feed feed={feed}/>
             
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Venda seu carro</Box> 
             <Box as={Flex} align="center" justify="center" border="solid" w="100%" h="100vh">Nossos serviços</Box> 
@@ -60,11 +60,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const response = await fetch('http://localhost:3000/api/anuncios/get', {
         method: "GET"
     })
+
+    const response_feed = await fetch(process.env.URL_ACCESS)
+
+    const data = await response_feed.json()
+    const feed = await data.data
+    
+
     const anuncios = await response.json()
     
     return {
       props: {
-          anuncios
+          anuncios,
+          feed
       }
     }
   }
