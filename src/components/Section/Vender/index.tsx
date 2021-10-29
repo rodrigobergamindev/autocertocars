@@ -14,11 +14,13 @@ export default function Vender() {
             bg="gray.50"
             flexDirection="column"
             spacing={0}
+            mb={150}
             >
             <ChakraImage
                 src="/img/waves.svg"
                 width="100%"
                 objectFit="cover"
+               
                
             />
             
