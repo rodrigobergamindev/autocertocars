@@ -10,7 +10,7 @@ import {useState} from 'react'
 import { PrismaClient } from '@prisma/client'
 import { getSession } from "next-auth/client"
 import { motion } from "framer-motion";
-
+import {api} from '../../../services/api'
 
 
 
@@ -146,9 +146,12 @@ export default function MensagensList({initialValues, session}) {
 export const getServerSideProps: GetServerSideProps = async({req}) => {
 
    
-    const prisma = new PrismaClient();
-    const messages = await prisma.message.findMany()
-    const initialValues = JSON.parse(JSON.stringify(messages))
+    
+    const data_messages = await api.get('/messages/get', {
+        method: "GET",
+      })
+
+    const initialValues = data_messages.data
 
    
 

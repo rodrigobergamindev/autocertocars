@@ -24,6 +24,7 @@ import CurrencyInput from 'react-currency-input-field';
 import { PrismaClient } from '@prisma/client'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
+import {api} from '../../../services/api'
 
 
 type CreateAnuncioFormData = {
@@ -771,15 +772,11 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
 
     const session = await getSession({req})
 
-    const prisma = new PrismaClient();
-    const data = await prisma.marca.findMany({
-        orderBy: [
-            {
-                name: 'asc'
-            }
-        ]
-    })
-    const initialValues = JSON.parse(JSON.stringify(data))
+    const data = await api.get('/marcas/get', {
+        method: "GET"
+      })
+
+    const initialValues = await data.data
    
 
     if(!session) {

@@ -11,7 +11,7 @@ import { PrismaClient } from '@prisma/client'
 import { getSession } from "next-auth/client"
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-
+import {api} from '../../../services/api'
 
 
 
@@ -197,11 +197,11 @@ export default function AnuncioList({initialValues, session}) {
 
 export const getServerSideProps: GetServerSideProps = async({req}) => {
 
-    const anuncios = await fetch('http://localhost:3000/api/anuncios/get', {
-        method: "GET"
-    })
+    const anuncios = await api.get('/anuncios/get', {
+        method: "GET",
+      })
     
-    const initialValues = await anuncios.json()
+    const initialValues = await anuncios.data
     
     const session = await getSession({req})
    

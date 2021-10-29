@@ -9,7 +9,7 @@ import { PrismaClient } from '@prisma/client'
 import CountUp from 'react-countup';
 import { motion } from "framer-motion";
 import  Link  from 'next/link';
-
+import {api} from '../../services/api'
 
 
 
@@ -215,23 +215,21 @@ export const getServerSideProps = async ({req}) => {
 
   const session = await getSession({req})
 
-  const data_anuncios = await fetch('http://localhost:3000/api/anuncios/get', {
-        method: "GET"
+
+  const data_anuncios = await api.get('/anuncios/get', {
+      method: "GET",
     })
 
-  const data_messages = await fetch('http://localhost:3000/api/messages/get', {
-    method: "GET"
-})
+    const data_messages = await api.get('/messages/get', {
+      method: "GET",
+    })
 
-  const anuncios = await data_anuncios.json()
-  const messages = await data_messages.json()
+  const anuncios = await data_anuncios.data
+  const messages = await data_messages.data
     
   
   const messagesReceived = messages.length > 0 ?  messages.length : 0
 
-
-
-  
   
   if(!session) {
       return {

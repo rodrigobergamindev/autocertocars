@@ -23,6 +23,7 @@ import CurrencyInput from 'react-currency-input-field';
 import {RiAddLine, RiCheckLine, RiCloseLine, RiSubtractLine, RiUploadCloudLine} from "react-icons/ri";
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
+import {api} from '../../../../services/api'
 
 type CreateAnuncioFormData = {
     ano_fabricacao: string;
@@ -88,7 +89,7 @@ type ImagePreview = {
 export default function EditVehicle({anuncio, marcas, session}) {
 
     const router = useRouter()
-
+  
     const imagesPreRender = anuncio.image.map(image => {
         const imagePreRender = {
             preview: image
@@ -820,24 +821,25 @@ const SortableList = SortableContainer(({items}) => {
 export const getServerSideProps: GetServerSideProps = async ({params, req}) => {
 
     const {slug} = params
-    const prisma = new PrismaClient();
 
-    const data = await prisma.anuncio.findUnique({
-        where: {
+
+    const data = await  api.get('/anuncios/get', {
+        method: "GET",
+        params: {
           slug: slug as string
-        },
+        }
       })
 
-    const anuncio = JSON.parse(JSON.stringify(data))
+      const dataMarcas = await  api.get('/marcas/get', {
+        method: "GET"
+      })
 
-    const dataMarcas = await prisma.marca.findMany({
-        orderBy: [
-            {
-                name: 'asc'
-            }
-        ]
-    })
-    const marcas = JSON.parse(JSON.stringify(dataMarcas))
+
+    const anuncio = await data.data
+    const marcas = await dataMarcas.data
+
+
+ 
     const session = await getSession({req})
  
     if(!session) {

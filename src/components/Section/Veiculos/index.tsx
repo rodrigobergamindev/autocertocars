@@ -54,6 +54,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             h="100vh"
             flexDirection="column"
             backgroundColor="gray.50"
+            
             >
             
                 <Box as={Flex} width="100%" maxWidth="650px"  flexDirection="column" alignSelf="center">
@@ -97,6 +98,8 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                            _hover={{
                                             transform: "scale(1.1)"
                                         }}
+
+                                          
                                            
                                            />
                                            <StackDivider/>

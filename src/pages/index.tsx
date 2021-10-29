@@ -11,7 +11,7 @@ import About from '../components/Section/About/index'
 import Feed from '../components/Section/Feed/index'
 import Vender from '../components/Section/Vender/index'
 import Footer from '../components/Home/Footer/index'
-
+import {api} from '../services/api'
 
 export default function Home({anuncios, feed}) {
 
@@ -66,9 +66,9 @@ export default function Home({anuncios, feed}) {
 export const getStaticProps: GetStaticProps = async (context) => {
 
     
-    const response = await fetch('http://localhost:3000/api/anuncios/get', {
-        method: "GET"
-    })
+    const response = await api.get('/anuncios/get', {
+        method: "GET",
+      })
 
     const response_feed = await fetch(process.env.URL_ACCESS)
 
@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const feed = await data.data
     
 
-    const anuncios = await response.json()
+    const anuncios = await response.data
     
     return {
       props: {
