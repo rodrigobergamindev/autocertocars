@@ -215,11 +215,17 @@ export const getServerSideProps = async ({req}) => {
 
   const session = await getSession({req})
 
+  const data_anuncios = await fetch('http://localhost:3000/api/anuncios/get', {
+        method: "GET"
+    })
 
-  const prisma = new PrismaClient();
-  const data = await prisma.anuncio.findMany()
-  const anuncios = JSON.parse(JSON.stringify(data))
-  const messages = await prisma.message.findMany()
+  const data_messages = await fetch('http://localhost:3000/api/messages/get', {
+    method: "GET"
+})
+
+  const anuncios = await data_anuncios.json()
+  const messages = await data_messages.json()
+    
   
   const messagesReceived = messages.length > 0 ?  messages.length : 0
 

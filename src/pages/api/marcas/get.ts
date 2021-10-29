@@ -18,15 +18,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if(req.method !== "GET") {
         return res.status(405).json({ message: 'não ta vindo GET'})
     }
+ 
 
-    const data = await prisma.anuncio.findMany({
+    const data = await prisma.marca.findMany({
         orderBy: [
             {
                 name: 'asc'
             }
         ]
     })
-    
     
     return res.json(data)
 }

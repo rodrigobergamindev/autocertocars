@@ -20,7 +20,7 @@ import { useRouter } from "next/router";
 
 
 export default function AnuncioList({initialValues, session}) {
-
+    
     const container = {
         hidden: { opacity: 1, scale: 0 },
         visible: {
@@ -197,18 +197,12 @@ export default function AnuncioList({initialValues, session}) {
 
 export const getServerSideProps: GetServerSideProps = async({req}) => {
 
-   
-    const prisma = new PrismaClient();
-    const anuncios = await prisma.anuncio.findMany({
-        orderBy: [
-            {
-                name: 'asc'
-            }
-        ]
+    const anuncios = await fetch('http://localhost:3000/api/anuncios/get', {
+        method: "GET"
     })
-    const initialValues = JSON.parse(JSON.stringify(anuncios))
-
-
+    
+    const initialValues = await anuncios.json()
+    
     const session = await getSession({req})
    
  
