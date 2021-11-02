@@ -2,7 +2,7 @@ import { Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex
 
 import {RiCheckFill, RiCloseFill, RiMenuLine, RiWhatsappFill} from 'react-icons/ri'
 import {IoMdCloseCircle, IoMdShareAlt} from 'react-icons/io'
-import {GiSpeedometer, GiGasPump, GiGearHammer, GiCarWheel, GiGears, GiCarSeat} from 'react-icons/gi'
+import {GiSpeedometer, GiGasPump, GiGearHammer, GiCarWheel, GiGears, GiCarSeat, GiTakeMyMoney} from 'react-icons/gi'
 import {FaCheckCircle, FaRegCalendarAlt} from 'react-icons/fa'
 import { useSidebarDrawer } from '../../contexts/SidebarDrawerContext'
 import { GetStaticProps, GetStaticPaths } from 'next'
@@ -20,7 +20,7 @@ export default function Anuncio({anuncio}) {
     
     const { onOpen } = useSidebarDrawer()
     const [imagePreview, setImage] = useState(anuncio.image[0])
-    console.log(imagePreview)
+   
 
     return (
         <Box as={Flex} w="100%" direction="column">
@@ -84,10 +84,10 @@ export default function Anuncio({anuncio}) {
                     
 
                     <HStack width="100%"  flex="1" align="flex-end" justify="space-between">
-                        <Heading p={6} fontFamily="Roboto, sans-serif"  letterSpacing={3} fontSize="5xl">{anuncio.name.toUpperCase() + " - " + anuncio.valor + ',00'}</Heading>
+                        <Heading p={6} fontFamily="Roboto, sans-serif"  letterSpacing={1.5} fontSize="5xl">{anuncio.name.toUpperCase() + " - " + anuncio.valor + ',00'}</Heading>
                         <HStack align="center" justify="center">
-                            <Heading p={6}   fontSize="5xl"><Button leftIcon={<Icon as={IoMdShareAlt} fontSize="30"/>} size="lg" fontSize="2xl" colorScheme="yellow">Tenho Interesse</Button></Heading>
-                            
+                            <Heading p={6}   fontSize="5xl"><Button leftIcon={<Icon as={IoMdShareAlt} fontSize="30"/>} size="lg" fontSize="2xl" colorScheme="whiteAlpha">Tenho Interesse</Button></Heading>
+                            <Heading p={6}   fontSize="5xl"><Button leftIcon={<Icon as={GiTakeMyMoney} fontSize="30"/>} size="lg" fontSize="2xl" colorScheme="whiteAlpha">Quero trocar</Button></Heading>
                         </HStack>
                         
                     </HStack>
@@ -153,7 +153,7 @@ export default function Anuncio({anuncio}) {
 
 
                 <Box mt={150} as={Flex} direction="column" maxWidth="1280px" width="100%">
-                    <Heading color="gray.900" fontSize="5xl" letterSpacing={2}>FICHA TÉCNICA</Heading>
+                    <Heading color="gray.900" fontSize="5xl" letterSpacing={2}>ESPECIFICAÇÕES</Heading>
                     <HStack mt={20} justify="space-between">
                         <Heading color="gray.500" fontSize="3xl" fontFamily="Roboto, sans-serif">INFORMAÇÕES DO VEÍCULO</Heading>
                         <Heading color="gray.900" fontSize="3xl" fontFamily="Roboto, sans-serif">{anuncio.valor + ',00'}</Heading>
@@ -194,8 +194,7 @@ export default function Anuncio({anuncio}) {
                 </Box>
             </Box>
 
-
-                             
+                
 
 
 

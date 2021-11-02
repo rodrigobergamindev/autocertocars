@@ -5,6 +5,7 @@ import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 's
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image'
 import "swiper/css";
+import Link from 'next/link'
 
 
 
@@ -83,8 +84,10 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                         anuncios.map(anuncio =>{
                             return (
                                 <SwiperSlide key={anuncio.id}>
+                                    
                                      {({ isNext }) => (
-                                       <Stack height="100%" position="relative" alignItems="center" justifyContent="space-between" overflow="hidden">
+                                         <Link href={`/anuncios/${anuncio.slug}`}>
+                                       <Stack height="100%" position="relative" alignItems="center" justifyContent="space-between" overflow="hidden" cursor="pointer">
                                            
                                            <ChakraImage
                                            as={Image}
@@ -115,6 +118,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                            </Stack>
                                            </Stack>
                                        </Stack>
+                                       </Link>
                                     )}
                                     
                                 </SwiperSlide>

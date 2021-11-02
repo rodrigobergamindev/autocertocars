@@ -13,6 +13,8 @@ import Vender from '../components/Section/Vender/index'
 import Footer from '../components/Home/Footer/index'
 import {api} from '../services/api'
 
+
+
 export default function Home({anuncios, feed}) {
 
     const { onOpen } = useSidebarDrawer()
