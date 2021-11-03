@@ -12,10 +12,28 @@ import Drawer from '../../components/Drawer/index'
 import Footer from '../../components/Home/Footer/index'
 import {api} from '../../services/api'
 import Logo from '../../components/Home/Header/Logo'
-import Image from 'next/image'
 import {useState} from 'react'
+import Modal from 'react-modal';
+import ModalContact from '../../components/Modal/index'
+
+Modal.setAppElement('#modal-root')
 
 export default function Anuncio({anuncio}) {
+
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+
+
+
+  function openModal() {
+    setIsOpen(true);
+    console.log(modalIsOpen)
+  }
+
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
     
     const { onOpen } = useSidebarDrawer()
@@ -53,21 +71,13 @@ export default function Anuncio({anuncio}) {
             justify="center"
             w="100%"
             h="90vh"
-            position="relative"
             boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
+            backgroundImage={imagePreview}
+            backgroundRepeat="no-repeat"
+            backgroundSize="cover"
+            backgroundPosition="center"
             >
-               
-                <ChakraImage
-                as={Image}
-                src={imagePreview}
-                layout="fill"
-                objectFit="cover"
-                priority
-                zIndex={-1}
-                
-                >
-
-                </ChakraImage>
+            
                 
                 <Stack
                 flex="1"
@@ -86,8 +96,7 @@ export default function Anuncio({anuncio}) {
                     <HStack width="100%"  flex="1" align="flex-end" justify="space-between">
                         <Heading p={6} fontFamily="Roboto, sans-serif"  letterSpacing={1.5} fontSize="5xl">{anuncio.name.toUpperCase() + " - " + anuncio.valor + ',00'}</Heading>
                         <HStack align="center" justify="center">
-                            <Heading p={6}   fontSize="5xl"><Button leftIcon={<Icon as={IoMdShareAlt} fontSize="30"/>} size="lg" fontSize="2xl" colorScheme="whiteAlpha">Tenho Interesse</Button></Heading>
-                            <Heading p={6}   fontSize="5xl"><Button leftIcon={<Icon as={GiTakeMyMoney} fontSize="30"/>} size="lg" fontSize="2xl" colorScheme="whiteAlpha">Quero trocar</Button></Heading>
+                            <Heading p={6}   fontSize="5xl"><Button onClick={openModal} leftIcon={<Icon as={IoMdShareAlt} fontSize="30"/>} size="lg" fontSize="2xl" colorScheme="whiteAlpha">Tenho Interesse</Button></Heading>
                         </HStack>
                         
                     </HStack>
@@ -95,6 +104,8 @@ export default function Anuncio({anuncio}) {
 
                 
             </Box>
+
+            <ModalContact isOpen={modalIsOpen} onRequestClose={closeModal}/>
             
 
             <Box flex="1" as={Flex} direction="column" width="100%" backgroundColor="gray.50" alignItems="center" justifyContent="center" p={25}>
@@ -129,13 +140,17 @@ export default function Anuncio({anuncio}) {
 
                 <Grid mt={100} border="solid" templateColumns="repeat(4,1fr)" height="600px" width="100%" maxWidth="1280px">
                     {anuncio.image.map(image => (
-                        <Box position="relative" key={image}>
+                        <Box 
+                        position="relative" 
+                        key={image}
+                        overflow="hidden"
+                        >
                             <ChakraImage
-                                as={Image}
+                                overflow="hidden"
                                 src={image}
-                                layout="fill"
+                                width="100%"
+                                height="100%"
                                 objectFit="cover"
-                                priority
                                 transition="all 0.3s ease-in-out"
                                 cursor="pointer"
                                 onClick={() => setImage(image)}
@@ -150,6 +165,7 @@ export default function Anuncio({anuncio}) {
                         </Box>
                     ))}
                 </Grid>
+                
 
 
                 <Box mt={150} as={Flex} direction="column" maxWidth="1280px" width="100%">
@@ -198,15 +214,6 @@ export default function Anuncio({anuncio}) {
 
 
 
-            <a href="https://ul.waze.com/ul?place=ChIJQZ6RW19hzpQR-JEo6pwBfnw&ll=-23.51520590%2C-46.45910690&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank">
-            
-            <Box
-            as="iframe"
-            src="https://embed.waze.com/iframe?zoom=15&lat=-23.515206&lon=-46.459107&pin=1&desc=1&ct=livemap"
-            height="400px"
-            width="100%"
-            />
-            </a>
             <Footer/>
             
         </Box>

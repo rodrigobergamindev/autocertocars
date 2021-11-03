@@ -10,6 +10,13 @@ import CountUp from 'react-countup';
 export default function About() {
 
     return (
+        <Stack bg="gray.50" spacing={0}>
+              <ChakraImage
+                src="/img/wavetwo.svg"
+                width="100%"
+                objectFit="cover"
+               
+            />
         <Stack 
            spacing={10} 
             align="center" 
@@ -25,6 +32,7 @@ export default function About() {
             backgroundPosition="center"
             
             >
+          
             
                 <Box as={Flex}  width="100%" maxWidth="750px"  flexDirection="column" alignSelf="center">
                 
@@ -168,6 +176,7 @@ export default function About() {
                 
                 </Grid>
                </Flex>
+            </Stack>
             </Stack>
     )
 }

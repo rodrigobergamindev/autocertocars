@@ -1,6 +1,5 @@
 import {Icon, Image as ChakraImage, Stack} from '@chakra-ui/react'
 
-import Image from 'next/image'
 import "swiper/css";
 import {useState} from 'react'
 import {RiInstagramLine} from 'react-icons/ri'
@@ -27,16 +26,16 @@ export default function Post({post}: PostProps) {
    
     return (
         <a href={post.permalink} target="_blank">
-        <Stack position="relative" height="100%" alignItems="center" justifyContent="center">
+        <Stack overflow="hidden" alignItems="center" justifyContent="center">
                     
                     <ChakraImage
-                               as={Image}
+                              
                                src={post.media_url}
                                alt="post"
-                               layout="fill"
+                            overflow="hidden"
                                objectFit="cover"
                                transition="all 0.3s ease-in-out"
-                               priority
+                                position="relative"
                                onMouseOver={() => setVisible(true)}
                                onMouseLeave={() => setVisible(false)}
                                transform={!!iconVisible? "scale(1.1)" : "none"}
@@ -47,7 +46,7 @@ export default function Post({post}: PostProps) {
                                 }}
                                
                                />
-                              <Icon onMouseOver={() => setVisible(true)} onMouseLeave={() => setVisible(false)} zIndex={2} as={RiInstagramLine} alignSelf="center" justifySelf="center" fontSize="3xl" visibility={!!iconVisible? "visible" : "hidden"}/>
+                              <Icon position="absolute" onMouseOver={() => setVisible(true)} onMouseLeave={() => setVisible(false)} zIndex={2} as={RiInstagramLine} alignSelf="center" justifySelf="center" fontSize="3xl" visibility={!!iconVisible? "visible" : "hidden"}/>
               
         </Stack>
         </a>

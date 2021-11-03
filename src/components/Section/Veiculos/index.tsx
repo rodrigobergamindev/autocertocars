@@ -58,14 +58,14 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             
             >
             
-                <Box as={Flex} width="100%" maxWidth="650px"  flexDirection="column" alignSelf="center">
+                <Box width="100%" p={6} maxWidth={1480} as={Flex}  flexDirection="row" alignSelf="center">
 
                 
-                <Heading as="i" fontWeight="bold" letterSpacing={2} fontSize="8xl"  color="gray.800" zIndex={2}>
-                    NOSSOS
+                <Heading fontWeight="bold" letterSpacing={2} mr={15} fontSize="3xl"  color="gray.800" zIndex={2}>
+                    VEÍCULOS
                 </Heading>
-                <Box width="250px" bg="yellow.400" height={10} mt={-5} alignSelf="center"/>
-                <Heading as="i" letterSpacing={4} pr={10}  color="gray.800" alignSelf="flex-end" fontSize="5xl" fontWeight="light">VEÍCULOS</Heading>
+                <Box flex="1" bg="yellow.400" height={1} alignSelf="center"/>
+               
 
                 </Box>
                <Flex p={6}  height="650px" width="1480px">
@@ -83,19 +83,21 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                     {
                         anuncios.map(anuncio =>{
                             return (
+                                
                                 <SwiperSlide key={anuncio.id}>
                                     
                                      {({ isNext }) => (
                                          <Link href={`/anuncios/${anuncio.slug}`}>
-                                       <Stack height="100%" position="relative" alignItems="center" justifyContent="space-between" overflow="hidden" cursor="pointer">
+                                       <Stack spacing={0} height="100%" alignItems="center" justifyContent="space-between" overflow="hidden" cursor="pointer">
                                            
                                            <ChakraImage
-                                           as={Image}
+                                          
                                            src={anuncio.image[0]}
                                            alt={anuncio.name}
-                                           layout="fill"
+                                          
                                            objectFit="cover"
-                                           priority
+                                            height="100%"
+                                            width="100%"
                                            filter={`${isNext? "brightness(1.10)" : "brightness(0.7)"}`}
                                            transition="all 0.3s ease-in-out"
                                            _hover={{
@@ -105,7 +107,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                           
                                            
                                            />
-                                           <StackDivider/>
+                                           
                                            
                                            <Stack zIndex={1} backgroundColor="yellow.400" width="100%" direction="column" alignSelf="flex-start" px={6} py={3} >
                                            <Heading fontSize="3xl" color="gray.900" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
@@ -120,8 +122,9 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                        </Stack>
                                        </Link>
                                     )}
-                                    
+                                   
                                 </SwiperSlide>
+                                
                             )
                             
                         })
