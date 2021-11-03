@@ -1,120 +1,93 @@
 import { Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage} from '@chakra-ui/react'
+import "swiper/css";
 
-import {RiMenuLine} from 'react-icons/ri'
 import {IoMdCloseCircle, IoMdShareAlt} from 'react-icons/io'
 import {GiSpeedometer, GiGasPump, GiCarSeat} from 'react-icons/gi'
 import {FaCheckCircle, FaRegCalendarAlt} from 'react-icons/fa'
-import { useSidebarDrawer } from '../../contexts/SidebarDrawerContext'
+
 import { GetStaticProps, GetStaticPaths } from 'next'
 
-import Drawer from '../../components/Drawer/index'
 
-import Footer from '../../components/Home/Footer/index'
+
 import {api} from '../../services/api'
 import Logo from '../../components/Home/Header/Logo'
-import {useState} from 'react'
-import Modal from 'react-modal';
-import ModalContact from '../../components/Modal/index'
 import Image from 'next/image'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper';
 
 
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
-Modal.setAppElement('#modal-root')
 
 export default function Anuncio({anuncio}) {
 
-    const [modalIsOpen, setIsOpen] = useState(false);
 
-
-
-  function openModal() {
-    setIsOpen(true);
-    console.log(modalIsOpen)
-  }
-
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-    
-    const { onOpen } = useSidebarDrawer()
-    const [imagePreview, setImage] = useState(anuncio.image[0])
+  
    
 
     return (
         <Box as={Flex} w="100%" direction="column">
              
-            <IconButton
-            aria-label="Open navigation"
-            icon={<Icon as={RiMenuLine}/>}
-            color="yellow.400"
-            fontSize="40"
-            variant="unstyled"
-            onClick={onOpen}
-            position="fixed"
-            right={4}
-            top={4}
-            _active={{
-                borderColor: "none",
-              }}
-            _focus={{
-                borderColor: "none"
-            }}
-            zIndex={999}
-            >
-            </IconButton>
 
-            <Drawer/>
-
-            <Box 
-            as={Flex} 
+            <Flex 
             align="center" 
             justify="center"
-            w="100%"
+            width="100%"
             h="90vh"
             boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
-            position="relative"
+            
             >
-                <ChakraImage
-                    as={Image}
-                    priority
-                    layout="fill"
-                    src={imagePreview}
-                    width="100%"
-                    height="100%"
-                    objectFit="cover"
-                    zIndex={-1}
-                />
+            <Swiper
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    navigation
+                    scrollbar={{ draggable: true }}
+                    autoplay={{delay: 2000,  disableOnInteraction: false}}
+                    draggable={true}
+                    speed={1200}
+                    style={{width:'100%'}}
+                    >
+                    {
+                        anuncio.image.map(image =>{
+                            return (
+                                
+                                <SwiperSlide key={image}>
+                                    
+                                       <Stack position="relative" spacing={0} height="90vh" alignItems="center">
+                                           
+                                           <ChakraImage
+                                            as={Image}
+                                           src={image}
+                                           alt={anuncio.name}
+                                            layout="fill"
+                                           objectFit="cover"
+                                           width="100%"
+                                           height="100%"
+                                           priority
+                                           transition="all 0.3s ease-in-out"
+                                           _hover={{
+                                            transform: "scale(1.1)"
+                                        }}
+                                           />
+
+                                       </Stack>
+                              
+                                   
+                                   
+                                </SwiperSlide>
+                                
+                            )
+                            
+                        })
+                    }
+                    </Swiper>
             
                 
-                <Stack
-                flex="1"
-                flexDirection="column"
-                justify="flex-start"
-                align="flex-start"
-                p={15}
-                alignSelf="flex-start"
-              
-               
-                height="100%"
-                >
-                    <Logo size={300}/>
-                    
-
-                    <HStack width="100%"  flex="1" align="flex-end" justify="space-between">
-                        <Heading p={6} fontFamily="Roboto, sans-serif"  letterSpacing={1.5} fontSize="5xl">{anuncio.name.toUpperCase() + " - " + anuncio.valor + ',00'}</Heading>
-                        <HStack align="center" justify="center">
-                            <Heading p={6}   fontSize="5xl"><Button onClick={openModal} leftIcon={<Icon as={IoMdShareAlt} fontSize="30"/>} size="lg" fontSize="2xl" colorScheme="whiteAlpha">Tenho Interesse</Button></Heading>
-                        </HStack>
-                        
-                    </HStack>
-                </Stack>
 
                 
-            </Box>
+            </Flex>
 
-            <ModalContact isOpen={modalIsOpen} onRequestClose={closeModal}/>
+          
             
 
             <Box flex="1" as={Flex} direction="column" width="100%" backgroundColor="gray.50" alignItems="center" justifyContent="center" p={25}>
@@ -147,37 +120,6 @@ export default function Anuncio({anuncio}) {
 
                 </VStack>
 
-                <Grid mt={100} border="solid" templateColumns="repeat(4,1fr)" height="600px" width="100%" maxWidth="1280px">
-                    {anuncio.image.map(image => (
-                        <Box 
-                        position="relative" 
-                        key={image}
-                        overflow="hidden"
-                        width="100%"
-                        height="100%"
-                        >
-                            <ChakraImage
-                                as={Image}
-                                priority
-                                layout="fill"
-                                src={image}
-                                width="100%"
-                                height="100%"
-                                objectFit="cover"
-                                transition="all 0.3s ease-in-out"
-                                cursor="pointer"
-                                onClick={() => setImage(image)}
-                                _hover={{
-                                 transform: "scale(1.1)",
-                                 filter: "brightness(0.7)"
-                                
-                             }}
-                            />
-
-              
-                        </Box>
-                    ))}
-                </Grid>
                 
 
 
@@ -222,12 +164,6 @@ export default function Anuncio({anuncio}) {
                     </VStack>
                 </Box>
             </Box>
-
-                
-
-
-
-            <Footer/>
             
         </Box>
     )

@@ -17,31 +17,10 @@ import {api} from '../services/api'
 
 export default function Home({anuncios, feed}) {
 
-    const { onOpen } = useSidebarDrawer()
+    
     return (
         <Box as={Flex} w="100%" direction="column">
-             
-            <IconButton
-            aria-label="Open navigation"
-            icon={<Icon as={RiMenuLine}/>}
-            color="yellow.400"
-            fontSize="40"
-            variant="unstyled"
-            onClick={onOpen}
-            position="fixed"
-            right={4}
-            top={4}
-            _active={{
-                borderColor: "none",
-              }}
-            _focus={{
-                borderColor: "none"
-            }}
-            >
-            </IconButton>
-
-            <Drawer/>
-            
+           
             <Header/>
             <VehicleSection anuncios={anuncios}/>
             <About/>
@@ -57,7 +36,7 @@ export default function Home({anuncios, feed}) {
             width="100%"
             />
             </a>
-            <Footer/>
+            
             
         </Box>
     )
@@ -84,7 +63,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
           anuncios,
           feed
-      }
+      },
+      revalidate: 7200
     }
   }
 

@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import prisma from '../../../services/prisma'
+import {prisma} from '../../../../db'
 import { getSession } from "next-auth/client";
 
 
