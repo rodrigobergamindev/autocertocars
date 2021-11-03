@@ -46,6 +46,8 @@ interface AnuncioProps {
 
 export default function VehicleSection({anuncios}: AnuncioProps) {
 
+    
+
     return (
         <Stack 
            spacing={10} 
@@ -88,28 +90,26 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                     
                                      {({ isNext }) => (
                                          <Link href={`/anuncios/${anuncio.slug}`}>
-                                       <Stack spacing={0} height="100%" alignItems="center" justifyContent="space-between" overflow="hidden" cursor="pointer">
+                                       <Stack position="relative" spacing={0} height="100%" alignItems="center" justifyContent="flex-end" overflow="hidden" cursor="pointer">
                                            
                                            <ChakraImage
-                                          
+                                            as={Image}
                                            src={anuncio.image[0]}
                                            alt={anuncio.name}
-                                          
+                                            layout="fill"
                                            objectFit="cover"
-                                            height="100%"
-                                            width="100%"
+                                           width="100%"
+                                           height="100%"
+                                           priority
                                            filter={`${isNext? "brightness(1.10)" : "brightness(0.7)"}`}
                                            transition="all 0.3s ease-in-out"
                                            _hover={{
                                             transform: "scale(1.1)"
                                         }}
-
-                                          
-                                           
                                            />
                                            
                                            
-                                           <Stack zIndex={1} backgroundColor="yellow.400" width="100%" direction="column" alignSelf="flex-start" px={6} py={3} >
+                                           <Stack zIndex={1} backgroundColor="yellow.400" width="100%" direction="column" px={6} py={3} >
                                            <Heading fontSize="3xl" color="gray.900" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
                                            <StackDivider/>
                                            <Stack  direction="row" justifyContent="space-between">

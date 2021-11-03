@@ -2,7 +2,7 @@ import { Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex
 
 import {RiMenuLine} from 'react-icons/ri'
 import {IoMdCloseCircle, IoMdShareAlt} from 'react-icons/io'
-import {GiSpeedometer, GiGasPump, GiGearHammer, GiCarWheel, GiGears, GiCarSeat, GiTakeMyMoney} from 'react-icons/gi'
+import {GiSpeedometer, GiGasPump, GiCarSeat} from 'react-icons/gi'
 import {FaCheckCircle, FaRegCalendarAlt} from 'react-icons/fa'
 import { useSidebarDrawer } from '../../contexts/SidebarDrawerContext'
 import { GetStaticProps, GetStaticPaths } from 'next'
@@ -15,13 +15,15 @@ import Logo from '../../components/Home/Header/Logo'
 import {useState} from 'react'
 import Modal from 'react-modal';
 import ModalContact from '../../components/Modal/index'
+import Image from 'next/image'
+
+
 
 Modal.setAppElement('#modal-root')
 
 export default function Anuncio({anuncio}) {
 
     const [modalIsOpen, setIsOpen] = useState(false);
-
 
 
 
@@ -72,11 +74,18 @@ export default function Anuncio({anuncio}) {
             w="100%"
             h="90vh"
             boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
-            backgroundImage={imagePreview}
-            backgroundRepeat="no-repeat"
-            backgroundSize="cover"
-            backgroundPosition="center"
+            position="relative"
             >
+                <ChakraImage
+                    as={Image}
+                    priority
+                    layout="fill"
+                    src={imagePreview}
+                    width="100%"
+                    height="100%"
+                    objectFit="cover"
+                    zIndex={-1}
+                />
             
                 
                 <Stack
@@ -144,9 +153,13 @@ export default function Anuncio({anuncio}) {
                         position="relative" 
                         key={image}
                         overflow="hidden"
+                        width="100%"
+                        height="100%"
                         >
                             <ChakraImage
-                                overflow="hidden"
+                                as={Image}
+                                priority
+                                layout="fill"
                                 src={image}
                                 width="100%"
                                 height="100%"
@@ -159,9 +172,9 @@ export default function Anuncio({anuncio}) {
                                  filter: "brightness(0.7)"
                                 
                              }}
-                            >
+                            />
 
-                </ChakraImage>
+              
                         </Box>
                     ))}
                 </Grid>
@@ -233,20 +246,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const paths = anuncios.map((anuncio) => ({
         params: { slug: anuncio.slug },
-      }))
+      })) || []
+
+     
     
       return { 
           paths, 
-          fallback: false 
+          fallback: true
         }
   }
 
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
+export const getStaticProps: GetStaticProps = async ({params, preview = false}) => {
 
     
     const {slug} = params
-
 
     const response = await  api.get('/anuncios/get', {
         method: "GET",
@@ -259,8 +273,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
     
     return {
       props: {
+          preview,
           anuncio
-      }
+      },
+      revalidate: 3600
     }
   }
 
