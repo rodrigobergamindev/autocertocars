@@ -5,7 +5,7 @@ import Link from 'next/link'
 import CurrencyInput from 'react-currency-input-field';
 import {useForm, SubmitHandler} from 'react-hook-form'
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup.umd';
 import {RiWhatsappLine} from 'react-icons/ri'
 
 const phoneRegExp = /^[0-9]{2}?[0-9]{4,5}[0-9]{4}$/

@@ -1,15 +1,16 @@
 import {AppProps} from 'next/app'
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, Icon } from '@chakra-ui/react'
 import { theme } from '../styles/theme'
-import SidebarDrawerProvider, {useSidebarDrawer} from '../contexts/SidebarDrawerContext'
+import SidebarDrawerProvider from '../contexts/SidebarDrawerContext'
 import {Provider as NextAuthProvider} from 'next-auth/client'
 import Footer from '../components/Home/Footer/index'
 import Drawer from '../components/Drawer/index'
 import IconDrawer from '../components/Drawer/IconDrawer'
 import {useRouter} from 'next/router'
 
-import { Icon, IconButton} from '@chakra-ui/react'
-import {RiMenuLine} from 'react-icons/ri'
+
+import {RiWhatsappFill} from 'react-icons/ri'
+import Link from 'next/link'
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -35,6 +36,23 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Drawer/>
       <IconDrawer/>
       <Component {...pageProps} />
+      <Link 
+      href="https://api.whatsapp.com/send?phone=5511976789680&text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o%20para%20minha%20empresa.">
+        <Icon as={RiWhatsappFill}
+        position="fixed"
+        bottom={5}
+        right={6}
+        fontSize="8xl"
+        cursor= "pointer"
+        transition= "all 0.3s ease-out"
+        color="#38A169"
+        
+        p={4}
+        zIndex={999999}
+        _hover={{
+          transform: "translateY(-10%)"
+        }}
+        /></Link>
       <Footer/>
       </SidebarDrawerProvider>
     </ChakraProvider>

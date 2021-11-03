@@ -2,19 +2,19 @@ import { Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex
 import "swiper/css";
 
 import {IoMdCloseCircle, IoMdShareAlt} from 'react-icons/io'
-import {GiSpeedometer, GiGasPump, GiCarSeat} from 'react-icons/gi'
+import {GiSpeedometer, GiGasPump, GiCarSeat, GiMoneyStack} from 'react-icons/gi'
 import {FaCheckCircle, FaRegCalendarAlt} from 'react-icons/fa'
 
 import { GetStaticProps, GetStaticPaths } from 'next'
 
 
 import FormContact from '../../components/Contact/index'
-import {api} from '../../services/api'
+
 import Logo from '../../components/Home/Header/Logo'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper';
-
+import {prisma} from '../../../db'
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
@@ -71,15 +71,9 @@ export default function Anuncio({anuncio}) {
                                            transition="all 0.3s ease-in-out"
                                            _hover={{
                                             transform: "scale(1.1)"
-                                        }}
-                                           />
-
+                                        }}/>
                                        </Stack>
-                              
-                                   
-                                   
                                 </SwiperSlide>
-                                
                             )
                             
                         })
@@ -100,7 +94,7 @@ export default function Anuncio({anuncio}) {
                 <VStack maxWidth="1280px" width="100%" border="solid" spacing={20}  mt={15}>
                     <Heading as="i" mx="auto" color="gray.900" fontSize="7xl">{anuncio.name.toUpperCase() + ' ' + anuncio.versao.toUpperCase()}</Heading>
 
-                    <Grid templateColumns="repeat(4,1fr)" gap={20}>
+                    <Grid templateColumns="repeat(5,1fr)" gap={10}>
                         <Box as={VStack} align="center" justify="center">
                             <Icon as={GiSpeedometer} color="gray.900" fontSize="5xl"/>
                             <Text color="gray.900" fontSize="2xl" >{anuncio.quilometragem + " " + "Km"}</Text>
@@ -119,6 +113,11 @@ export default function Anuncio({anuncio}) {
                         <Box as={VStack} align="center" justify="center">
                             <Icon as={GiCarSeat} color="gray.900" fontSize="5xl"/>
                             <Text color="gray.900" fontSize="2xl" >{anuncio.transmissao}</Text>
+                        </Box>
+
+                        <Box as={VStack} align="center" justify="center">
+                            <Icon as={GiMoneyStack} color="gray.900" fontSize="5xl"/>
+                            <Text color="gray.900" fontSize="2xl" >{`${anuncio.valor},00`}</Text>
                         </Box>
                     </Grid>
 
@@ -193,12 +192,7 @@ export default function Anuncio({anuncio}) {
 export const getStaticPaths: GetStaticPaths = async () => {
 
     
-    const response = await api.get('/anuncios/get', {
-        method: "GET",
-      })
-    
-
-    const anuncios = await response.data
+    const anuncios = await prisma.anuncio.findMany()
 
     const paths = anuncios.map((anuncio) => ({
         params: { slug: anuncio.slug },
@@ -213,23 +207,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 
 
-export const getStaticProps: GetStaticProps = async ({params, preview = false}) => {
+export const getStaticProps: GetStaticProps = async ({params}) => {
 
     
     const {slug} = params
 
-    const response = await  api.get('/anuncios/get', {
-        method: "GET",
-        params: {
+    const data = await prisma.anuncio.findUnique({
+        where: {
           slug: slug as string
-        }
+        },
       })
 
-    const anuncio = await response.data
+    const anuncio = JSON.parse(JSON.stringify(data))
     
     return {
       props: {
-          preview,
           anuncio
       },
       revalidate: 3600

@@ -13,7 +13,7 @@ export default function Footer() {
     return (
         <>
                     
-            <a href="https://ul.waze.com/ul?place=ChIJQZ6RW19hzpQR-JEo6pwBfnw&ll=-23.51520590%2C-46.45910690&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank">
+            <a href="https://ul.waze.com/ul?place=ChIJQZ6RW19hzpQR-JEo6pwBfnw&ll=-23.51520590%2C-46.45910690&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" rel="noreferrer">
             
             <Box
             as="iframe"
@@ -44,7 +44,8 @@ export default function Footer() {
                         <Text>Sábado - 10:00 às 15:00</Text>
                         <HStack>
                         
-                        <Icon as={HiLocationMarker} color="yellow.400" fontSize="20"/><a href="https://ul.waze.com/ul?place=ChIJQZ6RW19hzpQR-JEo6pwBfnw&ll=-23.51520590%2C-46.45910690&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank"><Text fontSize="15">Av. do Imperador, 4550 - São Miguel Paulista, São Paulo - SP, 08050-000</Text></a>
+                        <Icon as={HiLocationMarker} color="yellow.400" fontSize="20"/><a href="https://ul.waze.com/ul?place=ChIJQZ6RW19hzpQR-JEo6pwBfnw&ll=-23.51520590%2C-46.45910690&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" rel="noreferrer">
+                            <Text fontSize="15">Av. do Imperador, 4550 - São Miguel Paulista, São Paulo - SP, 08050-000</Text></a>
                      
                         </HStack>
                     </Box>

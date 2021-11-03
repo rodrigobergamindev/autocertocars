@@ -5,8 +5,9 @@ import Link from 'next/link'
 import CurrencyInput from 'react-currency-input-field';
 import {useForm, SubmitHandler} from 'react-hook-form'
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup'
+
 import {RiWhatsappLine} from 'react-icons/ri'
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup.umd';
 
 const phoneRegExp = /^[0-9]{2}?[0-9]{4,5}[0-9]{4}$/
 
@@ -153,7 +154,7 @@ export default function FormContact({veiculo}: MessageProps) {
 
                 <Flex mt="8" justify="flex-end">
                     <HStack spacing="4">
-                    <Link href="/dashboard/anuncios" passHref><Button fontSize="xl" size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize="30"/>} colorScheme="green">Chame no WhatsApp</Button></Link>
+                    <Link href="/dashboard/anuncios" passHref><Button fontSize="xl" size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize="30"/>} colorScheme="green">Enviar no WhatsApp</Button></Link>
                         <Button size="lg" fontSize="xl" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
                     </HStack>
                 </Flex>

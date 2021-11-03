@@ -9,7 +9,7 @@ import Link from 'next/link'
 
 import {useForm, SubmitHandler, useFieldArray, Control} from 'react-hook-form'
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup.umd';
 
 
 import { getSession } from "next-auth/client"

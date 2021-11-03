@@ -127,7 +127,7 @@ export default function MensagensList({initialValues, session}) {
                         {!!message.veiculo  && <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">VEÍCULO:</Text> <Text fontSize="sm" color="white" mb={2}>{message.veiculo}</Text></Box>}
                          <HStack mt={4} justify="flex-end">
                          <Button size="sm" colorScheme="red" onClick={() => handleRemoveMessage(message)}  leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Excluir</Button>
-                        <a href={`https://api.whatsapp.com/send?phone=55${message.whatsapp}&text=Olá,%20${message.name}!%20 recebi sua proposta através de www.autocertocars.com.br`} target="_blank">
+                        <a href={`https://api.whatsapp.com/send?phone=55${message.whatsapp}&text=Olá,%20${message.name}!%20 recebi sua proposta através de www.autocertocars.com.br`} target="_blank" rel="noreferrer">
                             <Button size="sm" colorScheme="green"  leftIcon={<Icon as={RiWhatsappLine} fontSize="20"></Icon>}>Responder</Button></a>
                             </HStack>
                         </MotionBox>
