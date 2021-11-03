@@ -13,7 +13,7 @@ export function SidebarNav() {
                 <NavLink icon={RiCarLine} href="/veiculos">Veículos</NavLink>
                 <NavLink icon={RiBookOpenLine} href="/sobre">Sobre</NavLink>
                 <NavLink icon={RiMessageLine} href="/contato">Contato</NavLink>
-        
+                <NavLink icon={RiMessageLine} href="/dashboard">Login</NavLink>
         <Divider borderColor="transparent"/>
         <Divider borderColor="transparent"/>
         <Divider borderColor="transparent"/>

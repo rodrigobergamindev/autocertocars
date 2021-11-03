@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import { PrismaClient } from '@prisma/client'
+import prisma from '../../../services/prisma'
 import {v4 as uuid} from 'uuid'
 import { getSession } from "next-auth/client";
 
@@ -12,7 +12,6 @@ import { getSession } from "next-auth/client";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getSession({req})
-    const prisma = new PrismaClient()
 
     
     if(req.method !== "POST") {

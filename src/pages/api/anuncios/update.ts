@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import { PrismaClient } from '@prisma/client'
+import prisma from '../../../services/prisma'
 import { getSession } from "next-auth/client";
 import { deletePhoto } from '../../api/photos'
 
@@ -11,7 +11,7 @@ import { deletePhoto } from '../../api/photos'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getSession({req})
-    const prisma = new PrismaClient()
+   
     
     
     if(req.method !== "PUT") {

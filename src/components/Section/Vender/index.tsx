@@ -46,8 +46,8 @@ export default function Vender() {
                 p={6}
                 alignSelf="center"
                 >
-                    <Heading fontWeight="light" fontSize="4xl">
-                    Oferecemos a melhor <strong style={{color:"#ECC94B"}}>oferta</strong> pelo seu veículo, solicite a sua <strong style={{color:"#ECC94B"}}>cotação!</strong>
+                    <Heading fontWeight="light" fontSize="3xl">
+                Aqui você realiza seu <strong style={{color:"#ECC94B"}}>sonho</strong> de carro novo com a <strong style={{color:"#ECC94B"}}>facilidade</strong> de pagamento e com a melhor avaliação do mercado!
                 </Heading>
                 <ChakraImage
                 as={Image}

@@ -2,7 +2,7 @@ import type {NextApiRequest, NextApiResponse} from 'next';
 import { PrismaClient } from '@prisma/client'
 import { getSession } from "next-auth/client";
 import { deletePhoto } from '../../api/photos'
-
+import prisma from '../../../services/prisma'
 
 
 
@@ -12,7 +12,7 @@ import { deletePhoto } from '../../api/photos'
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const session = await getSession({req})
-    const prisma = new PrismaClient()
+
 
     
     if(req.method !== "DELETE") {

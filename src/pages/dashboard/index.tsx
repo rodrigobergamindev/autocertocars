@@ -5,7 +5,7 @@ import {theme} from '../../styles/theme'
 import { getSession } from "next-auth/client"
 import {SiGoogleanalytics} from 'react-icons/si'
 import { RiCarLine,  RiFacebookBoxFill, RiInstagramLine, RiMessageLine,  RiMoneyDollarCircleLine, RiUserLine} from 'react-icons/ri'
-import { PrismaClient } from '@prisma/client'
+
 import CountUp from 'react-countup';
 import { motion } from "framer-motion";
 import  Link  from 'next/link';

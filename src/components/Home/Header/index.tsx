@@ -1,4 +1,4 @@
-import { Box, Flex, Button, Stack} from '@chakra-ui/react'
+import { Box, Flex, Button, Stack, Heading} from '@chakra-ui/react'
 import Logo from './Logo'
 import SearchBox from './SearchBox'
 
@@ -34,25 +34,25 @@ export default function Header() {
                 </video>
                 
                 <Stack
-                flex="1"
+                
                 flexDirection="column"
                 justify="center"
                 align="center"
                 spacing={20}
                 
                 >
+                   
                     <Logo size={600}/>
                     <SearchBox/>
 
                     <Stack
-                    direction="column"
+                    direction="row"
                     spacing="5"
                     >
-                    <Button colorScheme="yellow" height={50} w={300} fontSize="xl" borderRadius="full">Carros Novos</Button>
+                    <Button colorScheme="yellow" height={50} w={250} fontSize="xl" borderRadius="10px">Carros Novos</Button>
 
-                    <Button colorScheme="yellow" height={50}  w={300} fontSize="xl" borderRadius="full">Seminovos</Button>
+                    <Button colorScheme="yellow" height={50}  w={250} fontSize="xl" borderRadius="10px">Seminovos</Button>
 
-                    <Button colorScheme="yellow" height={50} w={300} fontSize="xl" borderRadius="full">Usados</Button>
                     </Stack>
                 </Stack>
                 </Box>

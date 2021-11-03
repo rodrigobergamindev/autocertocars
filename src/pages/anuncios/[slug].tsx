@@ -1,6 +1,6 @@
 import { Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage} from '@chakra-ui/react'
 
-import {RiCheckFill, RiCloseFill, RiMenuLine, RiWhatsappFill} from 'react-icons/ri'
+import {RiMenuLine} from 'react-icons/ri'
 import {IoMdCloseCircle, IoMdShareAlt} from 'react-icons/io'
 import {GiSpeedometer, GiGasPump, GiGearHammer, GiCarWheel, GiGears, GiCarSeat, GiTakeMyMoney} from 'react-icons/gi'
 import {FaCheckCircle, FaRegCalendarAlt} from 'react-icons/fa'

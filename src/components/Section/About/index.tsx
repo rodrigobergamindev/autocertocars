@@ -5,6 +5,7 @@ import {FaRegHandshake, FaCar} from 'react-icons/fa'
 import {GiBrazil, GiPayMoney, GiReceiveMoney, GiTakeMyMoney} from 'react-icons/gi'
 import { RiRefreshLine } from 'react-icons/ri'
 import {IoIosCash, IoIosDocument} from 'react-icons/io'
+import CountUp from 'react-countup';
 
 export default function About() {
 
@@ -41,7 +42,7 @@ export default function About() {
                     <Stack w="100%" direction="column" align="flex-start" >
 
                         <Heading fontWeight="bold" color="yellow.400" fontSize="5xl" letterSpacing={8}>VISÃO</Heading>
-                        <Text fontSize="20">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
+                        <Text fontSize="20">Nossa visão é de sempre proporcionar um bom negócio</Text>
                         <StackDivider/>
                         <StackDivider/>
                       
@@ -57,7 +58,7 @@ export default function About() {
                         
                         <VStack>
                             <Text letterSpacing={7} fontSize="25" fontWeight="light">CLIENTES SATISFEITOS</Text>
-                            <Heading alignSelf="flex-start" color="yellow.400" letterSpacing={2}>1259</Heading>
+                            <Heading alignSelf="flex-start" color="yellow.400" letterSpacing={2}><CountUp end={3600} duration={400/60}/></Heading>
                         </VStack>
                         </Box>
                     </Stack>
@@ -65,7 +66,7 @@ export default function About() {
                     <Stack w="100%" direction="column" align="flex-start">
 
                         <Heading fontWeight="bold" color="yellow.400" fontSize="5xl" letterSpacing={8}>MISSÃO</Heading>
-                        <Text fontSize="20">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
+                        <Text fontSize="20">Bom negócio já é garantido, excelente negócio é nossa obrigação</Text>
                         <StackDivider/>
                         <StackDivider/>
                       
@@ -81,7 +82,7 @@ export default function About() {
                         
                         <VStack>
                             <Text letterSpacing={7} fontSize="25" fontWeight="light">CARROS VENDIDOS</Text>
-                            <Heading alignSelf="flex-start" color="yellow.400" letterSpacing={2}>1259</Heading>
+                            <Heading alignSelf="flex-start" color="yellow.400" letterSpacing={2}>+<CountUp end={3000} duration={400/60}/></Heading>
                         </VStack>
                         </Box>
                     </Stack>
@@ -90,7 +91,7 @@ export default function About() {
                     <Stack w="100%" direction="column" align="flex-start">
 
                         <Heading fontWeight="bold" color="yellow.400" fontSize="5xl" letterSpacing={8}>DESAFIO</Heading>
-                        <Text fontSize="20">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
+                        <Text fontSize="20">Nosso maior desafio e satisfação é a realização do seu sonho e a sua conquista</Text>
                         <StackDivider/>
                         <StackDivider/>
                       
@@ -106,7 +107,7 @@ export default function About() {
                         
                         <VStack>
                             <Text letterSpacing={7} fontSize="25" fontWeight="light">ESTADOS ALCANÇADOS</Text>
-                            <Heading alignSelf="flex-start" color="yellow.400" letterSpacing={2}>15</Heading>
+                            <Heading alignSelf="flex-start" color="yellow.400" letterSpacing={2}><CountUp end={15} duration={400/60}/></Heading>
                         </VStack>
                         </Box>
                     </Stack>
