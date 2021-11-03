@@ -8,7 +8,7 @@ import {FaCheckCircle, FaRegCalendarAlt} from 'react-icons/fa'
 import { GetStaticProps, GetStaticPaths } from 'next'
 
 
-
+import FormContact from '../../components/Contact/index'
 import {api} from '../../services/api'
 import Logo from '../../components/Home/Header/Logo'
 import Image from 'next/image'
@@ -37,6 +37,10 @@ export default function Anuncio({anuncio}) {
             boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
             
             >
+            <Box zIndex={333} position="absolute" top="3" left="5">
+                <Logo size={300}/>
+            </Box>
+            <Box as={Flex} flex="1" position="relative" width="100%">
             <Swiper
                     spaceBetween={0}
                     slidesPerView={1}
@@ -81,7 +85,7 @@ export default function Anuncio({anuncio}) {
                         })
                     }
                     </Swiper>
-            
+                </Box>
                 
 
                 
@@ -123,19 +127,25 @@ export default function Anuncio({anuncio}) {
                 
 
 
-                <Box mt={150} as={Flex} direction="column" maxWidth="1280px" width="100%">
-                    <Heading color="gray.900" fontSize="5xl" letterSpacing={2}>ESPECIFICAÇÕES</Heading>
-                    <HStack mt={20} justify="space-between">
+                <Box mt={120} as={Flex} direction="column" maxWidth="1280px" width="100%">
+                    
+                    
+                    <Grid templateColumns="repeat(2,1fr)" gap={16}>
+                    
+                    <VStack>
+
+                    <HStack alignSelf="flex-start" justify="space-between" width="100%">
                         <Heading color="gray.500" fontSize="3xl" fontFamily="Roboto, sans-serif">INFORMAÇÕES DO VEÍCULO</Heading>
-                        <Heading color="gray.900" fontSize="3xl" fontFamily="Roboto, sans-serif">{anuncio.valor + ',00'}</Heading>
+                        
                     </HStack>
 
-                    <VStack width="100%">
+                        <VStack width="100%">
                         <List flex="1" width="100%" alignSelf="flex-start" pt={10} pb={10}>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Marca: {anuncio.marca_name}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Modelo: {anuncio.modelo}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Versão: {anuncio.versao}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Ano: {anuncio.ano_fabricacao}</Text></ListItem>
+                            <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Valor: {`${anuncio.valor},00`}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Quilometragem: {anuncio.quilometragem + '' + 'Km'}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Transmissão: {anuncio.transmissao}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Portas: {anuncio.numero_portas}</Text></ListItem>
@@ -146,7 +156,11 @@ export default function Anuncio({anuncio}) {
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Potência: {anuncio.potencia}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Condição: {anuncio.condicao}</Text></ListItem>
                         </List>
+                    
+                        </VStack>
+                    </VStack>
 
+                    <VStack>
                         <Heading color="gray.500" fontSize="3xl" fontFamily="Roboto, sans-serif" alignSelf="flex-start">OUTRAS INFORMAÇÕES</Heading>
                         <Grid templateColumns="repeat(2,1fr)" width="100%" gap={2} pt={10} pb={10}>
                             <Text color="gray.900" fontSize="xl">{anuncio.manual_do_proprietario === "Sim" ? <Icon as={FaCheckCircle} color="blue.500"/> : <Icon as={IoMdCloseCircle} color="red"/>} Manual do Proprietário</Text>
@@ -161,7 +175,13 @@ export default function Anuncio({anuncio}) {
                                 <Text key={opcional} color="gray.900" fontSize="xl"><Icon as={FaCheckCircle} color="blue.500"/> {opcional}</Text>
                             ))}
                         </Grid>
-                    </VStack>
+
+                       
+                        </VStack>
+                    
+                    </Grid>
+
+                    <FormContact veiculo={anuncio.name}/>
                 </Box>
             </Box>
             
