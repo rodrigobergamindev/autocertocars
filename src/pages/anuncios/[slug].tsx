@@ -16,6 +16,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper';
 import {prisma} from '../../../db'
 
+
+
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 
@@ -24,7 +26,7 @@ export default function Anuncio({anuncio}) {
 
   
    
-
+    if(!anuncio) return null
     return (
         <Box as={Flex} w="100%" direction="column">
              
@@ -218,11 +220,11 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         },
       })
 
-    const anuncio = JSON.parse(JSON.stringify(data))
+    const anuncio = await JSON.parse(JSON.stringify(data))
     
     return {
       props: {
-          anuncio
+         anuncio
       },
       revalidate: 3600
     }
