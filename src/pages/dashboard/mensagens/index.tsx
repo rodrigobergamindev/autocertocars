@@ -18,7 +18,7 @@ type Message = {
     name: string;
     email: string;
     whatsapp: string;
-    mensagem: string;
+    proposta: string;
     data_de_criacao: Date;
     id: string;
     veiculo?: string;
@@ -123,7 +123,7 @@ export default function MensagensList({initialValues, session}) {
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">REMETENTE:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.name}</Text>
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">E-MAIL:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.email}</Text>
                         <Text fontSize="sm" fontWeight="bold" color="gray.300">WHATSAPP:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.whatsapp}</Text>
-                        <Text fontSize="sm" fontWeight="bold" color="gray.300">MENSAGEM:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.mensagem}</Text>
+                        <Text fontSize="sm" fontWeight="bold" color="gray.300">PROPOSTA:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.proposta}</Text>
                         {!!message.veiculo  && <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">VEÍCULO:</Text> <Text fontSize="sm" color="white" mb={2}>{message.veiculo}</Text></Box>}
                          <HStack mt={4} justify="flex-end">
                          <Button size="sm" colorScheme="red" onClick={() => handleRemoveMessage(message)}  leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Excluir</Button>

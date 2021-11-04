@@ -183,10 +183,11 @@ export default function Anuncio({anuncio}) {
                     
                     </Grid>
 
-                    <FormContact veiculo={anuncio.name}/>
+                    <FormContact veiculo={`${anuncio.name} ${anuncio.versao}`}/>
                 </Box>
             </Box>
             
+    
         </Box>
     )
 }

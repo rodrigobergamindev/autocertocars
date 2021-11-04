@@ -45,7 +45,7 @@ model Message {
   name String
   email String
   whatsapp String
-  mensagem String
+  proposta String?
   veiculo String?
   data_de_criacao DateTime @default(now())
 }

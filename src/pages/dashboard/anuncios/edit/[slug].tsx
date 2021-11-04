@@ -795,7 +795,7 @@ const SortableList = SortableContainer(({items}) => {
                                 }
                         
                             
-                            
+
                             </Box>
                             
                     </SimpleGrid>
