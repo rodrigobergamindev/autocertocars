@@ -7,11 +7,11 @@ import { GetServerSideProps } from 'next'
 import {useState} from 'react'
 
 
-import { PrismaClient } from '@prisma/client'
+
 import { getSession } from "next-auth/client"
 import { motion } from "framer-motion";
-import {api} from '../../../services/api'
 
+import {prisma} from '../../../../db'
 
 
 type Message = {
@@ -147,11 +147,9 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
 
    
     
-    const data_messages = await api.get('/messages/get', {
-        method: "GET",
-      })
+    const data_messages = await prisma.message.findMany()
 
-    const initialValues = data_messages.data
+    const initialValues =  await JSON.parse(JSON.stringify(data_messages))
 
    
 

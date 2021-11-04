@@ -7,13 +7,13 @@ import { GetServerSideProps } from 'next'
 import {useState} from 'react'
 
 
-import { PrismaClient } from '@prisma/client'
+
 import { getSession } from "next-auth/client"
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import {api} from '../../../services/api'
 
 
+import {prisma} from '../../../../db'
 
 
 
@@ -197,11 +197,9 @@ export default function AnuncioList({initialValues, session}) {
 
 export const getServerSideProps: GetServerSideProps = async({req}) => {
 
-    const anuncios = await api.get('/anuncios/get', {
-        method: "GET",
-      })
-    
-    const initialValues = await anuncios.data
+    const data_anuncios = await prisma.anuncio.findMany()
+
+    const initialValues = await JSON.parse(JSON.stringify(data_anuncios))
     
     const session = await getSession({req})
    

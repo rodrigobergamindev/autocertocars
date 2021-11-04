@@ -9,8 +9,8 @@ import { RiCarLine,  RiFacebookBoxFill, RiInstagramLine, RiMessageLine,  RiMoney
 import CountUp from 'react-countup';
 import { motion } from "framer-motion";
 import  Link  from 'next/link';
-import {api} from '../../services/api'
 
+import {prisma} from '../../../db'
 
 
 
@@ -216,16 +216,12 @@ export const getServerSideProps = async ({req}) => {
   const session = await getSession({req})
 
 
-  const data_anuncios = await api.get('/anuncios/get', {
-      method: "GET",
-    })
+  const data_anuncios = await prisma.anuncio.findMany()
 
-    const data_messages = await api.get('/messages/get', {
-      method: "GET",
-    })
+  const data_messages = await prisma.message.findMany()
 
-  const anuncios = await data_anuncios.data
-  const messages = await data_messages.data
+  const anuncios = await JSON.parse(JSON.stringify(data_anuncios))
+  const messages = await JSON.parse(JSON.stringify(data_messages))
     
   
   const messagesReceived = messages.length > 0 ?  messages.length : 0

@@ -70,6 +70,7 @@ export default function Anuncio({anuncio}) {
                                            width="100%"
                                            height="100%"
                                            priority
+                                           quality={100}
                                            transition="all 0.3s ease-in-out"
                                            _hover={{
                                             transform: "scale(1.1)"
@@ -147,7 +148,7 @@ export default function Anuncio({anuncio}) {
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Versão: {anuncio.versao}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Ano: {anuncio.ano_fabricacao}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Valor: {`${anuncio.valor},00`}</Text></ListItem>
-                            <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Quilometragem: {anuncio.quilometragem + '' + 'Km'}</Text></ListItem>
+                            <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Quilometragem: {anuncio.quilometragem + ' ' + 'Km'}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Transmissão: {anuncio.transmissao}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Portas: {anuncio.numero_portas}</Text></ListItem>
                             <ListItem  p={1} width="100%" borderBottom="1px solid" borderColor="gray.100"><Text fontSize="xl" color="gray.900">Cor: {anuncio.cor}</Text></ListItem>

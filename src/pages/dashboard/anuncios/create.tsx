@@ -21,10 +21,9 @@ import {useState} from 'react'
 import { RiAddLine, RiCheckFill, RiCheckLine, RiSubtractLine, RiCloseLine, RiUploadCloudLine} from "react-icons/ri";
 import InputMask from 'react-input-mask';
 import CurrencyInput from 'react-currency-input-field';
-import { PrismaClient } from '@prisma/client'
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
-import {api} from '../../../services/api'
+import {prisma} from '../../../../db'
 
 
 type CreateAnuncioFormData = {
@@ -772,11 +771,9 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
 
     const session = await getSession({req})
 
-    const data = await api.get('/marcas/get', {
-        method: "GET"
-      })
+    const data = await prisma.marca.findMany()
 
-    const initialValues = await data.data
+    const initialValues = await JSON.parse(JSON.stringify(data))
    
 
     if(!session) {

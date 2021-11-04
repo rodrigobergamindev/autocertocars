@@ -23,7 +23,8 @@ import CurrencyInput from 'react-currency-input-field';
 import {RiAddLine, RiCheckLine, RiCloseLine, RiSubtractLine, RiUploadCloudLine} from "react-icons/ri";
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
-import {api} from '../../../../services/api'
+import {prisma} from '../../../../../db'
+
 
 type CreateAnuncioFormData = {
     ano_fabricacao: string;
@@ -823,20 +824,18 @@ export const getServerSideProps: GetServerSideProps = async ({params, req}) => {
     const {slug} = params
 
 
-    const data = await  api.get('/anuncios/get', {
-        method: "GET",
-        params: {
+    const data = await prisma.anuncio.findUnique({
+        where: {
           slug: slug as string
-        }
+        },
       })
 
-      const dataMarcas = await  api.get('/marcas/get', {
-        method: "GET"
-      })
+      const dataMarcas = await prisma.marca.findMany()
+    
 
 
-    const anuncio = await data.data
-    const marcas = await dataMarcas.data
+    const anuncio = await JSON.parse(JSON.stringify(data))
+    const marcas = await JSON.parse(JSON.stringify(dataMarcas))
 
 
  
