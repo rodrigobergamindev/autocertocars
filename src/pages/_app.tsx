@@ -48,6 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         color="gray.50"
         backgroundColor="#38A169"
         borderRadius="20px"
+        boxShadow="0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"
         p={3}
         zIndex={999999}
         _hover={{
