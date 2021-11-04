@@ -96,7 +96,7 @@ export default function FormContact({veiculo}: MessageProps) {
                 flex="1" 
                 borderRadius={8} 
                 bg="gray.900" 
-                p={6}
+                p={8}
                 border="1px solid" borderColor="gray.200"
                 onSubmit={handleSubmit(handleCreateMessage)}
                 width="100%"
@@ -125,13 +125,20 @@ export default function FormContact({veiculo}: MessageProps) {
                             
                             <ChakraInput
                              {...register('name')}
-                             color="gray.50"
+                             color="gray.900"
                             focusBorderColor="yellow.400"  
-                            variant="flushed" 
+                            variant="filled" 
                             name="name" 
                             id="name" 
                             type="text" 
                             size="lg"
+                            _focus={{
+                                background: 'gray.50'
+                            }}
+                            bg="gray.50"
+                            _hover={{
+                                background: 'gray.50'
+                            }}
                             />
                          
                             {!!errors.name && (
@@ -153,13 +160,20 @@ export default function FormContact({veiculo}: MessageProps) {
                             
                             <ChakraInput
                              {...register('whatsapp')}
-                             color="gray.50"
+                             color="gray.900"
+                             bg="gray.50"
                             focusBorderColor="yellow.400"  
-                            variant="flushed" 
+                            variant="filled" 
                             name="whatsapp" 
                             id="whatsapp" 
                             type="text" 
                             size="lg"
+                            _focus={{
+                                background: 'gray.50'
+                            }}
+                            _hover={{
+                                background: 'gray.50'
+                            }}
                             />
                          
                             {!!errors.whatsapp && (
@@ -181,13 +195,20 @@ export default function FormContact({veiculo}: MessageProps) {
                             
                             <ChakraInput
                              {...register('email')}
-                             color="gray.50"
+                             color="gray.900"
+                             bg="gray.50"
                             focusBorderColor="yellow.400"  
-                            variant="flushed" 
+                            variant="filled" 
                             name="email" 
                             id="email" 
                             type="text" 
                             size="lg"
+                            _focus={{
+                                background: 'gray.50'
+                            }}
+                            _hover={{
+                                background: 'gray.50'
+                            }}
                             />
                          
                             {!!errors.email && (
@@ -210,9 +231,10 @@ export default function FormContact({veiculo}: MessageProps) {
                             <ChakraInput
                              {...register('proposta')}
                             as={CurrencyInput}
+                            bg="gray.50"
                             focusBorderColor="yellow.400"
-                            color="gray.50"  
-                            variant="flushed" 
+                            color="gray.900"  
+                            variant="filled" 
                             name="proposta" 
                             id="proposta" 
                             type="text" 
@@ -221,6 +243,12 @@ export default function FormContact({veiculo}: MessageProps) {
                             disableAbbreviations={true}
                             allowDecimals={false}
                             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+                            _focus={{
+                                background: 'gray.50'
+                            }}
+                            _hover={{
+                                background: 'gray.50'
+                            }}
                             />
                          
                             {!!errors.proposta && (

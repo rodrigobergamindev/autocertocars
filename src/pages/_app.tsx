@@ -40,14 +40,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       href="https://api.whatsapp.com/send?phone=5511976789680&text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o%20para%20minha%20empresa.">
         <Icon as={RiWhatsappFill}
         position="fixed"
-        bottom={5}
-        right={6}
+        bottom={7}
+        right={10}
         fontSize="8xl"
         cursor= "pointer"
         transition= "all 0.3s ease-out"
-        color="#38A169"
-        
-        p={4}
+        color="gray.50"
+        backgroundColor="#38A169"
+        borderRadius="20px"
+        p={3}
         zIndex={999999}
         _hover={{
           transform: "translateY(-10%)"
