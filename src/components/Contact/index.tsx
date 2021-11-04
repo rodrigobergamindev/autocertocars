@@ -84,7 +84,7 @@ export default function FormContact({veiculo}: MessageProps) {
 
 
     return (
-        <Box>
+        <Box width="100%" height="100%">
             {formState.isSubmitted ? (
             <Flex direction="column" height="350px" align="center" justify="center" backgroundColor="gray.900" borderRadius={8}>
                 <Heading size="lg" fontWeight="normal" color="gray.50">Obrigado pelo interesse, em breve entraremos em contato! <Icon as={HiCheckCircle} color="green.400"></Icon></Heading>
@@ -95,44 +95,124 @@ export default function FormContact({veiculo}: MessageProps) {
                 as="form"
                 flex="1" 
                 borderRadius={8} 
-                bg="gray.800" p={["6","8"]}
+                bg="gray.900" 
+                p={6}
+                border="1px solid" borderColor="gray.200"
                 onSubmit={handleSubmit(handleCreateMessage)}
                 width="100%"
                 display={formState.isSubmitted? 'none': 'auto'}
+                
                 >
 
-                <Heading size="lg" fontWeight="normal">Vamos Negociar?</Heading>
+                <Heading size="xl" fontWeight="bold" color="gray.50">Vamos negociar?</Heading>
 
-                <Divider my="6" borderColor="gray.700"/>
+                <Divider my="3" borderColor="gray.500"/>
+                <Heading size="sm" color="gray.500" mb={10}>DADOS DE CONTATO</Heading>
 
-
-                <VStack spacing="8">
-                <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">DADOS DE CONTATO</Heading>
-                    <SimpleGrid minChildWidth="240px" spacing={["6","8"]} width="100%">
+                <VStack spacing="2">
+               
+                    <SimpleGrid minChildWidth="440px" spacing={["6","8"]} width="100%">
                         
-                        <Input name="name" label="Nome"  error={errors.name} {...register('name')}/>
-                        <SimpleGrid minChildWidth="140px" spacing={["6","8"]} width="100%">
-                        <Input name="whatsapp" label="Whatsapp" error={errors.whatsapp} {...register('whatsapp')}/>
-                        </SimpleGrid>
-
                         
-                        <Input name="email" label="E-mail" error={errors.email} {...register('email')}/>
+
+                        <FormControl isInvalid={!!errors.name}>
+                            <FormLabel 
+                            htmlFor="name"
+                            color="gray.50"
+                            >
+                                Nome
+                            </FormLabel>
+                            
+                            <ChakraInput
+                             {...register('name')}
+                             color="gray.50"
+                            focusBorderColor="yellow.400"  
+                            variant="flushed" 
+                            name="name" 
+                            id="name" 
+                            type="text" 
+                            size="lg"
+                            />
+                         
+                            {!!errors.name && (
+                                    <FormErrorMessage>
+                                    {errors.name.message}
+                                    </FormErrorMessage>
+                                 )}
+                            
+                           </FormControl>
+                        
+
+                        <FormControl isInvalid={!!errors.whatsapp}>
+                            <FormLabel 
+                            htmlFor="whatsapp"
+                            color="gray.50"
+                            >
+                                Whatsapp
+                            </FormLabel>
+                            
+                            <ChakraInput
+                             {...register('whatsapp')}
+                             color="gray.50"
+                            focusBorderColor="yellow.400"  
+                            variant="flushed" 
+                            name="whatsapp" 
+                            id="whatsapp" 
+                            type="text" 
+                            size="lg"
+                            />
+                         
+                            {!!errors.whatsapp && (
+                                    <FormErrorMessage>
+                                    {errors.whatsapp.message}
+                                    </FormErrorMessage>
+                                 )}
+                            
+                           </FormControl>
+
+
+                        <FormControl isInvalid={!!errors.email}>
+                            <FormLabel 
+                            htmlFor="email"
+                            color="gray.50"
+                            >
+                                E-mail
+                            </FormLabel>
+                            
+                            <ChakraInput
+                             {...register('email')}
+                             color="gray.50"
+                            focusBorderColor="yellow.400"  
+                            variant="flushed" 
+                            name="email" 
+                            id="email" 
+                            type="text" 
+                            size="lg"
+                            />
+                         
+                            {!!errors.email && (
+                                    <FormErrorMessage>
+                                    {errors.email.message}
+                                    </FormErrorMessage>
+                                 )}
+                            
+                           </FormControl>
 
                         <Box>
                         <FormControl isInvalid={!!errors.proposta}>
                             <FormLabel 
                             htmlFor="proposta"
+                            color="gray.50"
                             >
-                                Proposta
+                                Proposta Inicial
                             </FormLabel>
                             
                             <ChakraInput
                              {...register('proposta')}
                             as={CurrencyInput}
-                            bgColor="gray.900" 
-                            _hover={{bgColor: 'gray.900'}} 
-                            focusBorderColor="yellow.400"  
-                            variant="filled" 
+                            focusBorderColor="yellow.400"
+                            color="gray.50"  
+                            variant="flushed" 
                             name="proposta" 
                             id="proposta" 
                             type="text" 
@@ -161,8 +241,8 @@ export default function FormContact({veiculo}: MessageProps) {
 
                 <Flex mt="8" justify="flex-end">
                     <HStack spacing="4">
-                    <Link href={`https://api.whatsapp.com/send?phone=5511959943034&text=Ol%C3%A1!%20Fiquei%20interessado%20no%20ve%C3%ADculo%3A%20${veiculo}%2C%20vamos%20negociar%3F`}><Button fontSize="xl" size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize="30"/>} colorScheme="green">Enviar no WhatsApp</Button></Link>
-                        <Button size="lg" fontSize="xl" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
+                    <Link href={`https://api.whatsapp.com/send?phone=5511959943034&text=Ol%C3%A1!%20Fiquei%20interessado%20no%20ve%C3%ADculo%3A%20${veiculo}%2C%20vamos%20negociar%3F`}><Button fontSize="lg" size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize="25"/>} colorScheme="green">Enviar no WhatsApp</Button></Link>
+                        <Button size="lg" fontSize="lg" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
                     </HStack>
                 </Flex>
                 </Box>

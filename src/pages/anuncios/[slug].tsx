@@ -160,34 +160,42 @@ export default function Anuncio({anuncio}) {
                         </List>
                     
                         </VStack>
-                    </VStack>
+
+                    
+                        </VStack>
+                   
 
                     <VStack>
+                    <FormContact veiculo={`${anuncio.name} ${anuncio.versao} ${anuncio.ano_fabricacao}`}/> 
+                    </VStack>
+                        
+                    </Grid>
+
+                    <Grid templateColumns="repeat(2,1fr)" width="100%" gap={2} pt={10} pb={10}>
+
+                        <VStack width="100%">
                         <Heading color="gray.500" fontSize="3xl" fontFamily="Roboto, sans-serif" alignSelf="flex-start">OUTRAS INFORMAÇÕES</Heading>
                         <Grid templateColumns="repeat(2,1fr)" width="100%" gap={2} pt={10} pb={10}>
                             <Text color="gray.900" fontSize="xl">{anuncio.manual_do_proprietario === "Sim" ? <Icon as={FaCheckCircle} color="blue.500"/> : <Icon as={IoMdCloseCircle} color="red"/>} Manual do Proprietário</Text>
                             <Text color="gray.900" fontSize="xl">{anuncio.laudo_cautelar === "Sim" ? <Icon as={FaCheckCircle} color="blue.500"/> : <Icon as={IoMdCloseCircle} color="red"/>} Laudo Cautelar</Text>
                             <Text color="gray.900" fontSize="xl">{anuncio.chave_copia === "Sim" ? <Icon as={FaCheckCircle} color="blue.500"/> : <Icon as={IoMdCloseCircle} color="red"/>} Chave Cópia</Text>
                         </Grid>
+                        </VStack>
 
-
+                        <VStack width="100%">
                         <Heading color="gray.500" fontSize="3xl" fontFamily="Roboto, sans-serif" alignSelf="flex-start">OPCIONAIS</Heading>
                         <Grid templateColumns="repeat(2,1fr)" width="100%" pt={10} pb={10}>
                             {anuncio.opcionais.map(opcional => (
-                                <Text key={opcional} color="gray.900" fontSize="xl"><Icon as={FaCheckCircle} color="blue.500"/> {opcional}</Text>
+                                <Text my={1} key={opcional} color="gray.900" fontSize="xl"><Icon as={FaCheckCircle} color="blue.500"/> {opcional}</Text>
                             ))}
                         </Grid>
-
-                       
                         </VStack>
-                    
-                    </Grid>
+                        </Grid>
 
-                    <FormContact veiculo={`${anuncio.name} ${anuncio.versao}`}/>
+                    
                 </Box>
             </Box>
-            
-    
+
         </Box>
     )
 }

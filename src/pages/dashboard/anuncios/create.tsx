@@ -576,7 +576,7 @@ export default function CreateVehicle({session, initialValues}) {
                             <Select size="lg" id="laudo_cautelar" name="laudo_cautelar" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Aprovado"  _hover={{bgColor: 'gray.900'}} {...register('laudo_cautelar')}>
                                         <option style={{backgroundColor:"#1F2029"}} value="Aprovado">Aprovado</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="Reprovado">Reprovado</option>
-                                        <option style={{backgroundColor:"#1F2029"}} value="Pendente">Pendente</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Aprovado com apontamento">Aprovado com apontamento</option>
                                 </Select>
     
                                 {!!errors.laudo_cautelar && (
