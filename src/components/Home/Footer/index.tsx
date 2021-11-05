@@ -1,8 +1,8 @@
-import { HStack, VStack, Icon, Grid, Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, Heading, StackDivider} from '@chakra-ui/react'
+import { HStack, VStack, Icon, Box,Text, Stack, Heading, StackDivider} from '@chakra-ui/react'
 
-import Image from 'next/image'
+
 import { HiLocationMarker } from 'react-icons/hi'
-import { RiFacebookBoxFill, RiInstagramFill, RiInstagramLine, RiMailLine, RiTelegramFill, RiTelegramLine, RiWhatsappFill, RiWhatsappLine } from 'react-icons/ri'
+import { RiFacebookBoxFill, RiInstagramFill, RiMailLine, RiTelegramFill, RiTelegramLine, RiWhatsappFill, RiWhatsappLine } from 'react-icons/ri'
 import { SiTelegram } from 'react-icons/si'
 import Logo from '../Header/Logo'
 import Link from 'next/link'
