@@ -114,7 +114,8 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                            filter={`${isNext? "brightness(1.10)" : "brightness(0.7)"}`}
                                            transition="all 0.3s ease-in-out"
                                            _hover={{
-                                            transform: "scale(1.1)"
+                                            transform: "scale(1.1)",
+                                            filter:"brightness(1.1)"
                                         }}
                                            />
                                            
