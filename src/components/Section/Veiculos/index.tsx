@@ -119,14 +119,15 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                            />
                                            
                                            
-                                           <Stack zIndex={1} backgroundColor="yellow.400" width="100%" direction="column" px={6} py={3} >
-                                           <Heading fontSize="3xl" color="gray.900" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
+                                           <Stack zIndex={1} width="100%" direction="column" px={6} py={3} >
+                                           <Heading fontSize="2xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
+                                           <Text fontSize="2xl">{anuncio.versao}</Text>
                                            <StackDivider/>
                                            <Stack  direction="row" justifyContent="space-between">
-                                                <Text fontSize="3xl" alignSelf="flex-end" fontWeight="bold">{anuncio.ano_fabricacao}</Text>
+                                                <Text fontSize="3xl" alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
                                                 <StackDivider/>
                                                 <StackDivider/>
-                                               <Text fontSize="3xl" fontWeight="light">{anuncio.valor}</Text>
+                                               <Text fontSize="3xl" fontWeight="bold">{`${anuncio.valor},00`}</Text>
                                            </Stack>
                                            </Stack>
                                        </Stack>

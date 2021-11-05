@@ -4,6 +4,7 @@ import "swiper/css";
 import {IoMdCloseCircle, IoMdShareAlt} from 'react-icons/io'
 import {GiSpeedometer, GiGasPump, GiCarSeat, GiMoneyStack} from 'react-icons/gi'
 import {FaCheckCircle, FaRegCalendarAlt} from 'react-icons/fa'
+import {BsFillQuestionCircleFill} from 'react-icons/bs'
 
 import { GetStaticProps, GetStaticPaths } from 'next'
 
@@ -177,7 +178,7 @@ export default function Anuncio({anuncio}) {
                         <Heading color="gray.500" fontSize="3xl" fontFamily="Roboto, sans-serif" alignSelf="flex-start">OUTRAS INFORMAÇÕES</Heading>
                         <Grid templateColumns="repeat(2,1fr)" width="100%" gap={2} pt={10} pb={10}>
                             <Text color="gray.900" fontSize="xl">{anuncio.manual_do_proprietario === "Sim" ? <Icon as={FaCheckCircle} color="blue.500"/> : <Icon as={IoMdCloseCircle} color="red"/>} Manual do Proprietário</Text>
-                            <Text color="gray.900" fontSize="xl">{anuncio.laudo_cautelar === "Sim" ? <Icon as={FaCheckCircle} color="blue.500"/> : <Icon as={IoMdCloseCircle} color="red"/>} Laudo Cautelar</Text>
+                            <Text color="gray.900" fontSize="xl">{anuncio.laudo_cautelar === "Aprovado" ? <Icon as={FaCheckCircle} color="blue.500"/> : anuncio.laudo_cautelar === "Reprovado" ? <Icon as={IoMdCloseCircle} color="red"/> : <Icon as={BsFillQuestionCircleFill} color="orange"/> } Laudo Cautelar</Text>
                             <Text color="gray.900" fontSize="xl">{anuncio.chave_copia === "Sim" ? <Icon as={FaCheckCircle} color="blue.500"/> : <Icon as={IoMdCloseCircle} color="red"/>} Chave Cópia</Text>
                         </Grid>
                         </VStack>

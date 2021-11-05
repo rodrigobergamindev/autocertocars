@@ -66,28 +66,6 @@ export default function Dashboard({session, messagesReceived, anuncios}) {
           <Siderbar/>
 
           <MotionGrid variants={container} initial="hidden" animate="visible" flex="1" templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]} gap={6} align="flex-start">
-              <MotionBox
-                  p={["6","8"]}
-                  bg="gray.800"
-                  borderRadius={8}
-                  pb="4"
-                  variants={item}
-                  transition="all 0.2s ease-in-out"
-                  border="solid"
-                  borderColor="transparent"
-                  _hover={{
-                    border:"solid",
-                    borderColor: "yellow.400",
-                    transform: "scale(1.02)"
-                  }}
-              >
-                  <HStack  spacing={4} align="flex-start" justify="space-between">
-                  <Text fontSize="lg" mb="4">Total de acessos</Text>
-                  <Icon as={RiUserLine} w={9} h={9}/>
-                  </HStack>
-                  <Text fontSize="6xl">{!!messagesReceived && <CountUp end={400} duration={400/60}/>}</Text>
-
-              </MotionBox>
               
               <Link href="/dashboard/mensagens">
               <MotionBox
