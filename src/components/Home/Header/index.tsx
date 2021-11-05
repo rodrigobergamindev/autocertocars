@@ -63,7 +63,7 @@ export default function Header({anuncios}) {
                 >
                    
                     <Logo size={600}/>
-                    <VStack>
+                    <VStack width="100%">
                     <SearchBox filter={filterBySearch}/>
                     <Box as={Flex} bg="gray.50" width="100%" height="100%">
                         <List>
