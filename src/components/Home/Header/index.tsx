@@ -1,11 +1,31 @@
-import { Box, Flex, Button, Stack, Heading} from '@chakra-ui/react'
+import { Box, Flex, Button, Stack, Heading, List, ListItem, HStack, Text, VStack} from '@chakra-ui/react'
 import Logo from './Logo'
 import SearchBox from './SearchBox'
+import {useState} from 'react'
 
 
 
+export default function Header({anuncios}) {
 
-export default function Header() {
+    const [anunciosToShow, setAnuncios] = useState(anuncios)
+
+    const filterBySearch = valueToSearch => {
+       
+    
+        const search = valueToSearch.toUpperCase()
+        
+        if(search !== ''){
+            
+            const carrosSearched = anuncios.filter(anuncio => anuncio.name.toUpperCase().includes(search))
+            setAnuncios(carrosSearched)
+        }
+
+        if(search === '') {
+            setAnuncios([])
+        }
+      }
+
+     
 
     return (
         <Box 
@@ -43,8 +63,21 @@ export default function Header() {
                 >
                    
                     <Logo size={600}/>
-                    <SearchBox/>
-
+                    <VStack>
+                    <SearchBox filter={filterBySearch}/>
+                    <Box as={Flex} bg="gray.50" width="100%" height="100%">
+                        <List>
+                            {anunciosToShow.map(anuncio => (
+                                <ListItem>
+                                    <HStack>
+                                        <Text fontWeight="bold" color="gray.500" fontSize="lg">{`${anuncio.name} ${anuncio.versao} ${anuncio.potencia} ${anuncio.ano_fabricacao}`}</Text>
+                                    </HStack>
+                                </ListItem>
+                            ))}
+                        </List>
+                    
+                    </Box>
+                    </VStack>
                     <Stack
                     direction="row"
                     spacing="5"

@@ -36,10 +36,7 @@ export default function SearchBox ({filter}) {
     _placeholder={{color:'gray.400'}}
     ref={searchInputRef}
     
-    onChange={(e) => {
-        console.log(e.target.value)
-        filter(e.target.value)
-    }}
+    onChange={(e) => filter(e.target.value)}
     />
     <Icon as={RiSearchLine} fontSize="25"/>
     </Flex>

@@ -18,7 +18,7 @@ export default function Home({anuncios, feed}) {
     return (
         <Box as={Flex} w="100%" direction="column">
            
-            <Header/>
+            <Header anuncios={anuncios}/>
             <VehicleSection anuncios={anuncios}/>
             <About/>
             <Feed feed={feed}/>
