@@ -6,7 +6,7 @@ import {useRef} from 'react'
 
 
 
-export default function SearchBox ({setProps, value}) {
+export default function SearchBox ({filter}) {
 
     const searchInputRef = useRef<HTMLInputElement>(null)
 
@@ -35,8 +35,11 @@ export default function SearchBox ({setProps, value}) {
     placeholder="Buscar um veículo..."
     _placeholder={{color:'gray.400'}}
     ref={searchInputRef}
-    defaultValue={value}
-    onChange={(e) => setProps(e.target.value)}
+    
+    onChange={(e) => {
+        console.log(e.target.value)
+        filter(e.target.value)
+    }}
     />
     <Icon as={RiSearchLine} fontSize="25"/>
     </Flex>

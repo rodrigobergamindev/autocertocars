@@ -11,7 +11,7 @@ import Image from 'next/image'
 import {prisma} from '../../../db'
 import SearchBox from '../../components/Home/Header/SearchBox'
 import Link from 'next/link'
-import { setTimeout } from 'timers/promises'
+
 
 
 
@@ -19,40 +19,57 @@ import { setTimeout } from 'timers/promises'
 export default function Anuncios({anuncios}) {
     if(!anuncios) return null
 
-    const [valueToSearch, setValue] = useState('')
     const [anunciosToShow, setAnuncios] = useState(anuncios)
-
+    const [novos, setNovos] = useState(false)
+    const [seminovos, setSeminovos] = useState(false)
     
-   
 
    
-  const filterBySearch = (valueToSearch) => {
+  const filterBySearch = valueToSearch => {
+    setAnuncios(anuncios)
+
+    const search = valueToSearch.toUpperCase()
     
-    const carrosSearched = anunciosToShow.filter(anuncio => anuncio.name.includes(valueToSearch))
-    setAnuncios(carrosSearched)
+    if(search !== ''){
+        
+        const carrosSearched = anuncios.filter(anuncio => anuncio.name.toUpperCase().includes(search))
+        setAnuncios(carrosSearched)
+    }
   }
 
-  filterBySearch(valueToSearch)
+
+
 
     const filterByNovos = (value) => {
+
+        
+        
         if(value){
-            const novos = anunciosToShow.filter(anuncio => anuncio.condicao === "Novo")
+            setNovos(value)
+            const novos = anuncios.filter(anuncio => anuncio.condicao === "Novo")
+            
             setAnuncios(novos)
         }
         if(value === false) {
+            setNovos(value)
             setAnuncios(anuncios)
         }
     }
 
 
     const filterBySeminovos = (value) => {
+        
         if(value){
-            const seminovos = anunciosToShow.filter(anuncio => anuncio.condicao === "Seminovo")
+            setSeminovos(value)
+            const seminovos = anuncios.filter(anuncio => anuncio.condicao === "Seminovo")
+            
             setAnuncios(seminovos)
         }
         if(value === false) {
+            
             setAnuncios(anuncios)
         }
+ 
     }
     
     return (
@@ -63,7 +80,7 @@ export default function Anuncios({anuncios}) {
             align="center" 
             justify="center"
             width="100%"
-            h="90vh"
+            h="50vh"
             boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
             position="relative"
             direction="column"
@@ -90,7 +107,7 @@ export default function Anuncios({anuncios}) {
                 <Logo size={650}/>
             </Box>
 
-            <SearchBox setProps={setValue} value={valueToSearch}/>
+            
             
 
            
@@ -114,8 +131,8 @@ export default function Anuncios({anuncios}) {
 
             </HStack>
 
-            <HStack width="100%" maxWidth="1400px">
-            <HStack  alignSelf="flex-start" pb={6}>
+            <HStack width="100%" maxWidth="1400px"  justify="flex-start" align="center" spacing={10} mb={20}>
+            <HStack align="center"  >
                 <Text fontSize="lg">Filtrar por:</Text>
 
                 <Checkbox size="lg" colorScheme="yellow" onChange={(e) => filterByNovos(e.target.checked)}>
@@ -126,6 +143,7 @@ export default function Anuncios({anuncios}) {
                     Seminovos
                 </Checkbox>
             </HStack>
+            <SearchBox filter={filterBySearch} />
             </HStack>
             <Grid templateColumns="repeat(4,1fr)" width="100%" height="100%" maxWidth="1400px" gap={3}>
             {anunciosToShow.map(anuncio => (
