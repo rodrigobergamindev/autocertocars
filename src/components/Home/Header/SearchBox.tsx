@@ -13,7 +13,7 @@ export default function SearchBox () {
     return (
         <Flex 
         as="label"
-        flex="1"
+        
         py="4"
         px="8"
         ml="6"
@@ -23,6 +23,7 @@ export default function SearchBox () {
         color="gray.700"
         bg="white"
         borderRadius="full"
+        zIndex={333}
     >
 
     <Input 
