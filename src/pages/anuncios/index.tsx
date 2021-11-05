@@ -1,4 +1,4 @@
-import { Divider, StackDivider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage} from '@chakra-ui/react'
+import { Checkbox, Divider, StackDivider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage} from '@chakra-ui/react'
 
 
 
@@ -20,8 +20,29 @@ export default function Anuncios({anuncios}) {
     if(!anuncios) return null
 
     const [anunciosToShow, setAnuncios] = useState(anuncios)
-  
+    
    
+
+    const filterByNovos = async(value) => {
+        if(value){
+            const novos = anunciosToShow.filter(anuncio => anuncio.condicao === "Novo")
+            setAnuncios(novos)
+        }
+        if(value === false) {
+            setAnuncios(anuncios)
+        }
+    }
+
+
+    const filterBySeminovos = async(value) => {
+        if(value){
+            const seminovos = anunciosToShow.filter(anuncio => anuncio.condicao === "Seminovo")
+            setAnuncios(seminovos)
+        }
+        if(value === false) {
+            setAnuncios(anuncios)
+        }
+    }
     
     return (
         <Box as={Flex} w="100%" direction="column">
@@ -64,12 +85,6 @@ export default function Anuncios({anuncios}) {
            
             </VStack>
         
-            <HStack my={10} width="100%" spacing={10} justify="center">
-                    <Text fontSize="2xl">NOVOS</Text>
-                    <Box height="50px" border="solid" width="35px" borderRadius="20px"/>
-                    <Text fontSize="2xl">SEMINOVOS</Text>
-            </HStack>
-             
                 
             </Flex>
 
@@ -78,12 +93,29 @@ export default function Anuncios({anuncios}) {
 
             <Box flex="1" as={Flex} direction="column" width="100%" backgroundColor="gray.900" alignItems="center" justifyContent="center" p={25}>
 
-            <HStack width="100%" maxWidth="1400px" my={20}>
+        
+
+            <HStack width="100%" maxWidth="1400px" my={10}>
             <Divider height="2px" bg="yellow.400" orientation="horizontal" />
             <Heading fontWeight="light" p={3}>ESTOQUE</Heading>
             <Divider height="2px" bg="yellow.400" orientation="horizontal" />
+            
+
             </HStack>
 
+            <HStack width="100%" maxWidth="1400px">
+            <HStack  alignSelf="flex-start" pb={6}>
+                <Text fontSize="lg">Filtrar por:</Text>
+
+                <Checkbox size="lg" colorScheme="yellow" onChange={(e) => filterByNovos(e.target.checked)}>
+                    Novos
+                </Checkbox>
+
+                <Checkbox size="lg" colorScheme="yellow" onChange={(e) => filterBySeminovos(e.target.checked)}>
+                    Seminovos
+                </Checkbox>
+            </HStack>
+            </HStack>
             <Grid templateColumns="repeat(4,1fr)" width="100%" height="100%" maxWidth="1400px" gap={3}>
             {anunciosToShow.map(anuncio => (
                 <Link href={`/anuncios/${anuncio.slug}`} key={anuncio.id}>
@@ -117,8 +149,8 @@ export default function Anuncios({anuncios}) {
                     
                     
                     <Stack zIndex={1} width="100%" direction="column" px={6} py={3} >
-                    <Heading fontSize="2xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
-                    <Text fontSize="2xl">{anuncio.versao}</Text>
+                    <Heading fontSize="xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
+                    <Text fontSize="lg">{anuncio.versao}</Text>
                     <StackDivider/>
                     <Stack  direction="row" justifyContent="space-between">
                          <Text fontSize="xl" alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
