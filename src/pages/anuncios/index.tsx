@@ -11,19 +11,30 @@ import Image from 'next/image'
 import {prisma} from '../../../db'
 import SearchBox from '../../components/Home/Header/SearchBox'
 import Link from 'next/link'
+import { setTimeout } from 'timers/promises'
 
 
 
 
 export default function Anuncios({anuncios}) {
-
     if(!anuncios) return null
 
+    const [valueToSearch, setValue] = useState('')
     const [anunciosToShow, setAnuncios] = useState(anuncios)
+
     
    
 
-    const filterByNovos = async(value) => {
+   
+  const filterBySearch = (valueToSearch) => {
+    
+    const carrosSearched = anunciosToShow.filter(anuncio => anuncio.name.includes(valueToSearch))
+    setAnuncios(carrosSearched)
+  }
+
+  filterBySearch(valueToSearch)
+
+    const filterByNovos = (value) => {
         if(value){
             const novos = anunciosToShow.filter(anuncio => anuncio.condicao === "Novo")
             setAnuncios(novos)
@@ -34,7 +45,7 @@ export default function Anuncios({anuncios}) {
     }
 
 
-    const filterBySeminovos = async(value) => {
+    const filterBySeminovos = (value) => {
         if(value){
             const seminovos = anunciosToShow.filter(anuncio => anuncio.condicao === "Seminovo")
             setAnuncios(seminovos)
@@ -79,7 +90,7 @@ export default function Anuncios({anuncios}) {
                 <Logo size={650}/>
             </Box>
 
-            <SearchBox/>
+            <SearchBox setProps={setValue} value={valueToSearch}/>
             
 
            
