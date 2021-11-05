@@ -17,7 +17,7 @@ export default function SearchBox ({filter}) {
         as="label"
         py="4"
         px="8"
-        ml="6"
+        
         maxWidth={600}
         width="100%"
         alignSelf="center"

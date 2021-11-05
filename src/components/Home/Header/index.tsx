@@ -2,12 +2,12 @@ import { Box, Flex, Button, Stack, Heading, List, ListItem, HStack, Text, VStack
 import Logo from './Logo'
 import SearchBox from './SearchBox'
 import {useState} from 'react'
-
+import Link from 'next/link'
 
 
 export default function Header({anuncios}) {
 
-    const [anunciosToShow, setAnuncios] = useState(anuncios)
+    const [anunciosToShow, setAnuncios] = useState([])
 
     const filterBySearch = valueToSearch => {
        
@@ -63,15 +63,18 @@ export default function Header({anuncios}) {
                 >
                    
                     <Logo size={600}/>
-                    <VStack width="100%">
+
+                    <VStack width="100%" background="white" borderRadius="10" spacing={0}>
                     <SearchBox filter={filterBySearch}/>
-                    <Box as={Flex} bg="gray.50" width="100%" height="100%">
+                    <Box as={Flex} width="100%" height="100%" px={10}>
                         <List>
                             {anunciosToShow.map(anuncio => (
-                                <ListItem>
+                                <ListItem key={anuncio.id} cursor="pointer" my={3} >
+                                    <Link href={`/anuncios/${anuncio.slug}`}>
                                     <HStack>
-                                        <Text fontWeight="bold" color="gray.500" fontSize="lg">{`${anuncio.name} ${anuncio.versao} ${anuncio.potencia} ${anuncio.ano_fabricacao}`}</Text>
+                                        <Text fontWeight="bold" color="gray.900" transition="all 0.3s ease-in-out" _hover={{color:"gray.500"}} fontSize="lg">{`${anuncio.name} ${anuncio.versao} ${anuncio.potencia} ${anuncio.ano_fabricacao}`}</Text>
                                     </HStack>
+                                    </Link>
                                 </ListItem>
                             ))}
                         </List>
@@ -82,9 +85,7 @@ export default function Header({anuncios}) {
                     direction="row"
                     spacing="5"
                     >
-                    <Button colorScheme="yellow" height={50} w={250} fontSize="xl" borderRadius="10px">Carros Novos</Button>
-
-                    <Button colorScheme="yellow" height={50}  w={250} fontSize="xl" borderRadius="10px">Seminovos</Button>
+                    <Button colorScheme="yellow" height={50} w={250} fontSize="xl" size="lg" p={2} borderRadius="10px">Consulte nossos veículos</Button>
 
                     </Stack>
                 </Stack>
