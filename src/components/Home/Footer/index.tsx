@@ -5,7 +5,7 @@ import { HiLocationMarker } from 'react-icons/hi'
 import { RiFacebookBoxFill, RiInstagramFill, RiInstagramLine, RiMailLine, RiTelegramFill, RiTelegramLine, RiWhatsappFill, RiWhatsappLine } from 'react-icons/ri'
 import { SiTelegram } from 'react-icons/si'
 import Logo from '../Header/Logo'
-
+import Link from 'next/link'
 
 
 export default function Footer() {
@@ -13,7 +13,7 @@ export default function Footer() {
     return (
         <>
                     
-            <a href="https://ul.waze.com/ul?place=ChIJQZ6RW19hzpQR-JEo6pwBfnw&ll=-23.51520590%2C-46.45910690&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" rel="noreferrer">
+            <Link href="https://ul.waze.com/ul?place=ChIJQZ6RW19hzpQR-JEo6pwBfnw&ll=-23.51520590%2C-46.45910690&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location">
             
             <Box
             as="iframe"
@@ -21,8 +21,9 @@ export default function Footer() {
             height="400px"
             width="100%"
             flex="1"
+           
             />
-            </a>
+            </Link>
         <Stack 
             align="center" 
             justify="space-between"

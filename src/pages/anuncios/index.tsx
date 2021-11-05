@@ -105,35 +105,6 @@ export default function Anuncios({anuncios}) {
   
 
 
-    const filterByNovos = (value) => {
-
-        if(value){
-            setNovos(value)
-            const novos = anuncios.filter(anuncio => anuncio.condicao === "Novo")
-            
-            setAnuncios(novos)
-        }
-        if(value === false) {
-            setNovos(value)
-            setAnuncios(anuncios)
-        }
-    }
-
-
-    const filterBySeminovos = (value) => {
-        
-        if(value){
-            setSeminovos(value)
-            const seminovos = anuncios.filter(anuncio => anuncio.condicao === "Seminovo")
-            
-            setAnuncios(seminovos)
-        }
-        if(value === false) {
-            setSeminovos(value)
-            setAnuncios(anuncios)
-        }
- 
-    }
     
     return (
         <Box as={Flex} w="100%" direction="column">
