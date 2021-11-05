@@ -22,7 +22,6 @@ export default function Anuncios({anuncios}) {
     const [anunciosToShow, setAnuncios] = useState(anuncios)
     const [novos, setNovos] = useState(false)
     const [seminovos, setSeminovos] = useState(false)
-    
 
    
   const filterBySearch = valueToSearch => {
@@ -39,11 +38,75 @@ export default function Anuncios({anuncios}) {
 
 
 
+  const filterByCheckBox = event => {
+
+    //NOVOS
+    if(event.value === "Novos") {
+        setNovos(event.checked)
+
+        if(event.checked) {
+            if(seminovos) {
+                setAnuncios(anuncios)
+            }
+    
+            if(!seminovos){
+                
+                const novos = anuncios.filter(anuncio => anuncio.condicao === "Novo")
+                
+                setAnuncios(novos)
+            }
+        }
+
+        if(event.checked === false) {
+            if(seminovos) {
+                const seminovos = anuncios.filter(anuncio => anuncio.condicao === "Seminovo")
+                
+                setAnuncios(seminovos)
+            }
+    
+            if(!seminovos){
+                setAnuncios(anuncios)
+            }
+        }
+
+        
+    }
+
+    //SEMINOVOS
+    if(event.value === "Seminovos") {
+        setSeminovos(event.checked)
+
+        if(event.checked) {
+            if(novos) {
+                setAnuncios(anuncios)
+            }
+    
+            if(!novos){
+                const seminovos = anuncios.filter(anuncio => anuncio.condicao === "Seminovo")
+                
+                setAnuncios(seminovos)
+            }
+        }
+
+        if(event.checked === false) {
+            if(novos) {
+                const novos = anuncios.filter(anuncio => anuncio.condicao === "Novo")
+
+                setAnuncios(novos)
+            }
+    
+            if(!novos){
+                setAnuncios(anuncios)
+            }
+        }
+        
+    }
+  }
+  
+
 
     const filterByNovos = (value) => {
 
-        
-        
         if(value){
             setNovos(value)
             const novos = anuncios.filter(anuncio => anuncio.condicao === "Novo")
@@ -66,7 +129,7 @@ export default function Anuncios({anuncios}) {
             setAnuncios(seminovos)
         }
         if(value === false) {
-            
+            setSeminovos(value)
             setAnuncios(anuncios)
         }
  
@@ -135,17 +198,18 @@ export default function Anuncios({anuncios}) {
             <HStack align="center"  >
                 <Text fontSize="lg">Filtrar por:</Text>
 
-                <Checkbox size="lg" colorScheme="yellow" onChange={(e) => filterByNovos(e.target.checked)}>
+                <Checkbox size="lg" colorScheme="yellow" value="Novos" onChange={(e) => filterByCheckBox(e.target)}>
                     Novos
                 </Checkbox>
 
-                <Checkbox size="lg" colorScheme="yellow" onChange={(e) => filterBySeminovos(e.target.checked)}>
+                <Checkbox size="lg" colorScheme="yellow" value="Seminovos" onChange={(e) => filterByCheckBox(e.target)}>
                     Seminovos
                 </Checkbox>
             </HStack>
             <SearchBox filter={filterBySearch} />
             </HStack>
             <Grid templateColumns="repeat(4,1fr)" width="100%" height="100%" maxWidth="1400px" gap={3}>
+
             {anunciosToShow.map(anuncio => (
                 <Link href={`/anuncios/${anuncio.slug}`} key={anuncio.id}>
                 <Stack position="relative" 
