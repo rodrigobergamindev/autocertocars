@@ -39,8 +39,8 @@ export default function Anuncio({anuncio}) {
             boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
             
             >
-            <Box zIndex={333} position="absolute" top="3" left="5">
-                <Logo size={300}/>
+            <Box zIndex={333} position="absolute" top="6" left="8">
+                <Logo size={450}/>
             </Box>
             <Box as={Flex} flex="1" position="relative" width="100%">
             <Swiper

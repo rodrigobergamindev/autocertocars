@@ -88,9 +88,18 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                 
                                 <SwiperSlide key={anuncio.id}>
                                     
-                                     {({ isNext }) => (
+                                     {({ isNext, isPrev, isActive }) => (
                                          <Link href={`/anuncios/${anuncio.slug}`}>
-                                       <Stack position="relative" spacing={0} height="100%" alignItems="center" justifyContent="flex-end" overflow="hidden" cursor="pointer">
+                                       <Stack position="relative" 
+                                       spacing={0} 
+                                       height="100%" 
+                                       alignItems="center" 
+                                       justifyContent="flex-end" 
+                                       overflow="hidden" 
+                                       cursor="pointer"
+                                       transition="all 0.3s ease-in-out"
+                                      
+                                       >
                                            
                                            <ChakraImage
                                             as={Image}
@@ -101,6 +110,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                            width="100%"
                                            height="100%"
                                            priority
+                                          
                                            filter={`${isNext? "brightness(1.10)" : "brightness(0.7)"}`}
                                            transition="all 0.3s ease-in-out"
                                            _hover={{
