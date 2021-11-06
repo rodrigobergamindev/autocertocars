@@ -24,6 +24,7 @@ type CreateMessageFormData = {
 
   interface MessageProps {
       veiculo: string;
+      valor: string;
   }
 
 
@@ -42,7 +43,7 @@ type CreateMessageFormData = {
 
 
 
-export default function FormContact({veiculo}: MessageProps) {
+export default function FormContact({veiculo, valor}: MessageProps) {
 
    
     const {register,handleSubmit, formState} = useForm({
@@ -87,7 +88,7 @@ export default function FormContact({veiculo}: MessageProps) {
         <Box width="100%" height="100%">
             {formState.isSubmitted ? (
             <Flex direction="column" height="350px" align="center" justify="center" backgroundColor="gray.900" borderRadius={8}>
-                <Heading size="lg" fontWeight="normal" color="gray.50">Obrigado pelo interesse, em breve entraremos em contato! <Icon as={HiCheckCircle} color="green.400"></Icon></Heading>
+                <Heading size="md" fontWeight="normal" color="gray.50">Obrigado pelo interesse, em breve entraremos em contato! <Icon as={HiCheckCircle} color="green.400"></Icon></Heading>
             </Flex>
             ) : (
             
@@ -104,10 +105,10 @@ export default function FormContact({veiculo}: MessageProps) {
                 
                 >
 
-                <Heading size="xl" fontWeight="bold" color="gray.50">Vamos negociar?</Heading>
+                <Heading size="xl" fontFamily="Roboto, sans-serif" fontWeight="bold" color="gray.50">{`${valor},00`}</Heading>
 
                 <Divider my="3" borderColor="gray.500"/>
-                <Heading size="sm" color="gray.500" mb={10}>DADOS DE CONTATO</Heading>
+                <Heading size="sm" color="gray.500" mb={10}>ENVIE UMA MENSAGEM AO VENDEDOR</Heading>
 
                 <VStack spacing="2">
                

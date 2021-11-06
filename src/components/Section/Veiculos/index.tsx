@@ -60,17 +60,17 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             
             >
             
-                <Box width="100%" p={6} maxWidth={1480} as={Flex}  flexDirection="row" alignSelf="center">
+                <Box width="100%" maxW="1480px" p={6}  as={Flex}  align="center" flexDirection="row" alignSelf="center">
 
                 
                 <Heading fontWeight="bold" letterSpacing={2} mr={15} fontSize="3xl"  color="gray.800" zIndex={2}>
                     VEÍCULOS
                 </Heading>
-                <Box flex="1" bg="yellow.400" height={1} alignSelf="center"/>
+                <Divider bg="yellow.400" h="3px" width="100%"/>
                
 
                 </Box>
-               <Flex p={6}  height="650px" width="1480px">
+               <Flex p={6}  height="550px" maxWidth="1480px" width="100%">
 
                <Swiper
                     spaceBetween={50}
@@ -98,7 +98,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                        overflow="hidden" 
                                        cursor="pointer"
                                        transition="all 0.3s ease-in-out"
-                                      
+                                        borderRadius="10px"
                                        >
                                            
                                            <ChakraImage
@@ -125,10 +125,10 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                            <Text fontSize="2xl">{anuncio.versao}</Text>
                                            <StackDivider/>
                                            <Stack  direction="row" justifyContent="space-between">
-                                                <Text fontSize="3xl" alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
+                                                <Text fontSize="2xl" alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
                                                 <StackDivider/>
                                                 <StackDivider/>
-                                               <Text fontSize="3xl" fontWeight="bold">{`${anuncio.valor},00`}</Text>
+                                               <Text fontSize="2xl" fontWeight="bold">{`${anuncio.valor},00`}</Text>
                                            </Stack>
                                            </Stack>
                                        </Stack>
