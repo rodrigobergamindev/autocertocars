@@ -48,6 +48,9 @@ model Message {
   proposta String?
   veiculo String?
   data_de_criacao DateTime @default(now())
+  versao String?
+  ano String?
+  tipo String
 }
 
 model Marca {

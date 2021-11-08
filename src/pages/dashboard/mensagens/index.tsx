@@ -22,6 +22,9 @@ type Message = {
     data_de_criacao: Date;
     id: string;
     veiculo?: string;
+    ano?: string;
+    versao?: string;
+    tipo: string;
 }
 
 
@@ -97,7 +100,7 @@ export default function MensagensList({initialValues, session}) {
 
                     </Flex>
                 
-                <MotionGrid variants={container} initial="hidden"animate="visible" templateColumns="repeat(3, 1fr)" gap={6}>
+                <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns="repeat(3, 1fr)" gap={6}>
 
                 {messagesToShow.map((message,index) => {
                     
@@ -114,21 +117,29 @@ export default function MensagensList({initialValues, session}) {
                         flexDirection="column"
                         >
                             <HStack mb={4} justify="flex-end">
+                            
                             <Text fontWeight="bold" fontSize="sm">{new Date(message.data_de_criacao).toLocaleDateString('pt-BR', {
                                 day: '2-digit',
                                 month: 'long',
                                 year: 'numeric'
                         }).toUpperCase()}</Text>
+
+                        
                         </HStack>
-                        <Text fontSize="sm" fontWeight="bold" color="gray.300">REMETENTE:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.name}</Text>
-                        <Text fontSize="sm" fontWeight="bold" color="gray.300">E-MAIL:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.email}</Text>
-                        <Text fontSize="sm" fontWeight="bold" color="gray.300">WHATSAPP:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.whatsapp}</Text>
-                        <Text fontSize="sm" fontWeight="bold" color="gray.300">PROPOSTA:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.proposta}</Text>
-                        {!!message.veiculo  && <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">VEÍCULO:</Text> <Text fontSize="sm" color="white" mb={2}>{message.veiculo}</Text></Box>}
-                         <HStack mt={4} justify="flex-end">
-                         <Button size="sm" colorScheme="red" onClick={() => handleRemoveMessage(message)}  leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Excluir</Button>
-                        <a href={`https://api.whatsapp.com/send?phone=55${message.whatsapp}&text=Olá,%20${message.name}!%20 recebi sua proposta através de www.autocertocars.com.br`} target="_blank" rel="noreferrer">
-                            <Button size="sm" colorScheme="green"  leftIcon={<Icon as={RiWhatsappLine} fontSize="20"></Icon>}>Responder</Button></a>
+                        <Grid templateColumns="repeat(2,1fr)">
+                            <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">REMETENTE:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.name}</Text></Box>
+                            <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">E-MAIL:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.email}</Text></Box>
+                            <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">WHATSAPP:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.whatsapp}</Text></Box>
+                            {!!message.veiculo  && <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">VEÍCULO:</Text> <Text fontSize="sm" color="white" mb={2}>{message.veiculo}</Text></Box>}
+                            {!!message.ano  && <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">ANO:</Text> <Text fontSize="sm" color="white" mb={2}>{message.ano}</Text></Box>}
+                            {!!message.versao  && <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">VERSÃO:</Text> <Text fontSize="sm" color="white" mb={2}>{message.versao}</Text></Box>}
+                            <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">PROPOSTA:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.proposta}</Text></Box>
+                            <Box><Text fontSize="sm" fontWeight="bold" color="yellow.500">INTERESSE:</Text> <Text fontSize="sm" color="yellow.500" mb={2}>{message.tipo.toUpperCase()}</Text></Box>
+                        </Grid>
+                            <HStack mt={4} justify="flex-end">
+                                <Button size="sm" colorScheme="red" onClick={() => handleRemoveMessage(message)}  leftIcon={<Icon as={RiCloseLine} fontSize="20"></Icon>}>Excluir</Button>
+                                    <a href={`https://api.whatsapp.com/send?phone=55${message.whatsapp}&text=Olá,%20${message.name}!%20 recebi sua proposta através de www.autocertocars.com.br`} target="_blank" rel="noreferrer">
+                                <Button size="sm" colorScheme="green"  leftIcon={<Icon as={RiWhatsappLine} fontSize="20"></Icon>}>Responder</Button></a>
                             </HStack>
                         </MotionBox>
                     )

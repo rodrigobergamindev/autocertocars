@@ -85,8 +85,9 @@ export default function Header({anuncios}) {
                     direction="row"
                     spacing="5"
                     >
-                    <Button colorScheme="yellow" height={50} w={250} fontSize="xl" size="lg" p={2} borderRadius="10px">Consulte nossos veículos</Button>
-
+                    <Link href="/anuncios" passHref>
+                    <Button colorScheme="yellow" height={50} w={250} fontSize="lg" size="lg" p={3} borderRadius="10px">Consulte nossos veículos</Button>
+                    </Link>
                     </Stack>
                 </Stack>
                 </Box>

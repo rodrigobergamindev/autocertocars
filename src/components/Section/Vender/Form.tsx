@@ -17,6 +17,9 @@ type CreateMessageFormData = {
     whatsapp: string;
     mensagem: string;
     veiculo?: string;
+    ano?: string;
+    versao?: string;
+    proposta: string;
   }
 
 
@@ -30,7 +33,8 @@ type CreateMessageFormData = {
     whatsapp: yup.string().required('Informe um contato para whatsapp')
     .matches(phoneRegExp, "Informe um número de celular válido - Ex: 11959944499")
     .nullable(),
-    valor: yup.string().required('Informe o valor da proposta'),
+    proposta: yup.string().required('Informe o valor da proposta'),
+    ano: yup.string().required('Informe o ano do veículo')
   })
 
 
@@ -49,7 +53,7 @@ export default function CreateMessage() {
 
     const handleCreateMessage: SubmitHandler<CreateMessageFormData> = async (values) => {
 
-        await saveMessage(values)
+        await saveMessage({...values, tipo: 'Venda'})
        
     }
 
@@ -100,29 +104,30 @@ export default function CreateMessage() {
                         <Input name="name" label="Nome"  error={errors.name} {...register('name')}/>
                         <SimpleGrid minChildWidth="140px" spacing={["6","8"]} width="100%">
                         <Input name="whatsapp" label="Whatsapp" error={errors.whatsapp} {...register('whatsapp')}/>
-                        <Input name="veiculo" label="Veículo" error={errors.whatsapp} {...register('whatsapp')}/>
+        
+                        
                         </SimpleGrid>
 
                         <SimpleGrid minChildWidth="140px" spacing={["6","8"]} width="100%">
                         <Input name="email" label="E-mail" error={errors.email} {...register('email')}/>
 
                         <Box>
-                        <FormControl isInvalid={!!errors.valor}>
+                        <FormControl isInvalid={!!errors.proposta}>
                             <FormLabel 
-                            htmlFor="valor"
+                            htmlFor="proposta"
                             >
-                                Proposta
+                                Proposta de Venda
                             </FormLabel>
                             
                             <ChakraInput
-                             {...register('valor')}
+                             {...register('proposta')}
                             as={CurrencyInput}
                             bgColor="gray.900" 
                             _hover={{bgColor: 'gray.900'}} 
                             focusBorderColor="yellow.400"  
                             variant="filled" 
-                            name="valor" 
-                            id="valor" 
+                            name="proposta" 
+                            id="proposta" 
                             type="text" 
                             size="lg"
                             allowNegativeValue={false}
@@ -131,15 +136,22 @@ export default function CreateMessage() {
                             intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
                             />
                          
-                            {!!errors.valor && (
+                            {!!errors.proposta && (
                                     <FormErrorMessage>
-                                    {errors.valor.message}
+                                    {errors.proposta.message}
                                     </FormErrorMessage>
                                  )}
                             
                            </FormControl>
                         
                         </Box>
+                        
+                        </SimpleGrid>
+
+                        <SimpleGrid minChildWidth="140px" spacing={["6","8"]} width="100%">
+                            <Input name="veiculo" label="Veículo" error={errors.veiculo} {...register('veiculo')}/>
+                            <Input name="ano" label="Ano" error={errors.ano} {...register('ano')}/>
+                            <Input name="versao" label="Versão" error={errors.versao} {...register('versao')}/>
                         </SimpleGrid>
                         
                     </SimpleGrid>

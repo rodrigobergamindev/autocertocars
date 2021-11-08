@@ -54,7 +54,7 @@ export default function FormContact({veiculo, valor}: MessageProps) {
 
 
     const handleCreateMessage: SubmitHandler<CreateMessageFormData> = async (values) => {
-        const message = {...values, veiculo}
+        const message = {...values, veiculo, tipo: 'Compra'}
 
         await saveMessage(message)
        
@@ -101,6 +101,7 @@ export default function FormContact({veiculo, valor}: MessageProps) {
                 border="1px solid" borderColor="gray.200"
                 onSubmit={handleSubmit(handleCreateMessage)}
                 width="100%"
+                height="100%"
                 display={formState.isSubmitted? 'none': 'auto'}
                 
                 >

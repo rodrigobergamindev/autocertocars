@@ -1,5 +1,6 @@
 
 import { Image, Stack } from "@chakra-ui/react"
+import Link from 'next/link'
 
 interface LogoProps {
     size: number;
@@ -8,7 +9,9 @@ interface LogoProps {
 
 export default function Logo ({size, logo}: LogoProps) {
     return (
-        <Stack direction="row">
+        <Link href="/" passHref>
+        <Stack direction="row" cursor="pointer">
+            
             <Image
                 maxWidth={size}
                 w="100%"
@@ -18,5 +21,6 @@ export default function Logo ({size, logo}: LogoProps) {
                  
             />
         </Stack>
+        </Link>
     )
 }

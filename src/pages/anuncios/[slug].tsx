@@ -143,7 +143,7 @@ export default function Anuncio({anuncio, anuncios}) {
                         <VStack width="100%" bg="white" p={6} borderRadius="5" boxShadow="0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)">
                         <VStack align="flex-start" width="100%">
                             <Heading color="gray.900" fontSize="3xl" fontWeight="black" fontFamily="Roboto, sans-serif">{`${anuncio.name.toUpperCase()}`}</Heading>
-                            <Heading color="gray.900" fontSize="xl" fontFamily="Roboto, sans-serif">{`${anuncio.versao} ${anuncio.potencia} ${anuncio.combustivel} ${anuncio.numero_portas}P ${anuncio.transmissao}`}</Heading>
+                            <Heading color="gray.500" fontSize="xl" fontFamily="Roboto, sans-serif">{`${anuncio.versao} ${anuncio.potencia} ${anuncio.combustivel} ${anuncio.numero_portas}P ${anuncio.transmissao}`}</Heading>
                         </VStack>
 
                         <List flex="1" width="100%" alignSelf="flex-start" pt={10} pb={10}>
@@ -194,7 +194,7 @@ export default function Anuncio({anuncio, anuncios}) {
                         </VStack>
                    
 
-                    <VStack>
+                    <VStack height="100%">
                     <FormContact veiculo={`${anuncio.name} ${anuncio.versao} ${anuncio.ano_fabricacao}`} valor={anuncio.valor}/> 
                     </VStack>
                         

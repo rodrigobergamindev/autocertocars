@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <IconDrawer/>
       <Component {...pageProps} />
       <Link 
-      href="https://api.whatsapp.com/send?phone=5511976789680&text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o%20para%20minha%20empresa.">
+      href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20um%20ve%C3%ADculo.">
         <Icon as={RiWhatsappFill}
         position="fixed"
         bottom={7}
