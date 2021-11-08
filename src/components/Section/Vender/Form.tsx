@@ -7,6 +7,7 @@ import {useForm, SubmitHandler} from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.umd';
 import {RiWhatsappLine} from 'react-icons/ri'
+import {HiCheckCircle} from 'react-icons/hi'
 
 const phoneRegExp = /^[0-9]{2}?[0-9]{4,5}[0-9]{4}$/
 
@@ -83,7 +84,11 @@ export default function CreateMessage() {
 
     return (
         <Box>
-
+            {formState.isSubmitted ? (
+            <Flex direction="column" height="350px" align="center" justify="center" backgroundColor="gray.900" borderRadius={8}>
+                <Heading size="md" fontWeight="normal" color="gray.50">Obrigado pelo interesse, em breve entraremos em contato! <Icon as={HiCheckCircle} color="green.400"></Icon></Heading>
+            </Flex>
+            ) : (
                 <Box 
                 as="form"
                 flex="1" 
@@ -166,6 +171,9 @@ export default function CreateMessage() {
                     </HStack>
                 </Flex>
                 </Box>
+            )    
+        }
+                
         </Box>
     )
 }

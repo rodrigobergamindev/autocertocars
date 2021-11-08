@@ -9,7 +9,7 @@ export function SidebarNav() {
 
     return (
         <Stack spacing="80" flex="1" align="flex-start" justify="center"  py={40} px={190}>
-            <VStack>
+            <VStack justifySelf="center">
                 <NavLink icon={RiHomeLine} href="/">Home</NavLink>
                 <NavLink icon={RiCarLine} href="/anuncios">Veículos</NavLink>
                 <NavLink icon={RiMessageLine} href="/dashboard">Login</NavLink>
