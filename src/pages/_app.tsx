@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         position="fixed"
         bottom={7}
         right={10}
-        fontSize="8xl"
+        fontSize="7xl"
         cursor= "pointer"
         transition= "all 0.3s ease-out"
         color="gray.50"

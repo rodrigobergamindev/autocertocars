@@ -2,7 +2,7 @@ import { HStack, VStack, Icon, Box,Text, Stack, Heading, StackDivider} from '@ch
 
 
 import { HiLocationMarker } from 'react-icons/hi'
-import { RiFacebookBoxFill, RiInstagramFill, RiMailLine, RiTelegramFill, RiTelegramLine, RiWhatsappFill, RiWhatsappLine } from 'react-icons/ri'
+import { RiFacebookBoxFill, RiInstagramFill, RiMailLine, RiTelegramFill, RiTelegramLine, RiWhatsappFill, RiWhatsappLine, RiPhoneFill } from 'react-icons/ri'
 import { SiTelegram } from 'react-icons/si'
 import Logo from '../Header/Logo'
 import Link from 'next/link'
@@ -62,10 +62,12 @@ export default function Footer() {
                         </HStack>
 
                         <HStack>
-                        <Icon as={RiWhatsappLine} color="yellow.400" fontSize="20"/><Text>11 96329-0492</Text>
+                        <Icon as={RiWhatsappLine} color="yellow.400" fontSize="20"/><Text>(11) 96329-0492</Text>
                         </HStack>
                      
-                        
+                        <HStack>
+                        <Icon as={RiPhoneFill} color="yellow.400" fontSize="20"/><Text>(11) 4277-1012</Text>
+                        </HStack>
                        
 
                         
@@ -104,10 +106,10 @@ export default function Footer() {
                     </Box>
 
                     <HStack>
-                        <Icon as={RiInstagramFill} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#B83280", transform:"rotateZ(360deg)"}}/>
-                        <Icon as={RiFacebookBoxFill} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#3182CE", transform:"rotateZ(360deg)"}}/>
-                        <Icon as={RiWhatsappFill} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#48BB78", transform:"rotateZ(360deg)"}}/>
-                        <Icon as={SiTelegram} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#00B5D8", transform:"rotateZ(360deg)"}}/>
+                        <a href="https://www.instagram.com/autocertocars/"rel="noreferrer" target="_blank"><Icon as={RiInstagramFill} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#B83280", transform:"rotateZ(360deg)"}}/></a>
+                        <a href="https://www.facebook.com/autocertocars/"rel="noreferrer" target="_blank"><Icon as={RiFacebookBoxFill} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#3182CE", transform:"rotateZ(360deg)"}}/></a>
+                        <a href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20um%20ve%C3%ADculo."rel="noreferrer" target="_blank"><Icon as={RiWhatsappFill} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#48BB78", transform:"rotateZ(360deg)"}}/></a>
+                        <a href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20um%20ve%C3%ADculo."rel="noreferrer" target="_blank"><Icon as={SiTelegram} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#00B5D8", transform:"rotateZ(360deg)"}}/></a>
                         </HStack>
                 
                 </VStack>

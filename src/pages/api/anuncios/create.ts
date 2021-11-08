@@ -19,10 +19,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if(session) {
-        const slug = uuid()
+        
         const anuncioData = JSON.parse(req.body) 
         const name = `${anuncioData.marca} ${anuncioData.modelo}`
-        const anuncio = {...anuncioData, slug, name}
+        const anuncio = {...anuncioData, slug: `${name}-${anuncioData.versao}-${anuncioData.ano_fabricacao.replace('/','-')}`, name}
 
         const {marca} = anuncioData
 
