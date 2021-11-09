@@ -1,4 +1,4 @@
-import { HStack, VStack, Icon, Grid, Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, Heading, StackDivider} from '@chakra-ui/react'
+import { HStack, VStack, Grid, Box, Image as ChakraImage, Stack, Heading} from '@chakra-ui/react'
 
 import Image from 'next/image'
 import Form from './Form'

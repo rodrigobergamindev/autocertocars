@@ -94,23 +94,19 @@ export default function Footer() {
                         </HStack>
 
                         <HStack>
-                        <Text>Sobre</Text>
-                        </HStack>
-
-                        <HStack>
-                        <Text>Contato</Text>
+                        <Text>Login</Text>
                         </HStack>
 
                         
                         
                     </Box>
 
-                    <HStack>
+                    <HStack alignSelf="flex-end" justifySelf="flex-end">
                         <a href="https://www.instagram.com/autocertocars/"rel="noreferrer" target="_blank"><Icon as={RiInstagramFill} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#B83280", transform:"rotateZ(360deg)"}}/></a>
                         <a href="https://www.facebook.com/autocertocars/"rel="noreferrer" target="_blank"><Icon as={RiFacebookBoxFill} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#3182CE", transform:"rotateZ(360deg)"}}/></a>
                         <a href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20um%20ve%C3%ADculo."rel="noreferrer" target="_blank"><Icon as={RiWhatsappFill} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#48BB78", transform:"rotateZ(360deg)"}}/></a>
                         <a href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20um%20ve%C3%ADculo."rel="noreferrer" target="_blank"><Icon as={SiTelegram} color="gray.300" fontSize="25" transition="all 0.3s ease-in-out" _hover={{color:"#00B5D8", transform:"rotateZ(360deg)"}}/></a>
-                        </HStack>
+                    </HStack>
                 
                 </VStack>
 

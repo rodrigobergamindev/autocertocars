@@ -99,6 +99,10 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                                        cursor="pointer"
                                        transition="all 0.3s ease-in-out"
                                         borderRadius="10px"
+                                        transform={!isNext && `scale(0.8)`}
+                                        _hover={{
+                                            transform: "scale(1.0)"
+                                        }}
                                        >
                                            
                                            <ChakraImage

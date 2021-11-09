@@ -11,7 +11,7 @@ import Image from 'next/image'
 import {prisma} from '../../../db'
 import SearchBox from '../../components/Home/Header/SearchBox'
 import Link from 'next/link'
-
+import { motion } from "framer-motion";
 
 
 
@@ -22,6 +22,30 @@ export default function Anuncios({anuncios}) {
     const [anunciosToShow, setAnuncios] = useState(anuncios)
     const [novos, setNovos] = useState(false)
     const [seminovos, setSeminovos] = useState(false)
+
+
+    const MotionGrid = motion(Grid)
+    const MotionBox = motion(Stack)
+
+    const container = {
+        hidden: { opacity: 1, scale: 0 },
+        visible: {
+          opacity: 1,
+          scale: 1,
+          transition: {
+            delayChildren: 0.5,
+            staggerChildren: 0.3
+          }
+        }
+      };
+      
+      const item = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+          y: 0,
+          opacity: 1
+        }
+      };
 
    
   const filterBySearch = valueToSearch => {
@@ -179,11 +203,14 @@ export default function Anuncios({anuncios}) {
             </HStack>
             <SearchBox filter={filterBySearch} />
             </HStack>
-            <Grid templateColumns="repeat(4,1fr)" width="100%" height="100%" maxWidth="1400px" gap={3}>
+            <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns="repeat(4,1fr)" width="100%" height="100%" maxWidth="1400px" gap={3}>
 
             {anunciosToShow.map(anuncio => (
                 <Link href={`/anuncios/${anuncio.slug}`} key={anuncio.id}>
-                <Stack position="relative" 
+
+                <MotionBox
+                variants={item} 
+                position="relative" 
                 spacing={0} 
                 height="450px" 
                 alignItems="center" 
@@ -223,10 +250,10 @@ export default function Anuncios({anuncios}) {
                         <Text fontSize="xl" fontWeight="bold">{`${anuncio.valor},00`}</Text>
                     </Stack>
                     </Stack>
-                </Stack>
+                </MotionBox>
                 </Link>
             ))}
-            </Grid>
+            </MotionGrid>
             </Box>
 
         </Box>

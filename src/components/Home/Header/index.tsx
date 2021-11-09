@@ -5,6 +5,8 @@ import {useState} from 'react'
 import Link from 'next/link'
 
 
+
+
 export default function Header({anuncios}) {
 
     const [anunciosToShow, setAnuncios] = useState([])
@@ -61,7 +63,7 @@ export default function Header({anuncios}) {
                 spacing={20}
                 
                 >
-                   
+                   <Heading>SEJA BEM-VINDO(A)</Heading>
                     <Logo size={600}/>
 
                     <VStack width="100%" background="white" borderRadius="10" spacing={0}>
@@ -86,7 +88,7 @@ export default function Header({anuncios}) {
                     spacing="5"
                     >
                     <Link href="/anuncios" passHref>
-                    <Button colorScheme="yellow" height={50} w={250} fontSize="lg" size="lg" p={3} borderRadius="10px">Consulte nossos veículos</Button>
+                    <Button colorScheme="yellow" height={50} w={250} fontSize="lg" size="lg" p={3} borderRadius="10px">VER ESTOQUE</Button>
                     </Link>
                     </Stack>
                 </Stack>

@@ -7,6 +7,7 @@ import { RiRefreshLine } from 'react-icons/ri'
 import {IoIosCash, IoIosDocument} from 'react-icons/io'
 import CountUp from 'react-countup';
 
+
 export default function About() {
 
     return (
@@ -176,7 +177,107 @@ export default function About() {
                 
                 </Grid>
                </Flex>
+
+
+               <Grid 
+            templateColumns="repeat(1,1fr)"
+            w="100%"
+            maxW="1400px"
+            mb={150}
+            p={6}
+            gap={10}
+            
+            >  
+
+           
+                <HStack width="100%">
+
+               <Divider orientation="horizontal"  />
+               <VStack align="center" >
+                    <Text fontSize="7xl" as="i" fontWeight="black">TRADIÇÃO</Text>
+                    
+                    <Text fontSize="7xl" color="#48BB78" fontWeight="light">CONFIABILIDADE</Text>
+                   
+                </VStack>
+                <Divider  orientation="horizontal" />
+                </HStack>
+           
+
+            <VStack >
+                
+                <Box p={5} as={Flex} direction="row" width="100%" flex="1" alignItems="center">
+                    <Box position="relative" width="100%" height="450px">
+                    <ChakraImage as={Image} src="/img/historia1.jpg" 
+                    objectFit="cover" 
+                    transition="all 0.3s ease-in-out" 
+                    layout="fill" 
+                    filter="grayscale(100%) contrast(95%) brightness(30%)"
+                    _hover={{
+                        filter:"grayscale(0%) contrast(110%) brightness(100%)"
+                    }}
+                    />
+                    </Box>
+                    <Box p={3} maxWidth="450px">
+                        
+                        <Text mx={10} fontSize="2xl" textAlign="justify">
+                        Nossa história se mistura com o pioneirismo do comércio de automóveis na zona leste de São Paulo inspirando <strong style={{color:"#ECC94B"}}>confiança e qualidade</strong> aos nossos clientes, 
+                        iniciamos com nossa sede própria no ano de 1986 que se mantém até hoje.
+                        </Text>
+
+                    </Box>
+                </Box>
+
+                <Box p={5} as={Flex} direction="row" width="100%" flex="1"  alignItems="center">
+                    
+                    <Box  p={3}  maxWidth="450px">
+                        <Text mx={10} fontSize="2xl" textAlign="justify">
+                        Fundamentamos nossa fé em Deus e colocamos nossa expectativa no trabalho árduo que desenvolvemos ao longo desses mais de 30 anos no mercado automobilístico, 
+                        somos referência em nossa região tanto para nossos clientes quanto para os nossos parceiros.
+                        </Text>
+                    </Box>
+
+                    <Box position="relative" width="100%" height="450px" >
+                        <ChakraImage as={Image} src="/img/historia2.jpg" 
+                        objectFit="cover" 
+                        transition="all 0.3s ease-in-out" 
+                        layout="fill" 
+                        filter="grayscale(100%) contrast(95%) brightness(30%)"
+                        _hover={{
+                        filter:"grayscale(0%) contrast(110%) brightness(100%)"
+                        }}
+                        />
+                    </Box>
+                </Box>
+
+                <Box p={5} as={Flex} direction="row" width="100%" flex="1" alignItems="center">
+                    <Box position="relative" width="100%" height="650px" >
+                    <ChakraImage as={Image} 
+                    src="/img/historia3.jpg"
+                    objectFit="cover" 
+                    transition="all 0.3s ease-in-out" 
+                    layout="fill" 
+                    filter="grayscale(100%) contrast(95%) brightness(30%)"
+                    _hover={{
+                        filter:"grayscale(0%) contrast(110%) brightness(100%)"
+                    }}
+                    />
+                    </Box>
+                    <Box  p={3}  maxWidth="450px">
+                        <Text mx={10} fontSize="2xl" textAlign="justify">
+                        Aqui na Auto Certo Cars, você encontra, além das melhores ofertas e veículos, o melhor atendimento que sempre estará alinhado com as suas necessidades e expectativas. 
+                        Quer trocar seu carro? Ou realizar o sonho de um carro novo? Vem para a <strong style={{color:"#ECC94B"}}>Auto Certo!</strong>
+                        </Text>
+                    </Box>
+                </Box>
+
+            </VStack>
+            
+            </Grid>
+
             </Stack>
+            
+
+            
             </Stack>
     )
 }
