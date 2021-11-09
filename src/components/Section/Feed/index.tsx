@@ -28,6 +28,7 @@ export default function Feed({feed}: Feed) {
 
     const[winReady, setwinReady] = useState(false)
 
+
     useEffect(() => { 
         setwinReady(true)
     }, [])
