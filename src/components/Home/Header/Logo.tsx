@@ -9,7 +9,7 @@ interface LogoProps {
 
 export default function Logo ({size, logo}: LogoProps) {
     return (
-        <Link href="/" passHref>
+        <Link href="/"  passHref>
         <Stack direction="row" cursor="pointer">
             
             <Image
