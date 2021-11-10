@@ -215,6 +215,7 @@ export default function About() {
                     _hover={{
                         filter:"grayscale(0%) contrast(110%) brightness(100%)"
                     }}
+                    priority
                     />
                     </Box>
                     <Box p={3} maxWidth="450px">
@@ -245,6 +246,7 @@ export default function About() {
                         _hover={{
                         filter:"grayscale(0%) contrast(110%) brightness(100%)"
                         }}
+                        priority
                         />
                     </Box>
                 </Box>
@@ -260,6 +262,7 @@ export default function About() {
                     _hover={{
                         filter:"grayscale(0%) contrast(110%) brightness(100%)"
                     }}
+                    priority
                     />
                     </Box>
                     <Box  p={3}  maxWidth="450px">

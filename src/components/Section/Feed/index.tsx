@@ -56,7 +56,7 @@ export default function Feed({feed}: Feed) {
     </VStack>
 
     <Flex align="center" justify="center">
-        <Button leftIcon={<Icon as={RiInstagramLine} fontSize="40"/>}  p={10} size="lg" fontSize="2xl" fontWeight="black" color="gray.900" backgroundColor="gray.50">@autocertocars</Button>
+        <a href="https://www.instagram.com/autocertocars/" target="_blank" rel="noreferrer"><Button leftIcon={<Icon as={RiInstagramLine} fontSize="40"/>}  p={10} size="lg" fontSize="2xl" fontWeight="black" color="gray.900" backgroundColor="gray.50">@autocertocars</Button></a>
     </Flex>
 </Grid>
 

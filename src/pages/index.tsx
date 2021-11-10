@@ -34,8 +34,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     
   const response_anuncio = await prisma.anuncio.findMany()
-  const url_feed = 'https://graph.instagram.com/me/media?fields=media_count,media_type,permalink,media_url&&access_token=IGQVJYak9SYi1ESjZA3NUNMMEUwNjIxdGozMExORXFER1dzTHEtZAVoxX05zLWVRR0lSZA0k4MldUc3BWbHdpUmE0VU8tRjZA6YXl6R21KbTM2aG5CdjloaHFab1hjaEtmR0V4ZAzZAET2EyLW9KY0liN1cwcgZDZD'
-  const response_feed = await fetch(url_feed)
+  
+  const response_feed = await fetch(process.env.URL_ACCESS)
 
   const data = await response_feed.json()
   const feed = await data.data
