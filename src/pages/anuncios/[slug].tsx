@@ -252,7 +252,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
          anuncio,
          anuncios
       },
-      revalidate: 3600
+      revalidate: 60
     }
   }
 

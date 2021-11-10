@@ -279,7 +279,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
          anuncios
       },
-      revalidate: 3600
+      revalidate: 60
     }
   }
 
