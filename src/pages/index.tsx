@@ -56,8 +56,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
           anuncios,
           feed
       },
-      revalidate: 10,
-      fallback: false
+      revalidate: 10
     }
   }
 
