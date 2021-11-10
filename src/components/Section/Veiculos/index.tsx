@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
+
 
 
 
