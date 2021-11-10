@@ -34,7 +34,7 @@ export default function Home({anuncios, feed}) {
             </Head>
             <Header anuncios={anuncios}/>
             <About/>
-           
+            <Feed feed={feed}/>
             <Vender/>
             
         </Box>
