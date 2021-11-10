@@ -28,8 +28,8 @@ export default function Home({anuncios, feed}) {
             <title>AutoCerto Cars - O veículo certo para você!</title>
             </Head>
             <Header anuncios={anuncios}/>
+            <VehicleSection anuncios={anuncios}/>
             <About/>
-            
             <Vender/>
             
         </Box>
