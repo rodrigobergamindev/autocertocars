@@ -19,17 +19,21 @@ import {prisma} from '../../../db'
 import Link from 'next/link'
 import VehicleSection from '../../components/Section/Veiculos';
 import Head from 'next/head'
-
+import { useRouter } from 'next/router'
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 
 export default function Anuncio({anuncio, anuncios}) {
 
+    const router = useRouter()
 
   
    
-    if(!anuncio) return null
+    if (router.isFallback) {
+        return <Box>Loading...</Box>
+      }
+      
     return (
         <Box as={Flex} w="100%" direction="column">
              
