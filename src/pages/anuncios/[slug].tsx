@@ -1,5 +1,5 @@
 import { Divider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage} from '@chakra-ui/react'
-import "swiper/css";
+
 
 import {IoMdCloseCircle, IoMdShareAlt} from 'react-icons/io'
 import {GiSpeedometer, GiGasPump, GiCarSeat, GiMoneyStack} from 'react-icons/gi'
