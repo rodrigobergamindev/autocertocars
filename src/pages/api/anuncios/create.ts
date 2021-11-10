@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         
         const anuncioData = JSON.parse(req.body) 
         const name = `${anuncioData.marca} ${anuncioData.modelo}`
-        const anuncio = {...anuncioData, slug: `${name}-${anuncioData.versao}-${anuncioData.ano_fabricacao.replace('/','-')}`, name}
+        const anuncio = {...anuncioData, slug: `${anuncioData.marca}-${anuncioData.modelo}-${anuncioData.versao}-${anuncioData.ano_fabricacao.replace('/','-')}`, name}
 
         const {marca} = anuncioData
 
