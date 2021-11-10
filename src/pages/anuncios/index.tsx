@@ -279,7 +279,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
          anuncios
       },
-      revalidate: 10
+      revalidate: 10,
+      fallback: false
     }
   }
 

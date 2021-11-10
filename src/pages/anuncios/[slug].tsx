@@ -226,7 +226,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     
       return { 
           paths, 
-          fallback: true
+          fallback: false
         }
   }
 
@@ -252,7 +252,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
          anuncio,
          anuncios
       },
-      revalidate: 60
+      revalidate: 10
     }
   }
 
