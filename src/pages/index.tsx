@@ -45,18 +45,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
     
   const response_anuncio = await prisma.anuncio.findMany()
   
-  const response_feed = await fetch(process.env.URL_ACCESS)
-
-  const data = await response_feed.json()
-  const feed = await data.data
     
   const anuncios = await JSON.parse(JSON.stringify(response_anuncio))
    
     
     return {
       props: {
-          anuncios,
-          feed
+          anuncios
       }
     }
   }
