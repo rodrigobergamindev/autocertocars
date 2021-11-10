@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
           anuncios,
           feed
       },
-      revalidate: 5,
+      revalidate: 5
     }
   }
 
