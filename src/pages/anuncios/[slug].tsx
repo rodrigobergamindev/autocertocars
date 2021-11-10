@@ -1,12 +1,12 @@
 import { Divider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage} from '@chakra-ui/react'
-
+import "swiper/css";
 
 import {IoMdCloseCircle, IoMdShareAlt} from 'react-icons/io'
 import {GiSpeedometer, GiGasPump, GiCarSeat, GiMoneyStack} from 'react-icons/gi'
 import {FaCheckCircle, FaRegCalendarAlt} from 'react-icons/fa'
 import {BsFillQuestionCircleFill} from 'react-icons/bs'
 
-import { GetServerSideProps } from 'next'
+import { GetStaticProps, GetStaticPaths } from 'next'
 
 
 import FormContact from '../../components/Contact/index'
@@ -29,7 +29,7 @@ export default function Anuncio({anuncio, anuncios}) {
 
   
    
-    
+    if(!anuncio) return null
     return (
         <Box as={Flex} w="100%" direction="column">
              
@@ -204,7 +204,7 @@ export default function Anuncio({anuncio, anuncios}) {
                         
                     </Grid>
 
-               
+                <VehicleSection anuncios={anuncios}/>
                 </Box>
             </Box>
 
@@ -213,14 +213,29 @@ export default function Anuncio({anuncio, anuncios}) {
 }
 
 
+export const getStaticPaths: GetStaticPaths = async () => {
+
+    
+    const anuncios = await prisma.anuncio.findMany()
+
+    const paths = anuncios.map((anuncio) => ({
+        params: { slug: anuncio.slug },
+      })) || []
+
+     
+    
+      return { 
+          paths,
+          fallback: false
+        }
+  }
 
 
-
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
+export const getStaticProps: GetStaticProps = async ({params}) => {
 
     
     const {slug} = params
-    
+
     const data_anuncios = await prisma.anuncio.findMany()
 
     const data = await prisma.anuncio.findUnique({
@@ -236,7 +251,8 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
       props: {
          anuncio,
          anuncios
-      }
+      },
+      revalidate: 5
     }
   }
 

@@ -1,7 +1,7 @@
 import { Box, Flex, Icon, IconButton} from '@chakra-ui/react'
 
 
-import { GetServerSideProps } from 'next'
+import { GetStaticProps } from 'next'
 
 import Header from '../components/Home/Header/index'
 import VehicleSection from '../components/Section/Veiculos'
@@ -18,11 +18,9 @@ export default function Home({anuncios, feed}) {
  
 
     
-
-   
-      return (
+    return (
     
-        
+      
         <Box as={Flex} w="100%" direction="column">
            <Head>
             <title>AutoCerto Cars - O veículo certo para você!</title>
@@ -30,18 +28,17 @@ export default function Home({anuncios, feed}) {
             <Header anuncios={anuncios}/>
             <VehicleSection anuncios={anuncios}/>
             <About/>
-            
+            <Feed feed={feed}/>
             <Vender/>
             
         </Box>
        
     )
-    
 }
 
 
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async (context) => {
 
     
   const response_anuncio = await prisma.anuncio.findMany()
@@ -58,7 +55,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
       props: {
           anuncios,
           feed
-      }
+      },
+      revalidate: 5,
     }
   }
 
