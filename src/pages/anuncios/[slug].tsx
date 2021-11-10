@@ -224,7 +224,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const paths = anuncios.map((anuncio) => ({
         params: { slug: anuncio.slug },
-      })) || []
+      }))
 
      
     
