@@ -56,6 +56,11 @@ export default function Header({anuncios}) {
                     <source src="/video/bg.mp4" type="video/mp4"/>
                    
                 </video>
+                <Box>
+                    {anuncios.map(anuncio => (
+                        <Text>{anuncio.name}</Text>
+                    ))}
+                </Box>
                 
                 <Stack
                 
