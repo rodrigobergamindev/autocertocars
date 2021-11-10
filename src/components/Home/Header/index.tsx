@@ -3,17 +3,13 @@ import Logo from './Logo'
 import SearchBox from './SearchBox'
 import {useState} from 'react'
 import Link from 'next/link'
-import {useEffect} from 'react'
+
 
 
 
 export default function Header({anuncios}) {
     
-    const[winReady, setwinReady] = useState(false)
-
-    useEffect(() => {
-        setwinReady(true)
-    }, [])
+   
 
     const [anunciosToShow, setAnuncios] = useState([])
 

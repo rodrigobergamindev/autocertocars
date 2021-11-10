@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image'
 import "swiper/css";
 import Link from 'next/link'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
@@ -46,11 +46,6 @@ interface AnuncioProps {
 
 export default function VehicleSection({anuncios}: AnuncioProps) {
 
-    const[winReady, setwinReady] = useState(false)
-
-    useEffect(() => {
-        setwinReady(true)
-    }, [])
 
     return (
         <Stack 

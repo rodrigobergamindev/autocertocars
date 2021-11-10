@@ -18,9 +18,12 @@ export default function Home({anuncios, feed}) {
  
 
     
-    return (
+    if(!anuncios) return null
+
+    if(!!anuncios) {
+      return (
     
-      
+        
         <Box as={Flex} w="100%" direction="column">
            <Head>
             <title>AutoCerto Cars - O veículo certo para você!</title>
@@ -34,6 +37,7 @@ export default function Home({anuncios, feed}) {
         </Box>
        
     )
+    }
 }
 
 
