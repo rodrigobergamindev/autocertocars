@@ -12,7 +12,7 @@ export function SidebarNav() {
             <VStack justifySelf="center" flex="1" >
                 <NavLink icon={RiHomeLine} href="/">Home</NavLink>
                 <NavLink icon={RiCarLine} href="/anuncios">Veículos</NavLink>
-                <NavLink icon={RiMessageLine} href="/dashboard">Login</NavLink>
+                <NavLink icon={RiMessageLine} href="/dashboard">Dashboard</NavLink>
             </VStack>
         
 
