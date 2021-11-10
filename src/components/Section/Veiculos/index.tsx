@@ -70,8 +70,8 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                 </Box>
                <Flex p={6}  height="550px" maxWidth="1480px" width="100%">
 
-               {!anuncios && <Box>Loading...</Box>}
-               {!!anuncios && 
+               
+             
                <Swiper
                     spaceBetween={50}
                     slidesPerView={3}
@@ -147,7 +147,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                         })
                     }
                     </Swiper>
-               }
+               
                </Flex>
             </Stack>
     )
