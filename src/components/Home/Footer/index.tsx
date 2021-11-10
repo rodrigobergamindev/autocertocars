@@ -13,17 +13,7 @@ export default function Footer() {
     return (
         <>
                     
-            <Link href="https://ul.waze.com/ul?place=ChIJQZ6RW19hzpQR-JEo6pwBfnw&ll=-23.51520590%2C-46.45910690&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location">
-            
-            <Box
-            as="iframe"
-            src="https://embed.waze.com/iframe?zoom=15&lat=-23.515206&lon=-46.459107&pin=1&desc=1&ct=livemap"
-            height="400px"
-            width="100%"
-            flex="1"
-           
-            />
-            </Link>
+        
         <Stack 
             align="center" 
             justify="space-between"
