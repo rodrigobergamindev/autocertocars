@@ -6,7 +6,7 @@ import {GiSpeedometer, GiGasPump, GiCarSeat, GiMoneyStack} from 'react-icons/gi'
 import {FaCheckCircle, FaRegCalendarAlt} from 'react-icons/fa'
 import {BsFillQuestionCircleFill} from 'react-icons/bs'
 
-import { GetStaticProps, GetStaticPaths } from 'next'
+import { GetServerSideProps } from 'next'
 
 
 import FormContact from '../../components/Contact/index'
@@ -213,25 +213,10 @@ export default function Anuncio({anuncio, anuncios}) {
 }
 
 
-export const getStaticPaths: GetStaticPaths = async () => {
-
-    
-    const anuncios = await prisma.anuncio.findMany()
-
-    const paths = anuncios.map((anuncio) => ({
-        params: { slug: anuncio.slug },
-      })) || []
-
-     
-    
-      return { 
-          paths,
-          fallback: 'blocking'
-        }
-  }
 
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
+
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
     
     const {slug} = params
@@ -251,8 +236,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       props: {
          anuncio,
          anuncios
-      },
-      revalidate: 5
+      }
     }
   }
 
