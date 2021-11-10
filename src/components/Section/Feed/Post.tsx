@@ -31,6 +31,7 @@ export default function Post({post}: PostProps) {
                     <ChakraImage
                               as={Image}
                                src={post.media_url}
+                               loader={()=>post.media_url}
                                layout="fill"
                                alt="post"
                                priority
