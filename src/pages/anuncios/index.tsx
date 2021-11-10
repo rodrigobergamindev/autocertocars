@@ -266,7 +266,7 @@ export default function Anuncios({anuncios}) {
 
 
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 
     
     
