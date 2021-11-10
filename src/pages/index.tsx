@@ -18,13 +18,8 @@ export default function Home({anuncios, feed}) {
  
 
     
-    if(!anuncios) {
-      return (
-        <Box>Sem anúncios por aqui</Box>
-      )
-    }
 
-    if(!!anuncios) {
+   
       return (
     
         
@@ -34,13 +29,13 @@ export default function Home({anuncios, feed}) {
             </Head>
             <Header anuncios={anuncios}/>
             <About/>
-            <Feed feed={feed}/>
+            
             <Vender/>
             
         </Box>
        
     )
-    }
+    
 }
 
 
