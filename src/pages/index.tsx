@@ -1,7 +1,7 @@
 import { Box, Flex, Icon, IconButton} from '@chakra-ui/react'
 
 
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 
 import Header from '../components/Home/Header/index'
 import VehicleSection from '../components/Section/Veiculos'
@@ -10,12 +10,12 @@ import Feed from '../components/Section/Feed/index'
 import Vender from '../components/Section/Vender/index'
 import {prisma} from '../../db'
 import Head from 'next/head'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 
 export default function Home({anuncios, feed}) {
 
-  const [anunciosToShow, setAnuncios] = useState(anuncios)
+ 
 
     
     return (
@@ -25,8 +25,8 @@ export default function Home({anuncios, feed}) {
            <Head>
             <title>AutoCerto Cars - O veículo certo para você!</title>
             </Head>
-            <Header anuncios={anunciosToShow}/>
-            <VehicleSection anuncios={anunciosToShow}/>
+            <Header anuncios={anuncios}/>
+            <VehicleSection anuncios={anuncios}/>
             <About/>
             <Feed feed={feed}/>
             <Vender/>
@@ -38,7 +38,7 @@ export default function Home({anuncios, feed}) {
 
 
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
 
     
   const response_anuncio = await prisma.anuncio.findMany()
@@ -55,8 +55,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
           anuncios,
           feed
-      },
-      revalidate: 5,
+      }
     }
   }
 
