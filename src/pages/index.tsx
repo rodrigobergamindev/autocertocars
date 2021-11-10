@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, IconButton} from '@chakra-ui/react'
+import { Box, Flex, Text,Icon, IconButton} from '@chakra-ui/react'
 
 
 import { GetStaticProps } from 'next'
@@ -27,6 +27,9 @@ export default function Home({anuncios, feed}) {
             </Head>
             <Header anuncios={anuncios}/>
             <VehicleSection anuncios={anuncios}/>
+            <Box>
+              {anuncios.map(anuncio => <Text color="black">{anuncio.name}</Text>)}
+            </Box>
             <About/>
             <Feed feed={feed}/>
             <Vender/>
