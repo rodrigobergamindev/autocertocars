@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, IconButton} from '@chakra-ui/react'
+import { Box, Flex,Text, Icon, IconButton} from '@chakra-ui/react'
 
 
 import { GetServerSideProps } from 'next'
@@ -25,7 +25,11 @@ export default function Home({anuncios, feed}) {
            <Head>
             <title>AutoCerto Cars - O veículo certo para você!</title>
             </Head>
-           
+            <Box>
+              {anuncios.map(anuncio => (
+                <Text>{anuncio.name}</Text>
+              ))}
+            </Box>
             <About/>
            
             <Vender/>
