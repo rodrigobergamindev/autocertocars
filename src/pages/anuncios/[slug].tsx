@@ -29,7 +29,7 @@ export default function Anuncio({anuncio, anuncios}) {
 
   
    
-    if(!anuncio) return null
+    
     return (
         <Box as={Flex} w="100%" direction="column">
              
@@ -220,7 +220,7 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
     
     const {slug} = params
-
+    
     const data_anuncios = await prisma.anuncio.findMany()
 
     const data = await prisma.anuncio.findUnique({
