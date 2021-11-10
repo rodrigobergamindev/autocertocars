@@ -18,6 +18,7 @@ import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 's
 import {prisma} from '../../../db'
 import Link from 'next/link'
 import VehicleSection from '../../components/Section/Veiculos';
+import Head from 'next/head'
 
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
@@ -32,7 +33,10 @@ export default function Anuncio({anuncio, anuncios}) {
     return (
         <Box as={Flex} w="100%" direction="column">
              
-
+             <Head>
+            <title>{`AutoCerto Cars - ${anuncio.name}`}</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Flex 
             align="center" 
             justify="center"

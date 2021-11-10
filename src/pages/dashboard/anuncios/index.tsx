@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 
 
 import {prisma} from '../../../../db'
-
+import Head from 'next/head'
 
 
 
@@ -96,6 +96,10 @@ export default function AnuncioList({initialValues, session}) {
    
     return (
         <Box>
+            <Head>
+            <title>Anúncios</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Header/>
             
             <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">

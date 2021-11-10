@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import  Link  from 'next/link';
 
 import {prisma} from '../../../db'
-
+import Head from 'next/head'
 
 
 export default function Dashboard({session, messagesReceived, anuncios}) {
@@ -60,6 +60,10 @@ export default function Dashboard({session, messagesReceived, anuncios}) {
 
     return (
       <Flex direction="column" h="100vh">
+        <Head>
+            <title>Dashboard</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
       <Header/>
 
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">

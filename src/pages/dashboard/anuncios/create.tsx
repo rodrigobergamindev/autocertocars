@@ -24,6 +24,7 @@ import CurrencyInput from 'react-currency-input-field';
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
 import {prisma} from '../../../../db'
+import Head from 'next/head'
 
 
 type CreateAnuncioFormData = {
@@ -276,6 +277,10 @@ export default function CreateVehicle({session, initialValues}) {
     
     return (
         <Box>
+            <Head>
+            <title>Criar Anúncio</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Header/>
             
             <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">

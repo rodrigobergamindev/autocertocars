@@ -9,6 +9,7 @@ import About from '../components/Section/About/index'
 import Feed from '../components/Section/Feed/index'
 import Vender from '../components/Section/Vender/index'
 import {prisma} from '../../db'
+import Head from 'next/head'
 
 
 
@@ -16,8 +17,13 @@ export default function Home({anuncios, feed}) {
 
     
     return (
+    
+      
         <Box as={Flex} w="100%" direction="column">
-           
+           <Head>
+            <title>AutoCerto Cars - O veículo certo para você!</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Header anuncios={anuncios}/>
             <VehicleSection anuncios={anuncios}/>
             <About/>
@@ -25,6 +31,7 @@ export default function Home({anuncios, feed}) {
             <Vender/>
             
         </Box>
+       
     )
 }
 

@@ -12,6 +12,7 @@ import { getSession } from "next-auth/client"
 import { motion } from "framer-motion";
 
 import {prisma} from '../../../../db'
+import Head from 'next/head'
 
 
 type Message = {
@@ -86,6 +87,10 @@ export default function MensagensList({initialValues, session}) {
 
     return (
         <Box>
+            <Head>
+            <title>Caixa de Mensagens</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Header/>
             
             <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">

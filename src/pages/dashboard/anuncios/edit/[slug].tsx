@@ -24,6 +24,7 @@ import {RiAddLine, RiCheckLine, RiCloseLine, RiSubtractLine, RiUploadCloudLine} 
 import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 import {arrayMoveImmutable} from 'array-move'
 import {prisma} from '../../../../../db'
+import Head from 'next/head'
 
 
 type CreateAnuncioFormData = {
@@ -315,6 +316,10 @@ const SortableList = SortableContainer(({items}) => {
 
     return (
         <Box>
+            <Head>
+            <title>Editar Anúncio</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Header/>
             
             <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">

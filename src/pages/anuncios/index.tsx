@@ -12,7 +12,7 @@ import {prisma} from '../../../db'
 import SearchBox from '../../components/Home/Header/SearchBox'
 import Link from 'next/link'
 import { motion } from "framer-motion";
-
+import Head from 'next/head'
 
 
 
@@ -132,7 +132,10 @@ export default function Anuncios({anuncios}) {
     
     return (
         <Box as={Flex} w="100%" direction="column">
-             
+             <Head>
+            <title>Veículos</title>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
 
             <Flex 
             align="center" 
