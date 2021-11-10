@@ -15,7 +15,11 @@ import {useEffect, useState} from 'react'
 
 export default function Home({anuncios, feed}) {
 
- 
+  const[winReady, setwinReady] = useState(false)
+
+  useEffect(() => {
+      setwinReady(true)
+  }, [])
 
     
     return (
