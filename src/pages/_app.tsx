@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
 
 
-  if(router.asPath.includes('dashboard')) {
+  if(router.asPath.includes('dashboard') || router.asPath.includes('login')) {
     return (
       <NextAuthProvider session={pageProps.session}>
       <ChakraProvider theme={theme}>
