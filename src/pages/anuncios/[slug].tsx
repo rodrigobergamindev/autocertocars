@@ -21,7 +21,7 @@ import VehicleSection from '../../components/Section/Veiculos';
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
+
 
 
 export default function Anuncio({anuncio, anuncios}) {
@@ -52,47 +52,11 @@ export default function Anuncio({anuncio, anuncios}) {
             <Box zIndex={333} position="absolute" top="6" left="8">
                 <Logo size={450}/>
             </Box>
-            <Box as={Flex} flex="1" position="relative" width="100%">
-            <Swiper
-                    spaceBetween={0}
-                    slidesPerView={1}
-                    navigation
-                    scrollbar={{ draggable: true }}
-                    autoplay={{delay: 2000,  disableOnInteraction: false}}
-                    draggable={true}
-                    speed={1200}
-                    style={{width:'100%'}}
-                    >
-                    {
-                        anuncio.image.map(image =>{
-                            return (
-                                
-                                <SwiperSlide key={image}>
-                                        <a href={`${image}`} rel="noreferrer" target="_blank">
-                                       <Stack cursor="pointer" position="relative" spacing={0} height="90vh" alignItems="center">
-                                           
-                                           <ChakraImage
-                                            as={Image}
-                                           src={image}
-                                           alt={anuncio.name}
-                                            layout="fill"
-                                           objectFit="cover"
-                                           width="100%"
-                                           height="100%"
-                                           priority
-                                           quality={100}
-                                           transition="all 0.3s ease-in-out"
-                                           _hover={{
-                                            transform: "scale(1.1)"
-                                        }}/>
-                                       </Stack>
-                                       </a>
-                                </SwiperSlide>
-                            )
-                            
-                        })
-                    }
-                    </Swiper>
+            <Box as={Flex} flex="1" position="relative" width="100%" fontSize="3xl" color="red">
+            {anuncio.name}
+            {anuncio.marca}
+            {anuncio.modelo}
+            {anuncio.ano_fabricacao}
                 </Box>
                 
 
@@ -208,7 +172,7 @@ export default function Anuncio({anuncio, anuncios}) {
                         
                     </Grid>
 
-                <VehicleSection anuncios={anuncios}/>
+                
                 </Box>
             </Box>
 
