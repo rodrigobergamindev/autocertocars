@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image'
 import "swiper/css";
 import Link from 'next/link'
-
+import {useState} from 'react'
 
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
@@ -46,7 +46,7 @@ interface AnuncioProps {
 
 export default function VehicleSection({anuncios}: AnuncioProps) {
 
-    
+    const [anunciosToShow, setAnuncios] = useState(anuncios)
 
     return (
         <Stack 
@@ -83,7 +83,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                     speed={1200}
                     >
                     {
-                        anuncios.map(anuncio =>{
+                        anunciosToShow.map(anuncio =>{
                             return (
                                 
                                 <SwiperSlide key={anuncio.id}>
