@@ -81,7 +81,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                     autoplay={{delay: 2000,  disableOnInteraction: false}}
                     draggable={true}
                     speed={1200}
-                    style={{width: '100%'}}
+                    
                     >
                     {
                         anuncios.map(anuncio =>{
