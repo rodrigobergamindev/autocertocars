@@ -5,7 +5,7 @@ import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 's
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image'
 import Link from 'next/link'
-
+import 'swiper/css';
 
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
