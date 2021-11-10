@@ -2,7 +2,7 @@ import { Checkbox, Divider, StackDivider, Button, Grid, List, ListItem, HStack, 
 
 
 
-import { GetStaticProps} from 'next'
+import { GetServerSideProps} from 'next'
 import {useState} from 'react'
 
 
@@ -266,7 +266,7 @@ export default function Anuncios({anuncios}) {
 
 
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 
     
     
@@ -278,8 +278,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return {
       props: {
          anuncios
-      },
-      revalidate: 10
+      }
     }
   }
 
