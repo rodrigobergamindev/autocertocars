@@ -28,10 +28,10 @@ export default function SignIn() {
         {asPath === URL_ERROR && (
           <Text fontSize="sm" align="center" mb="4">Acesso negado, credenciais incorretas</Text>
         )}
-       <Button colorScheme="yellow" size="lg" onClick={(): Promise<void> => signIn('google', { callbackUrl: 'http://localhost:3000/dashboard' })}> Login </Button>
+       <Button colorScheme="yellow" size="lg" onClick={(): Promise<void> => signIn('google', { callbackUrl: 'https://autocertocars.vercel.app/dashboard' })}> Login </Button>
        {!!session && (
          <Box flex="1" p="6">  
-          <Button colorScheme="yellow" size="lg" onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })}> Sair </Button>
+          <Button colorScheme="yellow" size="lg" onClick={() => signOut({ callbackUrl: 'https://autocertocars.vercel.app/' })}> Sair </Button>
          </Box>
     )}
       </Flex>
@@ -45,6 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
   const session = await getSession({req})
   
   if(session) {
+    
       return {
           redirect: {
               destination: `/dashboard`,
