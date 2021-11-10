@@ -22,7 +22,6 @@ export default function Home({anuncios, feed}) {
         <Box as={Flex} w="100%" direction="column">
            <Head>
             <title>AutoCerto Cars - O veículo certo para você!</title>
-            <link rel="shortcut icon"  href="/favicon.ico" />
             </Head>
             <Header anuncios={anuncios}/>
             <VehicleSection anuncios={anuncios}/>
