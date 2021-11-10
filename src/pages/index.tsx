@@ -10,12 +10,12 @@ import Feed from '../components/Section/Feed/index'
 import Vender from '../components/Section/Vender/index'
 import {prisma} from '../../db'
 import Head from 'next/head'
-
+import {useState} from 'react'
 
 
 export default function Home({anuncios, feed}) {
 
-  
+  const [anunciosToShow, setAnuncios] = useState(anuncios)
 
     
     return (
@@ -25,8 +25,8 @@ export default function Home({anuncios, feed}) {
            <Head>
             <title>AutoCerto Cars - O veículo certo para você!</title>
             </Head>
-            <Header anuncios={anuncios}/>
-            <VehicleSection anuncios={anuncios}/>
+            <Header anuncios={anunciosToShow}/>
+            <VehicleSection anuncios={anunciosToShow}/>
             <About/>
             <Feed feed={feed}/>
             <Vender/>
