@@ -82,7 +82,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                   autoplay={{delay: 2000,  disableOnInteraction: false}}
                   draggable={true}
                   speed={1200}
-                  style={{width:'100%'}}
+                  
                   >
                   {
                       anuncios.map(anuncio =>{
@@ -90,9 +90,56 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                               
                               <SwiperSlide key={anuncio.id}>
                                   
-                                 
-                                    
-                                 
+                                   {({ isNext}) => (
+                                       <Link href={`/anuncios/${anuncio.slug}`}>
+                                     <Stack position="relative" 
+                                     spacing={0} 
+                                     height="100%" 
+                                     alignItems="center" 
+                                     justifyContent="flex-end" 
+                                     overflow="hidden" 
+                                     cursor="pointer"
+                                     transition="all 0.3s ease-in-out"
+                                      borderRadius="10px"
+                                      transform={!isNext && `scale(0.8)`}
+                                      _hover={{
+                                          transform: "scale(1.0)"
+                                      }}
+                                     >
+                                         
+                                         <ChakraImage
+                                          as={Image}
+                                         src={anuncio.image[0]}
+                                         alt={anuncio.name}
+                                          layout="fill"
+                                         objectFit="cover"
+                                         width="100%"
+                                         height="100%"
+                                         priority
+                                        
+                                         filter={`${isNext? "brightness(1.10)" : "brightness(0.7)"}`}
+                                         transition="all 0.3s ease-in-out"
+                                         _hover={{
+                                          transform: "scale(1.1)",
+                                          filter:"brightness(1.1)"
+                                      }}
+                                         />
+                                         
+                                         
+                                         <Stack zIndex={1} width="100%" direction="column" px={6} py={3} >
+                                         <Heading fontSize="2xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
+                                         <Text fontSize="2xl">{anuncio.versao}</Text>
+                                         <StackDivider/>
+                                         <Stack  direction="row" justifyContent="space-between">
+                                              <Text fontSize="2xl" alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
+                                              <StackDivider/>
+                                              <StackDivider/>
+                                             <Text fontSize="2xl" fontWeight="bold">{`${anuncio.valor},00`}</Text>
+                                         </Stack>
+                                         </Stack>
+                                     </Stack>
+                                     </Link>
+                                  )}
                                  
                               </SwiperSlide>
                               
