@@ -9,7 +9,7 @@ import Link from 'next/link'
 import {useState} from 'react'
 
 
-
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 
 
@@ -48,10 +48,8 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
 
 
     return (
-        <Stack>
-            {anuncios.map(anuncio => (
-                <Text>{anuncio.name}</Text>
-            ))}
-        </Stack>
+        <Stack>{anuncios.map(anuncio => (
+            <Text>{anuncio.name}</Text>
+        ))}</Stack>
     )
 }
