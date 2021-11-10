@@ -204,7 +204,7 @@ export default function Anuncio({anuncio, anuncios}) {
                         
                     </Grid>
 
-                <VehicleSection anuncios={anuncios}/>
+               
                 </Box>
             </Box>
 
