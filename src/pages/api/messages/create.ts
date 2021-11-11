@@ -10,7 +10,7 @@ import { getSession } from "next-auth/client";
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const session = await getSession({req})
+   
 
     
     
@@ -18,8 +18,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(405).json({ message: 'não ta vindo post'})
     }
 
-    if(session) {
-        const message = JSON.parse(req.body) 
+    
+    const message = JSON.parse(req.body) 
         
         
         await prisma.message.create({
@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
          })
          
         
-    }
+  
     
     res.json({message: "Ok"})
 }
