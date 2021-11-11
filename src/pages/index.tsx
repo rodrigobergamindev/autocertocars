@@ -27,9 +27,6 @@ export default function Home({anuncios, feed}) {
             </Head>
             <Header anuncios={anuncios}/>
             <VehicleSection anuncios={anuncios}/>
-            <Box>
-              {anuncios.map(anuncio => <Text color="black">{anuncio.name}</Text>)}
-            </Box>
             <About/>
             <Feed feed={feed}/>
             <Vender/>
