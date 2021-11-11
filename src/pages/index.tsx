@@ -15,7 +15,7 @@ import Head from 'next/head'
 
 export default function Home({anuncios, feed}) {
 
- 
+  console.log(anuncios)
 
     
     return (
@@ -49,7 +49,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
        anuncios
-    }
+    },
+    revalidate: 2
   }
   }
 
