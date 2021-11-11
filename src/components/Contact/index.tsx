@@ -98,10 +98,11 @@ export default function FormContact({veiculo, valor}: MessageProps) {
                 borderRadius={8} 
                 bg="gray.900" 
                 p={8}
-                border="1px solid" borderColor="gray.200"
+               
                 onSubmit={handleSubmit(handleCreateMessage)}
                 width="100%"
                 height="100%"
+                
                 display={formState.isSubmitted? 'none': 'auto'}
                 
                 >
@@ -269,7 +270,7 @@ export default function FormContact({veiculo, valor}: MessageProps) {
                 
                 </VStack>
 
-                <Flex mt="8" justify="flex-end">
+                <Flex  mt="20" justify="flex-end">
                     <HStack spacing="4">
                     <Link href={`https://api.whatsapp.com/send?phone=5511959943034&text=Ol%C3%A1!%20Fiquei%20interessado%20no%20ve%C3%ADculo%3A%20${veiculo}%2C%20vamos%20negociar%3F`}><Button fontSize="lg" size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize="25"/>} colorScheme="green">Enviar no WhatsApp</Button></Link>
                         <Button size="lg" fontSize="lg" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>

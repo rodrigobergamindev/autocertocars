@@ -31,7 +31,7 @@ export default function Feed({feed}: Feed) {
         speed: 500,
         autoplaySpeed: 1500,
         cssEase: "ease",
-        
+        arrows: false
     }
       
 

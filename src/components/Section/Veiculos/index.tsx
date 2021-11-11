@@ -53,7 +53,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
         speed: 500,
         autoplaySpeed: 1500,
         cssEase: "ease",
-        
+        arrows: false
     }
       
 
@@ -87,7 +87,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
 
                 {anuncios.map(anuncio => (
                          
-                         <Link href={`anuncios/${anuncio.slug}`}>
+                         <Link key={anuncio.id} href={`anuncios/${anuncio.slug}`}>
                         <Box p={6} key={anuncio.id}>
                          <Stack 
                         position="relative"

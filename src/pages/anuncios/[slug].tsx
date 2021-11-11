@@ -34,7 +34,7 @@ export default function Anuncio({anuncio, anuncios}) {
         speed: 500,
         autoplaySpeed: 1500,
         cssEase: "ease",
-        
+        arrows: false
     }
       
     return (
