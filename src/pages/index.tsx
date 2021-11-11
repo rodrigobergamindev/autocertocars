@@ -27,6 +27,7 @@ export default function Home({anuncios, feed}) {
             <Header anuncios={anuncios}/>
             <VehicleSection anuncios={anuncios}/>
             <About/>
+            <Feed feed={feed}/>
             <Vender/>
             
         </Box>
@@ -44,10 +45,15 @@ export const getStaticProps: GetStaticProps = async () => {
     
   const anuncios = await JSON.parse(JSON.stringify(response_anuncio))
    
+  const response_feed = await fetch(process.env.URL_ACCESS)
+
+  const data = await response_feed.json()
+  const feed = await data.data
     
   return {
     props: {
-       anuncios
+       anuncios,
+       feed
     },
     revalidate: 5
   }

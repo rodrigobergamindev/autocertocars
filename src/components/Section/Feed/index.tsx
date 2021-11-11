@@ -5,7 +5,7 @@ import {RiInstagramLine} from 'react-icons/ri'
 import {useState, useEffect} from 'react'
 
 import Post from './Post'
-
+import Slider from "react-slick";
 
 type Post = {
     media_type: string;
@@ -23,6 +23,17 @@ export default function Feed({feed}: Feed) {
 
     const[winReady, setwinReady] = useState(false)
 
+    const settings = {
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        speed: 500,
+        autoplaySpeed: 1500,
+        cssEase: "ease",
+        
+    }
+      
 
     useEffect(() => { 
         setwinReady(true)
@@ -43,24 +54,36 @@ export default function Feed({feed}: Feed) {
             
            {!!winReady &&  <Stack  maxWidth="1480px" width="100%" flex="1" direction="column" spacing="15">
 
-<Grid borderRadius="5px" gap={10} templateColumns="repeat(2,1fr)" width="100%" h="250px" bg="gray.900" p={10}>
-    <VStack spacing="7">
+        <Grid borderRadius="5px" gap={10} templateColumns="repeat(2,1fr)" width="100%" h="250px" bg="gray.900" p={10}>
+            <VStack spacing="7">
         <Heading alignSelf="flex-start" fontSize="5xl" fontWeight="normal">Conheça o nosso <strong>Instagram</strong></Heading>
         
-        <Text alignSelf="flex-start" fontSize="2xl" >Fique sempre por dentro das nossas novidades em primeira mão!</Text>
-    </VStack>
+            <Text alignSelf="flex-start" fontSize="2xl" >Fique sempre por dentro das nossas novidades em primeira mão!</Text>
+        </VStack>
 
-    <Flex align="center" justify="center">
-        <a href="https://www.instagram.com/autocertocars/" target="_blank" rel="noreferrer"><Button leftIcon={<Icon as={RiInstagramLine} fontSize="40"/>}  p={10} size="lg" fontSize="2xl" fontWeight="black" color="gray.900" backgroundColor="gray.50">@autocertocars</Button></a>
-    </Flex>
-</Grid>
+        <Flex align="center" justify="center">
+            <a href="https://www.instagram.com/autocertocars/" target="_blank" rel="noreferrer"><Button leftIcon={<Icon as={RiInstagramLine} fontSize="40"/>}  p={10} size="lg" fontSize="2xl" fontWeight="black" color="gray.900" backgroundColor="gray.50">@autocertocars</Button></a>
+        </Flex>
+        </Grid>
 
-<Flex height="350px" width="100%">
+        <Box width="100%">
+        <Slider {...settings}>
+        {
+            feed.map(post => {
+                
+                return (
+                <Box p={2} width="100%" key={post.id}>
+                   <Post post={post}/>
+                </Box>
+                )
+                
+            })
+        }
+        </Slider>
+        </Box>
 
-</Flex>
 
-
-</Stack> }
+        </Stack> }
               
             </Stack>
     )

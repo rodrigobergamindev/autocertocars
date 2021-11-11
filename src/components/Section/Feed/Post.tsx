@@ -1,6 +1,6 @@
 import {Icon, Image as ChakraImage, Stack} from '@chakra-ui/react'
 
-import "swiper/css";
+
 import {useState} from 'react'
 import {RiInstagramLine} from 'react-icons/ri'
 import Image from 'next/image'
@@ -26,7 +26,7 @@ export default function Post({post}: PostProps) {
    
     return (
         <a href={post.permalink} target="_blank" rel="noreferrer">
-        <Stack position="relative"alignItems="center" width="100%" height="100%"justifyContent="center">
+        <Stack  position="relative" alignItems="center" width="100%" height="350px" justifyContent="center">
                     
                     <ChakraImage
                               as={Image}
