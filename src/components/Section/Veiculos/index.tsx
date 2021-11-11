@@ -1,13 +1,12 @@
-import { Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, Heading, StackDivider} from '@chakra-ui/react'
+import { Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, HStack,VStack, Heading, StackDivider} from '@chakra-ui/react'
 
 
 
 import Image from 'next/image'
 import Link from 'next/link'
 
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
 import {useRouter} from 'next/router'
+import Slider from "react-slick";
 
 
 type Anuncio = {
@@ -47,7 +46,15 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
 
     if(!anuncios) return null
 
-    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1
+    }
+      
+
     return (
         <Stack 
            spacing={10} 
@@ -74,28 +81,26 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                <Box p={6}  maxWidth="1480px" width="100%">
 
 
-             
-               <AutoPlaySwipeableViews enableMouseEvents>
+                <Slider {...settings}>
 
-               {anuncios.map(anuncio => (
+                {anuncios.map(anuncio => (
                          
-                         <Stack position="relative" 
+                        <Box p={6}>
+                         <Stack 
+                        position="relative"
+                       
                          key={anuncio.id}
                          spacing={0} 
                          height="650px" 
-                         alignItems="center" 
-                         justifyContent="flex-end" 
                          overflow="hidden" 
                          cursor="pointer"
                          transition="all 0.3s ease-in-out"
-                          borderRadius="10px"
-                          
-                          _hover={{
-                              transform: "scale(1.0)"
-                          }}
+                        direction="column"  
+                        justify="flex-end"
+
                          >
-                             
-                             <ChakraImage
+
+                            <ChakraImage
                               as={Image}
                              src={anuncio.image[0]}
                              alt={anuncio.name}
@@ -112,9 +117,8 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                               filter:"brightness(1.1)"
                           }}
                              />
-                             
-                             
-                             <Stack zIndex={1} width="100%" direction="column" px={6} py={3} >
+                        
+                             <Stack zIndex={2} width="100%" direction="column" px={6} py={3} >
                              <Heading fontSize="2xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
                              <Text fontSize="2xl">{anuncio.versao}</Text>
                              <StackDivider/>
@@ -126,10 +130,11 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                              </Stack>
                              </Stack>
                          </Stack>
-                        
+                         </Box>
+                    
                     ))}
-
-            </AutoPlaySwipeableViews>
+                
+                </Slider>
                     
             
        
