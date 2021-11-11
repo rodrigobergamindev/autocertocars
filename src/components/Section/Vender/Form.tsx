@@ -166,7 +166,7 @@ export default function CreateMessage() {
 
                 <Flex mt="8" justify="flex-end">
                     <HStack spacing="4">
-                    <Link href="/dashboard/anuncios" passHref><Button fontSize="xl" size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize="30"/>} colorScheme="green">Chame no WhatsApp</Button></Link>
+                    <a href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1!%20Eu%20gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o%20para%20venda%20do%20meu%20ve%C3%ADculo." target="_blank" rel="noreferrer"><Button fontSize="xl" size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize="30"/>} colorScheme="green">Chame no WhatsApp</Button></a>
                         <Button size="lg" fontSize="xl" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
                     </HStack>
                 </Flex>
