@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
        anuncios
     },
-    revalidate: 2
+    revalidate: 5
   }
   }
 
