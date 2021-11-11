@@ -28,7 +28,6 @@ export default function Home({anuncios, feed}) {
             <Header anuncios={anuncios}/>
             <VehicleSection anuncios={anuncios}/>
             <About/>
-            <Feed feed={feed}/>
             <Vender/>
             
         </Box>
@@ -42,21 +41,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     
   const response_anuncio = await prisma.anuncio.findMany()
-  
-  const response_feed = await fetch(process.env.URL_ACCESS)
 
-  const data = await response_feed.json()
-  const feed = await data.data
     
   const anuncios = await JSON.parse(JSON.stringify(response_anuncio))
    
     
-    return {
-      props: {
-          anuncios,
-          feed
-      },
-      revalidate: 5
-    }
+  return {
+    props: {
+       anuncios
+    },
+    revalidate: 5
+  }
   }
 
