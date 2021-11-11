@@ -1,8 +1,8 @@
 import { Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, Heading, StackDivider} from '@chakra-ui/react'
 
 
-import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { Swiper, SwiperSlide } from 'swiper/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
