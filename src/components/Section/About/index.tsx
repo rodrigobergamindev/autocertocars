@@ -196,7 +196,7 @@ export default function About() {
                <VStack align="center" >
                     <Text fontSize="7xl" as="i" fontWeight="black">TRADIÇÃO</Text>
                     
-                    <Text fontSize="7xl" color="#48BB78" fontWeight="light">CONFIABILIDADE</Text>
+                    <Text fontSize="7xl" color="#48BB78" fontWeight="light">CONFIANÇA</Text>
                    
                 </VStack>
                 <Divider  orientation="horizontal" />
@@ -218,9 +218,9 @@ export default function About() {
                     priority
                     />
                     </Box>
-                    <Box p={3} maxWidth="450px">
-                        
-                        <Text mx={10} fontSize="2xl" textAlign="justify">
+                    <Box mx={10} p={3} as={VStack} alignItems="flex-start" spacing={10} maxWidth="450px">
+                        <Heading fontWeight="black" fontSize="5xl">1986</Heading>
+                        <Text fontSize="2xl" textAlign="justify">
                         Nossa história se mistura com o pioneirismo do comércio de automóveis na zona leste de São Paulo inspirando <strong style={{color:"#ECC94B"}}>confiança e qualidade</strong> aos nossos clientes, 
                         iniciamos com nossa sede própria no ano de 1986 que se mantém até hoje.
                         </Text>
@@ -265,8 +265,9 @@ export default function About() {
                     priority
                     />
                     </Box>
-                    <Box  p={3}  maxWidth="450px">
-                        <Text mx={10} fontSize="2xl" textAlign="justify">
+                    <Box mx={10} p={3} as={VStack} alignItems="flex-start" spacing={10} maxWidth="450px">
+                        <Heading fontWeight="black" fontSize="5xl">2021</Heading>
+                        <Text fontSize="2xl" textAlign="justify">
                         Aqui na Auto Certo Cars, você encontra, além das melhores ofertas e veículos, o melhor atendimento que sempre estará alinhado com as suas necessidades e expectativas. 
                         Quer trocar seu carro? Ou realizar o sonho de um carro novo? Vem para a <strong style={{color:"#ECC94B"}}>Auto Certo!</strong>
                         </Text>

@@ -63,7 +63,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                 <Box width="100%" maxW="1480px" p={6}  as={Flex}  align="center" flexDirection="row" alignSelf="center">
 
                 <Divider bg="yellow.500" h="3px" width="100%"/>
-                <Heading textAlign="center" fontWeight="bold" letterSpacing={2} px={10} fontSize="3xl"  color="gray.800" zIndex={2}>
+                <Heading textAlign="center" fontWeight="light" letterSpacing={2} px={10} fontSize="5xl"  color="gray.800" zIndex={2}>
                     {asPath.includes('anuncios') ? <Link href="/anuncios" passHref>OUTROS VEÍCULOS</Link> : <Link href="/anuncios" passHref>VEÍCULOS</Link>}
                     
                 </Heading>
