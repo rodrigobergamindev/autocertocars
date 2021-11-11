@@ -37,7 +37,7 @@ export default function Home({anuncios, feed}) {
 
 
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
 
     
   const response_anuncio = await prisma.anuncio.findMany()
