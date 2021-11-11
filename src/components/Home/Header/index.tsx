@@ -11,7 +11,7 @@ export default function Header({anuncios}) {
     
    
    
-    const [anunciosToShow, setAnuncios] = useState(anuncios)
+    const [anunciosToShow, setAnuncios] = useState([])
 
     const filterBySearch = valueToSearch => {
        

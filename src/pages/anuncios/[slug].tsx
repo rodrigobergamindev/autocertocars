@@ -17,8 +17,9 @@ import {prisma} from '../../../db'
 import Link from 'next/link'
 import VehicleSection from '../../components/Section/Veiculos';
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
+import {useRouter} from 'next/router'
 
 
 
@@ -26,12 +27,14 @@ export default function Anuncio({anuncio, anuncios}) {
 
     const router = useRouter()
 
-  
-   
-    if (router.isFallback) {
-        return <Box>Loading...</Box>
-      }
-      
+    const handleClickImage = (event,image) => {
+        event.preventDefault()
+        router.push(image)
+    }
+
+    if(!anuncio) return null
+
+    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
     return (
         <Box as={Flex} w="100%" direction="column">
              
@@ -50,12 +53,45 @@ export default function Anuncio({anuncio, anuncios}) {
             <Box zIndex={333} position="absolute" top="6" left="8">
                 <Logo size={450}/>
             </Box>
-            <Box as={Flex} flex="1" position="relative" width="100%" fontSize="3xl" color="red">
-            {anuncio.name}
-            {anuncio.marca}
-            {anuncio.modelo}
-            {anuncio.ano_fabricacao}
-                </Box>
+            <Box width="100%" height="100%">
+
+            <AutoPlaySwipeableViews enableMouseEvents>
+
+            {anuncio.image.map(image => (
+                <Stack
+                key={image}
+                position="relative"
+                spacing={0} 
+                height="90vh"
+                alignItems="center" 
+                justifyContent="flex-end" 
+                overflow="hidden" 
+                cursor="pointer"
+                transition="all 0.3s ease-in-out"
+                width="100%"
+                onClick={event => handleClickImage(event, image)}         
+                >
+                    <ChakraImage
+                              as={Image}
+                             src={image}
+                            layout="fill"
+                             objectFit="cover"
+                             width="100%"
+                             height="100%"
+                             priority
+                            
+                             
+                             transition="all 0.2s ease-in-out"
+                             _hover={{
+                              transform: "scale(1.1)"
+                          }}
+                             />
+                </Stack>
+            ))}
+
+            </AutoPlaySwipeableViews>
+
+            </Box>
                 
 
                 
@@ -173,7 +209,8 @@ export default function Anuncio({anuncio, anuncios}) {
                 
                 </Box>
             </Box>
-
+        
+        <VehicleSection anuncios={anuncios}/>
         </Box>
     )
 }
@@ -212,6 +249,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
     const anuncio = await JSON.parse(JSON.stringify(data))
     const anuncios = await JSON.parse(JSON.stringify(data_anuncios))
+    
     
     return {
       props: {

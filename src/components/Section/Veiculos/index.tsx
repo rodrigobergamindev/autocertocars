@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-
+import {useRouter} from 'next/router'
 
 
 type Anuncio = {
@@ -43,6 +43,7 @@ interface AnuncioProps {
 export default function VehicleSection({anuncios}: AnuncioProps) {
 
 
+    const {asPath} = useRouter()
 
     if(!anuncios) return null
 
@@ -61,11 +62,12 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             
                 <Box width="100%" maxW="1480px" p={6}  as={Flex}  align="center" flexDirection="row" alignSelf="center">
 
-                
-                <Heading fontWeight="bold" letterSpacing={2} mr={15} fontSize="3xl"  color="gray.800" zIndex={2}>
-                    VEÍCULOS
+                <Divider bg="yellow.500" h="3px" width="100%"/>
+                <Heading textAlign="center" fontWeight="bold" letterSpacing={2} px={10} fontSize="3xl"  color="gray.800" zIndex={2}>
+                    {asPath.includes('anuncios') ? <Link href="/anuncios" passHref>OUTROS VEÍCULOS</Link> : <Link href="/anuncios" passHref>VEÍCULOS</Link>}
+                    
                 </Heading>
-                <Divider bg="yellow.400" h="3px" width="100%"/>
+                <Divider bg="yellow.500" h="3px" width="100%"/>
                
 
                 </Box>
