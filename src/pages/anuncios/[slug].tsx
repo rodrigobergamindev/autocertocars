@@ -1,5 +1,5 @@
 import { Divider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage} from '@chakra-ui/react'
-import "swiper/css";
+
 
 import {IoMdCloseCircle, IoMdShareAlt} from 'react-icons/io'
 import {GiSpeedometer, GiGasPump, GiCarSeat, GiMoneyStack} from 'react-icons/gi'
@@ -13,8 +13,6 @@ import FormContact from '../../components/Contact/index'
 
 import Logo from '../../components/Home/Header/Logo'
 import Image from 'next/image'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper';
 import {prisma} from '../../../db'
 import Link from 'next/link'
 import VehicleSection from '../../components/Section/Veiculos';

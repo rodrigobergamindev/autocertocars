@@ -2,14 +2,9 @@ import { HStack, VStack, Icon, Grid, Box, Flex, Image as ChakraImage, Divider, T
 
 import Image from 'next/image'
 import {RiInstagramLine} from 'react-icons/ri'
-import SwiperCore, { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import "swiper/css";
 import {useState, useEffect} from 'react'
 
 import Post from './Post'
-
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 
 type Post = {
@@ -62,29 +57,6 @@ export default function Feed({feed}: Feed) {
 
 <Flex height="350px" width="100%">
 
-<Swiper
-        spaceBetween={50}
-        slidesPerView={4}
-        navigation
-        
-        scrollbar={{ draggable: true }}
-        autoplay={{delay: 2000,  disableOnInteraction: false}}
-        draggable={true}
-        speed={1200}
-        >
-
-        
-        {
-            feed.map(post => {
-                return (
-                    <SwiperSlide key={post.id}>
-                         <Post post={post}/>
-                    </SwiperSlide>
-                )
-                
-            })
-        }
-        </Swiper>
 </Flex>
 
 
