@@ -10,8 +10,8 @@ import Link from 'next/link'
 export default function Header({anuncios}) {
     
    
-
-    const [anunciosToShow, setAnuncios] = useState([])
+   
+    const [anunciosToShow, setAnuncios] = useState(anuncios)
 
     const filterBySearch = valueToSearch => {
        
