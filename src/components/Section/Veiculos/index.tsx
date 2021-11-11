@@ -41,17 +41,19 @@ interface AnuncioProps {
 
 export default function VehicleSection({anuncios}: AnuncioProps) {
 
-
     const {asPath} = useRouter()
 
     if(!anuncios) return null
 
     const settings = {
-        dots: true,
         infinite: true,
-        speed: 500,
         slidesToShow: 3,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        autoplay: true,
+        speed: 500,
+        autoplaySpeed: 3000,
+        cssEase: "ease",
+        
     }
       
 
@@ -88,7 +90,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                         <Box p={6}>
                          <Stack 
                         position="relative"
-                       
+                        borderRadius="10px"
                          key={anuncio.id}
                          spacing={0} 
                          height="650px" 
