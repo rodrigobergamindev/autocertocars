@@ -17,9 +17,7 @@ import {prisma} from '../../../db'
 import Link from 'next/link'
 import VehicleSection from '../../components/Section/Veiculos';
 import Head from 'next/head'
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
-import {useRouter} from 'next/router'
+
 import Slider from "react-slick";
 
 
