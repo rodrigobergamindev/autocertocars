@@ -11,6 +11,8 @@ import Head from 'next/head'
 
 import {RiWhatsappFill} from 'react-icons/ri'
 import Link from 'next/link'
+import 'swiper/css'
+
   
 function MyApp({ Component, pageProps }: AppProps) {
 
