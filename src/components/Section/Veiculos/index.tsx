@@ -6,7 +6,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import {useState} from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 
 
@@ -72,19 +71,8 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                <Flex p={6}  height="550px" maxWidth="1480px" width="100%">
 
 
-               <Swiper
-                spaceBetween={50}
-                slidesPerView={3}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
-                >
-                <SwiperSlide>Slide 1</SwiperSlide>
-                <SwiperSlide>Slide 2</SwiperSlide>
-                <SwiperSlide>Slide 3</SwiperSlide>
-                <SwiperSlide>Slide 4</SwiperSlide>
-                ...
-                </Swiper>
-                
+             
+                {anuncios.map(anuncio => <Text color="black">{anuncio.name}</Text>)}
              
                
                </Flex>
