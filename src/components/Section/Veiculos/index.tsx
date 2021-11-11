@@ -87,7 +87,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
 
                 {anuncios.map(anuncio => (
                          
-                         <Link key={anuncio.id} href={`anuncios/${anuncio.slug}`}>
+                         <Link key={anuncio.id} href={`/anuncios/${anuncio.slug}`}>
                         <Box p={6} key={anuncio.id}>
                          <Stack 
                         position="relative"
