@@ -87,11 +87,12 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
 
                 {anuncios.map(anuncio => (
                          
-                        <Box p={6}>
+                         <Link href={`anuncios/${anuncio.slug}`}>
+                        <Box p={6} key={anuncio.id}>
                          <Stack 
                         position="relative"
                         borderRadius="10px"
-                         key={anuncio.id}
+                         
                          spacing={0} 
                          height="650px" 
                          overflow="hidden" 
@@ -133,7 +134,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                              </Stack>
                          </Stack>
                          </Box>
-                    
+                        </Link>
                     ))}
                 
                 </Slider>

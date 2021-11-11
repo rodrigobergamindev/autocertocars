@@ -20,21 +20,25 @@ import Head from 'next/head'
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import {useRouter} from 'next/router'
-
+import Slider from "react-slick";
 
 
 export default function Anuncio({anuncio, anuncios}) {
 
-    const router = useRouter()
-
-    const handleClickImage = (event,image) => {
-        event.preventDefault()
-        router.push(image)
-    }
 
     if(!anuncio) return null
 
-    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+    const settings = {
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        speed: 500,
+        autoplaySpeed: 1500,
+        cssEase: "ease",
+        
+    }
+      
     return (
         <Box as={Flex} w="100%" direction="column">
              
@@ -46,7 +50,7 @@ export default function Anuncio({anuncio, anuncios}) {
             align="center" 
             justify="center"
             width="100%"
-            h="90vh"
+            h="70vh"
             boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
             
             >
@@ -55,21 +59,22 @@ export default function Anuncio({anuncio, anuncios}) {
             </Box>
             <Box width="100%" height="100%">
 
-            <AutoPlaySwipeableViews enableMouseEvents>
+           <Slider {...settings}>
 
             {anuncio.image.map(image => (
+                <a key={image} href={image} target="_blank" rel="noreferrer">
                 <Stack
-                key={image}
+                
                 position="relative"
                 spacing={0} 
-                height="90vh"
+                height="70vh"
                 alignItems="center" 
                 justifyContent="flex-end" 
                 overflow="hidden" 
                 cursor="pointer"
                 transition="all 0.3s ease-in-out"
                 width="100%"
-                onClick={event => handleClickImage(event, image)}         
+                  
                 >
                     <ChakraImage
                               as={Image}
@@ -87,9 +92,10 @@ export default function Anuncio({anuncio, anuncios}) {
                           }}
                              />
                 </Stack>
+                </a>
             ))}
-
-            </AutoPlaySwipeableViews>
+            </Slider>
+            
 
             </Box>
                 

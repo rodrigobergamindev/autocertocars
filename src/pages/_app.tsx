@@ -50,8 +50,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       </Head>
       <Component {...pageProps} />
-      <Link 
-      href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20um%20ve%C3%ADculo.">
+      <a 
+      href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20um%20ve%C3%ADculo."
+      target="_blank"
+      rel="noreferrer"
+      >
         <Icon as={RiWhatsappFill}
         position="fixed"
         bottom={7}
@@ -68,7 +71,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         _hover={{
           transform: "translateY(-10%)"
         }}
-        /></Link>
+        /></a>
       <Footer/>
       </SidebarDrawerProvider>
     </ChakraProvider>
