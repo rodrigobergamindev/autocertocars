@@ -51,7 +51,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
         slidesToScroll: 1,
         autoplay: true,
         speed: 500,
-        autoplaySpeed: 3000,
+        autoplaySpeed: 1500,
         cssEase: "ease",
         
     }
