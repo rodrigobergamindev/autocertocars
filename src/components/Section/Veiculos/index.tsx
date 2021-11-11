@@ -5,9 +5,8 @@ import { Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, Heading,
 import Image from 'next/image'
 import Link from 'next/link'
 
-import {useState} from 'react'
-
-
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
 
 
 
@@ -43,9 +42,11 @@ interface AnuncioProps {
 
 export default function VehicleSection({anuncios}: AnuncioProps) {
 
-    const [anunciosToShow, setAnuncios] = useState(anuncios)
+
 
     if(!anuncios) return null
+
+    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
     return (
         <Stack 
            spacing={10} 
@@ -68,14 +69,70 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                
 
                 </Box>
-               <Flex p={6}  height="550px" maxWidth="1480px" width="100%">
+               <Box p={6}  maxWidth="1480px" width="100%">
 
 
              
-                {anuncios.map(anuncio => <Text color="black">{anuncio.name}</Text>)}
-             
+               <AutoPlaySwipeableViews enableMouseEvents>
+
+               {anuncios.map(anuncio => (
+                         
+                         <Stack position="relative" 
+                         key={anuncio.id}
+                         spacing={0} 
+                         height="650px" 
+                         alignItems="center" 
+                         justifyContent="flex-end" 
+                         overflow="hidden" 
+                         cursor="pointer"
+                         transition="all 0.3s ease-in-out"
+                          borderRadius="10px"
+                          
+                          _hover={{
+                              transform: "scale(1.0)"
+                          }}
+                         >
+                             
+                             <ChakraImage
+                              as={Image}
+                             src={anuncio.image[0]}
+                             alt={anuncio.name}
+                            layout="fill"
+                             objectFit="cover"
+                             width="100%"
+                             height="100%"
+                             priority
+                            
+                             
+                             transition="all 0.3s ease-in-out"
+                             _hover={{
+                              transform: "scale(1.1)",
+                              filter:"brightness(1.1)"
+                          }}
+                             />
+                             
+                             
+                             <Stack zIndex={1} width="100%" direction="column" px={6} py={3} >
+                             <Heading fontSize="2xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
+                             <Text fontSize="2xl">{anuncio.versao}</Text>
+                             <StackDivider/>
+                             <Stack  direction="row" justifyContent="space-between">
+                                  <Text fontSize="2xl" alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
+                                  <StackDivider/>
+                                  <StackDivider/>
+                                 <Text fontSize="2xl" fontWeight="bold">{`${anuncio.valor},00`}</Text>
+                             </Stack>
+                             </Stack>
+                         </Stack>
+                        
+                    ))}
+
+            </AutoPlaySwipeableViews>
+                    
+            
+       
                
-               </Flex>
+               </Box>
             </Stack>
     )
 }

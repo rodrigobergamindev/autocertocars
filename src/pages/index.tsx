@@ -15,8 +15,7 @@ import Head from 'next/head'
 
 export default function Home({anuncios, feed}) {
 
-  console.log(anuncios)
-
+  
     
     return (
     
