@@ -94,7 +94,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                         borderRadius="10px"
                          
                          spacing={0} 
-                         height="650px" 
+                         height="550px" 
                          overflow="hidden" 
                          cursor="pointer"
                          transition="all 0.3s ease-in-out"
