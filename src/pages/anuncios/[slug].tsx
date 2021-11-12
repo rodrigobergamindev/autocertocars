@@ -72,7 +72,7 @@ export default function Anuncio({anuncio, anuncios}) {
                 cursor="pointer"
                 transition="all 0.3s ease-in-out"
                 width="100%"
-                  
+                borderX="solid"
                 >
                     <ChakraImage
                               as={Image}
