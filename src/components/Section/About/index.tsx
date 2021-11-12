@@ -44,7 +44,7 @@ export default function About() {
                 <Heading as="i" letterSpacing={4}  color="yellow.400" alignSelf="flex-end" fontSize="7xl" fontWeight="black">AUTO CERTO CARS</Heading>
 
                 </Box>
-               <Flex width="1480px">
+               <Flex width="100%" maxWidth="1480px">
 
                <Grid  placeContent="center" placeItems="center" flex="1" templateColumns="repeat(2, 1fr)">
                    <Stack direction="column" w="100%" h="100%" spacing="16"  p={10}>
