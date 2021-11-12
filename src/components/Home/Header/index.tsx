@@ -37,7 +37,8 @@ export default function Header({anuncios}) {
             align="center" 
             justify="center"
             w="100%"
-            h="90vh"
+            py={20}
+            height="100%"
             >
                
                 <video
@@ -46,7 +47,7 @@ export default function Header({anuncios}) {
                 loop
                 style={{
                     minWidth:"100%",
-                    height:"90vh",
+                   
                     filter: "brightness(20%)",
                     position:"absolute",
                     objectFit:"cover",
