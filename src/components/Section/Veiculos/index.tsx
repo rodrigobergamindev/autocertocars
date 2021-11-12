@@ -63,7 +63,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             align="center" 
             justify="center"
             w="100%"
-            h="100vh"
+            py={20}
             flexDirection="column"
             backgroundColor="gray.50"
             
