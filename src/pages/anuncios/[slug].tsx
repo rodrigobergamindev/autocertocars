@@ -157,20 +157,20 @@ export default function Anuncio({anuncio, anuncios}) {
 
                         <List flex="1" width="100%" alignSelf="flex-start" pt={10} pb={10}>
                             <Grid templateColumns="repeat(4,1fr)" width="100%">
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">MARCA</Text> {anuncio.marca_name}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">MODELO</Text>  {anuncio.modelo}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">VERSÃO</Text>  {anuncio.versao}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">ANO</Text>  {anuncio.ano_fabricacao}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">VALOR</Text>  {`${anuncio.valor},00`}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">KM</Text>  {anuncio.quilometragem + ' ' + 'Km'}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">TRANSMISSÃO</Text>  {anuncio.transmissao}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">PORTAS</Text>  {anuncio.numero_portas}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COR</Text>  {anuncio.cor}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COR INTERNA</Text>  {anuncio.cores_internas}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COMBUSTÍVEL</Text>  {anuncio.combustivel}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">CARROCERIA</Text>  {anuncio.carroceria}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">POTÊNCIA</Text>  {anuncio.potencia}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="xl" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">CONDIÇÃO</Text>  {anuncio.condicao}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">MARCA</Text> {anuncio.marca_name}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">MODELO</Text>  {anuncio.modelo}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">VERSÃO</Text>  {anuncio.versao}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">ANO</Text>  {anuncio.ano_fabricacao}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">VALOR</Text>  {`${anuncio.valor},00`}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">KM</Text>  {anuncio.quilometragem + ' ' + 'Km'}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">TRANSMISSÃO</Text>  {anuncio.transmissao}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">PORTAS</Text>  {anuncio.numero_portas}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COR</Text>  {anuncio.cor}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COR INTERNA</Text>  {anuncio.cores_internas}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COMBUSTÍVEL</Text>  {anuncio.combustivel}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">CARROCERIA</Text>  {anuncio.carroceria}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">POTÊNCIA</Text>  {anuncio.potencia}</Text></ListItem>
+                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">CONDIÇÃO</Text>  {anuncio.condicao}</Text></ListItem>
                             </Grid>
                         </List>
 
@@ -190,7 +190,7 @@ export default function Anuncio({anuncio, anuncios}) {
                     <Heading color="gray.500" fontSize="md" fontFamily="Roboto, sans-serif" alignSelf="flex-start">OPCIONAIS</Heading>
                     <Grid templateColumns="repeat(2,1fr)" width="100%" gap={2} pt={5} pb={10}>
                         {anuncio.opcionais.map(opcional => (
-                            <Text key={opcional} color="gray.900" fontSize="sm"><Icon as={FaCheckCircle} color="blue.500"/> {opcional}</Text>
+                            <Text key={opcional} color="gray.900" fontSize="sm"><Icon as={FaCheckCircle} color="blue.500"/> {opcional.toUpperCase()}</Text>
                         ))}
                     </Grid>
                     </VStack>
