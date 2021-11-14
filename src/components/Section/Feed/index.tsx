@@ -6,6 +6,7 @@ import {useState, useEffect} from 'react'
 
 import Post from './Post'
 import Slider from "react-slick";
+import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md'
 
 type Post = {
     media_type: string;
@@ -31,7 +32,9 @@ export default function Feed({feed}: Feed) {
         speed: 500,
         autoplaySpeed: 1500,
         cssEase: "ease",
-        arrows: false
+        arrows: true,
+        nextArrow: <Icon as={MdKeyboardArrowRight} fontSize="40" color="gray.500" _hover={{color:'gray.500'}}/>,
+        prevArrow: <Icon as={MdKeyboardArrowLeft} fontSize="40" color="gray.500"  _hover={{color:'gray.500'}}/>
     }
       
 
@@ -54,9 +57,9 @@ export default function Feed({feed}: Feed) {
             
            {!!winReady &&  <Stack  maxWidth="1480px" width="100%" flex="1" direction="column" spacing="15">
 
-        <Grid borderRadius="5px" gap={10} templateColumns="repeat(2,1fr)" width="100%" h="250px" bg="gray.900" p={10}>
+        <Grid borderRadius="5px" gap={10} templateColumns="repeat(2,1fr)" width="100%"  bg="gray.900" p={10}>
             <VStack spacing="7">
-        <Heading alignSelf="flex-start" fontSize="5xl" fontWeight="normal">Conheça o nosso <strong>Instagram</strong></Heading>
+        <Heading alignSelf="flex-start" fontSize="4xl" fontWeight="normal">Conheça o nosso <strong>Instagram</strong></Heading>
         
             <Text alignSelf="flex-start" fontSize="2xl" >Fique sempre por dentro das nossas novidades em primeira mão!</Text>
         </VStack>
@@ -72,7 +75,7 @@ export default function Feed({feed}: Feed) {
             feed.map(post => {
                 
                 return (
-                <Box p={2} width="100%" key={post.id}>
+                <Box p={5} width="100%" key={post.id}>
                    <Post post={post}/>
                 </Box>
                 )

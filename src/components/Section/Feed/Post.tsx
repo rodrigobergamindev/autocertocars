@@ -26,7 +26,7 @@ export default function Post({post}: PostProps) {
    
     return (
         <a href={post.permalink} target="_blank" rel="noreferrer">
-        <Stack  position="relative" alignItems="center" width="100%" height="350px" justifyContent="center">
+        <Stack  position="relative" alignItems="center" width="100%" height="17rem" justifyContent="center">
                     
                     <ChakraImage
                               as={Image}
