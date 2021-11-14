@@ -1,12 +1,13 @@
-import { Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, HStack,VStack, Heading, StackDivider} from '@chakra-ui/react'
+import { Icon, Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, HStack,VStack, Heading, StackDivider} from '@chakra-ui/react'
 
-
+import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 import {useRouter} from 'next/router'
 import Slider from "react-slick";
+import { RiCarFill } from 'react-icons/ri'
 
 
 type Anuncio = {
@@ -53,7 +54,9 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
         speed: 500,
         autoplaySpeed: 1500,
         cssEase: "ease",
-        arrows: false
+        arrows: true,
+        nextArrow: <Icon as={MdKeyboardArrowRight} fontSize="40" color="gray.500" _hover={{color:'gray.500'}}/>,
+        prevArrow: <Icon as={MdKeyboardArrowLeft} fontSize="40" color="gray.500"  _hover={{color:'gray.500'}}/>
     }
       
 
@@ -69,14 +72,14 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             
             >
             
-                <Box width="100%" maxW="1480px" p={6}  as={Flex}  align="center" flexDirection="row" alignSelf="center">
+                <Box width="100%" maxW="1480px" borderRadius="10px"  p={6}  as={Flex}  align="center" flexDirection="row" alignSelf="center">
 
-                <Divider bg="yellow.500" h="3px" width="100%"/>
-                <Heading textAlign="center" fontWeight="light" letterSpacing={2} px={10} fontSize="5xl"  color="gray.800" zIndex={2}>
-                    {asPath.includes('anuncios') ? <Link href="/anuncios" passHref>OUTROS VEÍCULOS</Link> : <Link href="/anuncios" passHref>VEÍCULOS</Link>}
+               
+                <Heading textAlign="center" fontWeight="light" letterSpacing={2} px={10} fontSize="4xl"  color="gray.900" zIndex={2}>
+                   <Link href="/anuncios" passHref>VEÍCULOS</Link>
                     
                 </Heading>
-                <Divider bg="yellow.500" h="3px" width="100%"/>
+                <Divider/>
                
 
                 </Box>

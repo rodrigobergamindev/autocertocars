@@ -19,7 +19,7 @@ import VehicleSection from '../../components/Section/Veiculos';
 import Head from 'next/head'
 
 import Slider from "react-slick";
-
+import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md'
 
 export default function Anuncio({anuncio, anuncios}) {
 
@@ -34,7 +34,9 @@ export default function Anuncio({anuncio, anuncios}) {
         speed: 500,
         autoplaySpeed: 1500,
         cssEase: "ease",
-        arrows: false
+        arrows: true,
+        nextArrow: <Icon as={MdKeyboardArrowRight} fontSize="40" color="gray.500" _hover={{color:'gray.500'}}/>,
+        prevArrow: <Icon as={MdKeyboardArrowLeft} fontSize="40" color="gray.500"  _hover={{color:'gray.500'}}/>
     }
       
     return (
@@ -48,31 +50,27 @@ export default function Anuncio({anuncio, anuncios}) {
             align="center" 
             justify="center"
             width="100%"
-            h="70vh"
-            boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
-            
+            mt="4.5rem"
+            bg="gray.50"
             >
-            <Box zIndex={333} position="absolute" top="6" left="8">
-                <Logo size={450}/>
-            </Box>
-            <Box width="100%" height="100%">
+            <Box px={5} width="100%" height="100%">
 
            <Slider {...settings}>
 
             {anuncio.image.map(image => (
                 <a key={image} href={image} target="_blank" rel="noreferrer">
+                <Box px={5}>
                 <Stack
-                
+               
                 position="relative"
                 spacing={0} 
-                height="70vh"
+                height="50vh"
                 alignItems="center" 
                 justifyContent="flex-end" 
                 overflow="hidden" 
                 cursor="pointer"
                 transition="all 0.3s ease-in-out"
                 width="100%"
-                borderX="solid"
                 >
                     <ChakraImage
                               as={Image}
@@ -90,6 +88,7 @@ export default function Anuncio({anuncio, anuncios}) {
                           }}
                              />
                 </Stack>
+                </Box>
                 </a>
             ))}
             </Slider>

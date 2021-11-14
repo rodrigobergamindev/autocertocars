@@ -1,7 +1,7 @@
 
 import {Box,Stack, Text, Link as ChakraLink, Icon, LinkProps as ChakraLinkProps } from "@chakra-ui/react";
 import { ElementType } from "toasted-notes/node_modules/@types/react";
-import ActiveLink from '../../components/ActiveLink'
+import ActiveLink from '../../ActiveLink'
 import {useState} from 'react'
 import { RiArrowRightLine, RiArrowRightUpLine } from "react-icons/ri";
 

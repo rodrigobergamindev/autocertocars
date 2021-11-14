@@ -37,8 +37,8 @@ export default function Header({anuncios}) {
             align="center" 
             justify="center"
             w="100%"
-            py={20}
-            height="100%"
+            mt="4rem"
+            height="90vh"
             >
                
                 <video
@@ -47,10 +47,10 @@ export default function Header({anuncios}) {
                 loop
                 style={{
                     minWidth:"100%",
-                   
+                    height:"90vh",
                     filter: "brightness(20%)",
-                    position:"absolute",
                     objectFit:"cover",
+                    position: "absolute",
                     zIndex: -1,
                 }}
                 >
@@ -67,12 +67,12 @@ export default function Header({anuncios}) {
                 spacing={20}
                 
                 >
-                   <Heading>SEJA BEM-VINDO(A)</Heading>
+                  
                     <Logo size={600}/>
 
                     <VStack width="100%" background="white" borderRadius="10" spacing={0}>
                     <SearchBox filter={filterBySearch}/>
-                    <Box as={Flex} width="100%" height="100%" px={10}>
+                    <Box zIndex={333} as={Flex} flex="1" alignSelf="flex-start" px={10}>
                         <List>
                             {anunciosToShow.map(anuncio => (
                                 <ListItem key={anuncio.id} cursor="pointer" my={3} >

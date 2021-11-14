@@ -4,14 +4,14 @@ import { theme } from '../styles/theme'
 import SidebarDrawerProvider from '../contexts/SidebarDrawerContext'
 import {Provider as NextAuthProvider} from 'next-auth/client'
 import Footer from '../components/Home/Footer/index'
-import Drawer from '../components/Drawer/index'
-import IconDrawer from '../components/Drawer/IconDrawer'
+import MenuBar from '../components/Menu/index'
+import IconDrawer from '../components/Menu/Drawer/IconDrawer'
 import {useRouter} from 'next/router'
 import Head from 'next/head'
 
 import {RiWhatsappFill} from 'react-icons/ri'
 import Link from 'next/link'
-
+import Drawer from '../components/Menu/Drawer/index'
 
 
   
@@ -42,8 +42,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     <ChakraProvider theme={theme}>
       <SidebarDrawerProvider>
+      <MenuBar/>
       <Drawer/>
-      <IconDrawer/>
       <Head>
       <link rel="icon"  href="/favicon.ico" />
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

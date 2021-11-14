@@ -1,8 +1,8 @@
 import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerCloseButton, DrawerBody } from "@chakra-ui/react";
 import { SidebarNav } from "./SidebarNav";
 
-import {useSidebarDrawer} from '../../contexts/SidebarDrawerContext'
-import Logo from "../Home/Header/Logo";
+import {useSidebarDrawer} from '../../../contexts/SidebarDrawerContext'
+import Logo from "../../Home/Header/Logo";
 
 export default function Siderbar() {
 

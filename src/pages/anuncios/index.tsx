@@ -145,6 +145,7 @@ export default function Anuncios({anuncios}) {
             boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
             position="relative"
             direction="column"
+            mt="5rem"
             >
             
                 

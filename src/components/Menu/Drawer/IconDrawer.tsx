@@ -3,7 +3,7 @@ import {IconButton, Icon} from "@chakra-ui/react";
 import { ElementType } from "toasted-notes/node_modules/@types/react";
 import {useState} from 'react'
 import { RiArrowRightLine, RiArrowRightUpLine, RiMenuLine } from "react-icons/ri";
-import {useSidebarDrawer} from '../../contexts/SidebarDrawerContext'
+import {useSidebarDrawer} from '../../../contexts/SidebarDrawerContext'
 
 
 
@@ -20,18 +20,18 @@ export default function IconDrawer() {
             icon={<Icon as={RiMenuLine}/>}
             color="yellow.400"
             fontSize="40"
-            variant="unstyled"
+            variant="ghost"
             onClick={onOpen}
-            position="fixed"
-            right={4}
-            top={4}
+            mr={5}
             _active={{
                 borderColor: "none",
               }}
             _focus={{
                 borderColor: "none"
             }}
-            zIndex={999}
+           _hover={{
+               background: "none"
+           }}
             >
             </IconButton>
     )
