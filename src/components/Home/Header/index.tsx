@@ -8,8 +8,8 @@ import Link from 'next/link'
 
 
 export default function Header({anuncios}) {
-    
-   
+
+
    
     const [anunciosToShow, setAnuncios] = useState([])
 
@@ -73,7 +73,7 @@ export default function Header({anuncios}) {
                     <VStack width="100%" background="white" borderRadius="10" spacing={0}>
                     <SearchBox filter={filterBySearch}/>
                     <Box zIndex={333} as={Flex} flex="1" alignSelf="flex-start" px={10}>
-                        <List>
+                        <List >
                             {anunciosToShow.map(anuncio => (
                                 <ListItem key={anuncio.id} cursor="pointer" my={3} >
                                     <Link href={`/anuncios/${anuncio.slug}`}>

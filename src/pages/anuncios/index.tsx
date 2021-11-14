@@ -13,6 +13,7 @@ import SearchBox from '../../components/Home/Header/SearchBox'
 import Link from 'next/link'
 import { motion } from "framer-motion";
 import Head from 'next/head'
+import { RiArrowDownCircleFill, RiArrowDownSLine } from 'react-icons/ri'
 
 
 
@@ -141,7 +142,7 @@ export default function Anuncios({anuncios}) {
             align="center" 
             justify="center"
             width="100%"
-            h="50vh"
+            h="25rem"
             boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
             position="relative"
             direction="column"
@@ -166,35 +167,35 @@ export default function Anuncios({anuncios}) {
 
             <VStack spacing={10} justify="center" height="100%">
             <Box zIndex={333}>
-                <Logo size={650}/>
+                <Logo size={450}/>
             </Box>
 
             
             
 
+          
+            
            
             </VStack>
-        
-                
+
+            <HStack px={6} justify="center" width="100%" py={10}>
+              
+            <Heading fontWeight="light" fontSize="5xl" color="gray.200" p={3}>ESTOQUE</Heading>
+   
+            </HStack>
+
             </Flex>
 
           
             
 
-            <Box flex="1" as={Flex} direction="column" width="100%" backgroundColor="gray.900" alignItems="center" justifyContent="center" p={25}>
+            <Box mb={20} flex="1" as={Flex} direction="column" width="100%" backgroundColor="gray.900" alignItems="center" justifyContent="center" p={25}>
 
         
 
-            <HStack width="100%" maxWidth="1400px" my={10}>
-            <Divider height="2px" bg="yellow.400" orientation="horizontal" />
-            <Heading fontWeight="light" p={3}>ESTOQUE</Heading>
-            <Divider height="2px" bg="yellow.400" orientation="horizontal" />
-            
 
-            </HStack>
-
-            <HStack width="100%" maxWidth="1400px"  justify="flex-start" align="center" spacing={10} mb={20}>
-            <HStack align="center"  >
+            <HStack px={4} py={3} borderLeft="10px solid" borderLeftColor="yellow.400" bg="gray.100"  width="100%" maxWidth="1400px"  justify="flex-start" align="center" spacing={10} mb={20}>
+            <HStack align="center" color="gray.900" >
                 <Text fontSize="lg">Filtrar por:</Text>
 
                 <Checkbox size="lg" colorScheme="yellow" value="Novos" onChange={(e) => filterByCheckBox(e.target)}>
@@ -206,8 +207,10 @@ export default function Anuncios({anuncios}) {
                 </Checkbox>
             </HStack>
             <SearchBox filter={filterBySearch} />
+
+            <Text fontSize="2xl" color="gray.900" justifySelf="flex-end"><strong style={{color:"#ECC94B"}}>{anunciosToShow.length}</strong> veículos disponíveis</Text>
             </HStack>
-            <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns="repeat(4,1fr)" width="100%" height="100%" maxWidth="1400px" gap={3}>
+            <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns="repeat(4,1fr)" width="100%" height="100%" maxWidth="1400px" gap={7}>
 
             {anunciosToShow.map(anuncio => (
                 <Link href={`/anuncios/${anuncio.slug}`} key={anuncio.id}>
@@ -216,12 +219,14 @@ export default function Anuncios({anuncios}) {
                 variants={item} 
                 position="relative" 
                 spacing={0} 
-                height="450px" 
+                height="400px" 
                 alignItems="center" 
                 justifyContent="flex-end" 
                 overflow="hidden" 
                 cursor="pointer"
                 transition="all 0.3s ease-in-out"
+                boxShadow="0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"
+                borderRadius="10px"
                 >
                     
                     <ChakraImage
