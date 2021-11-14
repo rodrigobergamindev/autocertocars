@@ -97,7 +97,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                         borderRadius="10px"
                          
                          spacing={0} 
-                         height="550px" 
+                         height="450px" 
                          overflow="hidden" 
                          cursor="pointer"
                          transition="all 0.3s ease-in-out"
@@ -125,14 +125,14 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                              />
                         
                              <Stack zIndex={2} width="100%" direction="column" px={6} py={3} >
-                             <Heading fontSize="2xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
-                             <Text fontSize="2xl">{anuncio.versao}</Text>
+                             <Heading fontSize="xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
+                             <Text fontSize="xl">{anuncio.versao}</Text>
                              <StackDivider/>
                              <Stack  direction="row" justifyContent="space-between">
-                                  <Text fontSize="2xl" alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
+                                  <Text fontSize="xl" alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
                                   <StackDivider/>
                                   <StackDivider/>
-                                 <Text fontSize="2xl" fontWeight="bold">{`${anuncio.valor},00`}</Text>
+                                 <Text fontSize="xl" fontWeight="bold">{`${anuncio.valor},00`}</Text>
                              </Stack>
                              </Stack>
                          </Stack>

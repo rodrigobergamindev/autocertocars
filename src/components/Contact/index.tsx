@@ -270,10 +270,10 @@ export default function FormContact({veiculo, valor}: MessageProps) {
                 
                 </VStack>
 
-                <Flex  mt="20" justify="flex-end">
+                <Flex  mt="5" justify="flex-end">
                     <HStack spacing="4">
-                    <Link href={`https://api.whatsapp.com/send?phone=5511959943034&text=Ol%C3%A1!%20Fiquei%20interessado%20no%20ve%C3%ADculo%3A%20${veiculo}%2C%20vamos%20negociar%3F`}><Button fontSize="lg" size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize="25"/>} colorScheme="green">Enviar no WhatsApp</Button></Link>
-                        <Button size="lg" fontSize="lg" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
+                    <Link href={`https://api.whatsapp.com/send?phone=5511959943034&text=Ol%C3%A1!%20Fiquei%20interessado%20no%20ve%C3%ADculo%3A%20${veiculo}%2C%20vamos%20negociar%3F`}><Button fontSize="md" size="md" leftIcon={<Icon as={RiWhatsappLine} fontSize="20"/>} colorScheme="green">Enviar no WhatsApp</Button></Link>
+                        <Button size="md" fontSize="md" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
                     </HStack>
                 </Flex>
                 </Box>

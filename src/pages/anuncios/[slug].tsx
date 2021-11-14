@@ -20,6 +20,7 @@ import Head from 'next/head'
 
 import Slider from "react-slick";
 import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md'
+import { RiShareBoxFill, RiShareFill, RiWhatsappFill } from 'react-icons/ri'
 
 export default function Anuncio({anuncio, anuncios}) {
 
@@ -64,7 +65,7 @@ export default function Anuncio({anuncio, anuncios}) {
                
                 position="relative"
                 spacing={0} 
-                height="50vh"
+                height="20rem"
                 alignItems="center" 
                 justifyContent="flex-end" 
                 overflow="hidden" 
@@ -105,43 +106,10 @@ export default function Anuncio({anuncio, anuncios}) {
 
             <Box flex="1" as={Flex} direction="column" width="100%" backgroundColor="gray.50" alignItems="center" justifyContent="center" p={25}>
 
-
-                <VStack maxWidth="1280px" width="100%" border="solid" spacing={20}  mt={15}>
-                    <Heading as="i" mx="auto" color="gray.900" fontSize="7xl">{anuncio.name.toUpperCase() + ' ' + anuncio.versao.toUpperCase()}</Heading>
-
-                    <Grid templateColumns="repeat(5,1fr)" gap={10}>
-                        <Box as={VStack} align="center" justify="center">
-                            <Icon as={GiSpeedometer} color="gray.900" fontSize="5xl"/>
-                            <Text color="gray.900" fontSize="2xl" >{anuncio.quilometragem + " " + "Km"}</Text>
-                        </Box>
-
-                        <Box as={VStack} align="center" justify="center">
-                            <Icon as={FaRegCalendarAlt} color="gray.900" fontSize="5xl"/>
-                            <Text color="gray.900" fontSize="2xl" >{anuncio.ano_fabricacao}</Text>
-                        </Box>
-
-                        <Box as={VStack} align="center" justify="center">
-                            <Icon as={GiGasPump} color="gray.900" fontSize="5xl"/>
-                            <Text color="gray.900" fontSize="2xl" >{anuncio.combustivel}</Text>
-                        </Box>
-
-                        <Box as={VStack} align="center" justify="center">
-                            <Icon as={GiCarSeat} color="gray.900" fontSize="5xl"/>
-                            <Text color="gray.900" fontSize="2xl" >{anuncio.transmissao}</Text>
-                        </Box>
-
-                        <Box as={VStack} align="center" justify="center">
-                            <Icon as={GiMoneyStack} color="gray.900" fontSize="5xl"/>
-                            <Text color="gray.900" fontSize="2xl" >{`${anuncio.valor},00`}</Text>
-                        </Box>
-                    </Grid>
-
-                </VStack>
-
                 
 
 
-                <Box mt={120} as={Flex} direction="column" maxWidth="1280px" width="100%">
+                <Box  as={Flex} direction="column" maxWidth="1280px" width="100%">
                     
                     
                     <Grid templateColumns="repeat(2,1fr)" gap={16} my={9}>
@@ -152,7 +120,11 @@ export default function Anuncio({anuncio, anuncios}) {
                         <VStack width="100%" bg="white" p={6} borderRadius="5" boxShadow="0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)">
                         <VStack align="flex-start" width="100%">
                             <Heading color="gray.900" fontSize="3xl" fontWeight="black" fontFamily="Roboto, sans-serif">{`${anuncio.name.toUpperCase()}`}</Heading>
-                            <Heading color="gray.500" fontSize="xl" fontFamily="Roboto, sans-serif">{`${anuncio.versao} ${anuncio.potencia} ${anuncio.combustivel} ${anuncio.numero_portas}P ${anuncio.transmissao}`}</Heading>
+                            <HStack width="100%" justify="space-between">
+                                <Heading color="gray.500" fontSize="xl" fontFamily="Roboto, sans-serif">{`${anuncio.versao} ${anuncio.potencia} ${anuncio.combustivel} ${anuncio.numero_portas}P ${anuncio.transmissao}`}</Heading>
+                                <Icon as={IoMdShareAlt} fontSize="30" color="gray.900" transition="all 0.3s ease-in-out" cursor="pointer" _hover={{color:"blue.400"}}/>
+                            </HStack>
+                            ]
                         </VStack>
 
                         <List flex="1" width="100%" alignSelf="flex-start" pt={10} pb={10}>
@@ -203,7 +175,11 @@ export default function Anuncio({anuncio, anuncios}) {
                         </VStack>
                    
 
-                    <VStack height="100%">
+                    <VStack height="100%" spacing={10}>
+                    <Box p={5} bg="white"  width="100%" borderRadius="5px" boxShadow="0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)">
+                        <Heading borderBottom="1px solid" borderColor="yellow.400" py={1} fontSize="2xl" fontWeight="normal" fontFamily="Roboto, sans-serif" color="gray.900">INCLUA SEU CARRO NA TROCA</Heading>
+                        <Text bg="yellow.400" color="gray.900" align="center" p={2} mt={5} fontSize="lg" fontWeight="bold" transition="all 0.3s ease-in-out" cursor="pointer" _hover={{filter:"brightness(0.85)"}}>Fazer uma avaliação</Text>
+                    </Box>
                     <FormContact veiculo={`${anuncio.name} ${anuncio.versao} ${anuncio.ano_fabricacao}`} valor={anuncio.valor}/> 
                     </VStack>
                         
