@@ -58,3 +58,17 @@ model Marca {
   name String @unique
   veiculos Anuncio[]
 }
+
+model Avaliacao {
+  id String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name String
+  email String
+  whatsapp String
+  placa String
+  marca String
+  modelo String
+  ano String
+  quilometragem String
+  veiculo String
+  data_de_criacao DateTime @default(now())
+}

@@ -21,11 +21,16 @@ import Head from 'next/head'
 import Slider from "react-slick";
 import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md'
 import { RiShareBoxFill, RiShareFill, RiWhatsappFill } from 'react-icons/ri'
+import Share from '../../components/Share'
+import {useRouter} from 'next/router'
 
 export default function Anuncio({anuncio, anuncios}) {
 
 
     if(!anuncio) return null
+    
+    const {asPath} = useRouter()
+    
 
     const settings = {
         infinite: true,
@@ -72,6 +77,7 @@ export default function Anuncio({anuncio, anuncios}) {
                 cursor="pointer"
                 transition="all 0.3s ease-in-out"
                 width="100%"
+                
                 >
                     <ChakraImage
                               as={Image}
@@ -108,7 +114,7 @@ export default function Anuncio({anuncio, anuncios}) {
                 
             <VStack maxWidth="1280px" width="100%" border="solid" spacing={20}  mt={15} mb={15}>
                     <Heading as="i" mx="auto" color="gray.900" fontSize="6xl">{anuncio.name.toUpperCase() + ' ' + anuncio.versao.toUpperCase()}</Heading>
-
+        
                     <Grid templateColumns="repeat(5,1fr)" gap={10}>
                         <Box as={VStack} align="center" justify="center">
                             <Icon as={GiSpeedometer} color="gray.900" fontSize="3xl"/>
@@ -145,38 +151,47 @@ export default function Anuncio({anuncio, anuncios}) {
                     
                     <Grid templateColumns="repeat(2,1fr)" gap={16} my={9}>
                     
-                    <VStack>
+                    <VStack height="100%">
 
                     
-                        <VStack width="100%" bg="white" p={6} borderRadius="5" boxShadow="0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)">
-                        <VStack align="flex-start" width="100%">
+                        <VStack width="100%" bg="white" p={6} borderRadius="5" boxShadow="0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)" height="100%">
+                        <VStack align="flex-start" width="100%" >
                             <Heading color="gray.900" fontSize="3xl" fontWeight="black" fontFamily="Roboto, sans-serif">{`${anuncio.name.toUpperCase()}`}</Heading>
                             <HStack width="100%" justify="space-between">
                                 <Heading color="gray.500" fontSize="xl" fontFamily="Roboto, sans-serif">{`${anuncio.versao} ${anuncio.potencia} ${anuncio.combustivel} ${anuncio.numero_portas}P ${anuncio.transmissao}`}</Heading>
-                                <Icon as={IoMdShareAlt} fontSize="30" color="gray.900" transition="all 0.3s ease-in-out" cursor="pointer" _hover={{color:"blue.400"}}/>
+
+                                <HStack>
+                                    <Text color="gray.900">Compartilhe</Text>
+                                    <Share url={`https://autocertocars.vercel.app${asPath}`}/>
+                                </HStack>
+                                
                             </HStack>
-                            ]
+                            
                         </VStack>
 
-                        <List flex="1" width="100%" alignSelf="flex-start" pt={10} pb={10}>
+                        <Divider/>
+                        
+                        <VStack py={5} spacing={7} width="100%">
+                        <Heading color="gray.500" fontSize="md" fontFamily="Roboto, sans-serif" alignSelf="flex-start">INFORMAÇÕES</Heading>
+                        <List flex="1" width="100%" alignSelf="flex-start" >
                             <Grid templateColumns="repeat(4,1fr)" width="100%">
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">MARCA</Text> {anuncio.marca_name}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">MODELO</Text>  {anuncio.modelo}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">VERSÃO</Text>  {anuncio.versao}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">ANO</Text>  {anuncio.ano_fabricacao}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">VALOR</Text>  {`${anuncio.valor},00`}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">KM</Text>  {anuncio.quilometragem + ' ' + 'Km'}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">TRANSMISSÃO</Text>  {anuncio.transmissao}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">PORTAS</Text>  {anuncio.numero_portas}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COR</Text>  {anuncio.cor}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COR INTERNA</Text>  {anuncio.cores_internas}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COMBUSTÍVEL</Text>  {anuncio.combustivel}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">CARROCERIA</Text>  {anuncio.carroceria}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">POTÊNCIA</Text>  {anuncio.potencia}</Text></ListItem>
-                                <ListItem  p={3} width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">CONDIÇÃO</Text>  {anuncio.condicao}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">MARCA</Text> {anuncio.marca_name}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">MODELO</Text>  {anuncio.modelo}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">VERSÃO</Text>  {anuncio.versao}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">ANO</Text>  {anuncio.ano_fabricacao}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">VALOR</Text>  {`${anuncio.valor},00`}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">KM</Text>  {anuncio.quilometragem + ' ' + 'Km'}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">TRANSMISSÃO</Text>  {anuncio.transmissao}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">PORTAS</Text>  {anuncio.numero_portas}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COR</Text>  {anuncio.cor}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COR INTERNA</Text>  {anuncio.cores_internas}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">COMBUSTÍVEL</Text>  {anuncio.combustivel}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">CARROCERIA</Text>  {anuncio.carroceria}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">POTÊNCIA</Text>  {anuncio.potencia}</Text></ListItem>
+                                <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">CONDIÇÃO</Text>  {anuncio.condicao}</Text></ListItem>
                             </Grid>
                         </List>
-
+                        </VStack>
                         
                     <Grid templateColumns="repeat(1,1fr)" width="100%" gap={2}  pb={10}>
 
@@ -209,7 +224,9 @@ export default function Anuncio({anuncio, anuncios}) {
                     <VStack height="100%" spacing={10}>
                     <Box p={5} bg="white"  width="100%" borderRadius="5px" boxShadow="0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)">
                         <Heading borderBottom="1px solid" borderColor="yellow.400" py={1} fontSize="2xl" fontWeight="normal" fontFamily="Roboto, sans-serif" color="gray.900">INCLUA SEU CARRO NA TROCA</Heading>
+                        <Link href="/avaliacao">
                         <Text bg="yellow.400" color="gray.900" align="center" p={2} mt={5} fontSize="lg" fontWeight="bold" transition="all 0.3s ease-in-out" cursor="pointer" _hover={{filter:"brightness(0.85)"}}>Fazer uma avaliação</Text>
+                        </Link>
                     </Box>
                     <FormContact veiculo={`${anuncio.name} ${anuncio.versao} ${anuncio.ano_fabricacao}`} valor={anuncio.valor}/> 
                     </VStack>

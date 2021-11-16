@@ -143,10 +143,10 @@ export default function Anuncios({anuncios}) {
             justify="center"
             width="100%"
             h="25rem"
-            boxShadow="inset 0px 0px 1190px rgba(0,0,20,1)"
+           
             position="relative"
             direction="column"
-            mt="5rem"
+            mt="4.5rem"
             >
             
                 
@@ -208,7 +208,7 @@ export default function Anuncios({anuncios}) {
             </HStack>
             <SearchBox filter={filterBySearch} />
 
-            <Text fontSize="2xl" color="gray.900" justifySelf="flex-end"><strong style={{color:"#ECC94B"}}>{anunciosToShow.length}</strong> veículos disponíveis</Text>
+            <Text fontSize="2xl" color="gray.900" justifySelf="flex-end"><strong style={{color:"#D69E2E"}}>{anunciosToShow.length}</strong> veículos disponíveis</Text>
             </HStack>
             <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns="repeat(4,1fr)" width="100%" height="100%" maxWidth="1400px" gap={7}>
 
