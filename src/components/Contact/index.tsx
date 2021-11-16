@@ -103,21 +103,23 @@ export default function FormContact({veiculo, valor}: MessageProps) {
                 width="100%"
                 height="100%"
                 
-                display={formState.isSubmitted? 'none': 'auto'}
+                display={formState.isSubmitted? 'none': 'flex'}
+                
+                flexDirection="column"
+                justifyContent="space-between"
+                
                 
                 >
-
+                <VStack align="flex-start" width="100%" flex="1">
                 <Heading size="xl" fontFamily="Roboto, sans-serif" fontWeight="bold" color="gray.50">{`${valor},00`}</Heading>
 
                 <Divider my="3" borderColor="gray.500"/>
                 <Heading size="sm" color="gray.500" mb={10}>ENVIE UMA MENSAGEM AO VENDEDOR</Heading>
 
-                <VStack spacing="2">
+                <VStack width="100%" justify="space-around" flex="1">
                
-                    <SimpleGrid minChildWidth="440px" spacing={["6","8"]} width="100%">
-                        
-                        
-
+                    
+                    
                         <FormControl isInvalid={!!errors.name}>
                             <FormLabel 
                             htmlFor="name"
@@ -222,7 +224,7 @@ export default function FormContact({veiculo, valor}: MessageProps) {
                             
                            </FormControl>
 
-                        <Box>
+                        
                         <FormControl isInvalid={!!errors.proposta}>
                             <FormLabel 
                             htmlFor="proposta"
@@ -262,20 +264,22 @@ export default function FormContact({veiculo, valor}: MessageProps) {
                             
                            </FormControl>
                         
-                        </Box>
+                       
+
+                        
                      
                         
-                    </SimpleGrid>
-
+                 
+                </VStack>
                 
                 </VStack>
 
-                <Flex  mt="5" justify="flex-end">
-                    <HStack spacing="4">
+               
+                    <HStack spacing="4" justify="flex-end">
                     <Link href={`https://api.whatsapp.com/send?phone=5511959943034&text=Ol%C3%A1!%20Fiquei%20interessado%20no%20ve%C3%ADculo%3A%20${veiculo}%2C%20vamos%20negociar%3F`}><Button fontSize="md" size="md" leftIcon={<Icon as={RiWhatsappLine} fontSize="20"/>} colorScheme="green">Enviar no WhatsApp</Button></Link>
                         <Button size="md" fontSize="md" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
                     </HStack>
-                </Flex>
+               
                 </Box>
             )
             }

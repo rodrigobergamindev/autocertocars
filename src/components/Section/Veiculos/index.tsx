@@ -94,7 +94,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                         <Box p={6} key={anuncio.id}>
                          <Stack 
                         position="relative"
-                        borderRadius="10px"
+                        borderRadius="5px"
                          
                          spacing={0} 
                          height="450px" 
