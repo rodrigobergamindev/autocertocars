@@ -101,7 +101,7 @@ export default function FormContact({veiculo, valor}: MessageProps) {
                
                 onSubmit={handleSubmit(handleCreateMessage)}
                 width="100%"
-                height="100%"
+                
                 
                 display={formState.isSubmitted? 'none': 'flex'}
                 
@@ -111,12 +111,15 @@ export default function FormContact({veiculo, valor}: MessageProps) {
                 
                 >
                 <VStack align="flex-start" width="100%" flex="1">
+                
+                <VStack mb={5} width="100%" flex="1" align="flex-start">
                 <Heading size="xl" fontFamily="Roboto, sans-serif" fontWeight="bold" color="gray.50">{`${valor},00`}</Heading>
 
                 <Divider my="3" borderColor="gray.500"/>
                 <Heading size="sm" color="gray.500" mb={10}>ENVIE UMA MENSAGEM AO VENDEDOR</Heading>
+                </VStack>
 
-                <VStack width="100%" justify="space-around" flex="1">
+                <VStack width="100%"  flex="1" spacing={10} >
                
                     
                     
@@ -275,7 +278,7 @@ export default function FormContact({veiculo, valor}: MessageProps) {
                 </VStack>
 
                
-                    <HStack spacing="4" justify="flex-end">
+                    <HStack spacing="4" justify="flex-end" mt={10}>
                     <Link href={`https://api.whatsapp.com/send?phone=5511959943034&text=Ol%C3%A1!%20Fiquei%20interessado%20no%20ve%C3%ADculo%3A%20${veiculo}%2C%20vamos%20negociar%3F`}><Button fontSize="md" size="md" leftIcon={<Icon as={RiWhatsappLine} fontSize="20"/>} colorScheme="green">Enviar no WhatsApp</Button></Link>
                         <Button size="md" fontSize="md" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
                     </HStack>
