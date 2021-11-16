@@ -29,6 +29,7 @@ export default function Anuncio({anuncio, anuncios}) {
 
     const settings = {
         infinite: true,
+        dots: true,
         slidesToShow: 3,
         slidesToScroll: 1,
         autoplay: true,
@@ -105,7 +106,38 @@ export default function Anuncio({anuncio, anuncios}) {
             
 
             <Box flex="1" as={Flex} direction="column" width="100%" backgroundColor="gray.50" alignItems="center" justifyContent="center" p={25}>
+                
+            <VStack maxWidth="1280px" width="100%" border="solid" spacing={20}  mt={15}>
+                    <Heading as="i" mx="auto" color="gray.900" fontSize="7xl">{anuncio.name.toUpperCase() + ' ' + anuncio.versao.toUpperCase()}</Heading>
 
+                    <Grid templateColumns="repeat(5,1fr)" gap={10}>
+                        <Box as={VStack} align="center" justify="center">
+                            <Icon as={GiSpeedometer} color="gray.900" fontSize="5xl"/>
+                            <Text color="gray.900" fontSize="2xl" >{anuncio.quilometragem + " " + "Km"}</Text>
+                        </Box>
+
+                        <Box as={VStack} align="center" justify="center">
+                            <Icon as={FaRegCalendarAlt} color="gray.900" fontSize="5xl"/>
+                            <Text color="gray.900" fontSize="2xl" >{anuncio.ano_fabricacao}</Text>
+                        </Box>
+
+                        <Box as={VStack} align="center" justify="center">
+                            <Icon as={GiGasPump} color="gray.900" fontSize="5xl"/>
+                            <Text color="gray.900" fontSize="2xl" >{anuncio.combustivel}</Text>
+                        </Box>
+
+                        <Box as={VStack} align="center" justify="center">
+                            <Icon as={GiCarSeat} color="gray.900" fontSize="5xl"/>
+                            <Text color="gray.900" fontSize="2xl" >{anuncio.transmissao}</Text>
+                        </Box>
+
+                        <Box as={VStack} align="center" justify="center">
+                            <Icon as={GiMoneyStack} color="gray.900" fontSize="5xl"/>
+                            <Text color="gray.900" fontSize="2xl" >{`${anuncio.valor},00`}</Text>
+                        </Box>
+                    </Grid>
+
+                </VStack>
                 
 
 
