@@ -72,18 +72,27 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             
             >
             
-            <Box as={Flex}  width="100%" maxWidth="1400px" px={5}>
-            <Divider mr={30} alignSelf="center"/>
-               <VStack justifySelf="center">
-                <Heading as="i" fontFamily="Roboto, sans-serif" fontWeight="light" letterSpacing={3}  fontSize="4xl"  color="gray.900" zIndex={2}>
-                    NOSSOS
+            <Box as={Flex} justify="center"  width="100%" maxWidth="1400px" px={10}>
+            
+                <HStack boxShadow="0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)" bg="yellow.400" px={4} py={3} borderRadius="5px" width="100%" spacing="2" justify="space-between" align="center">
+                
+                <Heading color="gray.900" borderRadius="10px"  fontFamily="Roboto, sans-serif" fontWeight="bold"   fontSize="4xl" zIndex={2}>
+                 
+                 VEÍCULOS
                 </Heading>
-                <Heading letterSpacing={4} fontFamily="Roboto, sans-serif" color="yellow.400" alignSelf="center" fontSize="5xl" fontWeight="bold">VEÍCULOS</Heading>
-                </VStack>
-                <Divider ml={30} alignSelf="center"/>
+                <Heading  bg="gray.900" p={2} px={4} borderRadius="4px" fontFamily="Roboto, sans-serif" color="gray.50"  fontSize="lg" fontWeight="light">ATUALIZADO NO DIA <strong>{new Date(anuncios[anuncios.length-1].data_de_criacao).toLocaleDateString('pt-BR', {
+                                     day: '2-digit',
+                                        month: 'long',
+                                        year: 'numeric'
+                    }).toUpperCase()}</strong></Heading>
+                
+                </HStack>
+
+                
+                
             </Box>
          
-               <Box p={6}  maxWidth="1480px" width="100%">
+               <Box px={6}  maxWidth="1480px" width="100%">
 
 
                 <Slider {...settings}>
@@ -91,13 +100,13 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                 {anuncios.map(anuncio => (
                          
                          <Link key={anuncio.id} href={`/anuncios/${anuncio.slug}`}>
-                        <Box p={6} key={anuncio.id}>
+                        <Box p={4} key={anuncio.id}>
                          <Stack 
                         position="relative"
                         borderRadius="5px"
                          
                          spacing={0} 
-                         height="450px" 
+                         height="550px" 
                          overflow="hidden" 
                          cursor="pointer"
                          transition="all 0.3s ease-in-out"
