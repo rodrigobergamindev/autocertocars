@@ -13,7 +13,7 @@ export function SidebarNav() {
                         <NavLink icon={RiDashboardLine} href="/dashboard">Dashboard</NavLink>
                         <NavLink icon={RiCarLine} href="/dashboard/anuncios">Estoque</NavLink>
                         <NavLink icon={RiPencilLine} href="/dashboard/mensagens">Mensagens</NavLink>
-                        <NavLink icon={BsClipboardData} href="/dashboard/avaliacoes">Avaliações</NavLink>
+                        <NavLink icon={BsClipboardData} href="/dashboard/avaliacoes">Avaliação Veicular</NavLink>
                     </NavSection>
                 </Box>
 

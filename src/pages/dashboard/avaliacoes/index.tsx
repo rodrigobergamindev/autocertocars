@@ -77,7 +77,7 @@ export default function MensagensList({initialValues, session}) {
     return (
         <Box>
             <Head>
-            <title>Avaliações</title>
+            <title>Avaliação Veicular</title>
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <Header/>
@@ -90,7 +90,7 @@ export default function MensagensList({initialValues, session}) {
 
                     <Flex mb="8" justify="space-between" align="center">
                         
-                        <Heading size="lg" fontWeight="normal">Avaliações</Heading>
+                        <Heading size="lg" fontWeight="normal">Avaliação Veicular</Heading>
 
                     </Flex>
                 
