@@ -429,6 +429,7 @@ export default function FormAvaliacao({anuncios}) {
                             type="text" 
                             size="lg"
                             groupSeparator="."
+                            decimalSeparator=","
                             disableAbbreviations={true}
                             allowNegativeValue={false}
                             />
