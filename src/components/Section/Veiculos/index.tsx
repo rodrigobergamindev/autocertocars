@@ -74,13 +74,19 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             
             <Box as={Flex} justify="center"  width="100%" maxWidth="1400px" px={10}>
             
-                <HStack boxShadow="0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)" bg="yellow.400" px={4} py={3} borderRadius="5px" width="100%" spacing="2" justify="space-between" align="center">
+                <HStack  px={4} py={3} borderRadius="5px" width="100%" spacing="2" align="center" justify="space-between" bgColor="gray.900" backgroundImage="/img/bg-title.png"
+            backgroundAttachment="scroll"
+            backgroundRepeat="no-repeat"
+            backgroundSize="contain"
+            backgroundPosition="right">
                 
-                <Heading color="gray.900" borderRadius="10px"  fontFamily="Roboto, sans-serif" fontWeight="bold"   fontSize="4xl" zIndex={2}>
+
+                <Heading  color="gray.50" borderRadius="10px"  fontFamily="Roboto, sans-serif" fontWeight="light"   fontSize="2xl" zIndex={2}>
                  
                  VEÍCULOS
                 </Heading>
-                <Heading  bg="gray.900" p={2} px={4} borderRadius="4px" fontFamily="Roboto, sans-serif" color="gray.50"  fontSize="lg" fontWeight="light">ATUALIZADO NO DIA <strong>{new Date(anuncios[anuncios.length-1].data_de_criacao).toLocaleDateString('pt-BR', {
+                
+                <Heading  p={2} px={4} borderRadius="4px" fontFamily="Roboto, sans-serif" color="yellow.400"  fontSize="lg" fontWeight="light">ATUALIZADO NO DIA <strong>{new Date(anuncios[anuncios.length-1].data_de_criacao).toLocaleDateString('pt-BR', {
                                      day: '2-digit',
                                         month: 'long',
                                         year: 'numeric'
