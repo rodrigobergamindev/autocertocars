@@ -38,19 +38,21 @@ export default function About() {
                 <Box as={Flex}  width="100%" maxWidth="750px"  flexDirection="column" alignSelf="center">
                 
                 
-                <Heading as="i" fontWeight="light" letterSpacing={3} fontSize="6xl"  color="gray.50" zIndex={2}>
+                <Heading as="i" fontWeight="light" letterSpacing={3} fontSize="5xl"  color="gray.50" zIndex={2}>
                     SOBRE
                 </Heading>
-                <Heading as="i" letterSpacing={4}  color="yellow.400" alignSelf="flex-end" fontSize="7xl" fontWeight="black">AUTO CERTO CARS</Heading>
+                <Heading as="i" letterSpacing={4}  color="yellow.400" alignSelf="center" fontSize="6xl" fontWeight="black">AUTO CERTO CARS</Heading>
 
                 </Box>
                <Flex width="100%" maxWidth="1480px">
 
                <Grid  placeContent="center" placeItems="center" flex="1" templateColumns="repeat(2, 1fr)">
                    <Stack direction="column" w="100%" h="100%" spacing="16"  p={10}>
+
+                   <Heading fontWeight="bold" color="yellow.400" fontSize="3xl" letterSpacing={8}>VALORES</Heading>
                     <Stack w="100%" direction="column" align="flex-start" >
 
-                        <Heading fontWeight="bold" color="yellow.400" fontSize="5xl" letterSpacing={8}>VISÃO</Heading>
+                        <Heading fontWeight="bold" color="yellow.400" fontSize="3xl" letterSpacing={8}>VISÃO</Heading>
                         <Text fontSize="20">Nossa visão é de sempre proporcionar um bom negócio</Text>
                         <StackDivider/>
                         <StackDivider/>
@@ -61,20 +63,22 @@ export default function About() {
                         align="center"
                         justify="center"
                         spacing="5"
+                        
+                        flex="1"
                         >
                         
-                        <Icon flex="1" as={FaRegHandshake} fontSize="100"/>
+                        <Icon as={FaRegHandshake} fontSize="70"/>
                         
                         <VStack>
-                            <Text letterSpacing={7} fontSize="25" fontWeight="light">CLIENTES SATISFEITOS</Text>
-                            <Heading alignSelf="flex-start" color="yellow.400" letterSpacing={2}><CountUp end={3600} duration={400/60}/></Heading>
+                            <Text letterSpacing={7} fontSize="xl" fontWeight="light">CLIENTES SATISFEITOS</Text>
+                            <Heading alignSelf="flex-start" fontSize="2xl" color="yellow.400" letterSpacing={2}><CountUp end={3600} duration={400/60}/></Heading>
                         </VStack>
                         </Box>
                     </Stack>
 
                     <Stack w="100%" direction="column" align="flex-start">
 
-                        <Heading fontWeight="bold" color="yellow.400" fontSize="5xl" letterSpacing={8}>MISSÃO</Heading>
+                        <Heading fontWeight="bold" color="yellow.400" fontSize="3xl" letterSpacing={8}>MISSÃO</Heading>
                         <Text fontSize="20">Bom negócio já é garantido, excelente negócio é nossa obrigação</Text>
                         <StackDivider/>
                         <StackDivider/>
@@ -87,11 +91,11 @@ export default function About() {
                         spacing="5"
                         >
                         
-                        <Icon flex="1" as={FaCar} fontSize="100"/>
+                        <Icon  as={FaCar} fontSize="70"/>
                         
                         <VStack>
-                            <Text letterSpacing={7} fontSize="25" fontWeight="light">CARROS VENDIDOS</Text>
-                            <Heading alignSelf="flex-start" color="yellow.400" letterSpacing={2}>+<CountUp end={3000} duration={400/60}/></Heading>
+                            <Text letterSpacing={7} fontSize="xl" fontWeight="light">CARROS VENDIDOS</Text>
+                            <Heading alignSelf="flex-start" fontSize="2xl" color="yellow.400" letterSpacing={2}>+<CountUp end={3000} duration={400/60}/></Heading>
                         </VStack>
                         </Box>
                     </Stack>
@@ -99,7 +103,7 @@ export default function About() {
                     
                     <Stack w="100%" direction="column" align="flex-start">
 
-                        <Heading fontWeight="bold" color="yellow.400" fontSize="5xl" letterSpacing={8}>DESAFIO</Heading>
+                        <Heading fontWeight="bold" color="yellow.400" fontSize="3xl" letterSpacing={8}>DESAFIO</Heading>
                         <Text fontSize="20">Nosso maior desafio e satisfação é a realização do seu sonho e a sua conquista</Text>
                         <StackDivider/>
                         <StackDivider/>
@@ -112,11 +116,11 @@ export default function About() {
                         spacing="5"
                         >
                         
-                        <Icon flex="1" as={GiBrazil} fontSize="100"/>
+                        <Icon as={GiBrazil} fontSize="70"/>
                         
                         <VStack>
-                            <Text letterSpacing={7} fontSize="25" fontWeight="light">ESTADOS ALCANÇADOS</Text>
-                            <Heading alignSelf="flex-start" color="yellow.400" letterSpacing={2}><CountUp end={15} duration={400/60}/></Heading>
+                            <Text letterSpacing={7} fontSize="xl" fontWeight="light">ESTADOS ALCANÇADOS</Text>
+                            <Heading alignSelf="flex-start" fontSize="2xl" color="yellow.400" letterSpacing={2}><CountUp end={15} duration={400/60}/></Heading>
                         </VStack>
                         </Box>
                     </Stack>
@@ -127,47 +131,47 @@ export default function About() {
                 <Stack direction="column" w="100%" h="100%" spacing="16"  p={10}>
                     
 
-                <Heading fontWeight="bold" color="yellow.400" fontSize="5xl" letterSpacing={8}>NOSSOS SERVIÇOS</Heading>
+                <Heading fontWeight="bold" color="yellow.400" fontSize="3xl" letterSpacing={8}>NOSSOS SERVIÇOS</Heading>
 
                 <HStack spacing="12" justify="flex-start" align="center">
 
-                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={GiReceiveMoney} fontSize="70"/>
-                <Text fontSize="25" fontWeight="bold" letterSpacing={2}>VENDA</Text>
+                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={GiReceiveMoney} fontSize="50"/>
+                <Text fontSize="xl" fontWeight="bold" letterSpacing={2}>VENDA</Text>
 
                 </HStack>
 
                 <HStack spacing="12" justify="flex-start" align="center">
 
-                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={RiRefreshLine} fontSize="70"/>
-                <Text fontSize="25" fontWeight="bold" letterSpacing={2}>TROCA</Text>
+                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={RiRefreshLine} fontSize="50"/>
+                <Text fontSize="xl" fontWeight="bold" letterSpacing={2}>TROCA</Text>
 
                 </HStack>
 
                 <HStack spacing="12" justify="flex-start" align="center">
 
-                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={GiTakeMyMoney} fontSize="70"/>
-                <Text fontSize="25" fontWeight="bold" letterSpacing={2}>TROCA COM TROCO</Text>
+                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={GiTakeMyMoney} fontSize="50"/>
+                <Text fontSize="xl" fontWeight="bold" letterSpacing={2}>TROCA COM TROCO</Text>
 
                 </HStack>
 
                 <HStack spacing="12" justify="flex-start" align="center">
 
-                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={IoIosDocument} fontSize="70"/>
-                <Text fontSize="25" fontWeight="bold" letterSpacing={2}>SERVIÇOS DE DESPACHANTE</Text>
+                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={IoIosDocument} fontSize="50"/>
+                <Text fontSize="xl" fontWeight="bold" letterSpacing={2}>SERVIÇOS DE DESPACHANTE</Text>
 
                 </HStack>
 
                 <HStack spacing="12" justify="flex-start" align="center">
 
-                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={IoIosCash} fontSize="70"/>
-                <Text fontSize="25" fontWeight="bold" letterSpacing={2}>FINANCIAMENTO</Text>
+                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={IoIosCash} fontSize="50"/>
+                <Text fontSize="xl" fontWeight="bold" letterSpacing={2}>FINANCIAMENTO</Text>
 
                 </HStack>
                 
                 <HStack spacing="12" justify="flex-start" align="center">
 
-                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={GiPayMoney} fontSize="70"/>
-                <Text fontSize="25" fontWeight="bold" letterSpacing={2}>REFINANCIAMENTO</Text>
+                <Icon border="1px solid" borderColor="gray.50" borderRadius="full" p={2} color="yellow.400" as={GiPayMoney} fontSize="50"/>
+                <Text fontSize="xl" fontWeight="bold" letterSpacing={2}>REFINANCIAMENTO</Text>
 
                 </HStack>
 

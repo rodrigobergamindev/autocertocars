@@ -72,17 +72,16 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             
             >
             
-                <Box width="100%" maxW="1480px" borderRadius="10px"  p={6}  as={Flex}  align="center" flexDirection="row" alignSelf="center">
-
-               
-                <Heading textAlign="center" fontWeight="light" letterSpacing={2} px={10} fontSize="4xl"  color="gray.900" zIndex={2}>
-                   <Link href="/anuncios" passHref>VEÍCULOS</Link>
-                    
-                </Heading>
+            <Box as={Flex}  width="100%" maxWidth="750px"  flexDirection="column" alignSelf="center">
+                
                 <Divider/>
-               
-
+                <Heading  fontWeight="light" letterSpacing={3} alignSelf="center" fontSize="5xl"  color="gray.900" zIndex={2}>
+                    NOSSOS
+                </Heading>
+                <Heading as="i" letterSpacing={4} fontFamily="Roboto, sans-serif" color="yellow.400" alignSelf="center" fontSize="6xl" fontWeight="black">VEÍCULOS</Heading>
+                <Divider/>
                 </Box>
+
                <Box p={6}  maxWidth="1480px" width="100%">
 
 
