@@ -65,12 +65,12 @@ export default function Anuncio({anuncio, anuncios}) {
 
             {anuncio.image.map(image => (
                 <a key={image} href={image} target="_blank" rel="noreferrer">
-                <Box px={5}>
+                <Box px={3}>
                 <Stack
                
                 position="relative"
                 spacing={0} 
-                height="20rem"
+                height="25rem"
                 alignItems="center" 
                 justifyContent="flex-end" 
                 overflow="hidden" 

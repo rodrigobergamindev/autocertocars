@@ -86,11 +86,11 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                  VEÍCULOS
                 </Heading>
                 
-                <Heading  p={2} px={4} borderRadius="4px" fontFamily="Roboto, sans-serif" color="yellow.400"  fontSize="lg" fontWeight="light">ATUALIZADO NO DIA <strong>{new Date(anuncios[anuncios.length-1].data_de_criacao).toLocaleDateString('pt-BR', {
+                {!!anuncios && <Heading  p={2} px={4} borderRadius="4px" fontFamily="Roboto, sans-serif" color="yellow.400"  fontSize="lg" fontWeight="light">ATUALIZADO NO DIA <strong>{new Date(anuncios[anuncios.length-1].data_de_criacao).toLocaleDateString('pt-BR', {
                                      day: '2-digit',
                                         month: 'long',
                                         year: 'numeric'
-                    }).toUpperCase()}</strong></Heading>
+                    }).toUpperCase()}</strong></Heading>}
                 
                 </HStack>
 
