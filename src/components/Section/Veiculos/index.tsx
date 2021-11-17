@@ -75,7 +75,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             <Box as={Flex}  width="100%" maxWidth="750px"  flexDirection="column" alignSelf="center">
                 
                 <Divider/>
-                <Heading  fontWeight="light" letterSpacing={3} alignSelf="center" fontSize="5xl"  color="gray.900" zIndex={2}>
+                <Heading  fontWeight="light" letterSpacing={3} alignSelf="center" fontSize="4xl"  color="gray.900" zIndex={2}>
                     NOSSOS
                 </Heading>
                 <Heading as="i" letterSpacing={4} fontFamily="Roboto, sans-serif" color="yellow.400" alignSelf="center" fontSize="6xl" fontWeight="black">VEÍCULOS</Heading>

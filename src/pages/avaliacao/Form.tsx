@@ -1,4 +1,4 @@
-import { Select, Icon, Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput, FormLabel, FormControl, FormErrorMessage} from "@chakra-ui/react";
+import { Grid, Select, Icon, Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput, FormLabel, FormControl, FormErrorMessage} from "@chakra-ui/react";
 
 
 import Link from 'next/link'
@@ -127,9 +127,10 @@ export default function FormAvaliacao({anuncios}) {
                 <Heading size="xl" fontFamily="Roboto, sans-serif" fontWeight="bold" color="gray.50">AVALIAÇÃO VEICULAR</Heading>
 
                 <Divider my="3" borderColor="gray.500"/>
-                <Heading size="sm" color="gray.500" mb={10}>PREENCHA OS CAMPOS CORRETAMENTE</Heading>
+                <Heading size="sm" color="gray.500"  pb={5} alignSelf="flex-start">INFORMAÇÕES PESSOAIS</Heading>
                 </VStack>
 
+                <Grid w="100%" templateColumns="repeat(1,1fr)"> 
                 <SimpleGrid minChildWidth="340px" spacing={["6","8"]} width="100%">
                
                     
@@ -238,237 +239,245 @@ export default function FormAvaliacao({anuncios}) {
                                  )}
                             
                            </FormControl>
-
-                           <FormControl isInvalid={!!errors.placa}>
-                            <FormLabel 
-                            htmlFor="placa"
-                            color="gray.50"
-                            >
-                                Placa
-                            </FormLabel>
-                            
-                            <ChakraInput
-                             {...register('placa')}
-                             color="gray.900"
-                            focusBorderColor="yellow.400"  
-                            variant="filled" 
-                            name="placa" 
-                            id="placa" 
-                            type="text" 
-                            size="lg"
-                            _focus={{
-                                background: 'gray.50'
-                            }}
-                            bg="gray.50"
-                            _hover={{
-                                background: 'gray.50'
-                            }}
-                            />
-                         
-                            {!!errors.placa && (
-                                    <FormErrorMessage>
-                                    {errors.placa.message}
-                                    </FormErrorMessage>
-                                 )}
-                            
-                           </FormControl>
-
-                           <FormControl isInvalid={!!errors.marca}>
-                            <FormLabel 
-                            htmlFor="marca"
-                            color="gray.50"
-                            >
-                                Marca
-                            </FormLabel>
-                            
-                            <ChakraInput
-                             {...register('marca')}
-                             color="gray.900"
-                            focusBorderColor="yellow.400"  
-                            variant="filled" 
-                            name="marca" 
-                            id="marca" 
-                            type="text" 
-                            size="lg"
-                            _focus={{
-                                background: 'gray.50'
-                            }}
-                            bg="gray.50"
-                            _hover={{
-                                background: 'gray.50'
-                            }}
-                            />
-                         
-                            {!!errors.marca && (
-                                    <FormErrorMessage>
-                                    {errors.marca.message}
-                                    </FormErrorMessage>
-                                 )}
-                            
-                           </FormControl>
-
-
-                           <FormControl isInvalid={!!errors.modelo}>
-                            <FormLabel 
-                            htmlFor="modelo"
-                            color="gray.50"
-                            >
-                                Modelo
-                            </FormLabel>
-                            
-                            <ChakraInput
-                             {...register('modelo')}
-                             color="gray.900"
-                            focusBorderColor="yellow.400"  
-                            variant="filled" 
-                            name="modelo" 
-                            id="modelo" 
-                            type="text" 
-                            size="lg"
-                            _focus={{
-                                background: 'gray.50'
-                            }}
-                            bg="gray.50"
-                            _hover={{
-                                background: 'gray.50'
-                            }}
-                            />
-                         
-                            {!!errors.modelo && (
-                                    <FormErrorMessage>
-                                    {errors.modelo.message}
-                                    </FormErrorMessage>
-                                 )}
-                            
-                           </FormControl>
-
-                           <FormControl isInvalid={!!errors.versao}>
-                            <FormLabel 
-                            htmlFor="versao"
-                            color="gray.50"
-                            >
-                                Versão
-                            </FormLabel>
-                            
-                            <ChakraInput
-                             {...register('versao')}
-                             color="gray.900"
-                            focusBorderColor="yellow.400"  
-                            variant="filled" 
-                            name="versao" 
-                            id="versao" 
-                            type="text" 
-                            size="lg"
-                            _focus={{
-                                background: 'gray.50'
-                            }}
-                            bg="gray.50"
-                            _hover={{
-                                background: 'gray.50'
-                            }}
-                            />
-                         
-                            {!!errors.versao && (
-                                    <FormErrorMessage>
-                                    {errors.versao.message}
-                                    </FormErrorMessage>
-                                 )}
-                            
-                           </FormControl>
-
-                           <FormControl isInvalid={!!errors.ano}>
-                            <FormLabel 
-                            htmlFor="ano"
-                            >
-                               Ano
-                            </FormLabel>
-    
-                            <ChakraInput
-                             {...register('ano')}
-                            as={InputMask}
-                            bgColor="white" 
-                            _hover={{bgColor: 'white'}} 
-                            focusBorderColor="yellow.400" 
-                            _focus={{bgColor: 'white'}}
-                            color="gray.900" 
-                            variant="filled" 
-                            name="ano" 
-                            id="ano" 
-                            type="text" 
-                            size="lg"
-                            mask="9999/9999"
-                            
-                            />
-                          
-                            {!!errors.ano && (
-                                    <FormErrorMessage>
-                                    {errors.ano.message}
-                                    </FormErrorMessage>
-                                 )}
-                            
-                           </FormControl>
-                            
-                           <FormControl isInvalid={!!errors.quilometragem}>
-                            <FormLabel 
-                            htmlFor="quilometragem"
-                            >
-                                Quilometragem
-                            </FormLabel>
-    
-                            <ChakraInput
-                             {...register('quilometragem')}
-                            as={CurrencyInput}
-                            bgColor="white" 
-                            _hover={{bgColor: 'white'}} 
-                            _focus={{bgColor: 'white'}}
-                            color="gray.900" 
-                            focusBorderColor="yellow.400"  
-                            variant="filled" 
-                            name="quilometragem" 
-                            id="quilometragem" 
-                            type="text" 
-                            size="lg"
-                            groupSeparator="."
-                            decimalSeparator=","
-                            disableAbbreviations={true}
-                            allowNegativeValue={false}
-                            />
-                          
-                            {!!errors.quilometragem && (
-                                    <FormErrorMessage>
-                                    {errors.quilometragem.message}
-                                    </FormErrorMessage>
-                                 )}
-                            
-                           </FormControl>
-                        
-                           <FormControl isInvalid={!!errors.veiculo}>
-                            <FormLabel 
-                            htmlFor="veiculo"
-                            >
-                                Selecione o veículo de interesse:
-                            </FormLabel>
-                            
-                                <Select size="lg" id="veiculo" name="veiculo" variant="filled" bg="white" color="gray.900" _focus={{backgroundColor:'white'}} focusBorderColor="yellow.500" {...register('veiculo')}>
-                                        {!!anuncios && anuncios.map(anuncio => {
-                                            return (
-                                                <option key={anuncio.id}  value={`${anuncio.name} - ${anuncio.ano_fabricacao} - ${anuncio.versao} - ${anuncio.cor}`}>{`${anuncio.name} - ${anuncio.ano_fabricacao} - ${anuncio.versao} - ${anuncio.cor}`}</option>
-                                            )
-                                        })}
-                                </Select>
-    
-    
-                                {!!errors.veiculo && (
-                                    <FormErrorMessage>
-                                    {errors.veiculo.message}
-                                    </FormErrorMessage>
-                                 )}
-                                
-                                  
-                            </FormControl>
                         
                 </SimpleGrid>
+
+                <Heading mt={10} size="sm" color="gray.500" align="flex-start">INFORMAÇÕES DO VEÍCULO</Heading>
+
+                <SimpleGrid mt={5}  minChildWidth="340px" spacing={["6","8"]} width="100%">
+
+        
+
+
+           <FormControl isInvalid={!!errors.marca}>
+            <FormLabel 
+            htmlFor="marca"
+            color="gray.50"
+            >
+                Marca
+            </FormLabel>
+            
+            <ChakraInput
+             {...register('marca')}
+             color="gray.900"
+            focusBorderColor="yellow.400"  
+            variant="filled" 
+            name="marca" 
+            id="marca" 
+            type="text" 
+            size="lg"
+            _focus={{
+                background: 'gray.50'
+            }}
+            bg="gray.50"
+            _hover={{
+                background: 'gray.50'
+            }}
+            />
+         
+            {!!errors.marca && (
+                    <FormErrorMessage>
+                    {errors.marca.message}
+                    </FormErrorMessage>
+                 )}
+            
+           </FormControl>
+
+
+           <FormControl isInvalid={!!errors.modelo}>
+            <FormLabel 
+            htmlFor="modelo"
+            color="gray.50"
+            >
+                Modelo
+            </FormLabel>
+            
+            <ChakraInput
+             {...register('modelo')}
+             color="gray.900"
+            focusBorderColor="yellow.400"  
+            variant="filled" 
+            name="modelo" 
+            id="modelo" 
+            type="text" 
+            size="lg"
+            _focus={{
+                background: 'gray.50'
+            }}
+            bg="gray.50"
+            _hover={{
+                background: 'gray.50'
+            }}
+            />
+         
+            {!!errors.modelo && (
+                    <FormErrorMessage>
+                    {errors.modelo.message}
+                    </FormErrorMessage>
+                 )}
+            
+           </FormControl>
+
+           <FormControl isInvalid={!!errors.versao}>
+            <FormLabel 
+            htmlFor="versao"
+            color="gray.50"
+            >
+                Versão
+            </FormLabel>
+            
+            <ChakraInput
+             {...register('versao')}
+             color="gray.900"
+            focusBorderColor="yellow.400"  
+            variant="filled" 
+            name="versao" 
+            id="versao" 
+            type="text" 
+            size="lg"
+            _focus={{
+                background: 'gray.50'
+            }}
+            bg="gray.50"
+            _hover={{
+                background: 'gray.50'
+            }}
+            />
+         
+            {!!errors.versao && (
+                    <FormErrorMessage>
+                    {errors.versao.message}
+                    </FormErrorMessage>
+                 )}
+            
+           </FormControl>
+
+           <FormControl isInvalid={!!errors.ano}>
+            <FormLabel 
+            htmlFor="ano"
+            >
+               Ano
+            </FormLabel>
+
+            <ChakraInput
+             {...register('ano')}
+            as={InputMask}
+            bgColor="white" 
+            _hover={{bgColor: 'white'}} 
+            focusBorderColor="yellow.400" 
+            _focus={{bgColor: 'white'}}
+            color="gray.900" 
+            variant="filled" 
+            name="ano" 
+            id="ano" 
+            type="text" 
+            size="lg"
+            mask="9999/9999"
+            
+            />
+          
+            {!!errors.ano && (
+                    <FormErrorMessage>
+                    {errors.ano.message}
+                    </FormErrorMessage>
+                 )}
+            
+           </FormControl>
+            
+           <FormControl isInvalid={!!errors.quilometragem}>
+            <FormLabel 
+            htmlFor="quilometragem"
+            >
+                Quilometragem
+            </FormLabel>
+
+            <ChakraInput
+             {...register('quilometragem')}
+            as={CurrencyInput}
+            bgColor="white" 
+            _hover={{bgColor: 'white'}} 
+            _focus={{bgColor: 'white'}}
+            color="gray.900" 
+            focusBorderColor="yellow.400"  
+            variant="filled" 
+            name="quilometragem" 
+            id="quilometragem" 
+            type="text" 
+            size="lg"
+            groupSeparator="."
+            decimalSeparator=","
+            disableAbbreviations={true}
+            allowNegativeValue={false}
+            />
+          
+            {!!errors.quilometragem && (
+                    <FormErrorMessage>
+                    {errors.quilometragem.message}
+                    </FormErrorMessage>
+                 )}
+            
+           </FormControl>
+
+           <FormControl isInvalid={!!errors.placa}>
+            <FormLabel 
+            htmlFor="placa"
+            color="gray.50"
+            >
+                Placa
+            </FormLabel>
+            
+            <ChakraInput
+             {...register('placa')}
+             color="gray.900"
+            focusBorderColor="yellow.400"  
+            variant="filled" 
+            name="placa" 
+            id="placa" 
+            type="text" 
+            size="lg"
+            _focus={{
+                background: 'gray.50'
+            }}
+            bg="gray.50"
+            _hover={{
+                background: 'gray.50'
+            }}
+            />
+         
+            {!!errors.placa && (
+                    <FormErrorMessage>
+                    {errors.placa.message}
+                    </FormErrorMessage>
+                 )}
+            
+           </FormControl>
+        
+           <FormControl isInvalid={!!errors.veiculo}>
+            <FormLabel 
+            htmlFor="veiculo"
+            >
+               Informe o veículo que deseja adquirir:
+            </FormLabel>
+            
+                <Select size="lg" id="veiculo" name="veiculo" variant="filled" bg="white" color="gray.900" _focus={{backgroundColor:'white'}} focusBorderColor="yellow.500" {...register('veiculo')}>
+                        {!!anuncios && anuncios.map(anuncio => {
+                            return (
+                                <option key={anuncio.id}  value={`${anuncio.name} - ${anuncio.ano_fabricacao} - ${anuncio.versao} - ${anuncio.cor}`}>{`${anuncio.name} - ${anuncio.ano_fabricacao} - ${anuncio.versao} - ${anuncio.cor}`}</option>
+                            )
+                        })}
+                </Select>
+
+
+                {!!errors.veiculo && (
+                    <FormErrorMessage>
+                    {errors.veiculo.message}
+                    </FormErrorMessage>
+                 )}
                 
+                  
+            </FormControl>
+        </SimpleGrid>
+                </Grid>
                 </VStack>
 
                

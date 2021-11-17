@@ -11,7 +11,7 @@ export default function MenuBar() {
     return (
         <HStack  align="center" bg="gray.50" justify="flex-end" width="100%" p={4} zIndex={999}  position="fixed" borderBottom="1px solid" borderBottomColor="gray.100">
             <Box flex="1" px={20}>
-            <Logo size={150} logo="/img/logo2.png"/>
+            <Logo size={200} logo="/img/logo2.png"/>
             </Box>
             <IconDrawer/>
         </HStack>
