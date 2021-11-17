@@ -226,7 +226,7 @@ export default function Anuncios({anuncios}) {
                 cursor="pointer"
                 transition="all 0.3s ease-in-out"
                 boxShadow="0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"
-                borderRadius="10px"
+                borderRadius="5px"
                 >
                     
                     <ChakraImage

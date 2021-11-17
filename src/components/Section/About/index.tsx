@@ -48,7 +48,7 @@ export default function About() {
                     <Stack w="100%" direction="column" align="flex-start" >
 
                         <Heading fontWeight="bold" color="yellow.400" fontSize="3xl" letterSpacing={8}>VISÃO</Heading>
-                        <Text fontSize="20">Nossa visão é de sempre proporcionar um bom negócio</Text>
+                        <Text fontSize="17">Nossa visão é de sempre proporcionar um bom negócio</Text>
                         <StackDivider/>
                         <StackDivider/>
                       
@@ -61,7 +61,7 @@ export default function About() {
                         flex="1"
                         >
                         
-                        <Icon as={FaRegHandshake} fontSize="70"/>
+                        <Icon as={FaRegHandshake} fontSize="60"/>
                         
                         <VStack>
                             <Text letterSpacing={7} fontSize="xl" fontWeight="light">CLIENTES SATISFEITOS</Text>
@@ -73,7 +73,7 @@ export default function About() {
                     <Stack w="100%" direction="column" align="flex-start">
 
                         <Heading fontWeight="bold" color="yellow.400" fontSize="3xl" letterSpacing={8}>MISSÃO</Heading>
-                        <Text fontSize="20">Bom negócio já é garantido, excelente negócio é nossa obrigação</Text>
+                        <Text fontSize="17">Bom negócio já é garantido, excelente negócio é nossa obrigação</Text>
                         <StackDivider/>
                         <StackDivider/>
                       
@@ -85,7 +85,7 @@ export default function About() {
                         spacing="5"
                         >
                         
-                        <Icon  as={FaCar} fontSize="70"/>
+                        <Icon  as={FaCar} fontSize="60"/>
                         
                         <VStack>
                             <Text letterSpacing={7} fontSize="xl" fontWeight="light">CARROS VENDIDOS</Text>
@@ -98,7 +98,7 @@ export default function About() {
                     <Stack w="100%" direction="column" align="flex-start">
 
                         <Heading fontWeight="bold" color="yellow.400" fontSize="3xl" letterSpacing={8}>DESAFIO</Heading>
-                        <Text fontSize="20">Nosso maior desafio e satisfação é a realização do seu sonho e a sua conquista</Text>
+                        <Text fontSize="17">Nosso maior desafio e satisfação é a realização do seu sonho e a sua conquista</Text>
                         <StackDivider/>
                         <StackDivider/>
                       
@@ -110,7 +110,7 @@ export default function About() {
                         spacing="5"
                         >
                         
-                        <Icon as={GiBrazil} fontSize="70"/>
+                        <Icon as={GiBrazil} fontSize="60"/>
                         
                         <VStack>
                             <Text letterSpacing={7} fontSize="xl" fontWeight="light">ESTADOS ALCANÇADOS</Text>
@@ -201,10 +201,10 @@ export default function About() {
                 </HStack>
            
 
-            <VStack >
+            <VStack align="center" justify="center">
                 
-                <Box p={5} as={Flex} direction="row" width="100%" flex="1" alignItems="center">
-                    <Box position="relative" width="100%" height="450px">
+                <Box p={5} as={Flex} direction="row" justifyContent="center" width="100%" flex="1" alignItems="center">
+                    <Box position="relative" width="650px" height="450px">
                     <ChakraImage as={Image} src="/img/historia1.jpg" 
                     objectFit="cover" 
                     transition="all 0.3s ease-in-out" 
@@ -226,7 +226,7 @@ export default function About() {
                     </Box>
                 </Box>
 
-                <Box p={5} as={Flex} direction="row" width="100%" flex="1"  alignItems="center">
+                <Box p={5} as={Flex} direction="row" justifyContent="center"  width="100%" flex="1"  alignItems="center">
                     
                     <Box  p={3}  maxWidth="450px">
                         <Text mx={10} fontSize="2xl" textAlign="justify">
@@ -235,7 +235,7 @@ export default function About() {
                         </Text>
                     </Box>
 
-                    <Box position="relative" width="100%" height="450px" >
+                    <Box position="relative" width="650px" height="450px" >
                         <ChakraImage as={Image} src="/img/historia2.jpg" 
                         objectFit="cover" 
                         transition="all 0.3s ease-in-out" 
@@ -249,8 +249,8 @@ export default function About() {
                     </Box>
                 </Box>
 
-                <Box p={5} as={Flex} direction="row" width="100%" flex="1" alignItems="center">
-                    <Box position="relative" width="100%" height="650px" >
+                <Box p={5} as={Flex} direction="row" justifyContent="center"  width="100%" flex="1" alignItems="center">
+                    <Box position="relative" width="650px" height="450px">
                     <ChakraImage as={Image} 
                     src="/img/historia3.jpg"
                     objectFit="cover" 

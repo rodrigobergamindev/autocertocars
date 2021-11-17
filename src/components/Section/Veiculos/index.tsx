@@ -69,10 +69,10 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             py={20}
             flexDirection="column"
             backgroundColor="gray.50"
-            
+            px={20}
             >
             
-            <Box as={Flex} justify="center"  width="100%" maxWidth="1400px" px={10}>
+            <Box as={Flex} justify="center"  width="100%" maxWidth="1400px">
             
                 <HStack  px={4} py={3} borderRadius="5px" width="100%" spacing="2" align="center" justify="space-between" bgColor="gray.900" backgroundImage="/img/bg-title.png"
             backgroundAttachment="scroll"
@@ -112,7 +112,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                         borderRadius="5px"
                          
                          spacing={0} 
-                         height="550px" 
+                         height="450px" 
                          overflow="hidden" 
                          cursor="pointer"
                          transition="all 0.3s ease-in-out"
