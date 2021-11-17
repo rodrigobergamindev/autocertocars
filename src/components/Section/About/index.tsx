@@ -13,7 +13,7 @@ export default function About() {
     return (
         <Stack bg="gray.50" spacing={0}>
               <ChakraImage
-                src="/img/wavetwo.svg"
+                src="/img/waves.svg"
                 width="100%"
                 objectFit="cover"
                
@@ -63,7 +63,6 @@ export default function About() {
                         align="center"
                         justify="center"
                         spacing="5"
-                        
                         flex="1"
                         >
                         
