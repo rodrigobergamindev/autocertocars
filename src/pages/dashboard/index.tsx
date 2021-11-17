@@ -182,7 +182,7 @@ export default function Dashboard({session, messagesReceived, anuncios}) {
                   <Text fontSize="lg" mb="4">Total em Estoque</Text>
                   <Icon as={RiMoneyDollarCircleLine} w={9} h={9}/>
                   </HStack>
-                  <Text fontSize="6xl">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(totalStock))}</Text>
+                  <Text py={5} fontSize="4xl">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(parseFloat(totalStock))}</Text>
 
               </MotionBox>
           </MotionGrid>
