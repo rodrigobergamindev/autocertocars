@@ -59,7 +59,7 @@ export default function Anuncio({anuncio, anuncios}) {
             mt="4.5rem"
             bg="gray.50"
             >
-            <Box px={5} width="100%" height="100%">
+            <Box px={5} width="99%" height="100%">
 
            <Slider {...settings}>
 
