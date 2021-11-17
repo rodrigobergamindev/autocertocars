@@ -30,7 +30,7 @@ export default function About() {
             >
           
             
-                <Box as={Flex}  width="100%" maxWidth="750px"  flexDirection="column" alignSelf="center">
+                <Box as={Flex}  width="100%" maxWidth="750px"  flexDirection="column" align="center" justify="center" alignSelf="center">
                 
                 
                 <Heading as="i" fontWeight="light" letterSpacing={3} fontSize="5xl"  color="gray.50" zIndex={2}>
@@ -39,9 +39,9 @@ export default function About() {
                 <Heading as="i" letterSpacing={4}  color="yellow.400" alignSelf="center" fontSize="6xl" fontWeight="black">AUTO CERTO CARS</Heading>
 
                 </Box>
-               <Flex width="100%" maxWidth="1480px">
+               <Flex width="100%"  maxWidth="1480px">
 
-               <Grid  placeContent="center" placeItems="center" flex="1" templateColumns="repeat(2, 1fr)">
+               <Grid placeContent="center" placeItems="center" flex="1" templateColumns="repeat(2, 1fr)">
                    <Stack direction="column" w="100%" h="100%" spacing="16"  p={10}>
 
                    <Heading fontWeight="bold" color="yellow.400" fontSize="3xl" letterSpacing={8}>VALORES</Heading>
