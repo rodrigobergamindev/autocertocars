@@ -94,7 +94,7 @@ export default function MensagensList({initialValues, session}) {
 
                     </Flex>
                 
-                <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns="repeat(3, 1fr)" gap={6}>
+                <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns="repeat(2, 1fr)" gap={6}>
 
                 {messagesToShow.map((message,index) => {
                     
@@ -121,7 +121,7 @@ export default function MensagensList({initialValues, session}) {
 
                         
                         </HStack>
-                        <Grid templateRows="repeat(2,1fr)" gap={5}>
+                        <Grid templateColumns="repeat(2,1fr)" gap={5}>
                         <VStack align="flex-start" width="100%">
                         <Heading fontSize="sm" fontWeight="bold" color="gray.300" >INFORMAÇÕES DO CLIENTE</Heading>
                             <Box><Text fontSize="sm" fontWeight="bold"  color="gray.300">NOME:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.name}</Text></Box>
@@ -134,6 +134,7 @@ export default function MensagensList({initialValues, session}) {
                         <Heading fontSize="sm" fontWeight="bold" color="gray.300">VEÍCULO A SER AVALIADO</Heading>
                             <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">MARCA:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.marca}</Text></Box>
                             <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">MODELO:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.modelo}</Text></Box>
+                            <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">VERSÃO:</Text>  <Text fontSize="sm" color="white" mb={2}>{message.versao}</Text></Box>
                             <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">ANO:</Text> <Text fontSize="sm" color="white" mb={2}>{message.ano}</Text></Box>
                             <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">PLACA:</Text> <Text fontSize="sm" color="white" mb={2}>{message.placa}</Text></Box>
                             <Box><Text fontSize="sm" fontWeight="bold" color="gray.300">QUILOMETRAGEM:</Text> <Text fontSize="sm" color="white" mb={2}>{message.quilometragem} Km</Text></Box>

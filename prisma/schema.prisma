@@ -70,5 +70,6 @@ model Avaliacao {
   ano String
   quilometragem String
   veiculo String
+  versao String
   data_de_criacao DateTime @default(now())
 }

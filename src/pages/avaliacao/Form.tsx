@@ -25,6 +25,8 @@ type CreateAvaliacaoFormData = {
     modelo: string;
     ano: string;
     quilometragem: string;
+    veiculo: string;
+    versao: string;
   }
 
 
@@ -42,7 +44,8 @@ type CreateAvaliacaoFormData = {
     modelo: yup.string().required('Modelo obrigatório'),
     ano: yup.string().required('Ano obrigatório'),
     quilometragem: yup.string().required('Informe a KM'),
-    veiculo: yup.string().required('Informe o veículo de interesse')
+    veiculo: yup.string().required('Informe o veículo de interesse'),
+    versao: yup.string().required('Informe o veículo de interesse')
   })
 
 
@@ -304,6 +307,7 @@ export default function FormAvaliacao({anuncios}) {
                             
                            </FormControl>
 
+
                            <FormControl isInvalid={!!errors.modelo}>
                             <FormLabel 
                             htmlFor="modelo"
@@ -333,6 +337,40 @@ export default function FormAvaliacao({anuncios}) {
                             {!!errors.modelo && (
                                     <FormErrorMessage>
                                     {errors.modelo.message}
+                                    </FormErrorMessage>
+                                 )}
+                            
+                           </FormControl>
+
+                           <FormControl isInvalid={!!errors.versao}>
+                            <FormLabel 
+                            htmlFor="versao"
+                            color="gray.50"
+                            >
+                                Versão
+                            </FormLabel>
+                            
+                            <ChakraInput
+                             {...register('versao')}
+                             color="gray.900"
+                            focusBorderColor="yellow.400"  
+                            variant="filled" 
+                            name="versao" 
+                            id="versao" 
+                            type="text" 
+                            size="lg"
+                            _focus={{
+                                background: 'gray.50'
+                            }}
+                            bg="gray.50"
+                            _hover={{
+                                background: 'gray.50'
+                            }}
+                            />
+                         
+                            {!!errors.versao && (
+                                    <FormErrorMessage>
+                                    {errors.versao.message}
                                     </FormErrorMessage>
                                  )}
                             
@@ -434,8 +472,7 @@ export default function FormAvaliacao({anuncios}) {
 
                
                     <HStack spacing="4" justify="flex-end" mt={10}>
-                        <Button fontSize="lg" size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize="25"/>} colorScheme="green">Enviar no WhatsApp</Button>
-                        <Button size="lg" fontSize="lg" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
+                        <Button size="lg" fontSize="xl" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
                     </HStack>
                
                 </Box>
