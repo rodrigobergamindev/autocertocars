@@ -10,14 +10,14 @@ export function SidebarNav() {
     return (
         <Stack flex="1" align="flex-start" justify="center" >
 
-            <VStack align="flex-start" width="100%" flex="1" p={20}>
+            <VStack align="flex-start" justify="center" width="100%" flex="1" p={20}>
                 <NavLink icon={RiHomeLine} href="/">Home</NavLink>
                 <NavLink icon={RiCarLine} href="/anuncios">Veículos</NavLink>
                 <NavLink icon={RiMessageLine} href="/dashboard">Dashboard</NavLink>
             </VStack>
         
 
-            <Stack direction="row" alignItems="center"  width="100%" >
+            <Stack p={5} direction="row" alignItems="center"  width="100%" >
             <a href="https://www.instagram.com/autocertocars/"rel="noreferrer" target="_blank">
                 <Icon 
                 fontSize="2xl" 

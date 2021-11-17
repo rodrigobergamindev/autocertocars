@@ -83,7 +83,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
 
                 <Heading  color="gray.50" borderRadius="10px"  fontFamily="Roboto, sans-serif" fontWeight="light"   fontSize="2xl" zIndex={2}>
                  
-                 VEÍCULOS
+                 PRINCIPAIS VEÍCULOS
                 </Heading>
                 
                 {!!anuncios && <Heading  p={2} px={4} borderRadius="4px" fontFamily="Roboto, sans-serif" color="yellow.400"  fontSize="lg" fontWeight="light">ATUALIZADO NO DIA <strong>{new Date(anuncios[anuncios.length-1].data_de_criacao).toLocaleDateString('pt-BR', {
