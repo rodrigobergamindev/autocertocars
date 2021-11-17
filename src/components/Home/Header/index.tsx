@@ -38,7 +38,7 @@ export default function Header({anuncios}) {
             justify="center"
             w="100%"
             mt="4rem"
-            height="90vh"
+            py={100}
             >
                
                 <video
@@ -46,8 +46,8 @@ export default function Header({anuncios}) {
                 muted 
                 loop
                 style={{
-                    minWidth:"100%",
-                    height:"90vh",
+                    height: "50rem",
+                    width:"100%",
                     filter: "brightness(20%)",
                     objectFit:"cover",
                     position: "absolute",
@@ -68,17 +68,17 @@ export default function Header({anuncios}) {
                 
                 >
                   
-                    <Logo size={600}/>
+                    <Logo size={500}/>
 
                     <VStack width="100%" background="white" borderRadius="10" spacing={0}>
                     <SearchBox filter={filterBySearch}/>
-                    <Box zIndex={333} as={Flex} flex="1" alignSelf="flex-start" px={10}>
-                        <List >
+                    <Box as={Flex} alignSelf="flex-start" px={10} transition="all 0.3s ease-in-out" maxHeight={anunciosToShow.length > 0 ? '750px' : '0'}>
+                        <List>
                             {anunciosToShow.map(anuncio => (
                                 <ListItem key={anuncio.id} cursor="pointer" my={3} >
                                     <Link href={`/anuncios/${anuncio.slug}`}>
                                     <HStack>
-                                        <Text fontWeight="bold" color="gray.900" transition="all 0.3s ease-in-out" _hover={{color:"gray.500"}} fontSize="lg">{`${anuncio.name} ${anuncio.versao} ${anuncio.potencia} ${anuncio.ano_fabricacao}`}</Text>
+                                        <Text fontWeight="bold" color="gray.900" transition="all 0.2s ease-in-out" _hover={{color:"yellow.400"}} fontSize="sm">{`${anuncio.name} ${anuncio.versao} ${anuncio.potencia} ${anuncio.ano_fabricacao}`}</Text>
                                     </HStack>
                                     </Link>
                                 </ListItem>

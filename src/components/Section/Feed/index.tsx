@@ -75,7 +75,7 @@ export default function Feed({feed}: Feed) {
             feed.map(post => {
                 
                 return (
-                <Box p={5} width="100%" key={post.id}>
+                <Box p={3} width="100%" key={post.id}>
                    <Post post={post}/>
                 </Box>
                 )

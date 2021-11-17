@@ -8,8 +8,9 @@ export function SidebarNav() {
 
 
     return (
-        <Stack flex="1" align="flex-start" justify="center"  py={40} px={190}>
-            <VStack justifySelf="center" flex="1" >
+        <Stack flex="1" align="flex-start" justify="center" >
+
+            <VStack align="flex-start" width="100%" flex="1" p={20}>
                 <NavLink icon={RiHomeLine} href="/">Home</NavLink>
                 <NavLink icon={RiCarLine} href="/anuncios">Veículos</NavLink>
                 <NavLink icon={RiMessageLine} href="/dashboard">Dashboard</NavLink>
