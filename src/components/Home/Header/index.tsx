@@ -72,7 +72,7 @@ export default function Header({anuncios}) {
 
                     <VStack width="100%" background="white" borderRadius="10" spacing={0}>
                     <SearchBox filter={filterBySearch}/>
-                    <Box as={Flex} alignSelf="flex-start" px={10} transition="all 0.3s ease-in-out" maxHeight={anunciosToShow.length > 0 ? '750px' : '0'}>
+                    <Box as={Flex} alignSelf="flex-start" px={10} transition="all 0.5s ease-in-out" transformOrigin="top" transform={anunciosToShow.length !== 0 ? "scaleY(1)" : "scaleY(0)"}>
                         <List>
                             {anunciosToShow.map(anuncio => (
                                 <ListItem key={anuncio.id} cursor="pointer" my={3} >
