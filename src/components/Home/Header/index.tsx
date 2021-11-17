@@ -70,10 +70,10 @@ export default function Header({anuncios}) {
                   
                     <Logo size={500}/>
 
-                    <VStack width="100%" background="white" borderRadius="10" spacing={0}>
+                    <VStack width="100%" borderRadius="10" background="white" spacing={0}>
                     <SearchBox filter={filterBySearch}/>
-                    <Box as={Flex} alignSelf="flex-start" px={10} transition="all 0.5s ease-in-out" transformOrigin="top" transform={anunciosToShow.length !== 0 ? "scaleY(1)" : "scaleY(0)"}>
-                        <List>
+                    <Box as={Flex} alignSelf="flex-start" px={10}>
+                        <List transition="all 0.5s ease-in-out" transformOrigin="top" transform={anunciosToShow.length !== 0 ? "scaleY(1)" : "scaleY(0)"}>
                             {anunciosToShow.map(anuncio => (
                                 <ListItem key={anuncio.id} cursor="pointer" my={3} >
                                     <Link href={`/anuncios/${anuncio.slug}`}>
