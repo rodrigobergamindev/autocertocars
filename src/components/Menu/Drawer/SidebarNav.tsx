@@ -14,7 +14,7 @@ export function SidebarNav() {
     return (
         <Stack flex="1" align="flex-start" justify="center" >
             
-            <VStack align={["center","flex-start"]} justify="center" width="100%" flex="1" p={[10,20]}>
+            <VStack align={["center","flex-start"]} justify="center" width="100%" flex="1" p={[2,20]}>
             {!isWideVersion && <Heading letterSpacing={4} mb={5} color="gray.500" fontSize="sm">MENU</Heading>}
                 <NavLink icon={RiHomeLine} href="/">Home</NavLink>
                 <NavLink icon={RiCarLine} href="/anuncios">Veículos</NavLink>
