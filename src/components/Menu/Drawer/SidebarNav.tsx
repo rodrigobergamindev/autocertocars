@@ -15,7 +15,7 @@ export function SidebarNav() {
         <Stack flex="1" align="flex-start" justify="center" >
             
             <VStack align={["center","flex-start"]} justify="center" width="100%" flex="1" p={[10,20]}>
-            {!isWideVersion && <Heading letterSpacing={4}  color="gray.500" fontSize="sm">MENU</Heading>}
+            {!isWideVersion && <Heading letterSpacing={4} mb={5} color="gray.500" fontSize="sm">MENU</Heading>}
                 <NavLink icon={RiHomeLine} href="/">Home</NavLink>
                 <NavLink icon={RiCarLine} href="/anuncios">Veículos</NavLink>
                 <NavLink icon={RiMessageLine} href="/dashboard">Dashboard</NavLink>
@@ -68,7 +68,7 @@ export function SidebarNav() {
 
             {!isWideVersion && <Stack p={5} direction="column" alignItems="center"  width="100%" >
             
-            <HStack >
+            <HStack mb={5}>
             <a href="https://www.instagram.com/autocertocars/"rel="noreferrer" target="_blank">
                 <Icon 
                 fontSize="2xl" 
