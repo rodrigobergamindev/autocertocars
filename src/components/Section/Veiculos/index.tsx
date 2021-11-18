@@ -1,11 +1,11 @@
-import { Icon, Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, HStack,VStack, Heading, StackDivider} from '@chakra-ui/react'
+import { Icon, Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, HStack,VStack, Heading, StackDivider, useBreakpointValue} from '@chakra-ui/react'
 
 import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
-import {useRouter} from 'next/router'
+
 import Slider from "react-slick";
 import { RiCarFill } from 'react-icons/ri'
 
@@ -42,19 +42,23 @@ interface AnuncioProps {
 
 export default function VehicleSection({anuncios}: AnuncioProps) {
 
-    const {asPath} = useRouter()
+    const isWideVersion = useBreakpointValue ({
+        base: false,
+        lg: true
+    })
 
+    
     if(!anuncios) return null
 
     const settings = {
         infinite: true,
-        slidesToShow: 3,
+        slidesToShow: !!isWideVersion? 3 : 1,
         slidesToScroll: 1,
         autoplay: true,
         speed: 500,
         autoplaySpeed: 1500,
         cssEase: "ease",
-        arrows: true,
+        arrows: !!isWideVersion && true,
         nextArrow: <Icon as={MdKeyboardArrowRight} fontSize="40" color="gray.500" _hover={{color:'gray.500'}}/>,
         prevArrow: <Icon as={MdKeyboardArrowLeft} fontSize="40" color="gray.500"  _hover={{color:'gray.500'}}/>
     }
@@ -66,27 +70,27 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
             align="center" 
             justify="center"
             w="100%"
-            py={20}
+            py={[20,20]}
             flexDirection="column"
             backgroundColor="gray.50"
-            px={20}
+            px={[5,20]}
             >
             
             <Box as={Flex} justify="center"  width="100%" maxWidth="1400px">
             
                 <HStack  px={4} py={3} borderRadius="5px" width="100%" spacing="2" align="center" justify="space-between" bgColor="gray.900" backgroundImage="/img/bg-title.png"
-            backgroundAttachment="scroll"
-            backgroundRepeat="no-repeat"
-            backgroundSize="contain"
-            backgroundPosition="right">
+                    backgroundAttachment="scroll"
+                    backgroundRepeat="no-repeat"
+                    backgroundSize="contain"
+                    backgroundPosition="right">
                 
 
-                <Heading  color="gray.50" borderRadius="10px"  fontFamily="Roboto, sans-serif" fontWeight="light"   fontSize="2xl" zIndex={2}>
+                <Heading  color="gray.50" borderRadius="10px"  fontFamily="Roboto, sans-serif" fontWeight="light"   fontSize={["sm","2xl"]} zIndex={2}>
                  
                  PRINCIPAIS VEÍCULOS
                 </Heading>
                 
-                {!!anuncios && <Heading  p={2} px={4} borderRadius="4px" fontFamily="Roboto, sans-serif" color="yellow.400"  fontSize="lg" fontWeight="light">ATUALIZADO NO DIA <strong>{new Date(anuncios[anuncios.length-1].data_de_criacao).toLocaleDateString('pt-BR', {
+                {!!anuncios && <Heading  p={2} px={4} borderRadius="4px" fontFamily="Roboto, sans-serif" color="yellow.400"  fontSize={["sm","lg"]} fontWeight="light">ATUALIZADO NO DIA <strong>{new Date(anuncios[anuncios.length-1].data_de_criacao).toLocaleDateString('pt-BR', {
                                      day: '2-digit',
                                         month: 'long',
                                         year: 'numeric'
@@ -98,7 +102,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                 
             </Box>
          
-               <Box px={6}  maxWidth="1480px" width="100%">
+               <Box px={[0,6]}  maxWidth="1480px" width="100%">
 
 
                 <Slider {...settings}>
@@ -106,19 +110,19 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                 {anuncios.map(anuncio => (
                          
                          <Link key={anuncio.id} href={`/anuncios/${anuncio.slug}`}>
-                        <Box p={4} key={anuncio.id}>
+                        <Box p={[0,4]} key={anuncio.id}>
                          <Stack 
                         position="relative"
                         borderRadius="5px"
                          
                          spacing={0} 
-                         height="450px" 
+                         height={["350px","450px"]}
                          overflow="hidden" 
                          cursor="pointer"
                          transition="all 0.3s ease-in-out"
                         direction="column"  
                         justify="flex-end"
-                        boxShadow="0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"
+                        boxShadow={["none","0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"]}
                          >
 
                             <ChakraImage

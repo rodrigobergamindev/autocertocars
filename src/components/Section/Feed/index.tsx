@@ -1,4 +1,4 @@
-import { HStack, VStack, Icon, Grid, Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, Heading, StackDivider} from '@chakra-ui/react'
+import { HStack, VStack, Icon, Grid, Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, Heading, StackDivider, useBreakpointValue} from '@chakra-ui/react'
 
 import Image from 'next/image'
 import {RiInstagramLine} from 'react-icons/ri'
@@ -24,24 +24,32 @@ export default function Feed({feed}: Feed) {
 
     const[winReady, setwinReady] = useState(false)
 
+    const isWideVersion = useBreakpointValue ({
+        base: false,
+        lg: true
+    })
+
     const settings = {
         infinite: true,
-        slidesToShow: 4,
+        slidesToShow: !!isWideVersion? 4 : 1,
         slidesToScroll: 1,
         autoplay: true,
         speed: 500,
         autoplaySpeed: 1500,
         cssEase: "ease",
-        arrows: true,
+        arrows: !!isWideVersion && true,
         nextArrow: <Icon as={MdKeyboardArrowRight} fontSize="40" color="gray.500" _hover={{color:'gray.500'}}/>,
         prevArrow: <Icon as={MdKeyboardArrowLeft} fontSize="40" color="gray.500"  _hover={{color:'gray.500'}}/>
     }
+
       
 
     useEffect(() => { 
         setwinReady(true)
     }, [])
 
+
+    if(!feed) return null
    
     return (
         <Stack 
@@ -49,7 +57,7 @@ export default function Feed({feed}: Feed) {
             align="center" 
             justify="center"
             w="100%"
-            p={20}
+            p={[5,20]}
             flexDirection="column"
             backgroundColor="gray.50"
             >
@@ -57,15 +65,15 @@ export default function Feed({feed}: Feed) {
             
            {!!winReady &&  <Stack  maxWidth="1480px" width="100%" flex="1" direction="column" spacing="15">
 
-        <Grid borderRadius="5px" gap={10} templateColumns="repeat(2,1fr)" width="100%"  bg="gray.900" p={10}>
+        <Grid borderRadius="5px" gap={10} templateColumns={["repeat(1,1fr)","repeat(2, 1fr)"]} width="100%"  bg="gray.900" p={10}>
             <VStack spacing="7">
-        <Heading alignSelf="flex-start" fontSize="4xl" fontWeight="normal">Conheça o nosso <strong>Instagram</strong></Heading>
+        <Heading alignSelf="flex-start" fontSize={["2xl","4xl"]} fontWeight="normal">Conheça o nosso <strong>Instagram</strong></Heading>
         
-            <Text alignSelf="flex-start" fontSize="2xl" >Fique sempre por dentro das nossas novidades em primeira mão!</Text>
+            <Text alignSelf="flex-start" fontSize={["lg","2xl"]} >Fique sempre por dentro das nossas novidades em primeira mão!</Text>
         </VStack>
 
         <Flex align="center" justify="center">
-            <a href="https://www.instagram.com/autocertocars/" target="_blank" rel="noreferrer"><Button leftIcon={<Icon as={RiInstagramLine} fontSize="40"/>}  p={10} size="lg" fontSize="2xl" fontWeight="black" color="gray.900" backgroundColor="gray.50">@autocertocars</Button></a>
+            <a href="https://www.instagram.com/autocertocars/" target="_blank" rel="noreferrer"><Button leftIcon={<Icon as={RiInstagramLine} fontSize={["30","40"]}/>}  p={[5,10]} size="lg" fontSize="2xl" fontWeight="black" color="gray.900" backgroundColor="gray.50">@autocertocars</Button></a>
         </Flex>
         </Grid>
 

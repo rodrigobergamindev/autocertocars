@@ -37,7 +37,7 @@ export default function Header({anuncios}) {
             align="center" 
             justify="center"
             w="100%"
-            mt="4rem"
+            mt={["3.5rem","4.5rem"]}
             py={100}
             >
                
@@ -65,7 +65,7 @@ export default function Header({anuncios}) {
                 justify="center"
                 align="center"
                 spacing={20}
-                
+                p={["6","0"]}
                 >
                   
                     <Logo size={500}/>
@@ -92,7 +92,7 @@ export default function Header({anuncios}) {
                     spacing="5"
                     >
                     <Link href="/anuncios" passHref>
-                    <Button colorScheme="yellow" height={50} w={250} fontSize="lg" size="lg" p={3} borderRadius="10px">VER ESTOQUE</Button>
+                    <Button colorScheme="yellow" height={50} w={250} fontSize={["md","lg"]} p={3} borderRadius="10px">VER ESTOQUE</Button>
                     </Link>
                     </Stack>
                 </Stack>

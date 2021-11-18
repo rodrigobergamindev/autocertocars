@@ -1,4 +1,4 @@
-import {Divider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage} from '@chakra-ui/react'
+import {Divider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage, useBreakpointValue} from '@chakra-ui/react'
 
 
 
@@ -26,7 +26,10 @@ export default function Avaliacao({anuncios}) {
     
     const {asPath} = useRouter()
     
-
+    const isWideVersion = useBreakpointValue ({
+      base: false,
+      lg: true
+    })
 
       
     return (
@@ -45,8 +48,7 @@ export default function Avaliacao({anuncios}) {
             height="25rem"
             position="relative"
             direction="column"
-            mt="4.5rem"
-            
+            mt={["3.5rem","4.5rem"]}
             >
             
             <ChakraImage
@@ -65,7 +67,8 @@ export default function Avaliacao({anuncios}) {
                      />
 
             <Box zIndex={333}>
-                <Logo size={450}/>
+                {!!isWideVersion && <Logo size={450}/>}
+                {!isWideVersion && <Logo size={300}/>}
             </Box>
 
             </Flex>

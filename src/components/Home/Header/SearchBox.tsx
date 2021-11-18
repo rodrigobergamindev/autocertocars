@@ -23,7 +23,7 @@ export default function SearchBox ({filter}) {
         alignSelf="center"
         color="gray.700"
         bg="white"
-        borderRadius="full"
+        borderRadius="10px"
         zIndex={333}
         >
 

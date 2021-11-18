@@ -1,4 +1,4 @@
-import { Icon, Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput, FormLabel, FormControl, FormErrorMessage} from "@chakra-ui/react";
+import { Icon, Box, Flex, VStack, Heading, SimpleGrid, Divider, HStack, Button, Textarea, Text, Input as ChakraInput, FormLabel, FormControl, FormErrorMessage, useBreakpointValue} from "@chakra-ui/react";
 import {Input} from '../../Form/Input'
 
 import Link from 'next/link'
@@ -43,6 +43,11 @@ type CreateMessageFormData = {
 
 
 export default function CreateMessage() {
+
+    const isWideVersion = useBreakpointValue ({
+        base: false,
+        lg: true
+    })
 
    
     const {register,handleSubmit, formState} = useForm({
@@ -93,27 +98,30 @@ export default function CreateMessage() {
                 as="form"
                 flex="1" 
                 borderRadius={8} 
-                bg="gray.800" p={["6","8"]}
+                bg="gray.800" 
+                p={["6","8"]}
                 onSubmit={handleSubmit(handleCreateMessage)}
+               
                 >
 
-                <Heading size="lg" fontWeight="normal">Enviar Mensagem</Heading>
+                <Heading fontSize={["lg","2xl"]} fontWeight="normal">Enviar Mensagem</Heading>
 
                 <Divider my="6" borderColor="gray.700"/>
 
 
                 <VStack spacing="8">
-                <Heading size="sm" fontWeight="bold" color="gray.300" alignSelf="flex-start">DADOS DE CONTATO</Heading>
+                <Heading fontSize={["sm","md"]} fontWeight="bold" color="gray.300" alignSelf="flex-start">DADOS DE CONTATO</Heading>
                     <SimpleGrid minChildWidth="300px" spacing={["6","8"]} width="100%">
                         
                         <Input name="name" label="Nome"  error={errors.name} {...register('name')}/>
+                        
                         <SimpleGrid minChildWidth="140px" spacing={["6","8"]} width="100%">
                         <Input name="whatsapp" label="Whatsapp" error={errors.whatsapp} {...register('whatsapp')}/>
         
                         
                         </SimpleGrid>
 
-                        <SimpleGrid minChildWidth="140px" spacing={["6","8"]} width="100%">
+                        <SimpleGrid minChildWidth={["240px","140px"]} spacing={["6","8"]} width="100%">
                         <Input name="email" label="E-mail" error={errors.email} {...register('email')}/>
 
                         <Box>
@@ -153,7 +161,7 @@ export default function CreateMessage() {
                         
                         </SimpleGrid>
 
-                        <SimpleGrid minChildWidth="140px" spacing={["6","8"]} width="100%">
+                        <SimpleGrid minChildWidth={["240px","140px"]} spacing={["6","8"]} width="100%">
                             <Input name="veiculo" label="Veículo" error={errors.veiculo} {...register('veiculo')}/>
                             <Input name="ano" label="Ano" error={errors.ano} {...register('ano')}/>
                             <Input name="versao" label="Versão" error={errors.versao} {...register('versao')}/>
@@ -164,10 +172,13 @@ export default function CreateMessage() {
                 
                 </VStack>
 
-                <Flex mt="8" justify="flex-end">
+                <Flex mt={["5","8"]} justify="flex-end">
                     <HStack spacing="4">
-                    <a href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1!%20Eu%20gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o%20para%20venda%20do%20meu%20ve%C3%ADculo." target="_blank" rel="noreferrer"><Button fontSize="xl" size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize="30"/>} colorScheme="green">Chame no WhatsApp</Button></a>
-                        <Button size="lg" fontSize="xl" type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
+                        <a href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1!%20Eu%20gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o%20para%20venda%20do%20meu%20ve%C3%ADculo." target="_blank" rel="noreferrer">
+                            {!!isWideVersion && <Button fontSize={["sm","xl"]} size="lg" leftIcon={<Icon as={RiWhatsappLine} fontSize={["15","30"]}/>} colorScheme="green">Chame no WhatsApp</Button>}
+                            
+                            </a>
+                        <Button size="lg" fontSize={["md","xl"]} type="submit" colorScheme="blue" isLoading={formState.isSubmitting}>Enviar</Button>
                     </HStack>
                 </Flex>
                 </Box>

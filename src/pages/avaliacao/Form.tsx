@@ -107,7 +107,7 @@ export default function FormAvaliacao({anuncios}) {
                 as="form"
                 flex="1" 
                 bg="gray.900"
-                p={8}
+                p={[5,8]}
                 
                 onSubmit={handleSubmit(handleCreateAvaliacao)}
                 width="100%"
@@ -124,7 +124,7 @@ export default function FormAvaliacao({anuncios}) {
                 <VStack align="flex-start" width="100%" flex="1">
                 
                 <VStack mb={5} width="100%" flex="1" align="center">
-                <Heading size="xl" fontFamily="Roboto, sans-serif" fontWeight="bold" color="gray.50">AVALIAÇÃO VEICULAR</Heading>
+                <Heading fontSize={["2xl","4xl"]} fontFamily="Roboto, sans-serif" fontWeight="bold" color="gray.50">AVALIAÇÃO VEICULAR</Heading>
 
                 <Divider my="3" borderColor="gray.500"/>
                 <Heading size="sm" color="gray.500"  pb={5} alignSelf="flex-start">INFORMAÇÕES PESSOAIS</Heading>

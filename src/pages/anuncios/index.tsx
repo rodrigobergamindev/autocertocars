@@ -1,4 +1,4 @@
-import { Checkbox, Divider, StackDivider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage} from '@chakra-ui/react'
+import { Checkbox, Divider, StackDivider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage, useBreakpointValue} from '@chakra-ui/react'
 
 
 
@@ -27,6 +27,11 @@ export default function Anuncios({anuncios}) {
 
     const MotionGrid = motion(Grid)
     const MotionBox = motion(Stack)
+
+    const isWideVersion = useBreakpointValue ({
+        base: false,
+        lg: true
+      })
 
     const container = {
         hidden: { opacity: 1, scale: 0 },
@@ -146,7 +151,7 @@ export default function Anuncios({anuncios}) {
            
             position="relative"
             direction="column"
-            mt="4.5rem"
+            mt={["3.5rem","4.5rem"]}
             >
             
                 
@@ -165,22 +170,16 @@ export default function Anuncios({anuncios}) {
                      zIndex={-1}
                      />
 
-            <VStack spacing={10} justify="center" height="100%">
-            <Box zIndex={333}>
-                <Logo size={450}/>
-            </Box>
+            <VStack  justify="center" height="100%">
+                <Box zIndex={333}>
+                    <Logo size={!!isWideVersion ? 450 : 300}/>
+                </Box>
 
-            
-            
-
-          
-            
-           
             </VStack>
 
-            <HStack px={6} justify="center" width="100%" py={10}>
+            <HStack px={6} justify="center" width="100%" py={["2rem",10]}>
               
-            <Heading fontWeight="light" fontSize="5xl" color="gray.200" p={3}>ESTOQUE</Heading>
+                <Heading fontWeight="light" fontSize={["3xl","5xl"]} color="gray.200" p={3}>ESTOQUE</Heading>
    
             </HStack>
 
@@ -194,7 +193,7 @@ export default function Anuncios({anuncios}) {
         
 
 
-            <HStack px={4} py={3} borderLeft="10px solid" borderLeftColor="yellow.400" bg="gray.100"  width="100%" maxWidth="1400px"  justify="flex-start" align="center" spacing={10} mb={20}>
+            {!!isWideVersion && <HStack px={4} py={3} borderLeft="10px solid" borderLeftColor="yellow.400" bg="gray.100"  width="100%" maxWidth="1400px"  justify="flex-start" align="center" spacing={10} mb={20}>
             <HStack align="center" color="gray.900" >
                 <Text fontSize="lg">Filtrar por:</Text>
 
@@ -209,8 +208,29 @@ export default function Anuncios({anuncios}) {
             <SearchBox filter={filterBySearch} />
 
             <Text fontSize="2xl" color="gray.900" justifySelf="flex-end"><strong style={{color:"#D69E2E"}}>{anunciosToShow.length}</strong> veículos disponíveis</Text>
-            </HStack>
-            <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns="repeat(4,1fr)" width="100%" height="100%" maxWidth="1400px" gap={7}>
+            </HStack>}
+
+
+            {!isWideVersion && 
+            <VStack spacing={30}  mb={20}>
+                <SearchBox filter={filterBySearch} />
+                <HStack p={4} align="center" color="gray.900" borderLeft="10px solid" borderLeftColor="yellow.400" bg="gray.100"  width="100%" maxWidth="1400px"  justify="flex-start" >
+                <Text fontSize="md">Filtrar por:</Text>
+
+                <Checkbox size="md" colorScheme="yellow" value="Novos" onChange={(e) => filterByCheckBox(e.target)}>
+                    Novos
+                </Checkbox>
+
+                <Checkbox size="md" colorScheme="yellow" value="Seminovos" onChange={(e) => filterByCheckBox(e.target)}>
+                    Seminovos
+                </Checkbox>
+                    </HStack>
+
+            </VStack>
+            }
+
+
+            <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns={["repeat(1,1fr)","repeat(4,1fr)"]} width="100%" height="100%" maxWidth="1400px" gap={7}>
 
             {anunciosToShow.map(anuncio => (
                 <Link href={`/anuncios/${anuncio.slug}`} key={anuncio.id}>
@@ -219,7 +239,7 @@ export default function Anuncios({anuncios}) {
                 variants={item} 
                 position="relative" 
                 spacing={0} 
-                height="400px" 
+                height={["300px","400px" ]}
                 alignItems="center" 
                 justifyContent="flex-end" 
                 overflow="hidden" 

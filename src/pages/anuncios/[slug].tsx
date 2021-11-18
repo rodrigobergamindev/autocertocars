@@ -1,4 +1,4 @@
-import { Divider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage} from '@chakra-ui/react'
+import { Divider, Button, Grid, List, ListItem, HStack, VStack, Heading, Stack, Box, Flex,Text, Icon, IconButton, Image as ChakraImage, useBreakpointValue} from '@chakra-ui/react'
 
 
 import {IoMdCloseCircle, IoMdShareAlt} from 'react-icons/io'
@@ -26,6 +26,11 @@ import {useRouter} from 'next/router'
 
 export default function Anuncio({anuncio, anuncios}) {
 
+    const isWideVersion = useBreakpointValue ({
+        base: false,
+        lg: true
+    })
+
 
     if(!anuncio) return null
     
@@ -34,13 +39,13 @@ export default function Anuncio({anuncio, anuncios}) {
 
     const settings = {
         infinite: true,
-        slidesToShow: 3,
+        slidesToShow: !!isWideVersion ? 3 : 1,
         slidesToScroll: 1,
         autoplay: true,
         speed: 500,
         autoplaySpeed: 1500,
         cssEase: "ease",
-        arrows: true,
+        arrows: !!isWideVersion && true,
         nextArrow: <Icon as={MdKeyboardArrowRight} fontSize="40" color="gray.500" _hover={{color:'gray.500'}}/>,
         prevArrow: <Icon as={MdKeyboardArrowLeft} fontSize="40" color="gray.500"  _hover={{color:'gray.500'}}/>
     }
@@ -56,16 +61,16 @@ export default function Anuncio({anuncio, anuncios}) {
             align="center" 
             justify="center"
             width="100%"
-            mt="4.5rem"
+            mt={["3.5rem","4.5rem"]}
             bg="gray.50"
             >
-            <Box px={5} width="99%" height="100%">
+            <Box px={[0,5]} width="99%" height="100%">
 
            <Slider {...settings}>
 
             {anuncio.image.map(image => (
                 <a key={image} href={image} target="_blank" rel="noreferrer">
-                <Box px={3}>
+                <Box px={[0,3]}>
                 <Stack
                
                 position="relative"
@@ -110,9 +115,9 @@ export default function Anuncio({anuncio, anuncios}) {
           
             
 
-            <Box flex="1" as={Flex} direction="column" width="100%" backgroundColor="gray.50" alignItems="center" justifyContent="center" p={25}>
+            <Box flex="1" as={Flex} direction="column" width="100%" backgroundColor="gray.50" alignItems="center" justifyContent="center" p={[2,25]}>
                 
-            <VStack maxWidth="1280px" width="100%" border="solid" spacing={20}  mt={15} mb={15}>
+            {!!isWideVersion && <VStack maxWidth="1280px" width="100%" border="solid" spacing={20}  mt={15} mb={15}>
                     <Heading as="i" mx="auto" color="gray.900" fontSize="6xl">{anuncio.name.toUpperCase() + ' ' + anuncio.versao.toUpperCase()}</Heading>
         
                     <Grid templateColumns="repeat(5,1fr)" gap={10}>
@@ -142,26 +147,26 @@ export default function Anuncio({anuncio, anuncios}) {
                         </Box>
                     </Grid>
 
-                </VStack>
+                </VStack>}
                 
 
 
                 <Box  as={Flex} direction="column" maxWidth="1280px" width="100%">
                     
                     
-                    <Grid templateColumns="repeat(2,1fr)" gap={16} my={9}>
+                    <Grid templateColumns={["repeat(1,1fr)","repeat(2,1fr)"]} gap={16} my={9}>
                     
                     <VStack height="100%">
 
                     
                         <VStack width="100%" bg="white" p={6} borderRadius="5" boxShadow="0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)" height="100%">
                         <VStack align="flex-start" width="100%" >
-                            <Heading color="gray.900" fontSize="3xl" fontWeight="black" fontFamily="Roboto, sans-serif">{`${anuncio.name.toUpperCase()}`}</Heading>
+                            <Heading color="gray.900" fontSize={["2xl","3xl"]} fontWeight="black" fontFamily="Roboto, sans-serif">{`${anuncio.name.toUpperCase()}`}</Heading>
                             <HStack width="100%" justify="space-between">
-                                <Heading color="gray.500" fontSize="xl" fontFamily="Roboto, sans-serif">{`${anuncio.versao} ${anuncio.potencia} ${anuncio.combustivel} ${anuncio.numero_portas}P ${anuncio.transmissao}`}</Heading>
+                                <Heading color="gray.500" fontSize={["md","xl"]} fontFamily="Roboto, sans-serif">{`${anuncio.versao} ${anuncio.potencia} ${anuncio.combustivel} ${anuncio.numero_portas}P ${anuncio.transmissao}`}</Heading>
 
                                 <HStack>
-                                    <Text color="gray.900">Compartilhe</Text>
+                                    {!!isWideVersion && <Text color="gray.900">Compartilhe</Text>}
                                     <Share url={`https://autocertocars.vercel.app${asPath}`}/>
                                 </HStack>
                                 
@@ -174,7 +179,7 @@ export default function Anuncio({anuncio, anuncios}) {
                         <VStack py={5} spacing={7} width="100%">
                         <Heading color="gray.500" fontSize="md" fontFamily="Roboto, sans-serif" alignSelf="flex-start">INFORMAÇÕES</Heading>
                         <List flex="1" width="100%" alignSelf="flex-start" >
-                            <Grid templateColumns="repeat(4,1fr)" width="100%">
+                            <Grid templateColumns={["repeat(2,1fr)","repeat(4,1fr)"]} width="100%" gap={[2,0]} pb={[5,0]}>
                                 <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">MARCA</Text> {anuncio.marca_name}</Text></ListItem>
                                 <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">MODELO</Text>  {anuncio.modelo}</Text></ListItem>
                                 <ListItem  width="100%" ><Text fontSize="md" fontWeight="bold" color="gray.900"><Text fontSize="sm" fontWeight="normal" color="gray.500">VERSÃO</Text>  {anuncio.versao}</Text></ListItem>
@@ -223,7 +228,7 @@ export default function Anuncio({anuncio, anuncios}) {
 
                     <VStack height="100%" spacing={10}>
                     <Box p={5} bg="white"  width="100%" borderRadius="5px" boxShadow="0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)">
-                        <Heading borderBottom="1px solid" borderColor="yellow.400" py={1} fontSize="2xl" fontWeight="normal" fontFamily="Roboto, sans-serif" color="gray.900">INCLUA SEU CARRO NA TROCA</Heading>
+                        <Heading borderBottom="1px solid" borderColor="yellow.400" py={1} fontSize={["xl","2xl"]} fontWeight="normal" fontFamily="Roboto, sans-serif" color="gray.900">INCLUA SEU CARRO NA TROCA</Heading>
                         <Link href="/avaliacao">
                         <Text bg="yellow.400" color="gray.900" align="center" p={2} mt={5} fontSize="lg" fontWeight="bold" transition="all 0.3s ease-in-out" cursor="pointer" _hover={{filter:"brightness(0.85)"}}>Fazer uma avaliação</Text>
                         </Link>

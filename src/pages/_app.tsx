@@ -58,15 +58,15 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Icon as={RiWhatsappFill}
         position="fixed"
         bottom={7}
-        right={10}
-        fontSize="7xl"
+        right={[3,10]}
+        fontSize={["5xl","7xl"]}
         cursor= "pointer"
         transition= "all 0.3s ease-out"
         color="gray.50"
         backgroundColor="#38A169"
-        borderRadius="20px"
+        borderRadius={["10px","20px"]}
         boxShadow="0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"
-        p={3}
+        p={[2,3]}
         zIndex={999999}
         _hover={{
           transform: "translateY(-10%)"

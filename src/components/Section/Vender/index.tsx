@@ -1,9 +1,14 @@
-import { HStack, VStack, Grid, Box, Image as ChakraImage, Stack, Heading} from '@chakra-ui/react'
+import { HStack, VStack, Grid, Box, Image as ChakraImage, Stack, Heading, useBreakpointValue} from '@chakra-ui/react'
 
 import Image from 'next/image'
 import Form from './Form'
 
 export default function Vender() {
+
+    const isWideVersion = useBreakpointValue ({
+        base: false,
+        lg: true
+    })
 
     return (
         <Stack 
@@ -21,40 +26,41 @@ export default function Vender() {
             <VStack bg="gray.900"  width="100%" flex="1"  alignSelf="center">
                 
                 <VStack maxWidth="1000px" width="100%">
-                <Heading as="i" fontWeight="light" alignSelf="flex-start" letterSpacing={6} fontSize="6xl"  color="gray.50">
+                <Heading as="i" fontWeight="light" alignSelf={["center","flex-start"]} mt={["5rem","0"]} letterSpacing={6} fontSize={["3xl","6xl"]}  color="gray.50">
                     QUER TROCAR
                 </Heading>
-                <Heading as="i" letterSpacing={4}  color="yellow.400" alignSelf="center" fontSize="8xl" fontWeight="black">SEU CARRO?</Heading>
+                <Heading as="i" letterSpacing={4}  color="yellow.400" alignSelf="center" fontSize={["5xl","8xl"]} fontWeight="black">SEU CARRO?</Heading>
                 </VStack>
             </VStack>
 
             <HStack flex="1" width="100%" bg="gray.900" align="center" justify="center">
-            <Grid  mt={20} templateColumns="repeat(2,1fr)" flex="1" width="100%" maxWidth="1400px">
+            <Grid  mt={["2rem",20]} templateColumns={["repeat(1,1fr)","repeat(2, 1fr)"]} flex="1" width="100%" maxWidth="1400px">
                 
                
                 <Box
                 as={VStack}
                 width="100%"
-                height={650}
+                height={["100%",650]}
                 position="relative"
-                p={6}
+                p={[3,6]}
                 alignSelf="center"
+                
                 >
-                    <Heading fontWeight="light" fontSize="3xl">
+                    <Heading fontWeight="light" fontSize={["xl","3xl"]}>
                 Aqui você realiza seu <strong style={{color:"#ECC94B"}}>sonho</strong> de carro novo com a <strong style={{color:"#ECC94B"}}>facilidade</strong> de pagamento e com a melhor avaliação do mercado!
                 </Heading>
-                <ChakraImage
+                {!!isWideVersion && <ChakraImage
                 as={Image}
                 layout="fill"
                 src="/img/vender.png"
                 objectFit="contain"
                 priority
-                />
+                />}
                 </Box>
                 
-                <Box p={6}>
+                <Box width="100%" mt={["2rem",0]} p={[2,6]}>
                     <Form/>
-                </Box>
+                </Box>  
             </Grid>
             </HStack>
             </Stack>

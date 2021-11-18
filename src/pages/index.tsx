@@ -28,7 +28,7 @@ export default function Home({anuncios, feed}) {
             <VehicleSection anuncios={anuncios}/>
             <About/>
             <Feed feed={feed}/>
-            <Vender/>
+           <Vender/>
             
         </Box>
        
