@@ -7,18 +7,24 @@ import { SiTelegram } from 'react-icons/si'
 import Logo from '../Header/Logo'
 import Link from 'next/link'
 
+import {IoIosNavigate} from 'react-icons/io'
 
 export default function Footer() {
+
 
     const isWideVersion = useBreakpointValue ({
         base: false,
         lg: true
     })
 
+
     return (
         <>
-                    
-            <Link href="https://ul.waze.com/ul?place=ChIJQZ6RW19hzpQR-JEo6pwBfnw&ll=-23.51520590%2C-46.45910690&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location">
+            <a href="https://g.page/autocertomultimarcas?share" target="_blank" rel="noreferrer">    
+           <HStack p={2} align="center" cursor="pointer" justify="center" bg="blackAlpha.400" transition="all 0.3s ease-in-out">
+               <Heading size="md">Clique aqui para navegar</Heading>
+               <Icon as={IoIosNavigate} color="white" fontSize="2xl" transition="all 0.3s ease-in-out" _hover={{transform:"rotateZ(-45deg)"}}></Icon>
+            </HStack>
             
             <Box
             as="iframe"
@@ -26,9 +32,8 @@ export default function Footer() {
             height="400px"
             width="100%"
             flex="1"
-           
             />
-            </Link>
+           </a>  
         <Stack 
             align="center" 
             justify="space-between"

@@ -32,10 +32,10 @@ export default function SignIn() {
         {asPath === URL_ERROR && (
           <Text fontSize="sm" align="center" mb="4">Acesso negado, credenciais incorretas</Text>
         )}
-       <Button colorScheme="yellow" size="lg" onClick={(): Promise<void> => signIn('google', { callbackUrl: 'https://autocertocars.vercel.app/dashboard/' })}> Login </Button>
+       <Button colorScheme="yellow" size="lg" onClick={(): Promise<void> => signIn('google', { callbackUrl: 'https://www.autocertocars.com.br/dashboard/' })}> Login </Button>
        {!!session && (
          <Box flex="1" p="6">  
-          <Button colorScheme="yellow" size="lg" onClick={() => signOut({ callbackUrl: 'https://autocertocars.vercel.app/' })}> Sair </Button>
+          <Button colorScheme="yellow" size="lg" onClick={() => signOut({ callbackUrl: 'https://www.autocertocars.com.br/' })}> Sair </Button>
          </Box>
     )}
       </Flex>
