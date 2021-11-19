@@ -124,7 +124,7 @@ export default function About() {
                    
                     </Stack>
 
-                <Stack direction="column" w="100%" h="100%" spacing="16"  p={[0,10]}>
+                <Stack direction="column" w="100%" h="100%" spacing="16"  p={[0,10]} pt={["5rem",0]}>
                     
 
                 <Heading fontWeight="bold" color="yellow.400" fontSize={["2xl","3xl"]} letterSpacing={8}>NOSSOS SERVIÇOS</Heading>
