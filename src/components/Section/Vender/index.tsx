@@ -18,14 +18,15 @@ export default function Vender() {
             w="100%"
             bg="gray.50"
             flexDirection="column"
-            spacing={0}
+            spacing={-1}
             mb={150}
+            mt={-2}
             >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#181B23" fillOpacity="1" d="M0,160L60,181.3C120,203,240,245,360,266.7C480,288,600,288,720,240C840,192,960,96,1080,85.3C1200,75,1320,149,1380,186.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" style={{lineHeight:0, marginTop:"-2px"}} viewBox="0 0 1440 320"><path fill="#181B23" fillOpacity="1" d="M0,160L60,181.3C120,203,240,245,360,266.7C480,288,600,288,720,240C840,192,960,96,1080,85.3C1200,75,1320,149,1380,186.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
             
-            <VStack bg="gray.900"  width="100%" flex="1"  alignSelf="center">
+            <VStack bg="gray.900"  width="100%" flex="1" mt={[-2,0]}  alignSelf="center">
                 
-                <VStack maxWidth="1000px" width="100%">
+                <VStack maxWidth="1000px" width="100%" mt={[0,"2rem"]}>
                 <Heading as="i" fontWeight="light" alignSelf={["center","flex-start"]} mt={["5rem","0"]} letterSpacing={6} fontSize={["3xl","6xl"]}  color="gray.50">
                     QUER TROCAR
                 </Heading>

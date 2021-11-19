@@ -11,13 +11,14 @@ import CountUp from 'react-countup';
 export default function About() {
 
     return (
-        <Stack bg="gray.50" spacing={0}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#181B23" fillOpacity="1" d="M0,96L60,133.3C120,171,240,245,360,266.7C480,288,600,256,720,218.7C840,181,960,139,1080,106.7C1200,75,1320,53,1380,42.7L1440,32L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+        <Stack bg="gray.50" spacing={-1} border="none" outline="none" mt={[-3,-2]}>
+              <svg xmlns="http://www.w3.org/2000/svg" style={{lineHeight:0, marginTop:"-2px"}} viewBox="0 0 1440 320"><path fill="#181B23" fillOpacity="1" d="M0,96L60,133.3C120,171,240,245,360,266.7C480,288,600,256,720,218.7C840,181,960,139,1080,106.7C1200,75,1320,53,1380,42.7L1440,32L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
         <Stack 
            spacing={10} 
             align="center" 
             justify="center"
             w="100%"
+            mt={[-2,0]}
             p={[0,20]}
             flexDirection="column"
             backgroundColor="gray.900"
