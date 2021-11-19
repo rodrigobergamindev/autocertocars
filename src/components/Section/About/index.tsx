@@ -22,7 +22,7 @@ export default function About() {
             p={[0,20]}
             flexDirection="column"
             backgroundColor="gray.900"
-            backgroundImage="/img/bg.png"
+            backgroundImage={["none","/img/bg.png"]}
             backgroundAttachment="scroll"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
@@ -42,7 +42,8 @@ export default function About() {
                 </Box>
                <Flex width="100%" direction="column" p={[5,0]} maxWidth="1480px">
 
-               <Grid placeContent="center" placeItems="center" flex="1" gap={[100,0]} templateColumns={["repeat(1,1fr)","repeat(2, 1fr)"]}>
+               <Grid gap={[0,0]} w="100%"
+            maxW="1400px" templateColumns={["repeat(1,1fr)","repeat(2, 1fr)"]}>
                    <Stack direction="column" w="100%" h="100%" spacing="16"  p={[0,10]}>
 
                    <Heading fontWeight="bold" color="yellow.400" fontSize={["2xl","3xl"]} letterSpacing={8}>VALORES</Heading>
