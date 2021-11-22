@@ -182,7 +182,7 @@ export default function CreateVehicle({session, initialValues}) {
     }
 
     const options = {
-        maxSizeMB: 0.7,
+        maxSizeMB: 0.3,
         maxWidthOrHeight: 1024,
         useWebWorker: true
       }
@@ -197,12 +197,13 @@ export default function CreateVehicle({session, initialValues}) {
             if(fileUnsized.type.includes("image")) {
                 const reader = new FileReader()
                 reader.readAsDataURL(fileUnsized)
+
                 reader.onloadend = async () => {
 
-
+                
                 const file = await imageCompression(fileUnsized, options)
                 const preview = await imageCompression.getDataUrlFromFile(file)
-
+                console.log(file)
                
                 const image = {preview, file}
                 
