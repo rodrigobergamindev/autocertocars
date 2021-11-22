@@ -23,7 +23,7 @@ const options = {
     async signIn(user, account, profile) {
       
       if (account.provider === 'google' &&
-          profile.email === process.env.EMAIL_ADM) {
+          (profile.email === process.env.EMAIL_ADM || profile.email === process.env.EMAIL_DEV)) {
         return true
       } else {
        
