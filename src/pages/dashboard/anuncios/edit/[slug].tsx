@@ -26,6 +26,9 @@ import {arrayMoveImmutable} from 'array-move'
 import {prisma} from '../../../../../db'
 import Head from 'next/head'
 
+import imageCompression from 'browser-image-compression'
+
+
 
 type CreateAnuncioFormData = {
     ano_fabricacao: string;
@@ -229,17 +232,24 @@ export default function EditVehicle({anuncio, marcas, session}) {
     }
 
 
+    const options = {
+        maxSizeMB: 0.3,
+        maxWidthOrHeight: 1024,
+        useWebWorker: true
+      }
 
 
-
-const handleImage =  (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
+const handleImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    
     const files = Array.from(event.target.files)
     
-    files.map((file: File) => {
-        if(file.type.includes("image")) {
+    files.map(async (fileUnsized: File) => {
+        if(fileUnsized.type.includes("image")) {
+            const file = await imageCompression(fileUnsized, options)
             const reader = new FileReader()
+
             reader.readAsDataURL(file)
+            
             reader.onloadend = () => {
             const preview = reader.result;
             const image = {preview, file}
