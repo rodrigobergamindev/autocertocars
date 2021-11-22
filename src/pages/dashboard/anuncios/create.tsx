@@ -195,14 +195,13 @@ export default function CreateVehicle({session, initialValues}) {
         files.map(async (fileUnsized: File) => {
             
             if(fileUnsized.type.includes("image")) {
-                const reader = new FileReader()
-                reader.readAsDataURL(fileUnsized)
-
-                reader.onloadend = async () => {
-
-                
                 const file = await imageCompression(fileUnsized, options)
-                const preview = await imageCompression.getDataUrlFromFile(file)
+                const reader = new FileReader()
+
+                reader.readAsDataURL(file)
+                reader.onloadend = async () => {
+                    
+                const preview = reader.result
                 console.log(file)
                
                 const image = {preview, file}
