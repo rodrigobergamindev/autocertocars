@@ -248,8 +248,10 @@ const handleImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
             const file = await imageCompression(fileUnsized, options)
             const reader = new FileReader()
 
+         
+
             reader.readAsDataURL(file)
-            
+
             reader.onloadend = () => {
             const preview = reader.result;
             const image = {preview, file}

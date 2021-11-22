@@ -200,9 +200,10 @@ export default function CreateVehicle({session, initialValues}) {
 
                 reader.readAsDataURL(file)
                 reader.onloadend = async () => {
+                
                     
                 const preview = reader.result
-                console.log(file)
+                
                
                 const image = {preview, file}
                 
