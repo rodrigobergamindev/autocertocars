@@ -15,7 +15,7 @@ const options = {
     )
   ],
   pages: {
-    signIn: "/login",
+    signIn: '/dashboard',
     error: '/login',
     signOut: '/'
   },

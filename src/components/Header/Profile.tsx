@@ -1,14 +1,12 @@
 import {Flex, Text, Box, Avatar} from '@chakra-ui/react'
 import { useSession, signIn, signOut } from 'next-auth/client'
 
-interface ProfileProps {
-    showProfileData?: boolean;
-}
 
 
-export default function Profile ({showProfileData = true} : ProfileProps) {
+
+export default function Profile () {
     const [session] = useSession()
-    console.log(session.user.image)
+   
     return (
         <Flex align="center">
             
