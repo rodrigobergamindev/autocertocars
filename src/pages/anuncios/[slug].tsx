@@ -92,7 +92,6 @@ export default function Anuncio({anuncio, anuncios}) {
                              width="100%"
                              height="100%"
                              priority
-                            quality={100}
                              
                              transition="all 0.2s ease-in-out"
                              _hover={{
