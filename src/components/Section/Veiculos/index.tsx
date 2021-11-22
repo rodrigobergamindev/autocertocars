@@ -56,7 +56,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
         slidesToScroll: 1,
         autoplay: true,
         speed: 500,
-        autoplaySpeed: 1500,
+        autoplaySpeed: 2500,
         cssEase: "ease",
         arrows: !!isWideVersion && true,
         nextArrow: <Icon as={MdKeyboardArrowRight} fontSize="40" color="gray.500" _hover={{color:'gray.500'}}/>,
