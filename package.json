@@ -20,6 +20,7 @@
     "@types/react-slick": "^0.23.7",
     "array-move": "^4.0.0",
     "axios": "^0.24.0",
+    "browser-image-compression": "^1.0.17",
     "bson": "^4.5.3",
     "firebase": "^9.1.1",
     "framer-motion": "^4.1.17",

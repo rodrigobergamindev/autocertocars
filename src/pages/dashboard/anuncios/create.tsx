@@ -26,6 +26,8 @@ import {arrayMoveImmutable} from 'array-move'
 import {prisma} from '../../../../db'
 import Head from 'next/head'
 
+import imageCompression from 'browser-image-compression'
+
 
 type CreateAnuncioFormData = {
     marca: string;
@@ -179,20 +181,31 @@ export default function CreateVehicle({session, initialValues}) {
 
     }
 
+    const options = {
+        maxSizeMB: 0.7,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true
+      }
 
-    const handleImage =  (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    const handleImage =  async (event: React.ChangeEvent<HTMLInputElement>) => {
        
         const files = Array.from(event.target.files)
         
-        files.map((file: File) => {
+        files.map(async (fileUnsized: File) => {
             
-            if(file.type.includes("image")) {
+            if(fileUnsized.type.includes("image")) {
                 const reader = new FileReader()
-                reader.readAsDataURL(file)
-                reader.onloadend = () => {
+                reader.readAsDataURL(fileUnsized)
+                reader.onloadend = async () => {
 
-                const preview = reader.result;
+
+                const file = await imageCompression(fileUnsized, options)
+                const preview = await imageCompression.getDataUrlFromFile(file)
+
+               
                 const image = {preview, file}
+                
                 const imageAlreadyExistsInPreview = imagesPreview.find(image => image.preview === preview)
 
                 if(!imageAlreadyExistsInPreview){
