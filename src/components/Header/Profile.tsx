@@ -8,17 +8,18 @@ interface ProfileProps {
 
 export default function Profile ({showProfileData = true} : ProfileProps) {
     const [session] = useSession()
+    console.log(session.user.image)
     return (
         <Flex align="center">
-               {showProfileData && !!session && (
+            
 
                     <Box mr="4" textAlign="right">
                         <Text>{session.user.name}</Text>
                         <Text color="gray.300" fontSize="small">Administrador</Text>
                         <Text color="gray.300" fontSize="small">{session.user.email}</Text>
-                        <Text as="button" color="yellow.400" fontSize="small" onClick={(): Promise<void> => signOut({ callbackUrl: 'http://localhost:3000/'})}>Sair</Text>
+                        <Text as="button" color="yellow.400" fontSize="small" onClick={(): Promise<void> => signOut({ callbackUrl: 'https://www.autocertocars.com.br/'})}>Sair</Text>
                     </Box>
-               )}
+         
 
             <Avatar
                 size="lg"
