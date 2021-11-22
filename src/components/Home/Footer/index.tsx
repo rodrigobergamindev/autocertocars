@@ -1,4 +1,4 @@
-import { HStack, VStack, Icon, Box,Text, Stack, Heading, StackDivider, useBreakpointValue} from '@chakra-ui/react'
+import {HStack, VStack, Icon, Box,Text, Stack, Heading, StackDivider, useBreakpointValue} from '@chakra-ui/react'
 
 
 import { HiLocationMarker } from 'react-icons/hi'
@@ -20,20 +20,15 @@ export default function Footer() {
 
     return (
         <>
-            <a href="https://g.page/autocertomultimarcas?share" target="_blank" rel="noreferrer">    
-           <HStack p={2} align="center" cursor="pointer" justify="center" bg="blackAlpha.400" transition="all 0.3s ease-in-out">
-               <Heading size="md">Clique aqui para navegar</Heading>
-               <Icon as={IoIosNavigate} color="white" fontSize="2xl" transition="all 0.3s ease-in-out" _hover={{transform:"rotateZ(-45deg)"}}></Icon>
-            </HStack>
-            
+            <Box width="100%" height="2.5rem" bg="blackAlpha.400"/>
             <Box
             as="iframe"
-            src="https://embed.waze.com/iframe?zoom=15&lat=-23.515206&lon=-46.459107&pin=1&desc=1&ct=livemap"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14633.922933544845!2d-46.4591069!3d-23.5152059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7c7e019cea2891f8!2sAuto%20Certo%20Cars!5e0!3m2!1spt-BR!2sbr!4v1637586878987!5m2!1spt-BR!2sbr"
             height="400px"
             width="100%"
             flex="1"
             />
-           </a>  
+           
         <Stack 
             align="center" 
             justify="space-between"
