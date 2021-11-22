@@ -183,7 +183,7 @@ export default function CreateVehicle({session, initialValues}) {
 
     const options = {
         maxSizeMB: 0.7,
-        maxWidthOrHeight: 1920,
+        maxWidthOrHeight: 1024,
         useWebWorker: true
       }
 
