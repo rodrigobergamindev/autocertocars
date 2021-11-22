@@ -116,6 +116,7 @@ export default function CreateVehicle({session, initialValues}) {
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
     const [createMarca, setCreateMarca] = useState(false)
+    const [loadingPreview, setLoadingPreview] = useState(false)
     
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         
@@ -197,8 +198,10 @@ export default function CreateVehicle({session, initialValues}) {
             if(fileUnsized.type.includes("image")) {
                 const file = await imageCompression(fileUnsized, options)
                 const reader = new FileReader()
-
+                
+               
                 reader.readAsDataURL(file)
+                reader.onload = () => setLoadingPreview(true)
                 reader.onloadend = async () => {
                 
                     
@@ -215,8 +218,11 @@ export default function CreateVehicle({session, initialValues}) {
                 if(imageAlreadyExistsInPreview){
                     console.log("Não é possível carregar imagens iguais")
                 }
+
+                setTimeout(() => setLoadingPreview(false), 3000)
                 
             }
+            
             return null
             }
         })
@@ -729,6 +735,13 @@ export default function CreateVehicle({session, initialValues}) {
                                   
                                   </Box>
                                   <Box>{imagesPreview.length === 0 ? <Text fontSize="20px">Envie no mínimo uma imagem</Text> : <Text fontSize="20px">{imagesPreview.length} imagens selecionadas</Text>}</Box>
+                                  {!!loadingPreview && <HStack ml="1rem"><Spinner
+                    thickness="2px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="md"
+                  /></HStack>}
                                   </Box>
                             
                             </FormLabel>
