@@ -1,7 +1,7 @@
 import {SimpleGrid, Flex, HStack, Box, Text, Grid, useBreakpointValue, Icon, Button } from "@chakra-ui/react";
 import  Header from "../../components/Header";
 import Siderbar  from "../../components/Sidebar/index"
-import {theme} from '../../styles/theme'
+
 import { getSession } from "next-auth/client"
 import {SiGoogleanalytics} from 'react-icons/si'
 import { RiCarLine,  RiFacebookBoxFill, RiInstagramLine, RiMessageLine,  RiMoneyDollarCircleLine, RiUserLine} from 'react-icons/ri'
