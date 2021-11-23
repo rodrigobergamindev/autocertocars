@@ -22,7 +22,7 @@ export default function Profile () {
             <Avatar
                 size="lg"
                 name="Administrador"
-                src={session.user.image}
+                src="/img/avatar.jpg"
             >
 
             </Avatar>
