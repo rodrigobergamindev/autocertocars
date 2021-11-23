@@ -3,7 +3,7 @@ import {Icon, Image as ChakraImage, Stack} from '@chakra-ui/react'
 
 import {useState} from 'react'
 import {RiInstagramLine} from 'react-icons/ri'
-import Image from 'next/image'
+
 
 interface PostProps {
     post: {
@@ -26,15 +26,11 @@ export default function Post({post}: PostProps) {
    
     return (
         <a href={post.permalink} target="_blank" rel="noreferrer">
-        <Stack  position="relative" alignItems="center" width="100%" height="17rem" justifyContent="center">
+        <Stack  alignItems="center" width="100%" height="17rem" justifyContent="center">
                     
                     <ChakraImage
-                              as={Image}
                                src={post.media_url}
-                               loader={()=>post.media_url}
-                               layout="fill"
                                alt="post"
-                               priority
                                objectFit="cover"
                                transition="all 0.3s ease-in-out"
                                width="100%"

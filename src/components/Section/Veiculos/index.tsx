@@ -2,7 +2,7 @@ import { Icon, Box, Flex, Image as ChakraImage, Divider, Text, Button, Stack, HS
 
 import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/md'
 
-import Image from 'next/image'
+
 import Link from 'next/link'
 
 
@@ -112,11 +112,11 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                          <Link key={anuncio.id} href={`/anuncios/${anuncio.slug}`}>
                         <Box p={[0,4]} key={anuncio.id}>
                          <Stack 
-                        position="relative"
+                     
                         borderRadius="5px"
                          
                          spacing={0} 
-                         height={["350px","450px"]}
+                         height={["350px","550px"]}
                          overflow="hidden" 
                          cursor="pointer"
                          transition="all 0.3s ease-in-out"
@@ -126,16 +126,13 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                          >
 
                             <ChakraImage
-                              as={Image}
+                              
                              src={anuncio.image[0]}
                              alt={anuncio.name}
-                            layout="fill"
+                           
                              objectFit="cover"
                              width="100%"
                              height="100%"
-                             priority
-                            
-                             
                              transition="all 0.3s ease-in-out"
                              _hover={{
                               transform: "scale(1.1)",
@@ -143,7 +140,7 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                           }}
                              />
                         
-                             <Stack zIndex={2} width="100%" direction="column" px={6} py={3} >
+                             <Stack bg="yellow.400" color="gray.900" zIndex={2} width="100%" direction="column" px={6} py={3} >
                              <Heading fontSize="xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
                              <Text fontSize="xl">{anuncio.versao}</Text>
                              <StackDivider/>
