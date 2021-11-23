@@ -78,7 +78,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   return (
-    <NextAuthProvider session={pageProps.session}>
+    
 
     <ChakraProvider theme={theme}>
       <SidebarDrawerProvider>
@@ -136,7 +136,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Footer/>
       </SidebarDrawerProvider>
     </ChakraProvider>
-    </NextAuthProvider>
+    
   )
 }
 

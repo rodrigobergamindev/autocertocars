@@ -230,7 +230,7 @@ export default function Anuncios({anuncios}) {
             }
 
 
-            <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns={["repeat(1,1fr)","repeat(3,1fr)"]} width="100%" height="100%" maxWidth="1400px" gap={7}>
+            <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns={["repeat(1,1fr)","repeat(4,1fr)"]} width="100%" height="100%" maxWidth="1400px" gap={7}>
 
             {anunciosToShow.map(anuncio => (
                 <Link href={`/anuncios/${anuncio.slug}`} key={anuncio.id}>
