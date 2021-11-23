@@ -53,24 +53,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       </Head>
 
-      {!!loading ? (
-       <Box display="flex" justifyContent="center" alignItems="center" zIndex={99999} position="absolute" background="gray.50" height="100vh" width="100vw">
-       <Text fontSize="2xl" color="gray.900">Carregando...</Text>
-       <Spinner
-        thickness="2px"
-        speed="0.65s"
-        emptyColor="gray.50"
-        color="yellow.500"
-        size="lg"
-        ml="1rem"
-        />
-       
-     </Box>
-     ) : 
-     
-     (
+  
        <Component {...pageProps} />
-      )}
+  
         </SidebarDrawerProvider>
       </ChakraProvider>
       </NextAuthProvider>
