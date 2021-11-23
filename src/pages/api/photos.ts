@@ -42,7 +42,7 @@ export const insert = async (images: Image[]) => {
 
      const imagesUpload = images.map(async (image) => {
         if(image.file) {
-            if(['image/jpeg', 'image/jpg', 'image/png'].includes(image.file.type)) {
+            if(['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(image.file.type)) {
                
                 const id = createId()
                 const newFile = ref(storage, `images/${id}`);

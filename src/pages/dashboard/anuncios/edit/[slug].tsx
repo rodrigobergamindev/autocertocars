@@ -787,7 +787,7 @@ const SortableList = SortableContainer(({items}) => {
                                 type="file" 
                                 multiple
                                 variant="filled"
-                                accept="image/jpeg, image/png, image/jpg"
+                                accept="image/jpeg, image/png, image/jpg, image/webp"
                                 bgColor="gray.900"
                                 display="none"
                                 {...register('image')}
