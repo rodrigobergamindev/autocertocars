@@ -1,25 +1,44 @@
 import {AppProps} from 'next/app'
-import { ChakraProvider, Icon } from '@chakra-ui/react'
+import { ChakraProvider, Icon, Spinner, Box, Text } from '@chakra-ui/react'
 import { theme } from '../styles/theme'
 import SidebarDrawerProvider from '../contexts/SidebarDrawerContext'
 import {Provider as NextAuthProvider} from 'next-auth/client'
 import Footer from '../components/Home/Footer/index'
 import MenuBar from '../components/Menu/index'
-
+import IconDrawer from '../components/Menu/Drawer/IconDrawer'
 import {useRouter} from 'next/router'
 import Head from 'next/head'
 
 import {RiWhatsappFill} from 'react-icons/ri'
-
+import Link from 'next/link'
 import Drawer from '../components/Menu/Drawer/index'
-
+import {useState, useEffect} from 'react'
 
 
   
 function MyApp({ Component, pageProps }: AppProps) {
 
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    const handleRouteChange = () => {
+      
+      setLoading(true)
+    
+      }
+  
+  const handleRouteOff = () => {
+    
+      setLoading(false)
+     
+  }
+  
+  router.events.on('routeChangeStart', handleRouteChange)
+  router.events.on('routeChangeComplete', handleRouteOff)
+  
+   
+  },[])
   
 
 
@@ -34,9 +53,24 @@ function MyApp({ Component, pageProps }: AppProps) {
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       </Head>
 
-  
+      {!!loading ? (
+       <Box display="flex" justifyContent="center" alignItems="center" zIndex={99999} position="absolute" background="gray.50" height="100vh" width="100vw">
+       <Text fontSize="2xl" color="gray.900">Carregando...</Text>
+       <Spinner
+        thickness="2px"
+        speed="0.65s"
+        emptyColor="gray.50"
+        color="yellow.500"
+        size="lg"
+        ml="1rem"
+        />
+       
+     </Box>
+     ) : 
+     
+     (
        <Component {...pageProps} />
-  
+      )}
         </SidebarDrawerProvider>
       </ChakraProvider>
       </NextAuthProvider>
@@ -56,8 +90,25 @@ function MyApp({ Component, pageProps }: AppProps) {
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       </Head>
      
+     
+     {!!loading ? (
+       <Box display="flex" justifyContent="center" alignItems="center" zIndex={99999} position="absolute" background="gray.50" height="100vh" width="100vw">
+       <Text fontSize="2xl" color="gray.900">Carregando...</Text>
+       <Spinner
+        thickness="2px"
+        speed="0.65s"
+        emptyColor="gray.50"
+        color="yellow.500"
+        size="lg"
+        ml="1rem"
+        />
+       
+     </Box>
+     ) : 
+     
+     (
        <Component {...pageProps} />
-      
+      )}
 
           <a 
       href="https://api.whatsapp.com/send?phone=5511963290492&text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20um%20ve%C3%ADculo."
