@@ -26,9 +26,10 @@ export default function Post({post}: PostProps) {
    
     return (
         <a href={post.permalink} target="_blank" rel="noreferrer">
-        <Stack  alignItems="center" width="100%" height="17rem" justifyContent="center">
+        <Stack  alignItems="center" width="100%" height="17rem" justifyContent="center" overflow="hidden">
                     
                     <ChakraImage
+                                position="relative"
                                src={post.media_url}
                                alt="post"
                                objectFit="cover"
@@ -45,7 +46,7 @@ export default function Post({post}: PostProps) {
                                 }}
                                
                                />
-                              <Icon onMouseOver={() => setVisible(true)} onMouseLeave={() => setVisible(false)} zIndex={2} as={RiInstagramLine} alignSelf="center" justifySelf="center" fontSize="3xl" visibility={!!iconVisible? "visible" : "hidden"}/>
+                              <Icon onMouseOver={() => setVisible(true)} onMouseLeave={() => setVisible(false)} position="absolute" zIndex={2} as={RiInstagramLine} alignSelf="center" justifySelf="center" fontSize="3xl" visibility={!!iconVisible? "visible" : "hidden"}/>
               
         </Stack>
         </a>

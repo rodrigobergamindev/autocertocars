@@ -65,7 +65,8 @@ export const insert = async (images: Image[]) => {
 export const deletePhoto = async (name: string) => {
 
     let photoRef = ref(storage, name);
-    await deleteObject(photoRef);
   
+    await deleteObject(photoRef);
+    
 
 }

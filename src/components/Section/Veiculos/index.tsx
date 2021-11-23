@@ -116,13 +116,14 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                         borderRadius="5px"
                          
                          spacing={0} 
-                         height={["350px","550px"]}
+                         height={["450px","450px"]}
                          overflow="hidden" 
                          cursor="pointer"
                          transition="all 0.3s ease-in-out"
                         direction="column"  
                         justify="flex-end"
                         boxShadow={["none","0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"]}
+            
                          >
 
                             <ChakraImage
@@ -141,14 +142,13 @@ export default function VehicleSection({anuncios}: AnuncioProps) {
                              />
                         
                              <Stack bg="yellow.400" color="gray.900" zIndex={2} width="100%" direction="column" px={6} py={3} >
-                             <Heading fontSize="xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
-                             <Text fontSize="xl">{anuncio.versao}</Text>
-                             <StackDivider/>
+                             <Heading fontSize={["md","lg"]} fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
+                             <Text fontSize={["md","lg"]}>{anuncio.versao}</Text>
+                  
                              <Stack  direction="row" justifyContent="space-between">
-                                  <Text fontSize="xl" alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
-                                  <StackDivider/>
-                                  <StackDivider/>
-                                 <Text fontSize="xl" fontWeight="bold">{`${anuncio.valor},00`}</Text>
+                                  <Text fontSize={["md","lg"]} alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
+          
+                                 <Text fontSize={["md","lg"]} fontWeight="bold">{`${anuncio.valor},00`}</Text>
                              </Stack>
                              </Stack>
                          </Stack>

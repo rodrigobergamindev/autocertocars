@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         
 
         const anuncioToDelete = await prisma.anuncio.delete({
-            where: { slug: anuncio.slug },
+            where: { id: anuncio.id },
           })
         
           if(anuncioToDelete){

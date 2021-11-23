@@ -230,7 +230,7 @@ export default function Anuncios({anuncios}) {
             }
 
 
-            <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns={["repeat(1,1fr)","repeat(4,1fr)"]} width="100%" height="100%" maxWidth="1400px" gap={7}>
+            <MotionGrid variants={container} initial="hidden" animate="visible" templateColumns={["repeat(1,1fr)","repeat(3,1fr)"]} width="100%" height="100%" maxWidth="1400px" gap={7}>
 
             {anunciosToShow.map(anuncio => (
                 <Link href={`/anuncios/${anuncio.slug}`} key={anuncio.id}>
@@ -239,7 +239,7 @@ export default function Anuncios({anuncios}) {
                 variants={item} 
                 position="relative" 
                 spacing={0} 
-                height={["300px","400px" ]}
+                height={["450px","450px" ]}
                 alignItems="center" 
                 justifyContent="flex-end" 
                 overflow="hidden" 
@@ -250,16 +250,15 @@ export default function Anuncios({anuncios}) {
                 >
                     
                     <ChakraImage
-                     as={Image}
+                    
                     src={anuncio.image[0]}
                     alt={anuncio.name}
-                     layout="fill"
                     objectFit="cover"
                     width="100%"
                     height="100%"
-                    priority
+                   
                     
-                    filter="brightness(0.7)"
+                    filter={["brightness(1.1)","brightness(0.7)"]}
                     transition="all 0.3s ease-in-out"
                     _hover={{
                      transform: "scale(1.1)",
@@ -268,17 +267,16 @@ export default function Anuncios({anuncios}) {
                     />
                     
                     
-                    <Stack zIndex={1} width="100%" direction="column" px={6} py={3} >
-                    <Heading fontSize="xl" fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
-                    <Text fontSize="lg">{anuncio.versao}</Text>
-                    <StackDivider/>
-                    <Stack  direction="row" justifyContent="space-between">
-                         <Text fontSize="xl" alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
-                         <StackDivider/>
-                         <StackDivider/>
-                        <Text fontSize="xl" fontWeight="bold">{`${anuncio.valor},00`}</Text>
-                    </Stack>
-                    </Stack>
+                    <Stack bg="yellow.400" color="gray.900" zIndex={2} width="100%" direction="column" px={6} py={3} >
+                             <Heading fontSize={["md","lg"]} fontWeight="bold" letterSpacing={2}>{anuncio.name.toUpperCase()}</Heading>
+                             <Text fontSize={["md","lg"]}>{anuncio.versao}</Text>
+                     
+                             <Stack  direction="row" justifyContent="space-between">
+                                  <Text fontSize={["md","lg"]} alignSelf="flex-end" fontWeight="light" >{anuncio.ano_fabricacao}</Text>
+                              
+                                 <Text fontSize={["md","lg"]} fontWeight="bold">{`${anuncio.valor},00`}</Text>
+                             </Stack>
+                             </Stack>
                 </MotionBox>
                 </Link>
             ))}
