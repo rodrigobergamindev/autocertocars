@@ -46,7 +46,7 @@ export default function Header() {
 
         <Flex align="center" ml="auto">
  
-        <Profile showProfileData={isWideVersion}/>
+        <Profile/>
         </Flex>
         </Flex>
     )

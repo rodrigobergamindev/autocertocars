@@ -1,4 +1,4 @@
-import { Box, Flex, Button, Stack, Heading, List, ListItem, HStack, Text, VStack} from '@chakra-ui/react'
+import { Box, Flex, Button, Stack, Heading, List, ListItem, HStack, Text, VStack, useBreakpointValue} from '@chakra-ui/react'
 import Logo from './Logo'
 import SearchBox from './SearchBox'
 import {useState} from 'react'
@@ -12,6 +12,11 @@ export default function Header({anuncios}) {
 
    
     const [anunciosToShow, setAnuncios] = useState([])
+
+    const isWideVersion = useBreakpointValue ({
+        base: false,
+        lg: true
+    })
 
     const filterBySearch = valueToSearch => {
        
@@ -46,7 +51,7 @@ export default function Header({anuncios}) {
                 muted 
                 loop
                 style={{
-                    height: "50rem",
+                    height: "65rem",
                     width:"100%",
                     filter: "brightness(20%)",
                     objectFit:"cover",
@@ -68,7 +73,8 @@ export default function Header({anuncios}) {
                 p={["6","0"]}
                 >
                   
-                    <Logo size={500}/>
+                    {!!isWideVersion && <Logo size={500}/>}
+                    {!isWideVersion && <Logo size={250}/>}
 
                     <VStack width="100%" borderRadius="10" background="white" spacing={0}>
                     <SearchBox filter={filterBySearch}/>
@@ -92,7 +98,7 @@ export default function Header({anuncios}) {
                     spacing="5"
                     >
                     <Link href="/anuncios" passHref>
-                    <Button colorScheme="yellow" height={50} w={250} fontSize={["md","lg"]} p={3} borderRadius="10px">VER ESTOQUE</Button>
+                    <Button colorScheme="yellow" height={[30,50]} w={250} fontSize={["sm","lg"]} p={[5,3]} borderRadius="10px">VER ESTOQUE</Button>
                     </Link>
                     </Stack>
                 </Stack>
