@@ -2,7 +2,7 @@ import {SimpleGrid, Flex, HStack, Box, Text, Grid, useBreakpointValue, Icon, But
 import  Header from "../../components/Header";
 import Siderbar  from "../../components/Sidebar/index"
 
-
+import { getSession } from "next-auth/client"
 import {SiGoogleanalytics} from 'react-icons/si'
 import { RiCarLine,  RiFacebookBoxFill, RiInstagramLine, RiMessageLine,  RiMoneyDollarCircleLine, RiUserLine} from 'react-icons/ri'
 
@@ -14,7 +14,7 @@ import {prisma} from '../../../db'
 import Head from 'next/head'
 
 
-export default function Dashboard({messagesReceived, anuncios}) {
+export default function Dashboard({session, messagesReceived, anuncios}) {
 
     const isWideVersion = useBreakpointValue ({
         base: false,
@@ -193,9 +193,9 @@ export default function Dashboard({messagesReceived, anuncios}) {
 }
 
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async ({req}) => {
 
- 
+  const session = await getSession({req})
 
 
   const data_anuncios = await prisma.anuncio.findMany()
@@ -208,10 +208,19 @@ export const getServerSideProps = async () => {
   
   const messagesReceived = messages.length > 0 ?  messages.length : 0
 
-
+  
+  if(!session) {
+      return {
+          redirect: {
+              destination: `/login`,
+              permanent: false
+          }
+      }
+  }
 
   return {
     props: {
+        session,
         anuncios,
         messagesReceived
     }
