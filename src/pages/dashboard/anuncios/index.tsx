@@ -19,7 +19,7 @@ import Head from 'next/head'
 
 
 
-export default function AnuncioList({initialValues, session}) {
+export default function AnuncioList({initialValues}) {
     
     const container = {
         hidden: { opacity: 1, scale: 0 },

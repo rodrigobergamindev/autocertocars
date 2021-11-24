@@ -35,10 +35,6 @@ export const getAll = async () => {
 }
 
 export const insert = async (images: Image[]) => {
-    
-  
-  
-  
 
      const imagesUpload = images.map(async (image) => {
         if(image.file) {

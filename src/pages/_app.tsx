@@ -5,12 +5,12 @@ import SidebarDrawerProvider from '../contexts/SidebarDrawerContext'
 import {Provider as NextAuthProvider} from 'next-auth/client'
 import Footer from '../components/Home/Footer/index'
 import MenuBar from '../components/Menu/index'
-import IconDrawer from '../components/Menu/Drawer/IconDrawer'
+
 import {useRouter} from 'next/router'
 import Head from 'next/head'
 
 import {RiWhatsappFill} from 'react-icons/ri'
-import Link from 'next/link'
+
 import Drawer from '../components/Menu/Drawer/index'
 import {useState, useEffect} from 'react'
 
@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -54,13 +55,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       {!!loading ? (
-       <Box display="flex" justifyContent="center" alignItems="center" zIndex={99999} position="absolute" background="gray.50" height="100vh" width="100vw">
-       <Text fontSize="2xl" color="gray.900">Carregando...</Text>
+       <Box display="flex" justifyContent="center" alignItems="center" zIndex={99999} position="absolute" background="gray.900" height="100vh" width="100vw">
+       <Text fontSize="2xl" color="gray.50">Carregando...</Text>
        <Spinner
         thickness="2px"
         speed="0.65s"
-        emptyColor="gray.50"
-        color="yellow.500"
+        emptyColor="gray.900"
+        color="blue.400"
         size="lg"
         ml="1rem"
         />

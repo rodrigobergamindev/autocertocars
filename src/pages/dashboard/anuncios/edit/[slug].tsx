@@ -13,7 +13,6 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.umd';
 import {GetServerSideProps} from 'next'
 import { getSession } from "next-auth/client"
-import { PrismaClient } from '@prisma/client'
 import { deletePhoto, insert } from '../../../api/photos'
 import {useState, useEffect} from 'react'
 import {useRouter} from 'next/router'

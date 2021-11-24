@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {prisma} from '../../../../db'
-import { getSession } from "next-auth/client";
+
 
 
 
@@ -10,7 +10,7 @@ import { getSession } from "next-auth/client";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const session = await getSession({req})
+  
 
 
     
@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(405).json({ message: 'method not allowed'})
     }
 
-    if(session) {
+    
     
         const avaliacao = JSON.parse(req.body) 
         
@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             where: { id: avaliacao.id },
           })
         
-    }
+  
     
     res.json({message: "Ok"})
 }

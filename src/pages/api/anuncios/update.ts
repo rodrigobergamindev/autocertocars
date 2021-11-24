@@ -1,6 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {prisma} from '../../../../db'
-import { getSession } from "next-auth/client";
 import { deletePhoto } from '../../api/photos'
 
 
@@ -10,7 +9,7 @@ import { deletePhoto } from '../../api/photos'
 
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const session = await getSession({req})
+   
    
     
     
@@ -18,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(405).json({ message: 'method not allowed'})
     }
 
-    if(session) {
+  
 
         const anuncioData = JSON.parse(req.body)
         const anuncioToUpdate = anuncioData.anuncio 
@@ -36,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         if(marcaAlreadyExists) {
           const update = await prisma.anuncio.update({
               where: {
-                  slug: anuncioToUpdate.slug,
+                  id: anuncioToUpdate.id,
               },
                 data: {
                   ...newAnuncio,
@@ -64,7 +63,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
            const update = await prisma.anuncio.update({
             where: {
-                slug: anuncioToUpdate.slug,
+              id: anuncioToUpdate.id,
             },
             data: {
               ...newAnuncio,
@@ -83,7 +82,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
 
         
-    }
+    
     
     res.json({message: "Ok"})
 }
