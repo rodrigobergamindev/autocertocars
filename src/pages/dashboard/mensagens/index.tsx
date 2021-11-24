@@ -8,7 +8,7 @@ import {useState} from 'react'
 
 
 
-
+import { getSession } from "next-auth/client"
 import { motion } from "framer-motion";
 
 import {prisma} from '../../../../db'
@@ -159,7 +159,7 @@ export default function MensagensList({initialValues, session}) {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async() => {
+export const getServerSideProps: GetServerSideProps = async({req}) => {
 
    
     
@@ -167,10 +167,24 @@ export const getServerSideProps: GetServerSideProps = async() => {
 
     const initialValues =  await JSON.parse(JSON.stringify(data_messages))
 
+   
+
+    const session = await getSession({req})
+   
+ 
+    if(!session) {
+        return {
+            redirect: {
+                destination: `/login`,
+                permanent: false
+            }
+        }
+    }
 
     
     return {
       props: {
+          session,
           initialValues
         },
     }

@@ -19,9 +19,8 @@ import {useState, useEffect} from 'react'
 function MyApp({ Component, pageProps }: AppProps) {
 
   const router = useRouter()
-
   const [loading, setLoading] = useState(false)
-
+  
  
 
   useEffect(() => {
@@ -40,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   
   router.events.on('routeChangeStart', handleRouteChange)
   router.events.on('routeChangeComplete', handleRouteOff)
-  
+
  
    
   },[])
@@ -48,7 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 
   if(router.asPath.includes('dashboard') || router.asPath.includes('login')) {
-    
+   
     return (
       <NextAuthProvider session={pageProps.session}>
       <ChakraProvider theme={theme}>

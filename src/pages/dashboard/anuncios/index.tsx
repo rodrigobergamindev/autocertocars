@@ -8,7 +8,7 @@ import {useState} from 'react'
 
 
 
-
+import { getSession } from "next-auth/client"
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 
@@ -199,18 +199,29 @@ export default function AnuncioList({initialValues}) {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async() => {
+export const getServerSideProps: GetServerSideProps = async({req}) => {
 
     const data_anuncios = await prisma.anuncio.findMany()
 
     const initialValues = await JSON.parse(JSON.stringify(data_anuncios))
     
-
+    const session = await getSession({req})
+   
+ 
+    if(!session) {
+        return {
+            redirect: {
+                destination: `/login`,
+                permanent: false
+            }
+        }
+    }
 
     
     return {
       props: {
+          session,
           initialValues
-        }
+        },
     }
   }
