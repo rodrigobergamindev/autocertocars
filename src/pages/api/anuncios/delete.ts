@@ -16,21 +16,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(405).json({ message: 'method not allowed'})
     }
 
-   
     
         const anuncio = JSON.parse(req.body) 
         
+        anuncio.image.map(async(image) => await deletePhoto(image))
 
-        const anuncioToDelete = await prisma.anuncio.delete({
+        await prisma.anuncio.delete({
             where: { id: anuncio.id },
           })
         
-          if(anuncioToDelete){
-            anuncio.image.map(async(image) => await deletePhoto(image))
-          }
+         
+        
+        
   
     
     res.json({message: "Ok"})
+    res.end()
 }
 
 
