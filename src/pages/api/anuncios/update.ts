@@ -35,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         if(marcaAlreadyExists) {
           const update = await prisma.anuncio.update({
               where: {
-                  id: anuncioToUpdate.id,
+                  slug: anuncioToUpdate.slug,
               },
                 data: {
                   ...newAnuncio,
@@ -63,7 +63,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
            const update = await prisma.anuncio.update({
             where: {
-              id: anuncioToUpdate.id,
+              slug: anuncioToUpdate.slug,
             },
             data: {
               ...newAnuncio,

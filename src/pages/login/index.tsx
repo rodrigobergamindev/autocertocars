@@ -15,7 +15,7 @@ export default function SignIn() {
  
 
   return (
-    <Flex w="100vw" h="100vh" alignItems="center" justifyContent="center" direction="column">
+    <Flex w="100%" h="100vh" alignItems="center" justifyContent="center" direction="column">
       <Head>
             <title>AutoCerto Cars - Login</title>
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />

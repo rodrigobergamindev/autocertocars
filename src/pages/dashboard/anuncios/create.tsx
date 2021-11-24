@@ -12,7 +12,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.umd';
 
 
-import { getSession } from "next-auth/client"
+
 import { GetServerSideProps } from 'next'
 
 import { insert } from '../../api/photos'
@@ -92,7 +92,7 @@ type Opcional = {
 
 
 
-export default function CreateVehicle({session, initialValues}) {
+export default function CreateVehicle({initialValues}) {
 
     const router = useRouter()
 
@@ -798,29 +798,19 @@ export default function CreateVehicle({session, initialValues}) {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async({req}) => {
+export const getServerSideProps: GetServerSideProps = async() => {
 
 
-    const session = await getSession({req})
+
 
     const data = await prisma.marca.findMany()
 
     const initialValues = await JSON.parse(JSON.stringify(data))
-   
 
-    if(!session) {
-        return {
-            redirect: {
-                destination: `/login`,
-                permanent: false
-            }
-        }
-    }
     
     return {
       props: {
-          session,
-          initialValues,
-        },
+          initialValues
+        }
     }
   }

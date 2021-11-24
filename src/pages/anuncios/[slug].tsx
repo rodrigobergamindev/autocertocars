@@ -69,13 +69,13 @@ export default function Anuncio({anuncio, anuncios}) {
            <Slider {...settings}>
 
             {anuncio.image.map(image => (
-                <a key={image} href={image} target="_blank" rel="noreferrer">
-                <Box px={[0,3]}>
+                
+                <Box key={image} px={[0,3]}>
                 <Stack
                
                 position="relative"
                 spacing={0} 
-                height="25rem"
+                height="60vh"
                 alignItems="center" 
                 justifyContent="flex-end" 
                 overflow="hidden" 
@@ -100,7 +100,7 @@ export default function Anuncio({anuncio, anuncios}) {
                              />
                 </Stack>
                 </Box>
-                </a>
+               
             ))}
             </Slider>
             

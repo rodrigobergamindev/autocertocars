@@ -13,14 +13,16 @@ import {RiWhatsappFill} from 'react-icons/ri'
 
 import Drawer from '../components/Menu/Drawer/index'
 import {useState, useEffect} from 'react'
-
+import {useSession} from 'next-auth/client'
 
   
 function MyApp({ Component, pageProps }: AppProps) {
 
   const router = useRouter()
+  const [session] = useSession()
   const [loading, setLoading] = useState(false)
-  
+
+ 
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -38,12 +40,16 @@ function MyApp({ Component, pageProps }: AppProps) {
   router.events.on('routeChangeStart', handleRouteChange)
   router.events.on('routeChangeComplete', handleRouteOff)
   
+  if(router.asPath.includes('dashboard') && !session) {
+      router.push('/login')
+  }
    
   },[])
   
 
 
-  if(router.asPath.includes('dashboard') || router.asPath.includes('login')) {
+  if(router.asPath.includes('dashboard')) {
+    
     return (
       <NextAuthProvider session={pageProps.session}>
       <ChakraProvider theme={theme}>

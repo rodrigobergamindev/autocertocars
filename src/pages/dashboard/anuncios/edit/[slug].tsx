@@ -12,7 +12,7 @@ import {useForm, SubmitHandler, useFieldArray, Control} from 'react-hook-form'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup.umd';
 import {GetServerSideProps} from 'next'
-import { getSession } from "next-auth/client"
+
 import { deletePhoto, insert } from '../../../api/photos'
 import {useState, useEffect} from 'react'
 import {useRouter} from 'next/router'
@@ -90,7 +90,7 @@ type ImagePreview = {
 
 
 
-export default function EditVehicle({anuncio, marcas, session}) {
+export default function EditVehicle({anuncio, marcas}) {
 
     const router = useRouter()
   
@@ -835,7 +835,7 @@ const SortableList = SortableContainer(({items}) => {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async ({params, req}) => {
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
     const {slug} = params
 
@@ -854,23 +854,11 @@ export const getServerSideProps: GetServerSideProps = async ({params, req}) => {
     const marcas = await JSON.parse(JSON.stringify(dataMarcas))
 
 
- 
-    const session = await getSession({req})
- 
-    if(!session) {
-        return {
-            redirect: {
-                destination: `/login`,
-                permanent: false
-            }
-        }
-    }
 
     return { 
      props: {
         anuncio,
-        marcas,
-        session
+        marcas
         }
     }
 }
