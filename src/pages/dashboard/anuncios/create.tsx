@@ -92,7 +92,7 @@ type Opcional = {
 
 
 
-export default function CreateVehicle({session, initialValues}) {
+export default function CreateVehicle({initialValues}) {
 
     const router = useRouter()
 
@@ -819,8 +819,7 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
     
     return {
       props: {
-          session,
           initialValues,
-        },
+        }
     }
   }

@@ -21,7 +21,7 @@ import Head from 'next/head'
 
 
 
-export default function MensagensList({initialValues, session}) {
+export default function MensagensList({initialValues}) {
 
 
     const [messagesToShow, setMessagesToShow] = useState(initialValues)
@@ -183,7 +183,6 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
     
     return {
       props: {
-          session,
           initialValues
         },
     }

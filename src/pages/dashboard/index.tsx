@@ -14,7 +14,7 @@ import {prisma} from '../../../db'
 import Head from 'next/head'
 
 
-export default function Dashboard({session, messagesReceived, anuncios}) {
+export default function Dashboard({messagesReceived, anuncios}) {
 
     const isWideVersion = useBreakpointValue ({
         base: false,

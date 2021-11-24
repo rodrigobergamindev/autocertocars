@@ -90,7 +90,7 @@ type ImagePreview = {
 
 
 
-export default function EditVehicle({anuncio, marcas, session}) {
+export default function EditVehicle({anuncio, marcas}) {
 
     const router = useRouter()
   
@@ -869,8 +869,7 @@ export const getServerSideProps: GetServerSideProps = async ({params, req}) => {
     return { 
      props: {
         anuncio,
-        marcas,
-        session
+        marcas
         }
     }
 }
