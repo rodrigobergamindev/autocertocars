@@ -597,7 +597,6 @@ export default function CreateVehicle({initialValues}) {
                             <Select id="condicao" size="lg" name="condicao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Manual"  _hover={{bgColor: 'gray.900'}} {...register('condicao')}>
                                         <option style={{backgroundColor:"#1F2029"}} value="Novo">Novo</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="Seminovo">Seminovo</option>
-                                        <option style={{backgroundColor:"#1F2029"}} value="Usado">Usado</option>
                                 </Select>
     
                                 {!!errors.condicao && (

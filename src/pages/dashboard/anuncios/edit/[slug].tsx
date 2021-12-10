@@ -105,6 +105,7 @@ export default function EditVehicle({anuncio, marcas}) {
     const [imagesDeleted, setImagesDeleted] = useState([])
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>(imagesPreRender)
     const [createMarca, setCreateMarca] = useState(false)
+    const [createCarroceria, setCreateCarroceria] = useState(false)
     const [opcionaisInit, setOpcionais] = useState(anuncio.opcionais)
     
     
@@ -279,6 +280,18 @@ const handleCreateMarca = (event) => {
 function openCreateMarca() {
     setCreateMarca(true)
 }
+
+    
+const handleCreateCarroceria = (event) => {
+    if(event.target.value === 'adicionar') {
+        openCreateCarroceria()
+    }
+}
+
+    function openCreateCarroceria() {
+    setCreateCarroceria(true)
+    }
+
 
     
 const onSortEnd = ({oldIndex, newIndex}) => {
@@ -486,16 +499,24 @@ const SortableList = SortableContainer(({items}) => {
                         >
                             Carroceria
                         </FormLabel>
-                        <Select size="lg" name="carroceria" variant="filled" bg="gray.900" focusBorderColor="yellow.500"  _hover={{bgColor: 'gray.900'}} {...register('carroceria')} defaultValue={anuncio.carroceria}>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Hatch">Hatch</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Compacto">Compacto</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="SUV">SUV</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Picape">Picape</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Sedan">Sedan</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Mini Van">Mini Van</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Van">Van</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Van de Painel">Van de Painel</option>
-                            </Select>
+                        {!createCarroceria ? (<Select size="lg" name="carroceria" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue={anuncio.carroceria}
+                             _hover={{bgColor: 'gray.900'}} {...register('carroceria')} onChange={e => handleCreateCarroceria(e)}>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Hatch">Hatch</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Compacto">Compacto</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="SUV">SUV</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Picape">Picape</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Sedan">Sedan</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Mini Van">Mini Van</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Van">Van</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Van de Painel">Van de Painel</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Motocicleta">Motocicleta</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="adicionar">Adicionar outro...</option>
+                                </Select>
+                                ) : (
+                                    <ChakraInput size="lg" name="carroceria" id="carroceria"  {...register('carroceria')} focusBorderColor="yellow.500" _hover={{bgColor: 'gray.900'}} variant="filled" bg="gray.900" type="text"/>
+                                )
+                                
+                            }
 
                             {!!errors.carroceria && (
                                 <FormErrorMessage>
@@ -571,7 +592,6 @@ const SortableList = SortableContainer(({items}) => {
                         <Select id="condicao" size="lg" name="condicao" variant="filled" bg="gray.900" focusBorderColor="yellow.500" {...register('condicao')} defaultValue={anuncio.condicao}  _hover={{bgColor: 'gray.900'}}>
                                     <option style={{backgroundColor:"#1F2029"}} value="Novo">Novo</option>
                                     <option style={{backgroundColor:"#1F2029"}} value="Seminovo">Seminovo</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Usado">Usado</option>
                             </Select>
 
                             {!!errors.condicao && (
