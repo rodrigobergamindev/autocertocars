@@ -116,7 +116,6 @@ export default function CreateVehicle({initialValues}) {
 
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
     const [createMarca, setCreateMarca] = useState(false)
-    const [createCarroceria, setCreateCarroceria] = useState(false)
     const [loadingPreview, setLoadingPreview] = useState(false)
     
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
@@ -253,17 +252,6 @@ export default function CreateVehicle({initialValues}) {
         setCreateMarca(true)
     }
 
-
-    
-  const handleCreateCarroceria = (event) => {
-    if(event.target.value === 'adicionar') {
-        openCreateCarroceria()
-    }
-}
-
-    function openCreateCarroceria() {
-    setCreateCarroceria(true)
-    }
 
 
 
@@ -470,8 +458,8 @@ export default function CreateVehicle({initialValues}) {
                             >
                                 Carroceria
                             </FormLabel>
-                            {!createCarroceria ? (<Select size="lg" name="carroceria" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Hatch"
-                             _hover={{bgColor: 'gray.900'}} {...register('carroceria')} onChange={e => handleCreateCarroceria(e)}>
+                            <Select size="lg" name="carroceria" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Hatch"
+                             _hover={{bgColor: 'gray.900'}} {...register('carroceria')}>
                                         <option style={{backgroundColor:"#1F2029"}} value="Hatch">Hatch</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="Compacto">Compacto</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="SUV">SUV</option>
@@ -483,11 +471,7 @@ export default function CreateVehicle({initialValues}) {
                                         <option style={{backgroundColor:"#1F2029"}} value="Motocicleta">Motocicleta</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="adicionar">Adicionar outro...</option>
                                 </Select>
-                                ) : (
-                                    <ChakraInput size="lg" name="carroceria" id="carroceria"  {...register('carroceria')} focusBorderColor="yellow.500" _hover={{bgColor: 'gray.900'}} variant="filled" bg="gray.900" type="text"/>
-                                )
                                 
-                            }
     
                                 {!!errors.carroceria && (
                                     <FormErrorMessage>
