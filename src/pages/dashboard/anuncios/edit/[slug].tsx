@@ -496,7 +496,6 @@ const SortableList = SortableContainer(({items}) => {
                                         <option style={{backgroundColor:"#1F2029"}} value="Van">Van</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="Van de Painel">Van de Painel</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="Motocicleta">Motocicleta</option>
-                                        <option style={{backgroundColor:"#1F2029"}} value="adicionar">Adicionar outro...</option>
                                 </Select>
                                
 
