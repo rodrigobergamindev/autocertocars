@@ -807,7 +807,12 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
 
     const session = await getSession({req})
 
-    const data = await prisma.marca.findMany()
+    const data = await prisma.marca.findMany({
+        orderBy: 
+            {
+              name: 'asc',
+            }    
+    })
 
     const initialValues = await JSON.parse(JSON.stringify(data))
    

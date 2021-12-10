@@ -847,7 +847,12 @@ export const getServerSideProps: GetServerSideProps = async ({params, req}) => {
         },
       })
 
-      const dataMarcas = await prisma.marca.findMany()
+      const dataMarcas = await prisma.marca.findMany({
+        orderBy: 
+            {
+              name: 'asc',
+            }    
+    })
     
 
 
