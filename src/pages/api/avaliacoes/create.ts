@@ -1,5 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import {prisma} from '../../../../db'
+import { sendMail } from '../../../services/sendmail';
 
 
 
@@ -20,14 +21,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     
     const message = JSON.parse(req.body) 
-    
+    const {name, whatsapp, email} = message
+    console.log(message)
         
-        await prisma.avaliacao.create({
+       await prisma.avaliacao.create({
           data: {...message}
          })
-         
+    
+    try {
+        sendMail({name,whatsapp, email})
+    } catch (error) {
+        console.log(error)
+    }
         
-  
+   
     
     res.json({message: "Ok"})
 }
