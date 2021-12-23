@@ -33,7 +33,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     } catch (error) {
         console.log(error)
     }
-        
    
     
     res.json({message: "Ok"})
