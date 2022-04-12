@@ -106,7 +106,7 @@ export default function EditVehicle({anuncio, marcas}) {
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>(imagesPreRender)
     const [createMarca, setCreateMarca] = useState(false)
     const [opcionaisInit, setOpcionais] = useState(anuncio.opcionais)
-    
+    const [createCombustivel, setCreateCombustivel] = useState(false)
     
     const {valor} = anuncio
     const valueFormatted =  parseFloat(valor.replace('.','').replace('R$','').replace(' ',''))
@@ -279,6 +279,20 @@ const handleCreateMarca = (event) => {
 function openCreateMarca() {
     setCreateMarca(true)
 }
+
+
+const handleCreateCombustivel = (event) => {
+    if(event.target.value === 'adicionar') {
+        openCreateCombustivel()
+    }
+}
+
+function openCreateCombustivel() {
+    setCreateCombustivel(true)
+}
+
+
+
     
 const onSortEnd = ({oldIndex, newIndex}) => {
         
@@ -461,14 +475,25 @@ const SortableList = SortableContainer(({items}) => {
                         >
                             Combustível
                         </FormLabel>
-                        <Select size="lg" name="combustivel" variant="filled" bg="gray.900" focusBorderColor="yellow.500"  _hover={{bgColor: 'gray.900'}} {...register('combustivel')} defaultValue={anuncio.combustivel}>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Flex">Flex</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Gasolina">Gasolina</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Diesel">Diesel</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Híbrido">Híbrido</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="Elétrico">Elétrico</option>
-                                    <option style={{backgroundColor:"#1F2029"}} value="GNV">GNV</option>
-                            </Select>
+                        {createCombustivel? (
+                                <ChakraInput size="lg" name="combustivel" id="combustivel"  {...register('combustivel')} focusBorderColor="yellow.500" _hover={{bgColor: 'gray.900'}} variant="filled" bg="gray.900" type="text"/>
+                            ) : (
+                                <Select size="lg" name="combustivel" variant="filled" bg="gray.900" focusBorderColor="yellow.500"   
+                                _hover={{bgColor: 'gray.900'}} {...register('combustivel')} defaultValue={anuncio.combustivel}
+                                onChange={e => handleCreateCombustivel(e)}
+                                >
+                                        <option style={{backgroundColor:"#1F2029"}} value="Flex">Flex</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Gasolina">Gasolina</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Etanol">Etanol</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Diesel">Diesel</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Híbrido">Híbrido</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Elétrico">Elétrico</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="GNV">GNV</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="adicionar">Adicionar...</option>
+                                </Select>
+                            )
+                            
+                            }
 
                             {!!errors.combustivel && (
                                 <FormErrorMessage>

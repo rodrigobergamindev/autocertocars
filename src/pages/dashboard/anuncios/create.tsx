@@ -117,6 +117,7 @@ export default function CreateVehicle({initialValues}) {
     const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([])
     const [createMarca, setCreateMarca] = useState(false)
     const [loadingPreview, setLoadingPreview] = useState(false)
+    const [createCombustivel, setCreateCombustivel] = useState(false)
     
     const handleCreateAnuncio: SubmitHandler<CreateAnuncioFormData> = async (values) => {
         
@@ -250,6 +251,16 @@ export default function CreateVehicle({initialValues}) {
 
     function openCreateMarca() {
         setCreateMarca(true)
+    }
+
+    const handleCreateCombustivel = (event) => {
+        if(event.target.value === 'adicionar') {
+            openCreateCombustivel()
+        }
+   }
+
+    function openCreateCombustivel() {
+        setCreateCombustivel(true)
     }
 
 
@@ -433,14 +444,27 @@ export default function CreateVehicle({initialValues}) {
                             >
                                 Combustível
                             </FormLabel>
-                            <Select size="lg" name="combustivel" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Flex"  _hover={{bgColor: 'gray.900'}} {...register('combustivel')}>
+
+                            {createCombustivel? (
+                                <ChakraInput size="lg" name="combustivel" id="combustivel"  {...register('combustivel')} focusBorderColor="yellow.500" _hover={{bgColor: 'gray.900'}} variant="filled" bg="gray.900" type="text"/>
+                            ) : (
+                                <Select size="lg" name="combustivel" variant="filled" bg="gray.900" focusBorderColor="yellow.500" defaultValue="Flex"  
+                                _hover={{bgColor: 'gray.900'}} {...register('combustivel')}
+                                onChange={e => handleCreateCombustivel(e)}
+                                >
                                         <option style={{backgroundColor:"#1F2029"}} value="Flex">Flex</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="Gasolina">Gasolina</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="Etanol">Etanol</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="Diesel">Diesel</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="Híbrido">Híbrido</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="Elétrico">Elétrico</option>
                                         <option style={{backgroundColor:"#1F2029"}} value="GNV">GNV</option>
+                                        <option style={{backgroundColor:"#1F2029"}} value="adicionar">Adicionar...</option>
                                 </Select>
+                            )
+                            
+                            }
+    
     
                                 {!!errors.combustivel && (
                                     <FormErrorMessage>
