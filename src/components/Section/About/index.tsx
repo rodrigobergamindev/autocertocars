@@ -264,7 +264,7 @@ export default function About() {
                     />
                     </Box>
                     <Box mx={[0,10]} p={[0,3]} py={[3,0]} as={VStack} alignItems="flex-start" spacing={[7,10]} maxWidth="450px">
-                        <Heading fontWeight="black" fontSize={["2xl","5xl"]}>2021</Heading>
+                        <Heading fontWeight="black" fontSize={["2xl","5xl"]}>{new Date().getFullYear()}</Heading>
                         <Text fontSize={["md","2xl"]} textAlign="justify">
                         Aqui na Auto Certo Cars, você encontra, além das melhores ofertas e veículos, o melhor atendimento que sempre estará alinhado com as suas necessidades e expectativas. 
                         Quer trocar seu carro? Ou realizar o sonho de um carro novo? Vem para a <strong style={{color:"#ECC94B"}}>Auto Certo!</strong>
